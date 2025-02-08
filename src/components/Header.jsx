@@ -26,7 +26,6 @@ const Header = () => {
               <div className="hidden md:flex space-x-8">
                 <CustomNavLink to="/">Inicio</CustomNavLink>
                 <CustomNavLink to="/about">Acerca de</CustomNavLink>
-                <CustomNavLink to="/courses">Cursos</CustomNavLink>
                 <CustomNavLink to="/contact">Contacto</CustomNavLink>
               </div>
             </div>
@@ -44,7 +43,6 @@ const Header = () => {
                 <div className="px-2 pt-2 pb-3 space-y-1">
                   <NavLinkMobile to="/">Inicio</NavLinkMobile>
                   <NavLinkMobile to="/about">Acerca de</NavLinkMobile>
-                  <NavLinkMobile to="/courses">Cursos</NavLinkMobile>
                   <NavLinkMobile to="/contact">Contacto</NavLinkMobile>
                 </div>
               </Disclosure.Panel>

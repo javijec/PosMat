@@ -81,7 +81,7 @@ const Courses = () => {
           </div>
         )}
 
-        <AdditionalInfo />
+        {/*<AdditionalInfo />*/}
       </div>
     </div>
   );
