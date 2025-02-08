@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
+import { Disclosure, Transition } from "@headlessui/react";
+import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import CourseCard from "./CourseCard";
 import AdditionalInfo from "./AdditionalInfo";
 import courses from "../../files/courses.json";
 
 const Courses = () => {
-  // Agrupar cursos por año y semestre
   const groupedCourses = useMemo(() => {
     return courses.reduce((acc, course) => {
       const year = course.año;
@@ -27,28 +28,76 @@ const Courses = () => {
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Cursos de Posgrado</h1>
 
-        {Object.keys(groupedCourses)
-          .sort((a, b) => b - a) // Ordenar años descendente
-          .map((year) => (
-            <div key={year} className="mb-12">
-              <h2 className="text-3xl font-bold mb-6">Año {year}</h2>
+        <div className="space-y-4">
+          {Object.keys(groupedCourses)
+            .sort((a, b) => b - a)
+            .map((year) => (
+              <Disclosure
+                key={year}
+                defaultOpen={year === Math.max(...Object.keys(groupedCourses).map(Number)).toString()}
+              >
+                {({ open }) => (
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <Disclosure.Button className="w-full flex justify-between items-center px-6 py-4 bg-ingenieria text-white hover:bg-ingenieria-hover focus:outline-none">
+                      <h2 className="text-2xl font-bold">Año {year}</h2>
+                      <ChevronUpIcon
+                        className={`${open ? "transform rotate-180" : ""} w-6 h-6 transition-transform duration-200`}
+                      />
+                    </Disclosure.Button>
 
-              {Object.keys(groupedCourses[year])
-                .sort() // Ordenar semestres
-                .map((semester) => (
-                  <div key={`${year}-${semester}`} className="mb-8">
-                    <h3 className="text-2xl font-semibold mb-4 text-gray-700">{`${semester}° Semestre`}</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {groupedCourses[year][semester].map((course, index) => (
-                        <CourseCard key={index} course={course} />
-                      ))}
-                    </div>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Disclosure.Panel className="p-6">
+                        <div className="space-y-6">
+                          {Object.keys(groupedCourses[year])
+                            .sort()
+                            .map((semester) => (
+                              <Disclosure key={`${year}-${semester}`}>
+                                {({ open }) => (
+                                  <>
+                                    <Disclosure.Button className="w-full flex justify-between items-center px-4 py-3 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none">
+                                      <h3 className="text-xl font-semibold text-gray-700">{`${semester}° Semestre`}</h3>
+                                      <ChevronUpIcon
+                                        className={`${
+                                          open ? "transform rotate-180" : ""
+                                        } w-5 h-5 transition-transform duration-200`}
+                                      />
+                                    </Disclosure.Button>
+
+                                    <Transition
+                                      enter="transition duration-100 ease-out"
+                                      enterFrom="transform scale-95 opacity-0"
+                                      enterTo="transform scale-100 opacity-100"
+                                      leave="transition duration-75 ease-out"
+                                      leaveFrom="transform scale-100 opacity-100"
+                                      leaveTo="transform scale-95 opacity-0"
+                                    >
+                                      <Disclosure.Panel className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                        {groupedCourses[year][semester].map((course, index) => (
+                                          <CourseCard key={index} course={course} />
+                                        ))}
+                                      </Disclosure.Panel>
+                                    </Transition>
+                                  </>
+                                )}
+                              </Disclosure>
+                            ))}
+                        </div>
+                      </Disclosure.Panel>
+                    </Transition>
                   </div>
-                ))}
-            </div>
-          ))}
+                )}
+              </Disclosure>
+            ))}
+        </div>
 
-        {/*<AdditionalInfo />*/}
+        <AdditionalInfo />
       </div>
     </div>
   );

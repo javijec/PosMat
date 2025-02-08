@@ -1,5 +1,264 @@
 [
   {
+    "nombre": "Mecánica del Sólido III",
+    "año": "2024",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dr. Adrán Cisilino",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-03-01",
+    "lugar": "Campus Principal",
+    "duracion": "Cuatrimestral"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2024",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-03-01",
+    "lugar": "Campus Principal",
+    "duracion": "Cuatrimestral"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2024",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Marcos López",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-03-01",
+    "lugar": "Campus Principal",
+    "duracion": "Cuatrimestral"
+  },
+  {
+    "nombre": "Metales",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Roberto Boeri",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Massone",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-07-29",
+    "lugar": "Auditorio del segundo piso INTEMA",
+    "duracion": "2 meses",
+    "horario": "Lunes y Miércoles de 13hs. a 16hs"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-13",
+    "lugar": "Campus Principal",
+    "duracion": "Cuatrimestral"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-01",
+    "lugar": "Campus Principal",
+    "duracion": "Agosto-Noviembre"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-19",
+    "lugar": "Campus Principal",
+    "duracion": "Cuatrimestral"
+  },
+  {
+    "nombre": "Fatiga Mecánica",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-14",
+    "lugar": "Campus Principal",
+    "duracion": "3 meses",
+    "requisitos": "Mecánica del Sólido. Elementos de elasticidad y plasticidad. Parámetros Fractomecánicos. Metalurgia básica"
+  },
+  {
+    "nombre": "Cerámicos",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Analía Tomba Martínez",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. M.A. Camerucci",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. R. Parra",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. S.A. Pellice",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-10-01",
+    "fechaFin": "2024-11-22",
+    "lugar": "Sala de Reuniones del 1° piso del INTEMA",
+    "modalidad": "Presencial y virtual",
+    "horario": "Martes y viernes 9:30hs"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-01",
+    "lugar": "Facultad de Humanidades",
+    "duracion": "Cuatrimestral",
+    "tipo": "Humanístico"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-01",
+    "lugar": "Facultad de Ciencias Exactas y Naturales",
+    "duracion": "Cuatrimestral",
+    "tipo": "Humanístico"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2024",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2024-08-01",
+    "lugar": "Facultad de Ciencias Exactas y Naturales",
+    "duracion": "Cuatrimestral",
+    "tipo": "Humanístico"
+  },
+  {
     "nombre": "Materiales Electrocerámicos",
     "año": "2025",
     "semestre": "1",
@@ -266,5 +525,2948 @@
     "lugar": "Facultad de Ciencias Exactas y Naturales",
     "duracion": "Cuatrimestral",
     "tipo": "Humanístico"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "M.Sc. Nicolas Scheggia",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción a la Reología: Viscoelasticidad de líquidos, sólidos y suspensiones",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "42",
+    "horasPracticas": "6",
+    "horasTP": "36",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Mirta Aranguren",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Híbrida"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2023",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Virtual y sincrónica"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "24",
+    "horasTP": "36",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Tribología",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Ricardo Dommarco",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2023",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2023-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "M.Sc. Nicolas Scheggia",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción a la Reología: Viscoelasticidad de líquidos, sólidos y suspensiones",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "42",
+    "horasPracticas": "6",
+    "horasTP": "36",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Mirta Aranguren",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Híbrida"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2022",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-03-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Virtual"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Virtual y sincrónica"
+  },
+  {
+    "nombre": "Fatiga Mecánica",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "24",
+    "horasTP": "36",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Medios Continuos",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "144",
+    "uvacs": "6",
+    "profesores": [
+      {
+        "nombre": "Dr. Enrique Pardo",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Virtual"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "36",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cerámicos",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Analía Tomba Martínez",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. M.A. Camerucci",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. R. Parra",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. S.A. Pellice",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal",
+    "modalidad": "Presencial y virtual"
+  },
+  {
+    "nombre": "Metales",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Roberto Boeri",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Massone",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2022",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2022-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2021",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2021",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2021-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2020",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2020",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2020-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2019",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2019",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2019-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2018",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2018",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2018-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2017",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2017",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2017-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Métodos de la Mecánica Computacional",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres Adrián Cisilino",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gonzalo Ares",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fluidodinámica Computacional Aplicada",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "36",
+    "uvacs": "4.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Santiago Urquiza",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Estrategias de Selección de Materiales",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Josefina Ballarre",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Materiales Electrocerámicos",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "36",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Cinética de Reacciones de Polimerización",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "60",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dres. Walter Schroeder",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Pablo Tomba",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Liderazgo y Responsabilidad Social",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "M.Sc. Juan Pablo Grammatico",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Filosofía de la Ciencia",
+    "año": "2016",
+    "semestre": "1",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Manuel Comesaña",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-03-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Biomateriales",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dres. Josefina Ballarre",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. María Rosa Katunar",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Gustavo Abraham",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Gestión de Propiedad Intelectual",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Dr. Mario Cisneros",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Fenómenos de Transporte",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "36",
+    "horasTP": "0",
+    "uvacs": "5",
+    "profesores": [
+      {
+        "nombre": "Dra. Miriam Castro",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Integridad de Cañerías y Recipientes a Presión",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "24",
+    "horasTP": "0",
+    "uvacs": "3",
+    "profesores": [
+      {
+        "nombre": "Ing. Esteban Rubertis",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Procesamiento de imágenes: herramientas para la cuantificación, medición y análisis en materiales",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "12",
+    "horasPracticas": "0",
+    "horasTP": "24",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dres. Virginia Ballarin",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Juan Ignacio Pastore",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Diego Comas",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Aplicaciones de técnicas de microscopía para la caracterización de materiales",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "18",
+    "horasPracticas": "0",
+    "horasTP": "18",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dra. Vanesa Muñoz",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Mecánica de Fractura",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Mirco Chapetti",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Polímeros",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "12",
+    "horasTP": "36",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dra. Liliana Manfredi",
+        "email": ""
+      },
+      {
+        "nombre": "Dr. Pablo Stefani",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Introducción al Análisis por Difracción de Rayos X",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "0",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "2",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Botta",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Corrosión",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "24",
+    "horasPracticas": "0",
+    "horasTP": "48",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dras. Silvia Ceré",
+        "email": ""
+      },
+      {
+        "nombre": "Dra. Beatriz Valcarce",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Historia de la Ciencia",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "48",
+    "horasPracticas": "0",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Daniel Sisterna",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología y Metodología de la Investigación Científica",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "60",
+    "horasTP": "0",
+    "uvacs": "4",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
+  },
+  {
+    "nombre": "Epistemología e Historia de la Ciencia",
+    "año": "2016",
+    "semestre": "2",
+    "horasTeoricas": "30",
+    "horasPracticas": "37",
+    "horasTP": "0",
+    "uvacs": "3.5",
+    "profesores": [
+      {
+        "nombre": "Dr. Pablo Martinez",
+        "email": ""
+      }
+    ],
+    "fechaInicio": "2016-08-01",
+    "lugar": "Campus Principal"
   }
 ]

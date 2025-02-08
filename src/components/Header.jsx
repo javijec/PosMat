@@ -1,78 +1,78 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
+import { Disclosure, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Header = () => {
   return (
-    <nav className="bg-[#447c82] text-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <img src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png" alt="Logo" className="h-10" />
-            <span className="text-xl font-bold">Posgrado en Materiales</span>
-          </Link>
+    <Disclosure as="nav" className="bg-[#447c82] text-white">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex justify-between items-center h-16">
+              <Link to="/" className="flex items-center space-x-2">
+                <img
+                  src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png"
+                  alt="Logo"
+                  className="h-10"
+                />
+                <span className="text-xl font-bold">Posgrado en Materiales</span>
+              </Link>
 
-          {/* Botón hamburguesa */}
-          <button onClick={toggleMenu} className="md:hidden p-2 rounded-md hover:bg-[#346266] focus:outline-none">
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+              <Disclosure.Button className="md:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-[#346266] focus:outline-none">
+                {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+              </Disclosure.Button>
+
+              <div className="hidden md:flex space-x-8">
+                <CustomNavLink to="/">Inicio</CustomNavLink>
+                <CustomNavLink to="/about">Acerca de</CustomNavLink>
+                <CustomNavLink to="/courses">Cursos</CustomNavLink>
+                <CustomNavLink to="/contact">Contacto</CustomNavLink>
+              </div>
+            </div>
+
+            <Transition
+              show={open}
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
             >
-              {isOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-            </svg>
-          </button>
-
-          {/* Menú escritorio */}
-          <div className="hidden md:flex space-x-8">
-            <Link to="/" className="hover:text-blue-200 transition-colors">
-              Inicio
-            </Link>
-            <Link to="/about" className="hover:text-blue-200 transition-colors">
-              Acerca de
-            </Link>
-            <Link to="/courses" className="hover:text-blue-200 transition-colors">
-              Cursos
-            </Link>
-            <Link to="/contact" className="hover:text-blue-200 transition-colors">
-              Contacto
-            </Link>
+              <Disclosure.Panel className="md:hidden">
+                <div className="px-2 pt-2 pb-3 space-y-1">
+                  <NavLinkMobile to="/">Inicio</NavLinkMobile>
+                  <NavLinkMobile to="/about">Acerca de</NavLinkMobile>
+                  <NavLinkMobile to="/courses">Cursos</NavLinkMobile>
+                  <NavLinkMobile to="/contact">Contacto</NavLinkMobile>
+                </div>
+              </Disclosure.Panel>
+            </Transition>
           </div>
-        </div>
-
-        {/* Menú móvil */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0 invisible"
-          }`}
-        >
-          <div className="pt-2 pb-3 space-y-1">
-            <Link to="/" className="block px-3 py-2 rounded-md hover:bg-[#346266] transition-colors">
-              Inicio
-            </Link>
-            <Link to="/about" className="block px-3 py-2 rounded-md hover:bg-[#346266] transition-colors">
-              Acerca de
-            </Link>
-            <Link to="/courses" className="block px-3 py-2 rounded-md hover:bg-[#346266] transition-colors">
-              Cursos
-            </Link>
-            <Link to="/contact" className="block px-3 py-2 rounded-md hover:bg-[#346266] transition-colors">
-              Contacto
-            </Link>
-          </div>
-        </div>
-      </div>
-    </nav>
+        </>
+      )}
+    </Disclosure>
   );
 };
 
-export default Navbar;
+const CustomNavLink = ({ to, children }) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) => `transition-colors ${isActive ? "text-blue-200" : "hover:text-blue-200"}`}
+  >
+    {children}
+  </NavLink>
+);
+
+const NavLinkMobile = ({ to, children }) => (
+  <Disclosure.Button
+    as={Link}
+    to={to}
+    className="block w-full text-left px-3 py-2 rounded-md hover:bg-[#346266] transition-colors"
+  >
+    {children}
+  </Disclosure.Button>
+);
+
+export default Header;
