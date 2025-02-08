@@ -1,5 +1,6 @@
 import React from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -37,9 +38,9 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-300">
+                <Link to="/faq" className="hover:text-blue-300">
                   FAQ
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
