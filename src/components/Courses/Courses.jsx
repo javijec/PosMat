@@ -27,7 +27,6 @@ const Courses = () => {
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Cursos de Posgrado</h1>
 
-        {/* Mostrar cursos agrupados por año y semestre */}
         {Object.keys(groupedCourses)
           .sort((a, b) => b - a) // Ordenar años descendente
           .map((year) => (
@@ -49,7 +48,7 @@ const Courses = () => {
             </div>
           ))}
 
-        <AdditionalInfo />
+        {/*<AdditionalInfo />*/}
       </div>
     </div>
   );
