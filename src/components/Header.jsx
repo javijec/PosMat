@@ -5,7 +5,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Header = () => {
   return (
-    <Disclosure as="nav" className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <Disclosure as="nav" className="bg-ingenieria border-b border-ingenieria/10 sticky top-0 z-50">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4">
@@ -60,7 +60,7 @@ const CustomNavLink = ({ to, children }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `transition-colors text-gray-600 hover:text-[#447c82] relative after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-[#447c82] after:transition-all ${
+      `transition-colors text-white hover:text-black relative after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-[#447c82] after:transition-all ${
         isActive ? "text-[#447c82] after:w-full" : "after:w-0"
       }`
     }
