@@ -5,18 +5,18 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Header = () => {
   return (
-    <Disclosure as="nav" className="bg-[#447c82] text-white">
+    <Disclosure as="nav" className="bg-white border-b border-gray-100 sticky top-0 z-50">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4">
-            <div className="flex justify-between items-center h-16">
-              <Link to="/" className="flex items-center space-x-2">
+            <div className="flex justify-between items-center h-20">
+              <Link to="/" className="flex items-center space-x-3">
                 <img
                   src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png"
                   alt="Logo"
-                  className="h-10"
+                  className="h-12"
                 />
-                <span className="text-xl font-bold">Posgrado en Materiales</span>
+                <span className="text-xl font-bold text-gray-900">Posgrado en Materiales</span>
               </Link>
 
               <Disclosure.Button className="md:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-[#346266] focus:outline-none">
@@ -59,7 +59,11 @@ const Header = () => {
 const CustomNavLink = ({ to, children }) => (
   <NavLink
     to={to}
-    className={({ isActive }) => `transition-colors ${isActive ? "text-blue-200" : "hover:text-blue-200"}`}
+    className={({ isActive }) =>
+      `transition-colors text-gray-600 hover:text-[#447c82] relative after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-[#447c82] after:transition-all ${
+        isActive ? "text-[#447c82] after:w-full" : "after:w-0"
+      }`
+    }
   >
     {children}
   </NavLink>

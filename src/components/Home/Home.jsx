@@ -5,9 +5,10 @@ import Hero from "./components/Hero.jsx";
 
 const Home = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Hero />
       <Features />
+      {/* <News /> */}
     </div>
   );
 };

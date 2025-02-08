@@ -6,24 +6,26 @@ const Professors = () => {
   const [selectedProf, setSelectedProf] = useState(null);
 
   return (
-    <div className="py-16 bg-gray-50">
+    <div className="py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Lista de Profesores</h1>
+        <h1 className="text-5xl font-bold mb-16 text-gray-900">Lista de Profesores</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {professors.map((prof, index) => (
             <div
               key={index}
               onClick={() => setSelectedProf(prof)}
-              className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white rounded-xl shadow-sm p-8 cursor-pointer hover:shadow-lg transition-all duration-300 border border-gray-100 group"
             >
-              <p className="font-semibold text-lg">{prof.name}</p>
-              <p className="text-gray-600">{prof.email}</p>
+              <p className="font-semibold text-xl text-gray-900 group-hover:text-blue-600 transition-colors">
+                {prof.name}
+              </p>
+              <p className="text-gray-600 mt-2">{prof.email}</p>
             </div>
           ))}
         </div>
 
         <Transition appear show={!!selectedProf} as={React.Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={() => setSelectedProf(null)}>
+          <Dialog as="div" className="relative z-50" onClose={() => setSelectedProf(null)}>
             <Transition.Child
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -45,11 +47,11 @@ const Professors = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-8 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title as="h3" className="text-2xl font-semibold text-gray-900">
                       {selectedProf?.name}
                     </Dialog.Title>
-                    <div className="mt-2">
+                    <div className="mt-4">
                       <p className="text-gray-600">{selectedProf?.email}</p>
                       {/* Add more professor details here */}
                     </div>

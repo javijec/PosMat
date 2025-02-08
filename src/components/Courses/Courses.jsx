@@ -24,11 +24,11 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="py-16">
+    <div className="py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Cursos de Posgrado</h1>
+        <h1 className="text-5xl font-bold mb-16 text-gray-900">Cursos de Posgrado</h1>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {Object.keys(groupedCourses)
             .sort((a, b) => b - a)
             .map((year) => (
@@ -37,11 +37,11 @@ const Courses = () => {
                 defaultOpen={year === Math.max(...Object.keys(groupedCourses).map(Number)).toString()}
               >
                 {({ open }) => (
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                    <Disclosure.Button className="w-full flex justify-between items-center px-6 py-4 bg-ingenieria text-white hover:bg-ingenieria-hover focus:outline-none">
+                  <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+                    <Disclosure.Button className="w-full flex justify-between items-center px-8 py-6 bg-gradient-to-r from-[#447c82] to-[#386a72] text-white hover:from-[#386a72] hover:to-[#2d565c] transition-all duration-300">
                       <h2 className="text-2xl font-bold">Año {year}</h2>
                       <ChevronUpIcon
-                        className={`${open ? "transform rotate-180" : ""} w-6 h-6 transition-transform duration-200`}
+                        className={`${open ? "transform rotate-180" : ""} w-6 h-6 transition-transform duration-300`}
                       />
                     </Disclosure.Button>
 
