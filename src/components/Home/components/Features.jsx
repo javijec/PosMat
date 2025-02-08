@@ -7,11 +7,13 @@ const Features = () => {
     <div className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <FeatureCard
-            icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
-            title="Programas Especializados"
-            description="Ofrecemos programas de maestría y doctorado en ciencia de materiales."
-          />
+          <Link to="/courses" className="group">
+            <FeatureCard
+              icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
+              title="Cursos"
+              description="Descubre los cursos disponibles"
+            />
+          </Link>
           <Link to="/professors" className="group">
             <FeatureCard
               icon={<Users className="h-8 w-8 text-[#447c82]" />}
