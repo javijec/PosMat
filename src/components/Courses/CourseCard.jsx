@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Clock, MapPin, Users } from "lucide-react";
 
 const CourseCard = ({ course, index }) => {
-  // Función para mostrar las horas solo si existen
   const getHoursDisplay = () => {
     const hours = [];
     if (course.horasTeoricas && course.horasTeoricas !== "0") {
@@ -18,32 +18,52 @@ const CourseCard = ({ course, index }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="p-6">
-        <h2 className="text-xl font-semibold mb-4">{course.nombre}</h2>
-        <p className="text-gray-600 mb-2">
-          {getHoursDisplay()}
-          {course.uvacs} UVACS
-        </p>
-        {course.fechaInicio && <p className="text-gray-600 mb-2">Inicio: {course.fechaInicio}</p>}
-        {course.lugar && <p className="text-gray-600 mb-2">Lugar: {course.lugar}</p>}
-        {course.profesores && course.profesores.length > 0 && (
-          <div className="text-gray-600 mb-4">
-            <p className="font-semibold">Profesor(es):</p>
-            <ul className="list-disc ml-5">
-              {course.profesores.map((prof, i) => (
-                <li key={i}>
-                  {prof.nombre}
-                  {prof.email && `(${prof.email})`}
-                </li>
-              ))}
-            </ul>
+    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
+      {/* Tag humanístico */}
+      {course.humanistico && (
+        <div className="absolute top-2 right-2 bg-ingenieria text-white text-xs font-semibold px-2 py-1 rounded-full">
+          Humanístico
+        </div>
+      )}
+
+      <div className="p-6 flex-1 flex flex-col">
+        {/* Contenedor del título con altura fija y padding extra para el tag */}
+        <div className="h-[4.5rem] mb-4 pr-[5.5rem]">
+          <h2 className="text-xl font-bold text-gray-900 line-clamp-2">{course.nombre}</h2>
+        </div>
+
+        {/* Contenedor de información con flex-1 */}
+        <div className="flex-1">
+          <div className="space-y-3">
+            <div className="flex items-center text-gray-600">
+              <Clock className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
+              <span className="text-sm">
+                {getHoursDisplay()} {course.uvacs} UVACS
+              </span>
+            </div>
+
+            {course.lugar && (
+              <div className="flex items-center text-gray-600">
+                <MapPin className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
+                <span className="text-sm">{course.lugar}</span>
+              </div>
+            )}
+
+            {course.profesores && course.profesores.length > 0 && (
+              <div className="flex items-start text-gray-600">
+                <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
+                <div className="text-sm">{course.profesores.map((prof) => prof.nombre).join(", ")}</div>
+              </div>
+            )}
           </div>
-        )}
-        <Link to={`/course/${index}`}>
-          <button className="mt-4 w-full bg-ingenieria text-white py-2 px-4 rounded-lg hover:bg-ingenieria-hover transition-colors">
-            Más Información
-          </button>
+        </div>
+
+        {/* Botón al final */}
+        <Link
+          to={`/course/${index}`}
+          className="mt-6 block w-full bg-ingenieria text-white text-center py-2.5 px-4 rounded-lg hover:bg-ingenieria-hover transition-colors"
+        >
+          Más Información
         </Link>
       </div>
     </div>

@@ -16,7 +16,7 @@ const Header = () => {
                   alt="Logo"
                   className="h-12"
                 />
-                <span className="text-xl font-bold text-gray-900">Posgrado en Materiales</span>
+                <span className="text-xl font-bold text-white">Posgrado en Materiales</span>
               </Link>
 
               <Disclosure.Button className="md:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-[#346266] focus:outline-none">
