@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ingenieria: #447c82;
+  --color-ingenieria-hover: #386a72;
+}
