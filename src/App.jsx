@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import Courses from "./components/Courses/Courses.jsx";
 import CoursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors";
+import Archivos from "./components/Archivos";
 import FAQ from "./components/FAQ.jsx";
 
 function App() {

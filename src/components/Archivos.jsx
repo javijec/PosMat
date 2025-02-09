@@ -38,7 +38,7 @@ const groupByTag = (resources) => {
   }, {});
 };
 
-const Resources = () => {
+const Archivos = () => {
   const groupedResources = groupByTag(resources);
 
   return (
@@ -72,4 +72,4 @@ const Resources = () => {
   );
 };
 
-export default Resources;
+export default Archivos;
