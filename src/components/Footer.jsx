@@ -25,12 +25,12 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Enlaces Útiles</h3>
+            <h3 className="text-lg font-semibold mb-4">Otros</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-blue-300">
-                  Calendario Académico
-                </a>
+                <Link to="/links" className="hover:text-blue-300">
+                  Enlaces Útiles
+                </Link>
               </li>
               <li>
                 <Link to={"/archivos"} className="hover:text-blue-300">

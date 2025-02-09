@@ -6,7 +6,7 @@ const Features = () => {
   return (
     <div className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <Link to="/courses" className="group">
             <FeatureCard
               icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
@@ -19,6 +19,13 @@ const Features = () => {
               icon={<Users className="h-8 w-8 text-[#447c82]" />}
               title="Profesores"
               description="Aprende de investigadores y profesionales reconocidos en el campo."
+            />
+          </Link>
+          <Link to="/students" className="group">
+            <FeatureCard
+              icon={<Users className="h-8 w-8 text-[#447c82]" />}
+              title="Alumnos"
+              description="Conoce a nuestros estudiantes y sus logros."
             />
           </Link>
           <Link to="/tesis" className="group">
