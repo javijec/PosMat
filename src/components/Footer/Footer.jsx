@@ -34,7 +34,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to={"/archivos"} className="hover:text-blue-300">
-                  Recursos
+                  Archivos
                 </Link>
               </li>
               <li>

@@ -1,150 +1,224 @@
 [
   {
-    "name": "Dr. Abraham, Gustavo",
+    "title": "Dr.",
+    "firstName": "Gustavo",
+    "lastName": "Abraham",
     "email": "gustavo.abraham@example.com"
   },
   {
-    "name": "Dra. Álvarez, Vera",
+    "title": "Dra.",
+    "firstName": "Vera",
+    "lastName": "Álvarez",
     "email": "vera.alvarez@example.com"
   },
   {
-    "name": "Dra. Aranguren, Mirta",
+    "title": "Dra.",
+    "firstName": "Mirta",
+    "lastName": "Aranguren",
     "email": "mirta.aranguren@example.com"
   },
   {
-    "name": "Dr. Ballarre, Josefina",
+    "title": "Dr.",
+    "firstName": "Josefina",
+    "lastName": "Ballarre",
     "email": "josefina.ballarre@example.com"
   },
   {
-    "name": "Ing. Belmonte Juan",
+    "title": "Ing.",
+    "firstName": "Juan",
+    "lastName": "Belmonte",
     "email": "juan.belmonte@example.com"
   },
   {
-    "name": "Dr. Boeri, Roberto",
+    "title": "Dr.",
+    "firstName": "Roberto",
+    "lastName": "Boeri",
     "email": "roberto.boeri@example.com"
   },
   {
-    "name": "Dr. Botta, Pablo",
+    "title": "Dr.",
+    "firstName": "Pablo",
+    "lastName": "Botta",
     "email": "pablo.botta@example.com"
   },
   {
-    "name": "Dra. Camerucci, Andrea",
+    "title": "Dra.",
+    "firstName": "Andrea",
+    "lastName": "Camerucci",
     "email": "andrea.camerucci@example.com"
   },
   {
-    "name": "Dr. Cassanelli, Anibal",
+    "title": "Dr.",
+    "firstName": "Anibal",
+    "lastName": "Cassanelli",
     "email": "anibal.cassanelli@example.com"
   },
   {
-    "name": "Dra. Castro, Miriam",
+    "title": "Dra.",
+    "firstName": "Miriam",
+    "lastName": "Castro",
     "email": "miriam.castro@example.com"
   },
   {
-    "name": "Dra. Ceré, Silvia",
+    "title": "Dra.",
+    "firstName": "Silvia",
+    "lastName": "Ceré",
     "email": "silvia.cere@example.com"
   },
   {
-    "name": "Dr. Chapetti, Mirco",
+    "title": "Dr.",
+    "firstName": "Mirco",
+    "lastName": "Chapetti",
     "email": "mirco.chapetti@example.com"
   },
   {
-    "name": "Dr. Cisilino, Adrián",
+    "title": "Dr.",
+    "firstName": "Adrián",
+    "lastName": "Cisilino",
     "email": "adrian.cisilino@example.com"
   },
   {
-    "name": "Dr. Cisneros, Mario",
+    "title": "Dr.",
+    "firstName": "Mario",
+    "lastName": "Cisneros",
     "email": "mario.cisneros@example.com"
   },
   {
-    "name": "Dra. Cyras, Viviana",
+    "title": "Dra.",
+    "firstName": "Viviana",
+    "lastName": "Cyras",
     "email": "viviana.cyras@example.com"
   },
   {
-    "name": "Dr. Dommarco, Ricardo",
+    "title": "Dr.",
+    "firstName": "Ricardo",
+    "lastName": "Dommarco",
     "email": "ricardo.dommarco@example.com"
   },
   {
-    "name": "Dr. Eliçabe, Guillermo",
+    "title": "Dr.",
+    "firstName": "Guillermo",
+    "lastName": "Eliçabe",
     "email": "guillermo.elicabe@example.com"
   },
   {
-    "name": "Dra. Fanovich, María Alejandra",
+    "title": "Dra.",
+    "firstName": "María Alejandra",
+    "lastName": "Fanovich",
     "email": "maria.fanovich@example.com"
   },
   {
-    "name": "Dra. Fasce, Laura",
+    "title": "Dra.",
+    "firstName": "Laura",
+    "lastName": "Fasce",
     "email": "laura.fasce@example.com"
   },
   {
-    "name": "Dra. Frontini, Patricia",
+    "title": "Dra.",
+    "firstName": "Patricia",
+    "lastName": "Frontini",
     "email": "patricia.frontini@example.com"
   },
   {
-    "name": "Dra. Galante, Maria José",
+    "title": "Dra.",
+    "firstName": "Maria José",
+    "lastName": "Galante",
     "email": "maria.galante@example.com"
   },
   {
-    "name": "Ms.Sc. Grammatico, Juan Pablo",
+    "title": "Ms.Sc.",
+    "firstName": "Juan Pablo",
+    "lastName": "Grammatico",
     "email": "juan.grammatico@example.com"
   },
   {
-    "name": "Dr. Laino, Sebastián",
+    "title": "Dr.",
+    "firstName": "Sebastián",
+    "lastName": "Laino",
     "email": "sebastian.laino@example.com"
   },
   {
-    "name": "Dr. Lombera, Guillermo",
+    "title": "Dr.",
+    "firstName": "Guillermo",
+    "lastName": "Lombera",
     "email": "guillermo.lombera@example.com"
   },
   {
-    "name": "Dra. Manfredi, Liliana",
+    "title": "Dra.",
+    "firstName": "Liliana",
+    "lastName": "Manfredi",
     "email": "liliana.manfredi@example.com"
   },
   {
-    "name": "Dr. Massone, Juan",
+    "title": "Dr.",
+    "firstName": "Juan",
+    "lastName": "Massone",
     "email": "juan.massone@example.com"
   },
   {
-    "name": "Dr. Pardo, Enrique",
+    "title": "Dr.",
+    "firstName": "Enrique",
+    "lastName": "Pardo",
     "email": "enrique.pardo@example.com"
   },
   {
-    "name": "Dr. Parra, Rodrigo",
+    "title": "Dr.",
+    "firstName": "Rodrigo",
+    "lastName": "Parra",
     "email": "rodrigo.parra@example.com"
   },
   {
-    "name": "Dr. Pellice, Sergio",
+    "title": "Dr.",
+    "firstName": "Sergio",
+    "lastName": "Pellice",
     "email": "sergio.pellice@example.com"
   },
   {
-    "name": "Dra. Pettarin, Valeria",
+    "title": "Dra.",
+    "firstName": "Valeria",
+    "lastName": "Pettarin",
     "email": "valeria.pettarin@example.com"
   },
   {
-    "name": "Dra. Riccardi, Carmen",
+    "title": "Dra.",
+    "firstName": "Carmen",
+    "lastName": "Riccardi",
     "email": "carmen.riccardi@example.com"
   },
   {
-    "name": "Dr. Rubertis, Esteban",
+    "title": "Dr.",
+    "firstName": "Esteban",
+    "lastName": "Rubertis",
     "email": "esteban.rubertis@example.com"
   },
   {
-    "name": "Dr. Schroeder, Walter",
+    "title": "Dr.",
+    "firstName": "Walter",
+    "lastName": "Schroeder",
     "email": "walter.schroeder@example.com"
   },
   {
-    "name": "Dr. Stefani, Pablo Marcelo",
+    "title": "Dr.",
+    "firstName": "Pablo Marcelo",
+    "lastName": "Stefani",
     "email": "pablo.stefani@example.com"
   },
   {
-    "name": "Dra. Tomba Martínez, Analía",
+    "title": "Dra.",
+    "firstName": "Analía",
+    "lastName": "Tomba Martínez",
     "email": "analia.tomba@example.com"
   },
   {
-    "name": "Dr. Tomba Martínez, Pablo",
+    "title": "Dr.",
+    "firstName": "Pablo",
+    "lastName": "Tomba Martínez",
     "email": "pablo.tomba@example.com"
   },
   {
-    "name": "Dr. Urquiza, Santiago",
+    "title": "Dr.",
+    "firstName": "Santiago",
+    "lastName": "Urquiza",
     "email": "santiago.urquiza@example.com"
   }
 ]

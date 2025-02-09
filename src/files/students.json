@@ -1,309 +1,354 @@
 {
   "students": [
     {
-      "name": "AGUILAR CASTRO, Wilder M.",
+      "lastName": "AGUILAR CASTRO",
+      "firstName": "Wilder M.",
       "program": "maestria",
       "director": "Dr. Boeri, R.",
       "codirector": "Dr. Cisilino, A.",
       "thesis_topic": "Microsegregación en fundiciones esferoidales, interinfluencia de los elementos de aleación y homogenización"
     },
     {
-      "name": "AMATO, Luis",
+      "lastName": "AMATO",
+      "firstName": "Luis",
       "program": "doctorado",
       "director": "Dr. Cisilino, A.",
       "codirector": "Dra. Messineo, M.G.",
       "thesis_topic": "Caracterización mecánica de estructuras de hueso trabecular naturales y miméticas artificiales mediante análisis ultrasónico"
     },
     {
-      "name": "ANDI GREFA, Dixon Domingo",
+      "lastName": "ANDI GREFA",
+      "firstName": "Dixon Domingo",
       "program": "doctorado",
       "director": "Dr. Cristóbal, A.A.",
       "codirector": "Dra. Yohai del Cerro, L.",
       "thesis_topic": "Biosorción de arsénico en medio acuoso a partir de desechos de biomasas provenientes de la industria"
     },
     {
-      "name": "BOCERO, Franco",
+      "lastName": "BOCERO",
+      "firstName": "Franco",
       "program": "doctorado",
       "director": "Dra. Fasce, L.",
       "codirector": "Dra. Inchaurrondo, N.",
       "thesis_topic": "Desarrollo de nuevas tecnologías sostenibles para el tratamiento de contaminantes acuosos emergentes por medio de Procesos de Oxidación Avanzada: Experimentación y Modelado"
     },
     {
-      "name": "BYRNE PRUDENTE, Tomás",
+      "lastName": "BYRNE PRUDENTE",
+      "firstName": "Tomás",
       "program": "doctorado",
       "director": "Dr. Altuna F.",
       "codirector": "Dra. Hoppe, C.",
       "thesis_topic": "Materiales autorreparables basados en enlaces covalentes dinámicos y supramoleculares para tecnologías de manufactura aditiva"
     },
     {
-      "name": "BUFFA, Juan Manuel",
+      "lastName": "BUFFA",
+      "firstName": "Juan Manuel",
       "program": "doctorado",
       "director": "Dra. Mucci, V.",
       "thesis_topic": "Nanocristales de celulosa para la fabricación de películas iridiscentes con alto contenido de celulosa"
     },
     {
-      "name": "BULMAN HARTKOPF, Christian",
+      "lastName": "BULMAN HARTKOPF",
+      "firstName": "Christian",
       "program": "doctorado",
       "director": "Dr. Stefani, P.",
       "codirector": "Mg. Winck, R.A.",
       "thesis_topic": "Desarrollo de tableros contrachapados estructurales de especies cultivadas en la región NE de la Argentina y estudio de sus propiedades"
     },
     {
-      "name": "CAMPOS, Gabriela",
+      "lastName": "CAMPOS",
+      "firstName": "Gabriela",
       "program": "doctorado",
       "director": "Dra. Pettarin V.",
       "codirector": "Dra. Galante, M.J.",
       "thesis_topic": "Polímeros nanoestructurados autorreparables de aplicación tecnológica, basados en azobencenos"
     },
     {
-      "name": "CAPURRO, Constantino José",
+      "lastName": "CAPURRO",
+      "firstName": "Constantino José",
       "program": "doctorado",
       "director": "Dr. Cicutti, C.",
       "codirector": "Dr. Boeri, R.",
       "thesis_topic": "Estudio de la evolución de las inclusiones no metálicas generadas durante la elaboración y el colado de aceros"
     },
     {
-      "name": "CERTUCHE ARENAS, Carol",
+      "lastName": "CERTUCHE ARENAS",
+      "firstName": "Carol",
       "program": "doctorado",
       "director": "Dra. Camerucci, M.A.",
       "thesis_topic": "Procesamiento de cerámicos porosos biométricos a partir de templates de madera"
     },
     {
-      "name": "DI IORIO, Romina",
+      "lastName": "DI IORIO",
+      "firstName": "Romina",
       "program": "doctorado",
       "director": "Dra. Fasce, L.",
       "codirector": "Dr. Cristobal, A.",
       "thesis_topic": "Aprovechamiento de tierras diatomeas residuales de filtrado industrial para el desarrollo de materiales con aplicación en tecnologías ambientales"
     },
     {
-      "name": "DORSCH, Quimey Anahí",
+      "lastName": "DORSCH",
+      "firstName": "Quimey Anahí",
       "program": "doctorado",
       "director": "Dra. Ollier Primiano, R.",
       "codirector": "Dra. Álvarez, V.",
       "thesis_topic": "Nanomateriales adsorbentes multifuncionales basados en arcillas nacionales para la remediación de aguas contaminadas"
     },
     {
-      "name": "D´ORSO, Martina",
+      "lastName": "D´ORSO",
+      "firstName": "Martina",
       "program": "doctorado",
       "director": "Dra. Martucci, J.",
       "codirector": "Dra. Meiorin,C.",
       "thesis_topic": "Cianobacterias vehiculizadas e inmovilizadas en soportes poliméricos como herramienta sostenible para remediación ambiental"
     },
     {
-      "name": "FERRANTE, Micaela",
+      "lastName": "FERRANTE",
+      "firstName": "Micaela",
       "program": "doctorado",
       "director": "Dra. González, J.",
       "codirector": "Dra. Álvarez, V.",
       "thesis_topic": "Biohidrogeles basados en complejos polielectrolitos para vendajes de heridas"
     },
     {
-      "name": "FUCHS, Vanesa María",
+      "lastName": "FUCHS",
+      "firstName": "Vanesa María",
       "program": "doctorado",
       "director": "Dra. Fanovich, M.A.",
       "codirector": "Dr. Botta, P.",
       "thesis_topic": "Nanopartículas magnéticas funcionalizadas con anticancerígenos naturales obtenidos por extracción supercrítica"
     },
     {
-      "name": "GARROTE LÓPEZ, Ana",
+      "lastName": "GARROTE LÓPEZ",
+      "firstName": "Ana",
       "program": "doctorado",
       "director": "Dra. Ollier Primiano, R.",
       "codirector": "Dra. Mansilla, A.",
       "thesis_topic": "Desarrollo de productos basados en nanoarcillas funcionalizadas para su aplicación en agricultura sustentable"
     },
     {
-      "name": "GIACOMINI, María Paula",
+      "lastName": "GIACOMINI",
+      "firstName": "María Paula",
       "program": "doctorado",
       "director": "Dra. García Loredo, A.",
       "codirector": "Dra. Aranguren, M.",
       "thesis_topic": "Desarrollo de un ovoproducto en barra preservado por tecnología de obstáculos con recubrimiento polimérico de quitosano"
     },
     {
-      "name": "GONZALEZ, Maria Paula",
+      "lastName": "GONZALEZ",
+      "firstName": "Maria Paula",
       "program": "doctorado",
       "director": "Dr. Boeri, R.",
       "codirector": "Dr. Fernandino, D.",
       "thesis_topic": "Estudio de las transformaciones de fase en aleaciones Fe-C-Si y Fe-C-Si-Mn coladas sometidas a tratamientos de Temple y Partición (Quenching and Partitioning)"
     },
     {
-      "name": "GUTIERREZ GONZALEZ, Jessica",
+      "lastName": "GUTIERREZ GONZALEZ",
+      "firstName": "Jessica",
       "program": "doctorado",
       "director": "Dra. Zucchi, I.",
       "codirector": "Dr. Schroeder, W.",
       "thesis_topic": "Autoensamblado de copolímeros de bloque semicristalinos en matrices poliméricas"
     },
     {
-      "name": "HANKOVITS, Melina",
+      "lastName": "HANKOVITS",
+      "firstName": "Melina",
       "program": "doctorado",
       "director": "Dra. Ceré, S.",
       "codirector": "Dra. Ballarre, J.",
       "thesis_topic": "Funcionalización superficial de implantes metálicos degradables para promover la oseointegración temprana"
     },
     {
-      "name": "HERRERA, Jésica",
+      "lastName": "HERRERA",
+      "firstName": "Jésica",
       "program": "doctorado",
       "director": "Dra. Galante, M.J.",
       "codirector": "Dra. Penoff, M.E.",
       "thesis_topic": "Desarrollo de recubrimientos inteligentes basados en redes poliméricas con cromóforos que poseen características multifuncionales"
     },
     {
-      "name": "KLOSTER, Melina",
+      "lastName": "KLOSTER",
+      "firstName": "Melina",
       "program": "doctorado",
       "director": "Dra. Marcovich, N.",
       "codirector": "Dra. Mosiewicki, M.",
       "thesis_topic": "Bioaerogeles para la remediación de aguas residuales"
     },
     {
-      "name": "LOMBARDO, Gianluca",
+      "lastName": "LOMBARDO",
+      "firstName": "Gianluca",
       "program": "doctorado",
       "director": "Dr. Chapetti, M.",
       "thesis_topic": "Desempeño a fatiga de uniones soldadas en fase sólida mediante procesos de soldadura avanzada"
     },
     {
-      "name": "LÓPEZ NOVIELLO, Luciano Hernán",
+      "lastName": "LÓPEZ NOVIELLO",
+      "firstName": "Luciano Hernán",
       "program": "doctorado",
       "director": "Dr. Bellino, M. (UNSAM)",
       "codirector": "Dra. Hoppe, C.",
       "thesis_topic": "Nanoestructuras en sistemas hidrofílicos porosos con plataformas sensoras"
     },
     {
-      "name": "MADRIGAL GARCÍA, Juan D.",
+      "lastName": "MADRIGAL GARCÍA",
+      "firstName": "Juan Daniel",
       "program": "doctorado",
       "director": "Dra. Ramajo, L.",
       "codirector": "Dr. Cavalieri, F. (CIMEC, CONICET)",
       "thesis_topic": "Diseño, construcción y puesta a punto de un motor piezoeléctrico ultrasónico basado en cerámicas libres de plomo"
     },
     {
-      "name": "MALBOS, Luciana",
+      "lastName": "MALBOS",
+      "firstName": "Luciana",
       "program": "doctorado",
       "director": "Dra. Manfredi, L.",
       "codirector": "Dra. Cyras, V.",
       "thesis_topic": "Desarrollo de recubrimientos de menor impacto ambiental obtenidos a partir de recursos naturales"
     },
     {
-      "name": "MANA, Carla",
+      "lastName": "MANA",
+      "firstName": "Carla",
       "program": "doctorado",
       "director": "Dr. Tomba, J.P.",
       "thesis_topic": "Difusión y dinámica molecular de copolímeros de bloque por microscopía Raman"
     },
     {
-      "name": "MANDRI, Alejo D.",
+      "lastName": "MANDRI",
+      "firstName": "Alejo D.",
       "program": "doctorado",
       "director": "Dr. Dommarco R.",
       "codirector": "Dr. Laino S.",
       "thesis_topic": "Desarrollo de un tratamiento superficial resistente a la fatiga de contacto por rodadura (FCR), mediante temple por inducción y recubrimiento por PVD."
     },
     {
-      "name": "MARTINEZ MAREGA, María Alejandra",
+      "lastName": "MARTINEZ MAREGA",
+      "firstName": "María Alejandra",
       "program": "doctorado",
       "director": "Dra. González, J.",
       "codirector": "Dra. Álvarez, V.",
       "thesis_topic": "Desarrollo de textiles biofuncionales y eco-amigables"
     },
     {
-      "name": "MATEOS, Ailín",
+      "lastName": "MATEOS",
+      "firstName": "Ailín",
       "program": "doctorado",
       "director": "Dr. Schroeder, W.",
       "codirector": "Dra. Zucchi, I.",
       "thesis_topic": "Materiales funcionales avanzados a partir de redes supramoleculares obtenidas por autoensamblado de copolímeros de bloque"
     },
     {
-      "name": "MATILLA, Lucas",
+      "lastName": "MATILLA",
+      "firstName": "Lucas",
       "program": "doctorado",
       "director": "Dra. Fanovich, M.A.",
       "codirector": "Dr. Botta, P.",
       "thesis_topic": "Implementación de la tecnología de fluidos supercríticos para el desarrollo de biomateriales magnéticos multifuncionales"
     },
     {
-      "name": "MORALES, Federico",
+      "lastName": "MORALES",
+      "firstName": "Federico",
       "program": "doctorado",
       "director": "Dra. Valeria Pettarin",
       "thesis_topic": "Reciclado de envases multicapa de polipropileno/aluminio: relación estructura-propiedades"
     },
     {
-      "name": "NISHI, Estafanía",
+      "lastName": "NISHI",
+      "firstName": "Estafanía",
       "program": "doctorado",
       "director": "Dr. Parra, R.",
       "codirector": "Dr. Pellice, S.",
       "thesis_topic": "Desarrollo de recubrimientos antibacterianos basados en películas delgadas transparentes de dióxido de estaño"
     },
     {
-      "name": "PEÑA RAMIREZ, Gipsy Abril",
+      "lastName": "PEÑA RAMIREZ",
+      "firstName": "Gipsy Abril",
       "program": "doctorado",
       "director": "Dr. Cano, L.A.",
       "codirector": "Dra. Álvarez, V.",
       "thesis_topic": "Remoción de nitratos en aguas subterráneas a través de compuestos basados en hidrotalcitas"
     },
     {
-      "name": "PUGLIA, Iara",
+      "lastName": "PUGLIA",
+      "firstName": "Iara",
       "program": "doctorado",
       "director": "Dra. Zucchi, I.",
       "codirector": "Dra. Schroeder, W.",
       "thesis_topic": "Membranas poliméricas nanoporosas obtenidas a partir de autoensamblado de copolímeros de bloque"
     },
     {
-      "name": "RAMIREZ BORRERO, Carlos Eduardo",
+      "lastName": "RAMIREZ BORRERO",
+      "firstName": "Carlos Eduardo",
       "program": "doctorado",
       "director": "Dra. Pettarin, V.",
       "codirector": "Dra. Agaliotis E. (UBA-CONICET)",
       "thesis_topic": "Desarrollo de compuestos híbrido auto-reforzados biodegradables/renovables basados en ácido poliláctico (PLA) y fibras naturales"
     },
     {
-      "name": "ROBLEDO, Alejandro",
+      "lastName": "ROBLEDO",
+      "firstName": "Alejandro",
       "program": "doctorado",
       "director": "Dr. Massazza, D.",
       "codirector": "Dra. Simison, S.",
       "thesis_topic": "Método de caracterización la corrosión microbiológica de aceros para la Industria del petróleo y gas"
     },
     {
-      "name": "SÁNCHEZ CERVIÑO, María Celina",
+      "lastName": "SÁNCHEZ CERVIÑO",
+      "firstName": "María Celina",
       "program": "doctorado",
       "director": "Dra. Rivero, G.",
       "codirector": "Dr. Correa, N.M. (IDAS, CONICET)",
       "thesis_topic": "Aplicación de técnicas electrohidrodinámicas para la obtención de vesículas como sistemas de liberación controlada de agentes bioactivos"
     },
     {
-      "name": "SARASOLA, Santiago",
+      "lastName": "SARASOLA",
+      "firstName": "Santiago",
       "program": "doctorado",
       "director": "Dr. Cisilino, A.",
       "thesis_topic": "Modelado multiescala de la falla de estructuras trabeculares para el diseño de andamios óseos artificiales"
     },
     {
-      "name": "SOLDANI, Julian Mariano",
+      "lastName": "SOLDANI",
+      "firstName": "Julian Mariano",
       "program": "doctorado",
       "director": "Dr. Rodriguez, E.",
       "codirector": "Dra. Asaro, L.",
       "thesis_topic": "Estudio y optimización del comportamiento termomecánico de tanques para almacenamiento de hidrógeno"
     },
     {
-      "name": "SUARES SEGURA, Ana Laura",
+      "lastName": "SUARES SEGURA",
+      "firstName": "Ana Laura",
       "program": "doctorado",
       "director": "Dr. Cortez Tornello, O.",
       "codirector": "Dr. Abraham, G.",
       "thesis_topic": "Sistemas poliméricos avanzados basados en quitosano/policaprolactona para liberación controlada de agentes bioactivos"
     },
     {
-      "name": "TEPER MARINELLI, Lautaro Gabriel",
+      "lastName": "TEPER MARINELLI",
+      "firstName": "Lautaro Gabriel",
       "program": "doctorado",
       "director": "Dr. Ciannamea, E.",
       "codirector": "Dra. Ruseckaite, R.",
       "thesis_topic": "Diseño y caracterización de adhesivos sensibles a la presión (PSAs) sostenibles"
     },
     {
-      "name": "UICICH, Julieta",
+      "lastName": "UICICH",
+      "firstName": "Julieta",
       "program": "doctorado",
       "director": "Dr. Montemartini, P.",
       "codirector": "Dr. Arenas, G.",
       "thesis_topic": "Extensión y monitoreo de la vida en servicio de instalaciones de materiales compuestos"
     },
     {
-      "name": "URANGA WASSERMANN, María Victoria",
+      "lastName": "URANGA WASSERMANN",
+      "firstName": "María Victoria",
       "program": "doctorado",
       "director": "Dr. Soulé, E.",
       "codirector": "Dr. Balbuena C.",
       "thesis_topic": "Transiciones morfológicas en sistemas miscelares de copolímeros en bloque"
     },
     {
-      "name": "VOLCANES MORENO, Vanessa Carolina",
+      "lastName": "VOLCANES MORENO",
+      "firstName": "Vanessa Carolina",
       "program": "doctorado",
       "director": "Dr. Pellice, S.",
       "codirector": "Dr. Procaccini, R.",

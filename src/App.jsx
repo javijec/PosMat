@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header.jsx";
+import Header from "./components/Header/Header.jsx";
 import MainContent from "./components/MainContent.jsx";
-import Footer from "./components/Footer.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
 import Contact from "./components/Contact/Contact.jsx";
@@ -10,7 +10,7 @@ import Courses from "./components/Courses/Courses.jsx";
 import CoursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors/Professors.jsx";
 import Archivos from "./components/Archivos/Archivos.jsx";
-import FAQ from "./components/FAQ.jsx";
+import FAQ from "./components/FAQ/FAQ.jsx";
 import Tesis from "./components/Tesis/Tesis.jsx";
 import Links from "./components/Links/Links.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
