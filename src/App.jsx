@@ -15,6 +15,7 @@ import Tesis from "./components/Tesis/Tesis.jsx";
 import Links from "./components/Links/Links.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Students from "./components/Students/Students.jsx";
+import Rules from "./components/Rules/Rules.jsx";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/links" element={<Links />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/rules" element={<Rules />} />
               <Route path="/*" element={<Home />} />
             </Routes>
           </MainContent>
