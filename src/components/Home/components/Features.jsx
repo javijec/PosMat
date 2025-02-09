@@ -21,11 +21,13 @@ const Features = () => {
               description="Aprende de investigadores y profesionales reconocidos en el campo."
             />
           </Link>
-          <FeatureCard
-            icon={<Award className="h-8 w-8 text-[#447c82]" />}
-            title="Investigación Avanzada"
-            description="Acceso a laboratorios y equipamiento de última generación."
-          />
+          <Link to="/tesis" className="group">
+            <FeatureCard
+              icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
+              title="Tesis"
+              description="Tesis de doctorado y maestría."
+            />
+          </Link>
         </div>
       </div>
     </div>

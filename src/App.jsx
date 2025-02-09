@@ -12,6 +12,7 @@ import CoursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors";
 import Archivos from "./components/Archivos";
 import FAQ from "./components/FAQ.jsx";
+import Tesis from "./components/Tesis";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/courses/edit" element={<CoursesEdit />} />
               <Route path="/professors" element={<Professors />} />
               <Route path="/archivos" element={<Archivos />} />
+              <Route path="/tesis" element={<Tesis />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/*" element={<Home />} />
             </Routes>
