@@ -9,12 +9,16 @@ import Contact from "./components/Contact/Contact.jsx";
 import Courses from "./components/Courses/Courses.jsx";
 import CoursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors/Professors.jsx";
+import ProfessorsEdit from "./components/Professors/ProfessorsEdit.jsx";
 import Archivos from "./components/Archivos/Archivos.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
 import Tesis from "./components/Tesis/Tesis.jsx";
+import TesisDocEdit from "./components/Tesis/TesisDocEdit.jsx";
+import TesisMaestriaEdit from "./components/Tesis/TesisMaestriaEdit.jsx";
 import Links from "./components/Links/Links.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Students from "./components/Students/Students.jsx";
+import StudentsEdit from "./components/Students/StudentsEdit.jsx";
 import Rules from "./components/Rules/Rules.jsx";
 
 function App() {
@@ -32,11 +36,15 @@ function App() {
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/edit" element={<CoursesEdit />} />
               <Route path="/professors" element={<Professors />} />
+              <Route path="/professors/edit" element={<ProfessorsEdit />} />
               <Route path="/archivos" element={<Archivos />} />
               <Route path="/tesis" element={<Tesis />} />
+              <Route path="/tesis/doc/edit" element={<TesisDocEdit />} />
+              <Route path="/tesis/maestria/edit" element={<TesisMaestriaEdit />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/links" element={<Links />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/students/edit" element={<StudentsEdit />} />
               <Route path="/rules" element={<Rules />} />
               <Route path="/*" element={<Home />} />
             </Routes>
