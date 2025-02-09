@@ -10,7 +10,6 @@ import Contact from "./components/Contact";
 import Courses from "./components/Courses/Courses.jsx";
 import CoursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors";
-import Recursos from "./components/Recursos.jsx";
 import FAQ from "./components/FAQ.jsx";
 
 function App() {
@@ -28,7 +27,6 @@ function App() {
               <Route path="/courses/edit" element={<CoursesEdit />} />
               <Route path="/professors" element={<Professors />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/Recursos" element={<Recursos />} />
               <Route path="/*" element={<Home />} />
             </Routes>
           </MainContent>
