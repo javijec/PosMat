@@ -4,84 +4,89 @@ import AdditionalInfo from "./AdditionalInfo";
 import courses from "../../files/courses.json";
 
 const Courses = () => {
-  const [selectedYear, setSelectedYear] = useState(null);
-  const [selectedSemester, setSelectedSemester] = useState(null);
-
-  const { years, semesters, groupedCourses } = useMemo(() => {
-    const grouped = courses.reduce((acc, course) => {
-      const key = `${course.año}-${course.semestre}`;
-      if (!acc[key]) acc[key] = [];
-      acc[key].push(course);
-      return acc;
-    }, {});
-
+  const { years, semesters } = useMemo(() => {
     const years = [...new Set(courses.map((c) => c.año))].sort((a, b) => b - a);
     const semesters = [...new Set(courses.map((c) => c.semestre))].sort();
-
-    return { years, semesters, groupedCourses: grouped };
+    return { years, semesters };
   }, []);
 
+  // Inicializar con el año más reciente
+  const [selectedYear, setSelectedYear] = useState(years[0] || "");
+  const [selectedSemester, setSelectedSemester] = useState("");
+
   const filteredCourses = useMemo(() => {
-    const key = `${selectedYear}-${selectedSemester}`;
-    return groupedCourses[key] || [];
-  }, [selectedYear, selectedSemester, groupedCourses]);
+    let filtered = [...courses];
+
+    if (selectedYear) {
+      filtered = filtered.filter((course) => course.año === selectedYear);
+    }
+
+    if (selectedSemester) {
+      filtered = filtered.filter((course) => course.semestre === selectedSemester);
+    }
+
+    return filtered;
+  }, [selectedYear, selectedSemester]);
+
+  const getSemesterTag = (semester) => {
+    return semester === 1
+      ? "bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium ml-2"
+      : "bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium ml-2";
+  };
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-5xl font-bold mb-12 text-gray-900">Cursos de Posgrado</h1>
 
-        {/* Filtros */}
-        <div className="mb-12 flex flex-wrap gap-4">
-          <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Año</label>
-            <select
-              className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-              value={selectedYear || ""}
-              onChange={(e) => setSelectedYear(e.target.value)}
-            >
-              <option value="">Seleccionar año</option>
-              {years.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+        <div className="lg:grid lg:grid-cols-4 lg:gap-8">
+          {/* Filtros sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-24 space-y-6">
+              <div>
+                <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por año:</label>
+                <select
+                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(e.target.value)}
+                >
+                  <option value="">Todos los años</option>
+                  {years.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por semestre:</label>
+                <select
+                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
+                  value={selectedSemester}
+                  onChange={(e) => setSelectedSemester(e.target.value)}
+                >
+                  <option value="">Todos los semestres</option>
+                  {semesters.map((semester) => (
+                    <option key={semester} value={semester}>{`${semester}° Semestre`}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
-            <select
-              className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-              value={selectedSemester || ""}
-              onChange={(e) => setSelectedSemester(e.target.value)}
-              disabled={!selectedYear}
-            >
-              <option value="">Seleccionar semestre</option>
-              {semesters.map((semester) => (
-                <option key={semester} value={semester}>{`${semester}° Semestre`}</option>
+          {/* Grid de cursos */}
+          <div className="lg:col-span-3 mt-8 lg:mt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {filteredCourses.map((course, index) => (
+                <div key={index} className="relative">
+                  <CourseCard course={course} index={index} />
+                  <span className={getSemesterTag(course.semestre)}>{course.semestre}° Semestre</span>
+                </div>
               ))}
-            </select>
+            </div>
           </div>
         </div>
-
-        {/* Mensaje de selección */}
-        {!selectedYear && !selectedSemester && (
-          <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-100">
-            <p className="text-gray-500">Selecciona un año y semestre para ver los cursos disponibles</p>
-          </div>
-        )}
-
-        {/* Grid de cursos */}
-        {selectedYear && selectedSemester && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredCourses.map((course, index) => (
-              <CourseCard key={index} course={course} index={index} />
-            ))}
-          </div>
-        )}
-
-        {/*<AdditionalInfo />*/}
       </div>
     </div>
   );

@@ -58,13 +58,13 @@ const CourseCard = ({ course, index }) => {
           </div>
         </div>
 
-        {/* Botón al final */}
+        {/* Botón al final 
         <Link
           to={`/course/${index}`}
           className="mt-6 block w-full bg-ingenieria text-white text-center py-2.5 px-4 rounded-lg hover:bg-ingenieria-hover transition-colors"
         >
           Más Información
-        </Link>
+        </Link>*/}
       </div>
     </div>
   );
