@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import professors from "../files/professors.json";
+import professors from "../../files/professors.json";
 
 const Professors = () => {
   const [selectedProf, setSelectedProf] = useState(null);
