@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const resources = [
   {
@@ -39,19 +39,7 @@ const groupByTag = (resources) => {
 };
 
 const Resources = () => {
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [previewType, setPreviewType] = useState(null);
   const groupedResources = groupByTag(resources);
-
-  const handlePreview = (path, type) => {
-    setPreviewUrl(`${window.location.origin}${path}`);
-    setPreviewType(type);
-  };
-
-  const handleClosePreview = () => {
-    setPreviewUrl(null);
-    setPreviewType(null);
-  };
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
@@ -70,14 +58,6 @@ const Resources = () => {
                     <span className="text-lg font-medium text-gray-900">{resource.name}</span>
                   </div>
                   <div className="flex items-center space-x-4">
-                    {resource.type === "pdf" || resource.type === "docx" || resource.type === "doc" ? (
-                      <button
-                        onClick={() => handlePreview(resource.path, resource.type)}
-                        className="text-blue-600 hover:text-blue-700 font-semibold"
-                      >
-                        Previsualizar
-                      </button>
-                    ) : null}
                     <a href={resource.path} download className="text-blue-600 hover:text-blue-700 font-semibold">
                       Descargar
                     </a>
@@ -87,20 +67,6 @@ const Resources = () => {
             </ul>
           </div>
         ))}
-        {previewUrl && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full relative">
-              <button onClick={handleClosePreview} className="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
-                Cerrar
-              </button>
-              <a href={previewUrl} download className="absolute top-4 left-4 text-blue-600 hover:text-blue-800">
-                Descargar
-              </a>
-              <h2 className="text-3xl font-bold mb-4">Previsualización</h2>
-              <PdfViewerComponent document={previewUrl} />
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
