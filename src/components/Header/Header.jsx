@@ -17,7 +17,7 @@ const menuItems = [
   {
     name: "Posgrado",
     subItems: [
-      { path: "/rules", name: "Reglamentos" },
+      { path: "/rules", name: "Reglamento" },
       { path: "/courses", name: "Cursos" },
       { path: "/tesis", name: "Tesis" },
     ],
