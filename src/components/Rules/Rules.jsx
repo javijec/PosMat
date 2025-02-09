@@ -26,7 +26,7 @@ const Rules = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">{rulesContent.title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 break-words">{rulesContent.title}</h1>
       {/* Navigation with previous and next buttons and a unified Listbox */}
       <div className="flex items-center space-x-2">
         <button
@@ -43,7 +43,7 @@ const Rules = () => {
                 <Hash className="w-4 h-4 mr-1" />
                 <span className="font-medium">{selectedIndex + 1}.</span>
               </div>
-              <span className="block truncate">{selectedSection.title}</span>
+              <span className="block line-clamp-2 md:line-clamp-none">{selectedSection.title}</span>
             </div>
           </Listbox.Button>
           <Listbox.Options
@@ -65,7 +65,7 @@ const Rules = () => {
                   <div className="flex items-center">
                     <Hash className="w-4 h-4 mr-1" />
                     <span className={classNames(selected ? "font-medium" : "font-normal")}>{index + 1}.</span>
-                    <span className="ml-2 block truncate">{section.title}</span>
+                    <span className="ml-2 block line-clamp-2 md:line-clamp-none">{section.title}</span>
                   </div>
                 )}
               </Listbox.Option>
