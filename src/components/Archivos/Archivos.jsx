@@ -3,7 +3,7 @@ import React from "react";
 const resources = [
   {
     name: "Modelo Informe anual",
-    path: "/assets/modelo_informe_anual.doc",
+    path: "/public/modelo_informe_anual.doc",
     type: "doc",
     tag: "formularios",
   },
