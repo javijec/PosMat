@@ -3,7 +3,7 @@ import React from "react";
 const resources = [
   {
     name: "Modelo Informe anual",
-    path: "/public/modelo_informe_anual.doc",
+    path: "/modelo_informe_anual.doc",
     type: "doc",
     tag: "formularios",
   },
@@ -58,7 +58,12 @@ const Archivos = () => {
                     <span className="text-lg font-medium text-gray-900">{resource.name}</span>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <a href={resource.path} download className="text-blue-600 hover:text-blue-700 font-semibold">
+                    <a
+                      href={resource.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700 font-semibold"
+                    >
                       Descargar
                     </a>
                   </div>
