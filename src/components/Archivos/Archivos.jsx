@@ -3,7 +3,7 @@ import React from "react";
 const resources = [
   {
     name: "Modelo Informe anual",
-    path: "https://www3.fi.mdp.edu.ar/posmat/assets/modelo_informe_anual2.doc",
+    path: "/assets/modelo_informe_anual.doc",
     type: "doc",
     tag: "formularios",
   },
