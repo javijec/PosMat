@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import CourseCard from "./CourseCard";
 import AdditionalInfo from "./AdditionalInfo";
+import CourseFilter from "./CourseFilter";
 import courses from "../../files/courses.json";
 
 const Courses = () => {
@@ -47,37 +48,14 @@ const Courses = () => {
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
           {/* Filtros sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
-              <div>
-                <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por año:</label>
-                <select
-                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(e.target.value)}
-                >
-                  <option value="">Todos los años</option>
-                  {years.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por semestre:</label>
-                <select
-                  className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-                  value={selectedSemester}
-                  onChange={(e) => setSelectedSemester(e.target.value)}
-                >
-                  <option value="">Todos los semestres</option>
-                  {semesters.map((semester) => (
-                    <option key={semester} value={semester}>{`${semester}° Semestre`}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <CourseFilter
+              years={years}
+              semesters={semesters}
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+              selectedSemester={selectedSemester}
+              setSelectedSemester={setSelectedSemester}
+            />
           </div>
 
           {/* Grid de cursos */}
