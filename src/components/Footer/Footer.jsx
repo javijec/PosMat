@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="space-y-2">
               <p className="flex items-center gap-2">
                 <Mail className="h-5 w-5" />
-                <span>posmat@fi.mdp.edu.ar</span>
+                <span>posgrado@fi.mdp.edu.ar</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="h-5 w-5" />

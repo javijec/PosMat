@@ -33,17 +33,6 @@ const Tesis = () => {
     setSelectedType(event.target.value);
   };
 
-  const getTagColor = (tag) => {
-    switch (tag) {
-      case "doctoral":
-        return "bg-blue-100 text-blue-800";
-      case "maestria":
-        return "bg-green-100 text-green-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
