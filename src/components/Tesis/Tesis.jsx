@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
-import tesisDoc from "../../files/tesisDoc.json";
-import tesisMaestria from "../../files/tesisMaestria.json";
+import tesis from "../../files/tesis.json"; // Información unificada
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
@@ -14,40 +12,34 @@ const Tesis = () => {
   const [showStats, setShowStats] = useState(false);
 
   useEffect(() => {
-    let allTesis = [];
-    if (selectedType === "all" || selectedType === "doctorado") {
-      allTesis = allTesis.concat(tesisDoc);
-    }
-    if (selectedType === "all" || selectedType === "maestria") {
-      allTesis = allTesis.concat(tesisMaestria);
+    let allTesis = [...tesis];
+    if (selectedType !== "all") {
+      allTesis = allTesis.filter((t) => t.tag === selectedType);
     }
     if (selectedYears.length > 0) {
-      allTesis = allTesis.filter((tesis) => selectedYears.includes(tesis.year));
+      allTesis = allTesis.filter((t) => selectedYears.includes(t.year));
     }
     setFilteredTesis(allTesis);
   }, [selectedYears, selectedType]);
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
-    setSelectedYears((prevYears) =>
-      prevYears.includes(year) ? prevYears.filter((y) => y !== year) : [...prevYears, year]
-    );
+    setSelectedYears((prev) => (prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]));
   };
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
 
-  // Lista única de años para el filtro y para el gráfico
-  const years = [...new Set([...tesisDoc, ...tesisMaestria].map((t) => t.year))].sort((a, b) => b - a);
+  // Obtener años únicos usando tesis directamente
+  const years = [...new Set(tesis.map((t) => t.year))].sort((a, b) => b - a);
 
-  // Preparar datos para el gráfico: eje X: año, eje Y: conteo de tesis por tipo
-  const chartData = [...new Set([...tesisDoc, ...tesisMaestria].map((t) => t.year))]
+  const chartData = [...new Set(tesis.map((t) => t.year))]
     .sort((a, b) => a - b)
     .map((year) => ({
       year,
-      doctorado: tesisDoc.filter((t) => t.year === year).length,
-      maestria: tesisMaestria.filter((t) => t.year === year).length,
+      doctorado: tesis.filter((t) => t.year === year && t.tag === "doctorado").length,
+      maestria: tesis.filter((t) => t.year === year && t.tag === "maestria").length,
     }));
 
   return (

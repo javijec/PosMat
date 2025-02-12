@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import fs from "fs";
 import path from "path";
-import tesisDocData from "../../files/tesisDoc.json";
+import tesisData from "../../files/tesis.json";
 
-const TesisDocEdit = () => {
-  const [tesisList, setTesisList] = useState(tesisDocData);
+const TesisEdit = () => {
+  const [tesisList, setTesisList] = useState(tesisData);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [form, setForm] = useState({
     year: "",
@@ -13,7 +13,7 @@ const TesisDocEdit = () => {
     url: "",
     director: "",
     co_director: "",
-    tag: "doctoral",
+    tag: "maestria",
   });
 
   const handleEdit = (index) => {
@@ -34,7 +34,15 @@ const TesisDocEdit = () => {
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setForm({ year: "", name: "", title: "", url: "", director: "", co_director: "", tag: "doctoral" });
+    setForm({
+      year: "",
+      name: "",
+      title: "",
+      url: "",
+      director: "",
+      co_director: "",
+      tag: "maestria",
+    });
   };
 
   const handleSubmit = (e) => {
@@ -47,15 +55,15 @@ const TesisDocEdit = () => {
   };
 
   const saveToFile = (data) => {
-    const filePath = path.resolve(__dirname, "../../files/tesisDoc.json");
+    const filePath = path.resolve(__dirname, "../../files/tesis.json");
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
-    alert("Tesis doctorales guardadas");
+    alert("Tesis guardadas");
   };
 
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar Tesis Doctorales</h1>
+        <h1 className="text-4xl font-bold mb-8">Editar Tesis</h1>
         <button onClick={handleAdd} className="bg-green-600 text-white py-2 px-4 rounded mb-4">
           Agregar Tesis Nueva
         </button>
@@ -101,13 +109,10 @@ const TesisDocEdit = () => {
           </div>
           <div>
             <label>Tag:</label>
-            <input
-              name="tag"
-              value={form.tag}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-              readOnly
-            />
+            <select name="tag" value={form.tag} onChange={handleChange} className="w-full border rounded px-2 py-1">
+              <option value="maestria">Maestría</option>
+              <option value="doctoral">Doctorado</option>
+            </select>
           </div>
           <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
@@ -123,6 +128,7 @@ const TesisDocEdit = () => {
                   {t.title} - {t.name} ({t.year})
                 </p>
                 <p>Director: {t.director}</p>
+                <p>Tipo: {t.tag}</p>
               </div>
               <div className="space-x-2">
                 <button onClick={() => handleEdit(index)} className="bg-yellow-500 text-white py-1 px-3 rounded">
@@ -140,4 +146,4 @@ const TesisDocEdit = () => {
   );
 };
 
-export default TesisDocEdit;
+export default TesisEdit;
