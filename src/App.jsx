@@ -7,6 +7,7 @@ import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
 import Contact from "./components/Contact/Contact.jsx";
 import Courses from "./components/Courses/Courses.jsx";
+import CursesEdit from "./components/Courses/CoursesEdit.jsx";
 import Professors from "./components/Professors/Professors.jsx";
 import Archivos from "./components/Archivos/Archivos.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
@@ -29,6 +30,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/courses" element={<Courses />} />
+              <Route path="/courses/edit" element={<CursesEdit />} />
               <Route path="/professors" element={<Professors />} />
               <Route path="/archivos" element={<Archivos />} />
               <Route path="/tesis" element={<Tesis />} />

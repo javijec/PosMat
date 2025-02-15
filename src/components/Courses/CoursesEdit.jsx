@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fs from "fs";
 import path from "path";
-import coursesData from "../../files/courses.json";
+import coursesjson from "../../files/courses.json";
+import { db } from "../../firebase/dbConnection";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 
 const CoursesEdit = () => {
-  const [courses, setCourses] = useState(coursesData);
+  const [courses, setCourses] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [courseForm, setCourseForm] = useState({
     nombre: "",
@@ -19,6 +21,20 @@ const CoursesEdit = () => {
   // Estados para agregar profesor(s)
   const [profesorNombre, setProfesorNombre] = useState("");
   const [profesorEmail, setProfesorEmail] = useState("");
+
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        const data = await getDocs(collection(db, "courses"));
+        setCourses(data.docs.map((doc) => doc.data()));
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        setCourses(coursesjson); // Si hay un error, usa los datos locales
+      }
+    };
+
+    getCourses();
+  }, []);
 
   const handleEdit = (index) => {
     setEditingIndex(index);
@@ -231,11 +247,13 @@ const CoursesEdit = () => {
         <hr className="mb-8" />
         <h2 className="text-2xl font-bold mb-4">Cursos Existentes</h2>
         <div className="space-y-4">
+          {console.log(courses)}
           {courses.map((course, index) => (
             <div key={index} className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
               <div>
                 <h3 className="text-xl font-semibold">{course.nombre}</h3>
                 <p className="text-gray-600">
+                  {course.id}
                   {course.horasTeoricas} HT, {course.horasPracticas} HP, {course.horasTP} HT-HP, {course.uvacs} UVACS
                 </p>
                 {course.fechaInicio && <p className="text-gray-600">Inicio: {course.fechaInicio}</p>}
