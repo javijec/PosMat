@@ -27,10 +27,14 @@ const CoursesEdit = () => {
   const getCourses = async () => {
     try {
       const data = await getDocs(collection(db, "courses"));
-      setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const coursesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      coursesData.sort((a, b) => parseInt(b.año) - parseInt(a.año));
+      setCourses(coursesData);
     } catch (error) {
       console.error("Error fetching courses:", error);
-      setCourses(coursesjson);
+      const coursesData = [...coursesjson];
+      coursesData.sort((a, b) => parseInt(b.año) - parseInt(a.año));
+      setCourses(coursesData);
     }
   };
 
@@ -47,7 +51,7 @@ const CoursesEdit = () => {
   const handleEdit = async (data) => {
     try {
       setEditingIndex(data.id);
-      const edit = await getDoc(doc(db, "courses", data.id));
+      getDoc(doc(db, "courses", data.id));
     } catch (error) {}
     setEditingIndex(data.id);
 
