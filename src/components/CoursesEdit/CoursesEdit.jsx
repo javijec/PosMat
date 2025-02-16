@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import coursesjson from "../../files/courses.json";
 import { db } from "../../firebase/dbConnection";
 import CourseItem from "./CourseItem";
-import { collection, getDocs, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
 
 const CoursesEdit = () => {
   const [courses, setCourses] = useState([]);
@@ -44,9 +44,14 @@ const CoursesEdit = () => {
     }
   };
 
-  const handleEdit = (index) => {
-    setEditingIndex(index);
-    setCourseForm(courses[index]);
+  const handleEdit = async (data) => {
+    try {
+      setEditingIndex(data.id);
+      const edit = await getDoc(doc(db, "courses", data.id));
+    } catch (error) {}
+    setEditingIndex(data.id);
+
+    setCourseForm(data);
   };
 
   const handleChange = (e) => {
@@ -84,14 +89,14 @@ const CoursesEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(editingIndex);
 
     try {
       if (editingIndex === -1) {
         await addDoc(collection(db, "courses"), courseForm);
         alert("Curso agregado a Firestore");
       } else {
-        const courseId = courses[editingIndex].id;
-        await setDoc(doc(db, "courses", courseId), courseForm, { merge: true });
+        await setDoc(doc(db, "courses", editingIndex), courseForm, { merge: true });
         alert("Curso actualizado en Firestore");
         setEditingIndex(-1);
       }
