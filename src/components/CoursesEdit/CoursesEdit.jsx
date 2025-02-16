@@ -80,6 +80,9 @@ const CoursesEdit = () => {
       profesores: [],
       fechaInicio: "",
       lugar: "",
+      semestre: 1,
+      año: "",
+      humanistico: false,
     });
   };
 
@@ -229,7 +232,7 @@ const CoursesEdit = () => {
               </ul>
             )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Fecha de Inicio</label>
               <input
@@ -248,6 +251,19 @@ const CoursesEdit = () => {
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Humanistico</label>
+              <select
+                name="humanistico"
+                value={courseForm.humanistico}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                defaultValue={false}
+              >
+                <option value="false">No</option>
+                <option value="true">Si</option>
+              </select>
             </div>
           </div>
           <button

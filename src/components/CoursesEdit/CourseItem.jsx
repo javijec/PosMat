@@ -16,7 +16,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           <ul className="list-disc pl-5 text-gray-600">
             {course.profesores.map((prof, i) => (
               <li key={i}>
-                {prof.nombre} ({prof.email})
+                {prof.nombre} {prof.email && <span>({prof.email})</span>}
               </li>
             ))}
           </ul>
