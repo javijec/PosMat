@@ -1,37 +1,39 @@
 import React from "react";
 
 const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selectedSemester, setSelectedSemester }) => {
-  return (
-    <div className="sticky top-24 space-y-6">
-      <div>
-        <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por año:</label>
-        <select
-          className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-        >
-          <option value="">Todos los años</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      </div>
+  if (!years || years.length === 0) return <div>Loading...</div>; // O algún mensaje de carga o estado vacío
 
-      <div>
-        <label className="block mb-2 text-lg font-medium text-gray-900">Filtrar por semestre:</label>
-        <select
-          className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-ingenieria focus:border-ingenieria"
-          value={selectedSemester}
-          onChange={(e) => setSelectedSemester(e.target.value)}
-        >
-          <option value="">Todos los semestres</option>
-          {semesters.map((semester) => (
-            <option key={semester} value={semester}>{`${semester}° Semestre`}</option>
-          ))}
-        </select>
-      </div>
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-4">Filtros</h2>
+
+      {/* Filtro por año */}
+      <select
+        value={selectedYear}
+        onChange={(e) => setSelectedYear(e.target.value)}
+        className="mb-4 p-2 border rounded"
+      >
+        <option value="">Seleccionar año</option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
+
+      {/* Filtro por semestre */}
+      <select
+        value={selectedSemester}
+        onChange={(e) => setSelectedSemester(e.target.value)}
+        className="mb-4 p-2 border rounded"
+      >
+        <option value="">Seleccionar semestre</option>
+        {semesters.map((semester) => (
+          <option key={semester} value={semester}>
+            {semester}° Semestre
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

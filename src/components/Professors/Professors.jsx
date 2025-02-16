@@ -18,6 +18,9 @@ const Professors = () => {
           ...doc.data(),
         }));
 
+        // Ordenar por firstName en orden ascendente
+        professorsData.sort((a, b) => a.firstName.localeCompare(b.firstName));
+
         setProfessors(professorsData);
       } catch (error) {
         console.error("Error fetching professors:", error);

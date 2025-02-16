@@ -17,6 +17,7 @@ const Students = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        studentsData.sort((a, b) => a.lastName.localeCompare(b.lastName));
 
         setStudents(studentsData);
       } catch (error) {

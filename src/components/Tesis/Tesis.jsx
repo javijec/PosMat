@@ -22,6 +22,25 @@ const Tesis = () => {
           id: doc.id,
           ...doc.data(),
         }));
+
+        // Ordenar por año, luego por tipo (doctorado primero), luego por nombre
+        tesisData.sort((a, b) => {
+          // Ordenar por año
+          if (a.year !== b.year) {
+            return a.year - b.year;
+          }
+
+          // Si el año es el mismo, ordenar por tipo (doctorado primero)
+          if (a.tipo === "Doctorado" && b.tipo !== "Doctorado") {
+            return -1; // a debe ir antes
+          } else if (a.tipo !== "Doctorado" && b.tipo === "Doctorado") {
+            return 1; // b debe ir antes
+          }
+
+          // Si el tipo es el mismo, ordenar por nombre
+          return a.name.localeCompare(b.name);
+        });
+
         setTesis(tesisData);
       } catch (error) {
         console.error("Error fetching tesis:", error);
