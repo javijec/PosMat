@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import CourseCard from "./CourseCard";
 import CourseFilter from "./CourseFilter";
-import coursesjson from "../../files/courses.json";
 import { db } from "../../firebase/dbConnection";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -15,14 +14,12 @@ const Courses = () => {
         setCourses(data.docs.map((doc) => doc.data()));
       } catch (error) {
         console.error("Error fetching courses:", error);
-        setCourses(coursesjson); // Si hay un error, usa los datos locales
       }
     };
 
     getCourses();
   }, []);
 
-  // Filtrar años y semestres disponibles en los cursos cargados
   const { years, semesters } = useMemo(() => {
     const years = [...new Set(courses.map((c) => c.año))].sort((a, b) => b - a);
     const semesters = [...new Set(courses.map((c) => c.semestre))].sort();

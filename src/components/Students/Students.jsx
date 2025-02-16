@@ -1,14 +1,33 @@
-import React, { useState, useMemo } from "react";
-import studentsData from "../../files/students.json";
+import React, { useState, useMemo, useEffect } from "react";
 import StudentCard from "./StudentCard";
 import NameFilter from "../Filter/NameFilter";
+import { db } from "../../firebase/dbConnection";
+import { collection, getDocs } from "firebase/firestore";
 
 const Students = () => {
   const [filterLastName, setFilterLastName] = useState("");
   const [filterFirstName, setFilterFirstName] = useState("");
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    const getStudents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "students"));
+        const studentsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setStudents(studentsData);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+    getStudents();
+  }, []);
 
   const filteredStudents = useMemo(() => {
-    let filtered = studentsData.students;
+    let filtered = students;
     if (filterLastName) {
       filtered = filtered.filter((student) => student.lastName.toUpperCase().startsWith(filterLastName.toUpperCase()));
     }
@@ -16,7 +35,7 @@ const Students = () => {
       filtered = filtered.filter((student) => student.firstName.toLowerCase().includes(filterFirstName.toLowerCase()));
     }
     return filtered;
-  }, [filterLastName, filterFirstName]);
+  }, [filterLastName, filterFirstName, students]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
