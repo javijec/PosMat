@@ -99,13 +99,14 @@ const Courses = () => {
     return group;
   }, [filteredCourses]);
 
+  const yearsToDisplay = selectedYear ? [selectedYear] : Object.keys(groupedByYear).sort((a, b) => b - a);
+
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-5xl font-bold mb-12 text-gray-900">Cursos de Posgrado</h1>
 
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
-          {/* Sidebar con filtros */}
           <div className="lg:col-span-1">
             <CourseFilter
               years={years}
@@ -117,38 +118,34 @@ const Courses = () => {
             />
           </div>
 
-          {/* Lista de cursos */}
           <div className="lg:col-span-3 mt-8 lg:mt-0">
             <div className="space-y-8">
-              {Object.keys(groupedByYear)
-                .sort((a, b) => b - a)
-                .map((year) => (
-                  <div key={year} className="w-full px-3 py-2 border border-gray-300 rounded-md">
-                    <h2 className="text-3xl font-semibold mb-4">{year}</h2>
+              {yearsToDisplay.map((year) => (
+                <div key={year} className="w-full px-3 py-2 border border-gray-300 rounded-md">
+                  <h2 className="text-3xl font-semibold mb-4">{year}</h2>
 
-                    {/* Recuadro de semestres dentro del año */}
-                    {Object.keys(groupedBySemester)
-                      .filter((key) => key.startsWith(year)) // Filtramos por año
-                      .map((yearSemester) => {
-                        const [year, semester] = yearSemester.split("-");
-                        const semesterCourses = groupedBySemester[yearSemester];
+                  {Object.keys(groupedBySemester)
+                    .filter((key) => key.startsWith(year))
+                    .map((yearSemester) => {
+                      const [year, semester] = yearSemester.split("-");
+                      const semesterCourses = groupedBySemester[yearSemester];
 
-                        return (
-                          <div key={yearSemester} className="mb-6">
-                            <h3 className="text-xl font-semibold mb-2">{semester}° Semestre</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                              {semesterCourses.map((course, index) => (
-                                <div key={index} className="relative">
-                                  <CourseCard course={course} index={index} />
-                                  <span className={getSemesterTag(course.semestre)}>{course.semestre}° Semestre</span>
-                                </div>
-                              ))}
-                            </div>
+                      return (
+                        <div key={yearSemester} className="mb-6">
+                          <h3 className="text-xl font-semibold mb-2">{semester}° Semestre</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {semesterCourses.map((course, index) => (
+                              <div key={index} className="relative">
+                                <CourseCard course={course} index={index} />
+                                <span className={getSemesterTag(course.semestre)}>{course.semestre}° Semestre</span>
+                              </div>
+                            ))}
                           </div>
-                        );
-                      })}
-                  </div>
-                ))}
+                        </div>
+                      );
+                    })}
+                </div>
+              ))}
             </div>
           </div>
         </div>
