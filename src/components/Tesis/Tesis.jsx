@@ -1,16 +1,36 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import tesis from "../../files/tesis.json"; // Información unificada
+import { db } from "../../firebase/dbConnection"; // Importa la configuración de Firestore
+import { collection, getDocs } from "firebase/firestore";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
 
 const Tesis = () => {
+  const [tesis, setTesis] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedType, setSelectedType] = useState("all");
   const [filteredTesis, setFilteredTesis] = useState([]);
   const [showStats, setShowStats] = useState(false);
 
+  // Obtener datos de Firestore
+  useEffect(() => {
+    const getTesis = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "tesis"));
+        const tesisData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTesis(tesisData);
+      } catch (error) {
+        console.error("Error fetching tesis:", error);
+      }
+    };
+    getTesis();
+  }, []);
+
+  // Filtrar datos según el tipo y los años seleccionados
   useEffect(() => {
     let allTesis = [...tesis];
     if (selectedType !== "all") {
@@ -20,7 +40,7 @@ const Tesis = () => {
       allTesis = allTesis.filter((t) => selectedYears.includes(t.year));
     }
     setFilteredTesis(allTesis);
-  }, [selectedYears, selectedType]);
+  }, [tesis, selectedYears, selectedType]);
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
@@ -31,22 +51,20 @@ const Tesis = () => {
     setSelectedType(event.target.value);
   };
 
-  // Obtener años únicos usando tesis directamente
+  // Obtener años únicos de Firestore
   const years = [...new Set(tesis.map((t) => t.year))].sort((a, b) => b - a);
 
-  const chartData = [...new Set(tesis.map((t) => t.year))]
-    .sort((a, b) => a - b)
-    .map((year) => ({
-      year,
-      doctorado: tesis.filter((t) => t.year === year && t.tag === "doctorado").length,
-      maestria: tesis.filter((t) => t.year === year && t.tag === "maestria").length,
-    }));
+  // Generar datos para el gráfico
+  const chartData = years.map((year) => ({
+    year,
+    doctorado: tesis.filter((t) => t.year === year && t.tag === "doctorado").length,
+    maestria: tesis.filter((t) => t.year === year && t.tag === "maestria").length,
+  }));
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-5xl font-bold mb-12 text-gray-900">Tesis</h1>
-        {/* Botón para mostrar estadísticas */}
         <div className="mb-6">
           <button
             onClick={() => setShowStats(true)}
@@ -56,7 +74,6 @@ const Tesis = () => {
           </button>
         </div>
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
-          {/* Sidebar: Filtro mediante componente */}
           <div className="lg:col-span-1">
             <TesisFilter
               selectedType={selectedType}
@@ -66,11 +83,10 @@ const Tesis = () => {
               years={years}
             />
           </div>
-          {/* Main content */}
           <div className="lg:col-span-3 mt-8 lg:mt-0">
             <ul className="space-y-4">
-              {filteredTesis.map((tesis, index) => (
-                <TesisCard key={index} tesis={tesis} />
+              {filteredTesis.map((tesisItem) => (
+                <TesisCard key={tesisItem.id} tesis={tesisItem} />
               ))}
             </ul>
           </div>
