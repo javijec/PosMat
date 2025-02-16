@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import coursesjson from "../../files/courses.json";
 import { db } from "../../firebase/dbConnection";
 import CourseItem from "./CourseItem";
+import { getCourses } from "../../firebase/CRUD";
 import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
 
 const CoursesEdit = () => {
@@ -21,21 +22,12 @@ const CoursesEdit = () => {
   const [profesorEmail, setProfesorEmail] = useState("");
 
   useEffect(() => {
-    getCourses();
+    fetchCourses();
   }, []); // <-- Importante: El useEffect solo se ejecuta al montar el componente
 
-  const getCourses = async () => {
-    try {
-      const data = await getDocs(collection(db, "courses"));
-      const coursesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      coursesData.sort((a, b) => parseInt(b.año) - parseInt(a.año));
-      setCourses(coursesData);
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-      const coursesData = [...coursesjson];
-      coursesData.sort((a, b) => parseInt(b.año) - parseInt(a.año));
-      setCourses(coursesData);
-    }
+  const fetchCourses = async () => {
+    const coursesData = await getCourses();
+    setCourses(coursesData);
   };
 
   const DeleteCourse = async (id) => {
@@ -93,7 +85,6 @@ const CoursesEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(editingIndex);
 
     try {
       if (editingIndex === -1) {
@@ -104,18 +95,8 @@ const CoursesEdit = () => {
         alert("Curso actualizado en Firestore");
         setEditingIndex(-1);
       }
-      getCourses();
-      setCourseForm({
-        // Limpia el formulario
-        nombre: "",
-        horasTeoricas: "",
-        horasPracticas: "",
-        horasTP: "",
-        uvacs: "",
-        profesores: [],
-        fechaInicio: "",
-        lugar: "",
-      });
+      fetchCourses();
+      handleAdd();
     } catch (error) {
       console.error("Error adding/updating course:", error);
     }
@@ -170,14 +151,37 @@ const CoursesEdit = () => {
               />
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">UVACS</label>
-            <input
-              name="uvacs"
-              value={courseForm.uvacs}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">UVACS</label>
+              <input
+                name="uvacs"
+                value={courseForm.uvacs}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Año</label>
+              <input
+                name="año"
+                value={courseForm.año}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Semestre</label>
+              <select
+                name="semeste"
+                value={courseForm.semestre}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              >
+                <option value="1">1er Semestre</option>
+                <option value="2">2do Semestre</option>
+              </select>
+            </div>
           </div>
           <div className="border p-4 rounded-md">
             <h3 className="text-lg font-semibold mb-2">Profesor(es) y Mail de Contacto</h3>

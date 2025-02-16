@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { db } from "../../firebase/dbConnection"; // Importa la configuración de Firestore
-import { collection, getDocs } from "firebase/firestore";
+
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
+import { getTesis } from "../../firebase/CRUD";
 
 const Tesis = () => {
   const [tesis, setTesis] = useState([]);
@@ -15,38 +15,11 @@ const Tesis = () => {
 
   // Obtener datos de Firestore
   useEffect(() => {
-    const getTesis = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "tesis"));
-        const tesisData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Ordenar por año, luego por tipo (doctorado primero), luego por nombre
-        tesisData.sort((a, b) => {
-          // Ordenar por año
-          if (a.year !== b.year) {
-            return a.year - b.year;
-          }
-
-          // Si el año es el mismo, ordenar por tipo (doctorado primero)
-          if (a.tipo === "Doctorado" && b.tipo !== "Doctorado") {
-            return -1; // a debe ir antes
-          } else if (a.tipo !== "Doctorado" && b.tipo === "Doctorado") {
-            return 1; // b debe ir antes
-          }
-
-          // Si el tipo es el mismo, ordenar por nombre
-          return a.name.localeCompare(b.name);
-        });
-
-        setTesis(tesisData);
-      } catch (error) {
-        console.error("Error fetching tesis:", error);
-      }
+    const fetchTesis = async () => {
+      const tesisData = await getTesis();
+      setTesis(tesisData);
     };
-    getTesis();
+    fetchTesis();
   }, []);
 
   // Filtrar datos según el tipo y los años seleccionados

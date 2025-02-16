@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import StudentCard from "./StudentCard";
 import NameFilter from "../Filter/NameFilter";
-import { db } from "../../firebase/dbConnection";
-import { collection, getDocs } from "firebase/firestore";
+import { getStudents } from "../../firebase/CRUD";
 
 const Students = () => {
   const [filterLastName, setFilterLastName] = useState("");
@@ -10,30 +9,24 @@ const Students = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    const getStudents = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "students"));
-        const studentsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        studentsData.sort((a, b) => a.lastName.localeCompare(b.lastName));
-
-        setStudents(studentsData);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
+    const fetchStudents = async () => {
+      const studentsData = await getStudents();
+      setStudents(studentsData);
     };
-    getStudents();
+    fetchStudents();
   }, []);
 
   const filteredStudents = useMemo(() => {
     let filtered = students;
     if (filterLastName) {
-      filtered = filtered.filter((student) => student.lastName.toUpperCase().startsWith(filterLastName.toUpperCase()));
+      filtered = filtered.filter((student) =>
+        (student.lastName || "").toUpperCase().startsWith(filterLastName.toUpperCase())
+      );
     }
     if (filterFirstName) {
-      filtered = filtered.filter((student) => student.firstName.toLowerCase().includes(filterFirstName.toLowerCase()));
+      filtered = filtered.filter((student) =>
+        (student.firstName || "").toLowerCase().includes(filterFirstName.toLowerCase())
+      );
     }
     return filtered;
   }, [filterLastName, filterFirstName, students]);

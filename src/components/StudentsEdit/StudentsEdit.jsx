@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fs from "fs";
 import path from "path";
-import studentsData from "../../files/students.json";
+import StudentsEditCard from "./StudentEditCard";
+import { db } from "../../firebase/dbConnection";
+import { getDocs, collection } from "firebase/firestore";
+import { getStudents } from "../../firebase/CRUD";
 
 const StudentsEdit = () => {
-  const [students, setStudents] = useState(studentsData.students);
+  const [students, setStudents] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [studentForm, setStudentForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
   });
+
+  useEffect(() => {
+    setStudents(getStudents());
+  }, []);
 
   const handleEdit = (index) => {
     setEditingIndex(index);
@@ -75,11 +82,39 @@ const StudentsEdit = () => {
               className="w-full border rounded px-2 py-1"
             />
           </div>
+
           <div>
-            <label>Email:</label>
+            <label>Director:</label>
             <input
-              name="email"
-              value={studentForm.email}
+              name="director"
+              value={studentForm.director}
+              onChange={handleChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label>Codirector:</label>
+            <input
+              name="codirector"
+              value={studentForm.codirector}
+              onChange={handleChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label>Tema de Tesis:</label>
+            <input
+              name="thesis_topic"
+              value={studentForm.thesis_topic}
+              onChange={handleChange}
+              className="w-full border rounded px-2 py-1"
+            />
+          </div>
+          <div>
+            <label>Programa:</label>
+            <input
+              name="program"
+              value={studentForm.program}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -90,26 +125,7 @@ const StudentsEdit = () => {
         </form>
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Estudiantes Existentes</h2>
-        <div className="space-y-4">
-          {students.map((student, index) => (
-            <div key={index} className="p-4 bg-white rounded shadow flex justify-between items-center">
-              <div>
-                <p>
-                  {student.lastName}, {student.firstName}
-                </p>
-                <p>{student.email}</p>
-              </div>
-              <div className="space-x-2">
-                <button onClick={() => handleEdit(index)} className="bg-yellow-500 text-white py-1 px-3 rounded">
-                  Editar
-                </button>
-                <button onClick={() => handleDelete(index)} className="bg-red-600 text-white py-1 px-3 rounded">
-                  Eliminar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <StudentsEditCard students={students} handleEdit={handleEdit} handleDelete={handleDelete} />
       </div>
     </div>
   );

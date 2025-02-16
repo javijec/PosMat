@@ -12,9 +12,11 @@ import Professors from "./components/Professors/Professors.jsx";
 import Archivos from "./components/Archivos/Archivos.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
 import Tesis from "./components/Tesis/Tesis.jsx";
+import TesisEdit from "./components/TesisEdit/TesisEdit.jsx";
 import Links from "./components/Links/Links.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Students from "./components/Students/Students.jsx";
+import StudentsEdit from "./components/StudentsEdit/StudentsEdit.jsx";
 import Rules from "./components/Rules/Rules.jsx";
 
 function App() {
@@ -34,9 +36,11 @@ function App() {
               <Route path="/professors" element={<Professors />} />
               <Route path="/archivos" element={<Archivos />} />
               <Route path="/tesis" element={<Tesis />} />
+              <Route path="/tesis/edit" element={<TesisEdit />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/links" element={<Links />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/students/edit" element={<StudentsEdit />} />
               <Route path="/rules" element={<Rules />} />
               <Route path="/*" element={<Home />} />
             </Routes>

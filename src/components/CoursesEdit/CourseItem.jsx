@@ -4,8 +4,9 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
       <div>
-        <h3 className="text-xl font-semibold">{course.nombre}</h3>
-        <p>{course.id}</p>
+        <h3 className="text-xl font-semibold">
+          {course.nombre}-{course.año}-{course.semestre} semestre
+        </h3>
         <p className="text-gray-600">
           {course.horasTeoricas} HT, {course.horasPracticas} HP, {course.horasTP} HT-HP, {course.uvacs} UVACS
         </p>
