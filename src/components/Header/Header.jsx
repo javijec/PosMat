@@ -1,7 +1,7 @@
 import React from "react";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Link, NavLink } from "react-router-dom";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 
@@ -64,11 +64,6 @@ const Header = () => {
             </Link>
 
             <nav className="hidden md:flex space-x-6 items-center">
-              {user?.email === "javijec@gmail.com" && (
-                <NavLink to="/manage-emails" className="px-2 py-1 hover:text-gray-300">
-                  Gestionar Emails
-                </NavLink>
-              )}
               {menuItems.map((item, i) =>
                 item.subItems ? (
                   <Menu as="div" key={i} className="relative inline-block text-left">
@@ -98,17 +93,52 @@ const Header = () => {
                   </NavLink>
                 )
               )}
-              {user?.email === "javijec@gmail.com" && (
-                <NavLink to="/manage-emails" className="block hover:text-gray-300">
-                  Gestionar Emails
-                </NavLink>
-              )}
-              <button
-                onClick={handleAuth}
-                className="ml-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
-              >
-                {user ? "Cerrar Sesión" : "Ingresar"}
-              </button>
+
+              {/* User Menu */}
+              <Menu as="div" className="relative inline-block text-left">
+                <Menu.Button className="p-2 hover:bg-ingenieria-dark rounded-full transition-colors">
+                  <UserIcon className="h-5 w-5" />
+                </Menu.Button>
+                {user ? (
+                  <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
+                    {user.email === "javijec@gmail.com" && (
+                      <Menu.Item>
+                        {({ active }) => (
+                          <NavLink
+                            to="/manage-emails"
+                            className={`block px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
+                          >
+                            Gestionar Emails
+                          </NavLink>
+                        )}
+                      </Menu.Item>
+                    )}
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={handleAuth}
+                          className={`w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
+                        >
+                          Cerrar Sesión
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
+                ) : (
+                  <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={handleAuth}
+                          className={`w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
+                        >
+                          Ingresar
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
+                )}
+              </Menu>
             </nav>
 
             <Disclosure.Button className="md:hidden focus:outline-none">
@@ -143,12 +173,25 @@ const Header = () => {
                   </NavLink>
                 )
               )}
-              <button
-                onClick={handleAuth}
-                className="mt-4 w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors text-center"
-              >
-                {user ? "Cerrar Sesión" : "Ingresar"}
-              </button>
+
+              <div className="mt-4">
+                {user ? (
+                  <>
+                    {user.email === "javijec@gmail.com" && (
+                      <NavLink to="/manage-emails" className="block text-sm text-gray-300 hover:text-white mb-2">
+                        Gestionar Emails
+                      </NavLink>
+                    )}
+                    <button onClick={handleAuth} className="w-full px-4 py-2 text-left hover:bg-gray-700">
+                      Cerrar Sesión
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={handleAuth} className="w-full px-4 py-2 text-left hover:bg-gray-700">
+                    Ingresar
+                  </button>
+                )}
+              </div>
             </nav>
           </Disclosure.Panel>
         </>
