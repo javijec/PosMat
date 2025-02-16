@@ -123,7 +123,7 @@ const Courses = () => {
               {Object.keys(groupedByYear)
                 .sort((a, b) => b - a)
                 .map((year) => (
-                  <div key={year} className="border p-4 rounded-lg shadow-md">
+                  <div key={year} className="w-full px-3 py-2 border border-gray-300 rounded-md">
                     <h2 className="text-3xl font-semibold mb-4">{year}</h2>
 
                     {/* Recuadro de semestres dentro del año */}

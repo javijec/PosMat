@@ -11,7 +11,7 @@ const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selecte
       <select
         value={selectedYear}
         onChange={(e) => setSelectedYear(e.target.value)}
-        className="mb-4 p-2 border rounded"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md"
       >
         <option value="">Seleccionar año</option>
         {years.map((year) => (
@@ -25,7 +25,7 @@ const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selecte
       <select
         value={selectedSemester}
         onChange={(e) => setSelectedSemester(e.target.value)}
-        className="mb-4 p-2 border rounded"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md"
       >
         <option value="">Seleccionar semestre</option>
         {semesters.map((semester) => (
