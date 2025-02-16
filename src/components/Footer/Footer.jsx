@@ -44,20 +44,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Redes Sociales</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-[#447c82]">
-                Facebook
-              </a>
-              <a href="#" className="hover:text-[#447c82]">
-                Twitter
-              </a>
-              <a href="#" className="hover:text-[#447c82]">
-                LinkedIn
-              </a>
-            </div>
-          </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
           <p>&copy; {new Date().getFullYear()} Posgrado en Materiales. Todos los derechos reservados.</p>
