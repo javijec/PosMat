@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import fs from "fs";
-import path from "path";
 import coursesjson from "../../files/courses.json";
 import { db } from "../../firebase/dbConnection";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import CourseItem from "./CourseItem";
+import { collection, getDocs, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
 
 const CoursesEdit = () => {
   const [courses, setCourses] = useState([]);
@@ -14,39 +13,40 @@ const CoursesEdit = () => {
     horasPracticas: "",
     horasTP: "",
     uvacs: "",
-    profesores: [], // { nombre, email }
+    profesores: [],
     fechaInicio: "",
     lugar: "",
   });
-  // Estados para agregar profesor(s)
   const [profesorNombre, setProfesorNombre] = useState("");
   const [profesorEmail, setProfesorEmail] = useState("");
 
   useEffect(() => {
-    const getCourses = async () => {
-      try {
-        const data = await getDocs(collection(db, "courses"));
-        setCourses(data.docs.map((doc) => doc.data()));
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-        setCourses(coursesjson); // Si hay un error, usa los datos locales
-      }
-    };
-
     getCourses();
-  }, []);
+  }, []); // <-- Importante: El useEffect solo se ejecuta al montar el componente
+
+  const getCourses = async () => {
+    try {
+      const data = await getDocs(collection(db, "courses"));
+      setCourses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+      setCourses(coursesjson);
+    }
+  };
+
+  const DeleteCourse = async (id) => {
+    if (!window.confirm("¿Eliminar curso?")) return;
+    try {
+      await deleteDoc(doc(db, "courses", id));
+      getCourses(); // <-- Actualiza la lista después de eliminar
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
+  };
 
   const handleEdit = (index) => {
     setEditingIndex(index);
     setCourseForm(courses[index]);
-  };
-
-  const handleDelete = (index) => {
-    if (!window.confirm("¿Eliminar curso?")) return;
-    const newCourses = courses.filter((_, i) => i !== index);
-    setCourses(newCourses);
-    // Actualiza courses.json en el filesystem
-    saveCoursesToFile(newCourses);
   };
 
   const handleChange = (e) => {
@@ -54,7 +54,8 @@ const CoursesEdit = () => {
   };
 
   const handleAddProfessor = () => {
-    if (profesorNombre.trim() && profesorEmail.trim()) {
+    if (profesorNombre.trim()) {
+      // Crea un NUEVO array con los profesores existentes y el nuevo profesor
       const nuevosProfesores = [...courseForm.profesores, { nombre: profesorNombre, email: profesorEmail }];
       setCourseForm({ ...courseForm, profesores: nuevosProfesores });
       setProfesorNombre("");
@@ -81,35 +82,34 @@ const CoursesEdit = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let newCourses;
-    if (editingIndex === -1) {
-      newCourses = [...courses, courseForm];
-    } else {
-      newCourses = courses.map((c, index) => (index === editingIndex ? courseForm : c));
-    }
-    setCourses(newCourses);
-    // Actualiza courses.json en el filesystem
-    saveCoursesToFile(newCourses);
-    // Reinicia formulario
-    setCourseForm({
-      nombre: "",
-      horasTeoricas: "",
-      horasPracticas: "",
-      horasTP: "",
-      uvacs: "",
-      profesores: [],
-      fechaInicio: "",
-      lugar: "",
-    });
-    setEditingIndex(-1);
-  };
 
-  const saveCoursesToFile = (courses) => {
-    const filePath = path.resolve(__dirname, "../files/courses.json");
-    fs.writeFileSync(filePath, JSON.stringify(courses, null, 2), "utf-8");
-    alert("Cursos guardados en filesystem");
+    try {
+      if (editingIndex === -1) {
+        await addDoc(collection(db, "courses"), courseForm);
+        alert("Curso agregado a Firestore");
+      } else {
+        const courseId = courses[editingIndex].id;
+        await setDoc(doc(db, "courses", courseId), courseForm, { merge: true });
+        alert("Curso actualizado en Firestore");
+        setEditingIndex(-1);
+      }
+      getCourses();
+      setCourseForm({
+        // Limpia el formulario
+        nombre: "",
+        horasTeoricas: "",
+        horasPracticas: "",
+        horasTP: "",
+        uvacs: "",
+        profesores: [],
+        fechaInicio: "",
+        lugar: "",
+      });
+    } catch (error) {
+      console.error("Error adding/updating course:", error);
+    }
   };
 
   return (
@@ -247,42 +247,13 @@ const CoursesEdit = () => {
         <hr className="mb-8" />
         <h2 className="text-2xl font-bold mb-4">Cursos Existentes</h2>
         <div className="space-y-4">
-          {console.log(courses)}
           {courses.map((course, index) => (
-            <div key={index} className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
-              <div>
-                <h3 className="text-xl font-semibold">{course.nombre}</h3>
-                <p className="text-gray-600">
-                  {course.id}
-                  {course.horasTeoricas} HT, {course.horasPracticas} HP, {course.horasTP} HT-HP, {course.uvacs} UVACS
-                </p>
-                {course.fechaInicio && <p className="text-gray-600">Inicio: {course.fechaInicio}</p>}
-                {course.lugar && <p className="text-gray-600">Lugar: {course.lugar}</p>}
-                {course.profesores && course.profesores.length > 0 && (
-                  <ul className="list-disc pl-5 text-gray-600">
-                    {course.profesores.map((prof, i) => (
-                      <li key={i}>
-                        {prof.nombre} ({prof.email})
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => handleEdit(index)}
-                  className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition-colors"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => handleDelete(index)}
-                  className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition-colors"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </div>
+            <CourseItem
+              key={course.id} // Usa el ID del curso como key
+              course={course}
+              onEdit={handleEdit}
+              onDelete={DeleteCourse}
+            />
           ))}
         </div>
       </div>
