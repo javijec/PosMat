@@ -1,11 +1,30 @@
-import React, { useState, useMemo } from "react";
-import professors from "../../files/professors.json";
+import React, { useState, useMemo, useEffect } from "react";
 import ProfessorCard from "./ProfessorCard";
 import NameFilter from "../Filter/NameFilter";
+import { db } from "../../firebase/dbConnection";
+import { collection, getDocs } from "firebase/firestore";
 
 const Professors = () => {
   const [filterLastName, setFilterLastName] = useState("");
   const [filterFirstName, setFilterFirstName] = useState("");
+  const [professors, setProfessors] = useState([]);
+
+  useEffect(() => {
+    const getProfessors = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "professors"));
+        const professorsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setProfessors(professorsData);
+      } catch (error) {
+        console.error("Error fetching professors:", error);
+      }
+    };
+    getProfessors();
+  }, []);
 
   const filteredProfessors = useMemo(() => {
     let filtered = professors;
@@ -16,7 +35,7 @@ const Professors = () => {
       filtered = filtered.filter((prof) => prof.firstName.toLowerCase().includes(filterFirstName.toLowerCase()));
     }
     return filtered;
-  }, [filterLastName, filterFirstName]);
+  }, [filterLastName, filterFirstName, professors]);
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white">
