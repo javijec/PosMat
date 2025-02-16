@@ -2,91 +2,159 @@ import React from "react";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Link, NavLink } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "../../context/AuthContext";
 
-// Define navigation items locally
 const menuItems = [
   { path: "/", name: "Inicio" },
   { path: "/about", name: "Acerca de" },
   {
     name: "Comunidad",
     subItems: [
-      { path: "/professors", name: "Profesores" },
-      { path: "/students", name: "Estudiantes" },
+      {
+        path: "/professors",
+        name: "Profesores",
+        editPath: "/professors/edit",
+      },
+      {
+        path: "/students",
+        name: "Estudiantes",
+        editPath: "/students/edit",
+      },
     ],
   },
   {
     name: "Posgrado",
     subItems: [
       { path: "/rules", name: "Reglamento" },
-      { path: "/courses", name: "Cursos" },
-      { path: "/tesis", name: "Tesis" },
+      {
+        path: "/courses",
+        name: "Cursos",
+        editPath: "/courses/edit",
+      },
+      {
+        path: "/tesis",
+        name: "Tesis",
+        editPath: "/tesis/edit",
+      },
     ],
   },
   { path: "/contact", name: "Contacto" },
 ];
 
-const Header = () => (
-  <Disclosure as="header" className="bg-ingenieria text-white shadow">
-    {({ open }) => (
-      <>
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link to="/" className="flex items-center space-x-2">
-            <img src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png" alt="Logo" className="h-10" />
-            <span className="text-xl font-bold">Posgrado en Materiales</span>
-          </Link>
-          <nav className="hidden md:flex space-x-6">
-            {menuItems.map((item, i) =>
-              item.subItems ? (
-                <Menu as="div" key={i} className="relative inline-block text-left">
-                  <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">{item.name}</Menu.Button>
-                  <Menu.Items className="absolute left-0 mt-2 w-40 bg-ingenieria shadow-lg z-10">
-                    {item.subItems.map((subItem, j) => (
-                      <Menu.Item key={j}>
-                        {({ active }) => (
-                          <NavLink to={subItem.path} className={`block px-4 py-2 ${active ? "bg-gray-700" : ""}`}>
+const Header = () => {
+  const { user, signInWithGoogle, logout } = useAuth();
+
+  const handleAuth = async () => {
+    if (user) {
+      await logout();
+    } else {
+      await signInWithGoogle();
+    }
+  };
+
+  return (
+    <Disclosure as="header" className="bg-ingenieria text-white shadow">
+      {({ open }) => (
+        <>
+          <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <Link to="/" className="flex items-center space-x-2">
+              <img src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png" alt="Logo" className="h-10" />
+              <span className="text-xl font-bold">Posgrado en Materiales</span>
+            </Link>
+
+            <nav className="hidden md:flex space-x-6 items-center">
+              {user?.email === "javijec@gmail.com" && (
+                <NavLink to="/manage-emails" className="px-2 py-1 hover:text-gray-300">
+                  Gestionar Emails
+                </NavLink>
+              )}
+              {menuItems.map((item, i) =>
+                item.subItems ? (
+                  <Menu as="div" key={i} className="relative inline-block text-left">
+                    <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">{item.name}</Menu.Button>
+                    <Menu.Items className="absolute left-0 mt-2 w-48 bg-ingenieria shadow-lg z-10">
+                      {item.subItems.map((subItem, j) => (
+                        <Menu.Item key={j}>
+                          {({ active }) => (
+                            <div className="flex items-center justify-between px-4 py-2">
+                              <NavLink to={subItem.path} className={`block ${active ? "text-gray-300" : ""}`}>
+                                {subItem.name}
+                              </NavLink>
+                              {user && subItem.editPath && (
+                                <NavLink to={subItem.editPath} className="ml-2 p-1 hover:bg-gray-700 rounded">
+                                  <PencilSquareIcon className="h-4 w-4" />
+                                </NavLink>
+                              )}
+                            </div>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Items>
+                  </Menu>
+                ) : (
+                  <NavLink key={i} to={item.path} className="px-2 py-1 hover:text-gray-300">
+                    {item.name}
+                  </NavLink>
+                )
+              )}
+              {user?.email === "javijec@gmail.com" && (
+                <NavLink to="/manage-emails" className="block hover:text-gray-300">
+                  Gestionar Emails
+                </NavLink>
+              )}
+              <button
+                onClick={handleAuth}
+                className="ml-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+              >
+                {user ? "Cerrar Sesión" : "Ingresar"}
+              </button>
+            </nav>
+
+            <Disclosure.Button className="md:hidden focus:outline-none">
+              {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+            </Disclosure.Button>
+          </div>
+
+          <Disclosure.Panel className="md:hidden px-4 pb-4">
+            <nav className="flex flex-col space-y-2">
+              {menuItems.map((item, i) =>
+                item.subItems ? (
+                  <div key={i}>
+                    <span className="block font-semibold">{item.name}</span>
+                    <div className="pl-4">
+                      {item.subItems.map((subItem, j) => (
+                        <div key={j} className="flex items-center justify-between py-1">
+                          <NavLink to={subItem.path} className="block hover:text-gray-300">
                             {subItem.name}
                           </NavLink>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Menu>
-              ) : (
-                <NavLink key={i} to={item.path} className="px-2 py-1 hover:text-gray-300">
-                  {item.name}
-                </NavLink>
-              )
-            )}
-          </nav>
-          <Disclosure.Button className="md:hidden focus:outline-none">
-            {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-          </Disclosure.Button>
-        </div>
-        <Disclosure.Panel className="md:hidden px-4 pb-4">
-          <nav className="flex flex-col space-y-2">
-            {menuItems.map((item, i) =>
-              item.subItems ? (
-                <div key={i}>
-                  <span className="block font-semibold">{item.name}</span>
-                  <div className="pl-4">
-                    {item.subItems.map((subItem, j) => (
-                      <NavLink key={j} to={subItem.path} className="block hover:text-gray-300">
-                        {subItem.name}
-                      </NavLink>
-                    ))}
+                          {user && subItem.editPath && (
+                            <NavLink to={subItem.editPath} className="ml-2 p-1 hover:bg-gray-700 rounded">
+                              <PencilSquareIcon className="h-4 w-4" />
+                            </NavLink>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <NavLink key={i} to={item.path} className="block hover:text-gray-300">
-                  {item.name}
-                </NavLink>
-              )
-            )}
-          </nav>
-        </Disclosure.Panel>
-      </>
-    )}
-  </Disclosure>
-);
+                ) : (
+                  <NavLink key={i} to={item.path} className="block hover:text-gray-300">
+                    {item.name}
+                  </NavLink>
+                )
+              )}
+              <button
+                onClick={handleAuth}
+                className="mt-4 w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors text-center"
+              >
+                {user ? "Cerrar Sesión" : "Ingresar"}
+              </button>
+            </nav>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  );
+};
 
 export default Header;

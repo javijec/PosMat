@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { getTesis } from "../../firebase/CRUD";
-import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/dbConnection";
 import TesisEditItem from "./TesisEditItem";
 

@@ -11,121 +11,47 @@ const Contact = () => {
         <div className="lg:flex lg:gap-8">
           {/* Columna izquierda - Tabs de información y formulario */}
           <div className="lg:w-1/2 mb-8 lg:mb-0">
-            <TabGroup>
-              <TabList className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 mb-8">
-                <Tab
-                  className={({ selected }) =>
-                    `w-full rounded-lg py-2.5 text-sm font-medium leading-5
-                     ${
-                       selected
-                         ? "bg-white shadow text-ingenieria"
-                         : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                     }`
-                  }
-                >
-                  Información
-                </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    `w-full rounded-lg py-2.5 text-sm font-medium leading-5
-                     ${
-                       selected
-                         ? "bg-white shadow text-ingenieria "
-                         : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                     }`
-                  }
-                >
-                  Formulario
-                </Tab>
-              </TabList>
-              <TabPanels>
-                <Tab.Panel>
-                  <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <h2 className="text-2xl font-semibold mb-6">Información de Contacto</h2>
+            <div className="lg:w-1/2 mb-8 lg:mb-0">
+              <div>
+                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                  <h2 className="text-2xl font-semibold mb-6">Información de Contacto</h2>
 
-                    <div className="space-y-4">
-                      <div className="flex items-center">
-                        <Mail className="h-6 w-6 text-ingenieria mr-3" />
-                        <div>
-                          <h3 className="font-semibold">Email</h3>
-                          <p className="text-gray-600">posgrado@fi.mdp.edu.ar</p>
-                        </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <Mail className="h-6 w-6 text-ingenieria mr-3" />
+                      <div>
+                        <h3 className="font-semibold">Email</h3>
+                        <p className="text-gray-600">posgrado@fi.mdp.edu.ar</p>
                       </div>
+                    </div>
 
-                      <div className="flex items-center">
-                        <Phone className="h-6 w-6 text-ingenieria mr-3" />
-                        <div>
-                          <h3 className="font-semibold">Teléfono</h3>
-                          <p className="text-gray-600">(0223) 481-6600</p>
-                        </div>
+                    <div className="flex items-center">
+                      <Phone className="h-6 w-6 text-ingenieria mr-3" />
+                      <div>
+                        <h3 className="font-semibold">Teléfono</h3>
+                        <p className="text-gray-600">(0223) 481-6600</p>
                       </div>
+                    </div>
 
-                      <div className="flex items-center">
-                        <MapPin className="h-6 w-6 text-ingenieria mr-3" />
-                        <div>
-                          <h3 className="font-semibold">Dirección</h3>
-                          <p className="text-gray-600">Juan B. Justo 4302, Mar del Plata</p>
-                        </div>
+                    <div className="flex items-center">
+                      <MapPin className="h-6 w-6 text-ingenieria mr-3" />
+                      <div>
+                        <h3 className="font-semibold">Dirección</h3>
+                        <p className="text-gray-600">Juan B. Justo 4302, Mar del Plata</p>
                       </div>
+                    </div>
 
-                      <div className="flex items-center">
-                        <Clock className="h-6 w-6 text-ingenieria mr-3" />
-                        <div>
-                          <h3 className="font-semibold">Horario de Atención</h3>
-                          <p className="text-gray-600">Lunes a Viernes: 9:00 - 17:00</p>
-                        </div>
+                    <div className="flex items-center">
+                      <Clock className="h-6 w-6 text-ingenieria mr-3" />
+                      <div>
+                        <h3 className="font-semibold">Horario de Atención</h3>
+                        <p className="text-gray-600">Lunes a Viernes: 9:00 - 17:00</p>
                       </div>
                     </div>
                   </div>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <div className="bg-white rounded-lg shadow-md p-6">
-                    <h2 className="text-2xl font-semibold mb-6">Formulario de Contacto</h2>
-
-                    <form className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
-                        <input
-                          type="text"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input
-                          type="email"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Asunto</label>
-                        <input
-                          type="text"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
-                        <textarea
-                          rows={4}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        ></textarea>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full  text-white py-2 px-4 rounded-lg bg-[#447c82] hover:bg-[#386a72] transition-colors"
-                      >
-                        Enviar Mensaje
-                      </button>
-                    </form>
-                  </div>
-                </Tab.Panel>
-              </TabPanels>
-            </TabGroup>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Columna derecha - Mapa */}

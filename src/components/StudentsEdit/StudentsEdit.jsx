@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import fs from "fs";
 import path from "path";
 import StudentsEditCard from "./StudentEditCard";
-import { db } from "../../firebase/dbConnection";
-import { getDocs, collection } from "firebase/firestore";
 import { getStudents } from "../../firebase/CRUD";
 
 const StudentsEdit = () => {
@@ -16,8 +14,13 @@ const StudentsEdit = () => {
   });
 
   useEffect(() => {
-    setStudents(getStudents());
+    fetchStudents();
   }, []);
+
+  const fetchStudents = async () => {
+    const studentsData = await getStudents();
+    setStudents(studentsData);
+  };
 
   const handleEdit = (index) => {
     setEditingIndex(index);
