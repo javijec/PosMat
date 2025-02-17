@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import coursesjson from "../../files/courses.json";
-import { db } from "../../firebase/dbConnection";
 import CourseItem from "./CourseItem";
-import { getCourses } from "../../firebase/CRUD";
-import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
 
 const CoursesEdit = () => {
-  const [courses, setCourses] = useState([]);
+  const [data, setData] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
-  const [courseForm, setCourseForm] = useState({
+  const [Form, setForm] = useState({
     nombre: "",
     horasTeoricas: "",
     horasPracticas: "",
@@ -20,58 +17,60 @@ const CoursesEdit = () => {
   });
   const [profesorNombre, setProfesorNombre] = useState("");
   const [profesorEmail, setProfesorEmail] = useState("");
+  const collection = "courses";
+  const x = "curso";
 
   useEffect(() => {
     fetchCourses();
-  }, []); // <-- Importante: El useEffect solo se ejecuta al montar el componente
+  }, [data]); // <-- Importante: El useEffect solo se ejecuta al montar el componente
 
   const fetchCourses = async () => {
-    const coursesData = await getCourses();
-    setCourses(coursesData);
+    const Data = await fetchData(collection);
+    setData(Data);
   };
 
-  const DeleteCourse = async (id) => {
-    if (!window.confirm("¿Eliminar curso?")) return;
+  const handleDelete = async (id) => {
+    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
     try {
-      await deleteDoc(doc(db, "courses", id));
-      getCourses(); // <-- Actualiza la lista después de eliminar
+      await deleteItem(collection, id);
+      fetchData(); // <-- Actualiza la lista después de eliminar
     } catch (error) {
-      console.error("Error deleting course:", error);
+      console.error("Error deleting:", error);
     }
   };
 
   const handleEdit = async (data) => {
+    const { id } = data;
     try {
-      setEditingIndex(data.id);
-      getDoc(doc(db, "courses", data.id));
+      setEditingIndex(id);
+      getItem(collection, id);
     } catch (error) {}
-    setEditingIndex(data.id);
+    setEditingIndex(id);
 
-    setCourseForm(data);
+    setForm(data);
   };
 
   const handleChange = (e) => {
-    setCourseForm({ ...courseForm, [e.target.name]: e.target.value });
+    setForm({ ...Form, [e.target.name]: e.target.value });
   };
 
   const handleAddProfessor = () => {
     if (profesorNombre.trim()) {
-      // Crea un NUEVO array con los profesores existentes y el nuevo profesor
-      const nuevosProfesores = [...courseForm.profesores, { nombre: profesorNombre, email: profesorEmail }];
-      setCourseForm({ ...courseForm, profesores: nuevosProfesores });
+      const nuevosProfesores = [...Form.profesores, { nombre: profesorNombre, email: profesorEmail }];
+      setForm({ ...Form, profesores: nuevosProfesores });
       setProfesorNombre("");
       setProfesorEmail("");
     }
   };
 
   const handleRemoveProfessor = (index) => {
-    const nuevosProfesores = courseForm.profesores.filter((_, i) => i !== index);
-    setCourseForm({ ...courseForm, profesores: nuevosProfesores });
+    const nuevosProfesores = Form.profesores.filter((_, i) => i !== index);
+    setForm({ ...Form, profesores: nuevosProfesores });
   };
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setCourseForm({
+    setForm({
       nombre: "",
       horasTeoricas: "",
       horasPracticas: "",
@@ -91,17 +90,17 @@ const CoursesEdit = () => {
 
     try {
       if (editingIndex === -1) {
-        await addDoc(collection(db, "courses"), courseForm);
-        alert("Curso agregado a Firestore");
+        await addItem(collection, Form);
+        alert(x + " agregado");
       } else {
-        await setDoc(doc(db, "courses", editingIndex), courseForm, { merge: true });
-        alert("Curso actualizado en Firestore");
+        await saveItem(collection, editingIndex, Form, { merge: true });
+        alert(x + " actualizado");
         setEditingIndex(-1);
       }
-      fetchCourses();
+      fetchData();
       handleAdd();
     } catch (error) {
-      console.error("Error adding/updating course:", error);
+      console.error("Error adding/updating " + x + ":", error);
     }
   };
 
@@ -120,7 +119,7 @@ const CoursesEdit = () => {
             <label className="block text-sm font-medium text-gray-700">Nombre del Curso</label>
             <input
               name="nombre"
-              value={courseForm.nombre}
+              value={Form.nombre}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -130,7 +129,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Horas Teóricas</label>
               <input
                 name="horasTeoricas"
-                value={courseForm.horasTeoricas}
+                value={Form.horasTeoricas}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -139,7 +138,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Horas Prácticas</label>
               <input
                 name="horasPracticas"
-                value={courseForm.horasPracticas}
+                value={Form.horasPracticas}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -148,7 +147,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Horas Teórico-Prácticas</label>
               <input
                 name="horasTP"
-                value={courseForm.horasTP}
+                value={Form.horasTP}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -159,7 +158,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">UVACS</label>
               <input
                 name="uvacs"
-                value={courseForm.uvacs}
+                value={Form.uvacs}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -168,7 +167,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Año</label>
               <input
                 name="año"
-                value={courseForm.año}
+                value={Form.año}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -177,7 +176,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Semestre</label>
               <select
                 name="semeste"
-                value={courseForm.semestre}
+                value={Form.semestre}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               >
@@ -213,9 +212,9 @@ const CoursesEdit = () => {
             >
               Agregar Profesor
             </button>
-            {courseForm.profesores.length > 0 && (
+            {Form.profesores.length > 0 && (
               <ul className="mt-4 list-disc pl-5 text-gray-700">
-                {courseForm.profesores.map((prof, index) => (
+                {Form.profesores.map((prof, index) => (
                   <li key={index} className="flex justify-between items-center">
                     <span>
                       {prof.nombre} ({prof.email})
@@ -237,7 +236,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Fecha de Inicio</label>
               <input
                 name="fechaInicio"
-                value={courseForm.fechaInicio}
+                value={Form.fechaInicio}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 type="date"
@@ -247,7 +246,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Lugar de Cursada</label>
               <input
                 name="lugar"
-                value={courseForm.lugar}
+                value={Form.lugar}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
               />
@@ -256,7 +255,7 @@ const CoursesEdit = () => {
               <label className="block text-sm font-medium text-gray-700">Humanistico</label>
               <select
                 name="humanistico"
-                value={courseForm.humanistico}
+                value={Form.humanistico}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 defaultValue={false}
@@ -276,12 +275,12 @@ const CoursesEdit = () => {
         <hr className="mb-8" />
         <h2 className="text-2xl font-bold mb-4">Cursos Existentes</h2>
         <div className="space-y-4">
-          {courses.map((course, index) => (
+          {data.map((course, index) => (
             <CourseItem
               key={course.id} // Usa el ID del curso como key
               course={course}
               onEdit={handleEdit}
-              onDelete={DeleteCourse}
+              onDelete={handleDelete}
             />
           ))}
         </div>

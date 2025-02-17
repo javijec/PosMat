@@ -1,62 +1,76 @@
 import React, { useState, useEffect } from "react";
-import fs from "fs";
-import path from "path";
 import StudentsEditCard from "./StudentEditCard";
-import { getStudents } from "../../firebase/CRUD";
+import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
 
 const StudentsEdit = () => {
-  const [students, setStudents] = useState([]);
+  const [data, setStudents] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
-  const [studentForm, setStudentForm] = useState({
+  const [Form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
   });
+  const collection = "students";
+  const x = "estudiante";
 
   useEffect(() => {
     fetchStudents();
   }, []);
 
   const fetchStudents = async () => {
-    const studentsData = await getStudents();
-    setStudents(studentsData);
+    const Data = await fetchData(collection);
+    const sortedData = Data.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+
+    setStudents(sortedData);
   };
 
-  const handleEdit = (index) => {
-    setEditingIndex(index);
-    setStudentForm(students[index]);
+  const handleEdit = async (data) => {
+    const { id } = data;
+    try {
+      setEditingIndex(id);
+      getItem(collection, id);
+    } catch (error) {}
+    setEditingIndex(id);
+
+    setForm(data);
   };
 
-  const handleDelete = (index) => {
-    if (!window.confirm("¿Eliminar estudiante?")) return;
-    const newStudents = students.filter((_, i) => i !== index);
-    setStudents(newStudents);
-    saveStudentsToFile(newStudents);
+  const handleDelete = async (id) => {
+    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
+    try {
+      await deleteItem(collection, id);
+      fetchData(); //
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
   };
 
   const handleChange = (e) => {
-    setStudentForm({ ...studentForm, [e.target.name]: e.target.value });
+    setForm({ ...Form, [e.target.name]: e.target.value });
   };
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setStudentForm({ firstName: "", lastName: "", email: "" });
+    setForm({ firstName: "", lastName: "", email: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newStudents =
-      editingIndex === -1 ? [...students, studentForm] : students.map((s, i) => (i === editingIndex ? studentForm : s));
-    setStudents(newStudents);
-    saveStudentsToFile(newStudents);
-    setStudentForm({ firstName: "", lastName: "", email: "" });
-    setEditingIndex(-1);
-  };
 
-  const saveStudentsToFile = (data) => {
-    const filePath = path.resolve(__dirname, "../../files/students.json");
-    fs.writeFileSync(filePath, JSON.stringify({ students: data }, null, 2), "utf-8");
-    alert("Estudiantes guardados");
+    try {
+      if (editingIndex === -1) {
+        await addItem(collection, Form);
+        alert(x + " agregado");
+      } else {
+        await saveItem(collection, editingIndex, Form, { merge: true });
+        alert(x + " actualizado");
+        setEditingIndex(-1);
+      }
+      fetchData();
+      handleAdd();
+    } catch (error) {
+      console.error("Error adding/updating " + x + ":", error);
+    }
   };
 
   return (
@@ -71,7 +85,7 @@ const StudentsEdit = () => {
             <label>Nombre:</label>
             <input
               name="firstName"
-              value={studentForm.firstName}
+              value={Form.firstName}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -80,7 +94,7 @@ const StudentsEdit = () => {
             <label>Apellido:</label>
             <input
               name="lastName"
-              value={studentForm.lastName}
+              value={Form.lastName}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -90,7 +104,7 @@ const StudentsEdit = () => {
             <label>Director:</label>
             <input
               name="director"
-              value={studentForm.director}
+              value={Form.director}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -99,7 +113,7 @@ const StudentsEdit = () => {
             <label>Codirector:</label>
             <input
               name="codirector"
-              value={studentForm.codirector}
+              value={Form.codirector}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -108,7 +122,7 @@ const StudentsEdit = () => {
             <label>Tema de Tesis:</label>
             <input
               name="thesis_topic"
-              value={studentForm.thesis_topic}
+              value={Form.thesis_topic}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -117,7 +131,7 @@ const StudentsEdit = () => {
             <label>Programa:</label>
             <input
               name="program"
-              value={studentForm.program}
+              value={Form.program}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
             />
@@ -128,7 +142,7 @@ const StudentsEdit = () => {
         </form>
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Estudiantes Existentes</h2>
-        <StudentsEditCard students={students} handleEdit={handleEdit} handleDelete={handleDelete} />
+        <StudentsEditCard students={data} handleEdit={handleEdit} handleDelete={handleDelete} />
       </div>
     </div>
   );

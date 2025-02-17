@@ -21,10 +21,10 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
             </p>
           </div>
           <div className="space-x-2">
-            <button onClick={() => handleEdit(index)} className="bg-yellow-500 text-white py-1 px-3 rounded">
+            <button onClick={() => handleEdit(student)} className="bg-yellow-500 text-white py-1 px-3 rounded">
               Editar
             </button>
-            <button onClick={() => handleDelete(index)} className="bg-red-600 text-white py-1 px-3 rounded">
+            <button onClick={() => handleDelete(student.id)} className="bg-red-600 text-white py-1 px-3 rounded">
               Eliminar
             </button>
           </div>

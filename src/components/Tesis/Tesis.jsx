@@ -4,27 +4,42 @@ import { Dialog, Transition } from "@headlessui/react";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
-import { getTesis } from "../../firebase/CRUD";
+import { fetchData } from "../../firebase/CRUD";
 
 const Tesis = () => {
-  const [tesis, setTesis] = useState([]);
+  const [data, setData] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
   const [selectedType, setSelectedType] = useState("all");
   const [filteredTesis, setFilteredTesis] = useState([]);
   const [showStats, setShowStats] = useState(false);
+  const collection = "tesis";
+  const x = "tesis";
 
   // Obtener datos de Firestore
   useEffect(() => {
-    const fetchTesis = async () => {
-      const tesisData = await getTesis();
-      setTesis(tesisData);
-    };
     fetchTesis();
-  }, []);
+  }, []); // <-- Importante: El useEffect solo se ejecuta al montar el componente
+
+  const fetchTesis = async () => {
+    const Data = await fetchData(collection);
+    const tesisData = Data.map((doc) => ({
+      id: doc.id,
+      ...doc,
+      year: Number(doc.year),
+    }));
+
+    tesisData.sort((a, b) => {
+      if (b.year !== a.year) {
+        return b.year - a.year;
+      }
+    });
+
+    setData(tesisData);
+  };
 
   // Filtrar datos según el tipo y los años seleccionados
   useEffect(() => {
-    let allTesis = [...tesis];
+    let allTesis = [...data];
     if (selectedType !== "all") {
       allTesis = allTesis.filter((t) => t.tag === selectedType);
     }
@@ -32,7 +47,7 @@ const Tesis = () => {
       allTesis = allTesis.filter((t) => selectedYears.includes(t.year));
     }
     setFilteredTesis(allTesis);
-  }, [tesis, selectedYears, selectedType]);
+  }, [data, selectedYears, selectedType]);
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
@@ -44,13 +59,13 @@ const Tesis = () => {
   };
 
   // Obtener años únicos de Firestore
-  const years = [...new Set(tesis.map((t) => t.year))].sort((a, b) => b - a);
+  const years = [...new Set(data.map((t) => t.year))].sort((a, b) => b - a);
 
   // Generar datos para el gráfico
   const chartData = years.map((year) => ({
     year,
-    doctorado: tesis.filter((t) => t.year === year && t.tag === "doctorado").length,
-    maestria: tesis.filter((t) => t.year === year && t.tag === "maestria").length,
+    doctorado: data.filter((t) => t.year === year && t.tag === "doctorado").length,
+    maestria: data.filter((t) => t.year === year && t.tag === "maestria").length,
   }));
 
   return (

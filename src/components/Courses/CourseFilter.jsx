@@ -1,7 +1,7 @@
 import React from "react";
 
 const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selectedSemester, setSelectedSemester }) => {
-  if (!years || years.length === 0) return <div>Loading...</div>; // O algún mensaje de carga o estado vacío
+  if (!years || years.length === 0) return <div>Loading...</div>;
 
   return (
     <div>
@@ -25,7 +25,7 @@ const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selecte
       <select
         value={selectedSemester}
         onChange={(e) => setSelectedSemester(e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md mt-4"
       >
         <option value="">Seleccionar semestre</option>
         {semesters.map((semester) => (

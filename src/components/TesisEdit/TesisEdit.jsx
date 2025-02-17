@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-
-import { getTesis } from "../../firebase/CRUD";
-import { collection, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase/dbConnection";
 import TesisEditItem from "./TesisEditItem";
+import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
 
 const TesisEdit = () => {
   const [editingIndex, setEditingIndex] = useState(-1);
-  const [tesisForm, setTesisForm] = useState({
+  const [Form, setForm] = useState({
     year: "",
     name: "",
     title: "",
@@ -16,45 +13,59 @@ const TesisEdit = () => {
     co_director: "",
     tag: "maestria",
   });
-  const [tesisList, setTesis] = useState([]);
+  const [data, setData] = useState([]);
+  const collection = "tesis";
+  const x = "tesis";
 
   useEffect(() => {
     fetchTesis();
-  }, []);
+  }, [data]);
 
   const fetchTesis = async () => {
-    const tesisData = await getTesis();
-    setTesis(tesisData);
+    const Data = await fetchData(collection);
+    const tesisData = Data.map((doc) => ({
+      id: doc.id,
+      ...doc,
+      year: Number(doc.year),
+    }));
+
+    tesisData.sort((a, b) => {
+      if (b.year !== a.year) {
+        return b.year - a.year;
+      }
+    });
+
+    setData(tesisData);
   };
 
   const handleEdit = async (data) => {
+    const { id } = data;
     try {
-      setEditingIndex(data.id);
-      getDoc(doc(db, "tesis", data.id));
-    } catch (error) {
-      setEditingIndex(data.id);
-    }
+      setEditingIndex(id);
+      getItem(collection, id);
+    } catch (error) {}
+    setEditingIndex(id);
 
-    setTesisForm(data);
+    setForm(data);
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Eliminar tesis?")) return;
+    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
     try {
-      await deleteDoc(doc(db, "tesis", id));
-      fetchTesis();
+      await deleteItem(collection, id);
+      fetchData(); // <-- Actualiza la lista después de eliminar
     } catch (error) {
-      console.log("Error deleting tesis: ", error);
+      console.error("Error deleting:", error);
     }
   };
 
   const handleChange = (e) => {
-    setTesisForm({ ...tesisForm, [e.target.name]: e.target.value });
+    setForm({ ...Form, [e.target.name]: e.target.value });
   };
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setTesisForm({
+    setForm({
       year: "",
       name: "",
       title: "",
@@ -70,18 +81,18 @@ const TesisEdit = () => {
 
     try {
       if (editingIndex === -1) {
-        await addDoc(collection(db, "tesis"), tesisForm);
-        alert("Tesis agregado a Firestore");
+        await addItem(collection, Form);
+        alert(x + " agregado");
       } else {
-        await setDoc(doc(db, "tesis", editingIndex), tesisForm, { merge: true });
-        alert("Tesis actualizado en Firestore");
+        await saveItem(collection, editingIndex, Form, { merge: true });
+        alert(x + " actualizado");
         setEditingIndex(-1);
       }
-      fetchTesis();
-      handleAdd();
     } catch (error) {
-      console.error("Error adding/updating tesis:", error);
+      console.error("Error adding/updating " + x + ":", error);
     }
+    fetchData();
+    handleAdd();
   };
 
   return (
@@ -96,7 +107,7 @@ const TesisEdit = () => {
             <label>Año:</label>
             <input
               name="year"
-              value={tesisForm.year}
+              value={Form.year}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -105,7 +116,7 @@ const TesisEdit = () => {
             <label>Nombre:</label>
             <input
               name="name"
-              value={tesisForm.name}
+              value={Form.name}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -114,7 +125,7 @@ const TesisEdit = () => {
             <label>Título:</label>
             <input
               name="title"
-              value={tesisForm.title}
+              value={Form.title}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -123,7 +134,7 @@ const TesisEdit = () => {
             <label>URL:</label>
             <input
               name="url"
-              value={tesisForm.url}
+              value={Form.url}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -132,7 +143,7 @@ const TesisEdit = () => {
             <label>Director:</label>
             <input
               name="director"
-              value={tesisForm.director}
+              value={Form.director}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -141,7 +152,7 @@ const TesisEdit = () => {
             <label>Co-Director:</label>
             <input
               name="co_director"
-              value={tesisForm.co_director}
+              value={Form.co_director}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
@@ -150,7 +161,7 @@ const TesisEdit = () => {
             <label>Tag:</label>
             <select
               name="tag"
-              value={tesisForm.tag}
+              value={Form.tag}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
             >
@@ -165,7 +176,7 @@ const TesisEdit = () => {
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Tesis Existentes</h2>
         <div>
-          {tesisList.map((t, index) => (
+          {data.map((t, index) => (
             <TesisEditItem t={t} handleEdit={handleEdit} handleDelete={handleDelete} />
           ))}
         </div>

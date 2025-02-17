@@ -1,36 +1,29 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProfessorCard from "./ProfessorCard";
 import NameFilter from "../Filter/NameFilter";
-import { db } from "../../firebase/dbConnection";
-import { collection, getDocs } from "firebase/firestore";
+import { fetchData } from "../../firebase/CRUD";
 
 const Professors = () => {
   const [filterLastName, setFilterLastName] = useState("");
   const [filterFirstName, setFilterFirstName] = useState("");
-  const [professors, setProfessors] = useState([]);
+  const [data, setData] = useState([]);
+  const collection = "professors";
+  const x = "profesor";
 
   useEffect(() => {
-    const getProfessors = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "professors"));
-        const professorsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Ordenar por firstName en orden ascendente
-        professorsData.sort((a, b) => a.firstName.localeCompare(b.firstName));
-
-        setProfessors(professorsData);
-      } catch (error) {
-        console.error("Error fetching professors:", error);
-      }
-    };
-    getProfessors();
+    fetchProfessors();
   }, []);
 
+  const fetchProfessors = async () => {
+    const Data = await fetchData(collection);
+
+    const sortedData = Data.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+
+    setData(sortedData);
+  };
+
   const filteredProfessors = useMemo(() => {
-    let filtered = professors;
+    let filtered = data;
     if (filterLastName) {
       filtered = filtered.filter((prof) => prof.lastName.toUpperCase().startsWith(filterLastName.toUpperCase()));
     }
@@ -38,7 +31,7 @@ const Professors = () => {
       filtered = filtered.filter((prof) => prof.firstName.toLowerCase().includes(filterFirstName.toLowerCase()));
     }
     return filtered;
-  }, [filterLastName, filterFirstName, professors]);
+  }, [filterLastName, filterFirstName, data]);
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white">

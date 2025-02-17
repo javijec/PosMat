@@ -7,7 +7,7 @@ const ProfessorCard = ({ professor, onClick }) => {
       className="bg-white rounded-xl shadow-sm p-8 cursor-pointer hover:shadow-lg transition-all duration-300 border border-gray-100 group"
     >
       <p className="font-semibold text-xl text-gray-900 group-hover:text-blue-600 transition-colors">
-        {`${professor.title} ${professor.firstName} ${professor.lastName}`}
+        {`${professor.title} ${professor.lastName},  ${professor.firstName} `}
       </p>
       <p className="text-gray-600 mt-2">{professor.email}</p>
     </div>

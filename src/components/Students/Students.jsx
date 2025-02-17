@@ -1,23 +1,29 @@
 import React, { useState, useMemo, useEffect } from "react";
 import StudentCard from "./StudentCard";
 import NameFilter from "../Filter/NameFilter";
-import { getStudents } from "../../firebase/CRUD";
+import { fetchData } from "../../firebase/CRUD";
 
 const Students = () => {
   const [filterLastName, setFilterLastName] = useState("");
   const [filterFirstName, setFilterFirstName] = useState("");
-  const [students, setStudents] = useState([]);
+  const [data, setData] = useState([]);
+  const collection = "students";
+  const x = "estudiante";
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      const studentsData = await getStudents();
-      setStudents(studentsData);
-    };
     fetchStudents();
   }, []);
 
+  const fetchStudents = async () => {
+    const Data = await fetchData(collection);
+
+    const sortedData = Data.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+
+    setData(sortedData);
+  };
+
   const filteredStudents = useMemo(() => {
-    let filtered = students;
+    let filtered = data;
     if (filterLastName) {
       filtered = filtered.filter((student) =>
         (student.lastName || "").toUpperCase().startsWith(filterLastName.toUpperCase())
@@ -29,7 +35,7 @@ const Students = () => {
       );
     }
     return filtered;
-  }, [filterLastName, filterFirstName, students]);
+  }, [filterLastName, filterFirstName, data]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">

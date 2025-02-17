@@ -1,90 +1,79 @@
 import React, { useState, useEffect, useMemo } from "react";
 import CourseCard from "./CourseCard";
 import CourseFilter from "./CourseFilter";
-import { db } from "../../firebase/dbConnection";
-import { collection, getDocs } from "firebase/firestore";
+import { fetchData } from "../../firebase/CRUD";
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
+  const [data, setData] = useState([]);
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedSemester, setSelectedSemester] = useState("");
+
+  const collection = "courses";
 
   useEffect(() => {
-    const getCourses = async () => {
-      try {
-        const data = await getDocs(collection(db, "courses"));
-        const coursesData = data.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Ordenar por año, luego por semestre (semestre 1 primero)
-        coursesData.sort((a, b) => {
-          // Ordenar por año (descendente)
-          if (a.year !== b.year) {
-            return b.year - a.year; // Mayor a menor
-          }
-
-          // Ordenar por semestre (1 antes que 2)
-          return a.semester - b.semester;
-        });
-
-        setCourses(coursesData);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-
-    getCourses();
+    fetchCourses();
   }, []);
 
+  const fetchCourses = async () => {
+    try {
+      const Data = await fetchData(collection);
+
+      if (!Data || !Array.isArray(Data)) {
+        console.error("Error: Data no es un array válido");
+        setData([]);
+        return;
+      }
+
+      const coursesData = Data.map((doc) => ({
+        id: doc.id,
+        ...doc,
+        año: Number(doc.año),
+        semestre: Number(doc.semestre),
+      }));
+
+      coursesData.sort((a, b) => {
+        if (b.año !== a.año) {
+          return b.año - a.año;
+        }
+        return a.semestre - b.semestre;
+      });
+
+      setData(coursesData);
+    } catch (error) {
+      console.error("Error al obtener cursos:", error);
+      setData([]);
+    }
+  };
+
   const { years, semesters } = useMemo(() => {
-    const years = [...new Set(courses.map((c) => c.año).filter((year) => year !== undefined && year !== null))].sort(
+    const years = [...new Set(data.map((c) => c.año).filter((year) => year !== undefined && year !== null))].sort(
       (a, b) => b - a
     );
     const semesters = [1, 2];
     return { years, semesters };
-  }, [courses]);
+  }, [data]);
 
-  // Estado de los filtros
-  const [selectedYear, setSelectedYear] = useState(years[0] || "");
-  const [selectedSemester, setSelectedSemester] = useState("");
+  // Establecer el año seleccionado después de que los datos se carguen
+  useEffect(() => {
+    if (years.length > 0 && !selectedYear) {
+      setSelectedYear(years[0]);
+    }
+  }, [years]);
 
   // Filtrar cursos según los filtros seleccionados
   const filteredCourses = useMemo(() => {
-    let filtered = [...courses];
+    let filtered = [...data];
 
     if (selectedYear) {
-      filtered = filtered.filter((course) => course.año === selectedYear);
+      filtered = filtered.filter((course) => course.año === Number(selectedYear));
     }
 
     if (selectedSemester) {
-      filtered = filtered.filter((course) => course.semestre === selectedSemester);
+      filtered = filtered.filter((course) => course.semestre === Number(selectedSemester));
     }
 
     return filtered;
-  }, [selectedYear, selectedSemester, courses]);
-
-  const getSemesterTag = (semester) => {
-    const num = Number(semester);
-    if (num === 1) {
-      return "bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm font-medium ml-2";
-    } else if (num === 2) {
-      return "bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium ml-2";
-    } else {
-      return "bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm font-medium ml-2";
-    }
-  };
-
-  // Agrupar cursos por año
-  const groupedByYear = useMemo(() => {
-    const group = {};
-    courses.forEach((course) => {
-      if (!group[course.año]) {
-        group[course.año] = [];
-      }
-      group[course.año].push(course);
-    });
-    return group;
-  }, [courses]);
+  }, [selectedYear, selectedSemester, data]);
 
   // Agrupar cursos por semestre dentro del año
   const groupedBySemester = useMemo(() => {
@@ -98,8 +87,6 @@ const Courses = () => {
     });
     return group;
   }, [filteredCourses]);
-
-  const yearsToDisplay = selectedYear ? [selectedYear] : Object.keys(groupedByYear).sort((a, b) => b - a);
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
@@ -120,32 +107,24 @@ const Courses = () => {
 
           <div className="lg:col-span-3 mt-8 lg:mt-0">
             <div className="space-y-8">
-              {yearsToDisplay.map((year) => (
-                <div key={year} className="w-full px-3 py-2 border border-gray-300 rounded-md">
-                  <h2 className="text-3xl font-semibold mb-4">{year}</h2>
+              {Object.keys(groupedBySemester)
+                .sort((a, b) => b.split("-")[0] - a.split("-")[0]) // Ordenar por año
+                .map((yearSemester) => {
+                  const [year, semester] = yearSemester.split("-");
+                  const semesterCourses = groupedBySemester[yearSemester];
 
-                  {Object.keys(groupedBySemester)
-                    .filter((key) => key.startsWith(year))
-                    .map((yearSemester) => {
-                      const [year, semester] = yearSemester.split("-");
-                      const semesterCourses = groupedBySemester[yearSemester];
-
-                      return (
-                        <div key={yearSemester} className="mb-6">
-                          <h3 className="text-xl font-semibold mb-2">{semester}° Semestre</h3>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {semesterCourses.map((course, index) => (
-                              <div key={index} className="relative">
-                                <CourseCard course={course} index={index} />
-                                <span className={getSemesterTag(course.semestre)}>{course.semestre}° Semestre</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              ))}
+                  return (
+                    <div key={yearSemester} className="mb-6">
+                      <h2 className="text-3xl font-semibold mb-4">{year}</h2>
+                      <h3 className="text-xl font-semibold mb-2">{semester}° Semestre</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {semesterCourses.map((course, index) => (
+                          <CourseCard key={index} course={course} index={index} />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
