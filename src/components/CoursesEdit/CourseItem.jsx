@@ -8,7 +8,10 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           {course.nombre}-{course.año}-{course.semestre} semestre
         </h3>
         <p className="text-gray-600">
-          {course.horasTeoricas} HT, {course.horasPracticas} HP, {course.horasTP} HT-HP, {course.uvacs} UVACS
+          {course.horasTeoricas > 0 && <span className="text-gray-700">{course.horasTeoricas} HT, </span>}
+          {course.horasPracticas > 0 && <span className="text-gray-700">{course.horasPracticas} HP, </span>}
+          {course.horasTP > 0 && <span className="text-gray-700">{course.horasTP} HT-HP, </span>}
+          {course.uvacs} UVACS
         </p>
         {course.fechaInicio && <p className="text-gray-600">Inicio: {course.fechaInicio}</p>}
         {course.lugar && <p className="text-gray-600">Lugar: {course.lugar}</p>}
