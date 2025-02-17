@@ -9,13 +9,17 @@ const StudentsEdit = () => {
     firstName: "",
     lastName: "",
     email: "",
+    director: "",
+    codirector: "",
+    thesis_topic: "",
+    program: "",
   });
   const collection = "students";
   const x = "estudiante";
 
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [data]);
 
   const fetchStudents = async () => {
     const Data = await fetchData(collection);
@@ -51,7 +55,7 @@ const StudentsEdit = () => {
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setForm({ firstName: "", lastName: "", email: "" });
+    setForm({ firstName: "", lastName: "", email: "", director: "", codirector: "", thesis_topic: "", program: "" });
   };
 
   const handleSubmit = async (e) => {
@@ -66,11 +70,11 @@ const StudentsEdit = () => {
         alert(x + " actualizado");
         setEditingIndex(-1);
       }
-      fetchData();
-      handleAdd();
     } catch (error) {
       console.error("Error adding/updating " + x + ":", error);
     }
+    fetchData();
+    handleAdd();
   };
 
   return (
