@@ -1,8 +1,12 @@
-// src/context/AuthContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/dbConnection";
 import { db } from "../firebase/dbConnection";
-import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword as firebaseSignIn,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 const AuthContext = createContext();
@@ -14,24 +18,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Verificar si el email está autorizado
   const checkAuthorizedEmail = async (email) => {
     const q = query(collection(db, "authorizedEmails"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
     return !querySnapshot.empty;
   };
 
-  // Google Sign In con verificación
-  const signInWithGoogle = async () => {
+  const loginUser = async (email, password) => {
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
+      const result = await firebaseSignIn(auth, email, password);
 
-      // Verificar si el email está autorizado
       const isAuthorized = await checkAuthorizedEmail(result.user.email);
 
       if (!isAuthorized) {
-        await signOut(auth); // Cerrar sesión si no está autorizado
+        await signOut(auth);
         throw new Error("Email no autorizado. Contacta al administrador.");
       }
 
@@ -43,7 +43,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Sign Out
+  const signUpWithEmailAndPassword = async (email, password) => {
+    try {
+      // Primero verificamos si el email está autorizado
+      const isAuthorized = await checkAuthorizedEmail(email);
+
+      if (!isAuthorized) {
+        throw new Error("Email no autorizado. Contacta al administrador.");
+      }
+
+      // Si está autorizado, procedemos a crear el usuario
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      return result.user;
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      setError(error.message);
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -54,19 +72,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Escuchar cambios en el estado de autenticación
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   const value = {
     user,
-    signInWithGoogle,
+    signInWithEmailAndPassword: loginUser,
+    signUpWithEmailAndPassword,
     logout,
     error,
   };

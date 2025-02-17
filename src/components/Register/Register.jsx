@@ -1,22 +1,22 @@
-// src/components/Login/Login.jsx
+// src/components/Register/Register.jsx
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { NavLink } from "react-router-dom";
 
-const Login = () => {
-  const { signInWithEmailAndPassword, error } = useAuth();
+const Register = () => {
+  const { signUpWithEmailAndPassword, error } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(email, password);
-      navigate("/"); // Redirect to home page after successful login
+      await signUpWithEmailAndPassword(email, password);
+      navigate("/"); // Redirect to home page after successful registration
     } catch (error) {
-      console.error("Error signing in:", error);
+      console.error("Error signing up:", error);
     }
   };
 
@@ -24,9 +24,9 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Iniciar sesión en tu cuenta</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Registrar una nueva cuenta</h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSignIn}>
+        <form className="mt-8 space-y-6" onSubmit={handleSignUp}>
           <div>
             <label htmlFor="email" className="sr-only">
               Correo electrónico
@@ -64,16 +64,16 @@ const Login = () => {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Iniciar sesión
+              Registrarse
             </button>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </form>
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            ¿No tienes una cuenta?{" "}
-            <NavLink to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-              Regístrate
+            ¿Ya tienes una cuenta?{" "}
+            <NavLink to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+              Inicia sesión
             </NavLink>
           </p>
         </div>
@@ -82,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

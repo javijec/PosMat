@@ -1,3 +1,4 @@
+// src/components/Header/Header.jsx
 import React from "react";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Link, NavLink } from "react-router-dom";
@@ -43,13 +44,11 @@ const menuItems = [
 ];
 
 const Header = () => {
-  const { user, signInWithGoogle, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleAuth = async () => {
     if (user) {
       await logout();
-    } else {
-      await signInWithGoogle();
     }
   };
 
@@ -128,12 +127,9 @@ const Header = () => {
                   <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
                     <Menu.Item>
                       {({ active }) => (
-                        <button
-                          onClick={handleAuth}
-                          className={`w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
-                        >
+                        <NavLink to="/login" className={`block px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}>
                           Ingresar
-                        </button>
+                        </NavLink>
                       )}
                     </Menu.Item>
                   </Menu.Items>
@@ -187,9 +183,9 @@ const Header = () => {
                     </button>
                   </>
                 ) : (
-                  <button onClick={handleAuth} className="w-full px-4 py-2 text-left hover:bg-gray-700">
+                  <NavLink to="/login" className="w-full px-4 py-2 text-left hover:bg-gray-700">
                     Ingresar
-                  </button>
+                  </NavLink>
                 )}
               </div>
             </nav>

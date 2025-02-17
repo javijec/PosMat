@@ -1,62 +1,54 @@
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, getDoc, collection, doc, setDoc, deleteDoc, addDoc } from "firebase/firestore";
 import { db } from "./dbConnection";
 
-const getStudents = async () => {
+const fetchData = async (collectionName) => {
   try {
-    const querySnapshot = await getDocs(collection(db, "students"));
-    const studentsData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    studentsData.sort((a, b) => a.lastName.localeCompare(b.lastName));
-    return studentsData;
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    console.error("Error fetching students:", error);
-  }
-};
-
-const getTesis = async () => {
-  try {
-    const querySnapshot = await getDocs(collection(db, "tesis"));
-    const tesisData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    tesisData.sort((a, b) => {
-      // Ordenar por año
-      if (a.year !== b.year) {
-        return a.year - b.year;
-      }
-
-      // Si el año es el mismo, ordenar por tipo (doctorado primero)
-      if (a.tipo === "Doctorado" && b.tipo !== "Doctorado") {
-        return -1; // a debe ir antes
-      } else if (a.tipo !== "Doctorado" && b.tipo === "Doctorado") {
-        return 1; // b debe ir antes
-      }
-
-      // Si el tipo es el mismo, ordenar por nombre
-      return a.name.localeCompare(b.name);
-    });
-    console.log(tesisData);
-    return tesisData;
-  } catch (error) {
-    console.error("Error fetching tesis:", error);
-  }
-};
-
-const getCourses = async () => {
-  try {
-    const data = await getDocs(collection(db, "courses"));
-    const coursesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    coursesData.sort((a, b) => parseInt(b.año) - parseInt(a.año));
-    return coursesData;
-  } catch (error) {
-    console.error("Error fetching courses:", error);
-
+    console.error(`Error fetching ${collectionName}:`, error);
     return [];
   }
 };
 
-export { getStudents, getTesis, getCourses };
+const getItem = async (collectionName, id) => {
+  try {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
+  } catch (error) {
+    console.error(`Error getting item from ${collectionName}:`, error);
+  }
+};
+
+const saveItem = async (collectionName, id, data) => {
+  try {
+    await setDoc(doc(db, collectionName, id), data, { merge: true });
+    return true;
+  } catch (error) {
+    console.error(`Error saving item to ${collectionName}:`, error);
+    return false;
+  }
+};
+
+const addItem = async (collectionName, data) => {
+  try {
+    const docRef = await addDoc(collection(db, collectionName), data);
+    return docRef.id;
+  } catch (error) {
+    console.error(`Error adding item to ${collectionName}:`, error);
+    return null;
+  }
+};
+
+const deleteItem = async (collectionName, id) => {
+  try {
+    await deleteDoc(doc(db, collectionName, id));
+    return true;
+  } catch (error) {
+    console.error(`Error deleting item from ${collectionName}:`, error);
+    return false;
+  }
+};
+
+export { fetchData, getItem, saveItem, addItem, deleteItem };

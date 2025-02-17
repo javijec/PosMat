@@ -1,7 +1,6 @@
-// src/components/AuthorizedEmails/AuthorizedEmails.jsx
 import { useState, useEffect } from "react";
 import { db } from "../../firebase/dbConnection";
-import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
+import { collection, setDoc, getDocs, deleteDoc, doc, query, where } from "firebase/firestore";
 
 const AuthorizedEmails = () => {
   const [email, setEmail] = useState("");
@@ -34,11 +33,6 @@ const AuthorizedEmails = () => {
   const handleAddEmail = async (e) => {
     e.preventDefault();
 
-    if (!email.endsWith("@gmail.com")) {
-      setError("Solo se permiten correos de Gmail");
-      return;
-    }
-
     try {
       // Verificar si el email ya existe
       const q = query(collection(db, "authorizedEmails"), where("email", "==", email));
@@ -49,7 +43,8 @@ const AuthorizedEmails = () => {
         return;
       }
 
-      const docRef = await addDoc(collection(db, "authorizedEmails"), {
+      // Guardar el documento con el email como ID
+      await setDoc(doc(db, "authorizedEmails", email), {
         email: email,
         createdAt: new Date().toISOString(),
       });
@@ -57,7 +52,7 @@ const AuthorizedEmails = () => {
       setAuthorizedEmails([
         ...authorizedEmails,
         {
-          id: docRef.id,
+          id: email, // Ahora el ID es el email
           email: email,
           createdAt: new Date().toISOString(),
         },

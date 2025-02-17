@@ -25,6 +25,7 @@ import Rules from "./components/Rules/Rules.jsx";
 import Login from "./components/login/login.jsx";
 import Logout from "./components/Logout/Logout";
 import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
+import Register from "./components/Register/Register.jsx";
 
 function App() {
   return (
@@ -38,8 +39,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/logout" element={<Logout />} />
-
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/courses" element={<Courses />} />
@@ -60,7 +61,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-
                 <Route path="/archivos" element={<Archivos />} />
                 <Route path="/tesis" element={<Tesis />} />
                 <Route
