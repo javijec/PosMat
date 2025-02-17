@@ -15,7 +15,7 @@ const ProfessorsEdit = () => {
 
   useEffect(() => {
     fetchProfessors();
-  }, []);
+  }, [data]);
 
   const fetchProfessors = async () => {
     const Data = await fetchData(collection);
@@ -67,11 +67,11 @@ const ProfessorsEdit = () => {
         alert(x + " actualizado");
         setEditingIndex(-1);
       }
-      fetchData();
-      handleAdd();
     } catch (error) {
       console.error("Error adding/updating " + x + ":", error);
     }
+    fetchData();
+    handleAdd();
   };
 
   return (
