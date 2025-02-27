@@ -26,6 +26,7 @@ import Login from "./components/login/login.jsx";
 import Logout from "./components/Logout/Logout";
 import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
+import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
 
 function App() {
   return (
@@ -68,6 +69,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <TesisEdit />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/links/edit"
+                  element={
+                    <ProtectedRoute>
+                      <LinksEdit />
                     </ProtectedRoute>
                   }
                 />

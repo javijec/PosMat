@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CourseItem from "./CourseItem";
-import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import {
+  fetchData,
+  getItem,
+  saveItem,
+  addItem,
+  deleteItem,
+} from "../../firebase/CRUD";
 
 const CoursesEdit = () => {
   const [data, setData] = useState([]);
@@ -22,7 +28,7 @@ const CoursesEdit = () => {
 
   useEffect(() => {
     fetchCourses();
-  }, [data]); // <-- Importante: El useEffect solo se ejecuta al montar el componente
+  }, [data]);
 
   const fetchCourses = async () => {
     const Data = await fetchData(collection);
@@ -33,7 +39,7 @@ const CoursesEdit = () => {
     if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
     try {
       await deleteItem(collection, id);
-      fetchData(); // <-- Actualiza la lista después de eliminar
+      fetchData();
     } catch (error) {
       console.error("Error deleting:", error);
     }
@@ -56,7 +62,10 @@ const CoursesEdit = () => {
 
   const handleAddProfessor = () => {
     if (profesorNombre.trim()) {
-      const nuevosProfesores = [...Form.profesores, { nombre: profesorNombre, email: profesorEmail }];
+      const nuevosProfesores = [
+        ...Form.profesores,
+        { nombre: profesorNombre, email: profesorEmail },
+      ];
       setForm({ ...Form, profesores: nuevosProfesores });
       setProfesorNombre("");
       setProfesorEmail("");
@@ -116,7 +125,9 @@ const CoursesEdit = () => {
         </button>
         <form onSubmit={handleSubmit} className="mb-8 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Nombre del Curso</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Nombre del Curso
+            </label>
             <input
               name="nombre"
               value={Form.nombre}
@@ -126,7 +137,9 @@ const CoursesEdit = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Horas Teóricas</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Horas Teóricas
+              </label>
               <input
                 name="horasTeoricas"
                 value={Form.horasTeoricas}
@@ -135,7 +148,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Horas Prácticas</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Horas Prácticas
+              </label>
               <input
                 name="horasPracticas"
                 value={Form.horasPracticas}
@@ -144,7 +159,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Horas Teórico-Prácticas</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Horas Teórico-Prácticas
+              </label>
               <input
                 name="horasTP"
                 value={Form.horasTP}
@@ -155,7 +172,9 @@ const CoursesEdit = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">UVACS</label>
+              <label className="block text-sm font-medium text-gray-700">
+                UVACS
+              </label>
               <input
                 name="uvacs"
                 value={Form.uvacs}
@@ -164,7 +183,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Año</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Año
+              </label>
               <input
                 name="año"
                 value={Form.año}
@@ -173,7 +194,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Semestre</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Semestre
+              </label>
               <select
                 name="semeste"
                 value={Form.semestre}
@@ -186,10 +209,14 @@ const CoursesEdit = () => {
             </div>
           </div>
           <div className="border p-4 rounded-md">
-            <h3 className="text-lg font-semibold mb-2">Profesor(es) y Mail de Contacto</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Profesor(es) y Mail de Contacto
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Nombre del Profesor</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Nombre del Profesor
+                </label>
                 <input
                   value={profesorNombre}
                   onChange={(e) => setProfesorNombre(e.target.value)}
@@ -197,7 +224,9 @@ const CoursesEdit = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Mail de Contacto</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Mail de Contacto
+                </label>
                 <input
                   value={profesorEmail}
                   onChange={(e) => setProfesorEmail(e.target.value)}
@@ -233,7 +262,9 @@ const CoursesEdit = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Fecha de Inicio</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Fecha de Inicio
+              </label>
               <input
                 name="fechaInicio"
                 value={Form.fechaInicio}
@@ -243,7 +274,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Lugar de Cursada</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Lugar de Cursada
+              </label>
               <input
                 name="lugar"
                 value={Form.lugar}
@@ -252,7 +285,9 @@ const CoursesEdit = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Humanistico</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Humanistico
+              </label>
               <select
                 name="humanistico"
                 value={Form.humanistico}

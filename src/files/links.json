@@ -1,104 +1,98 @@
-{
-  "categories": [
+[
     {
-      "title": "Becas",
-      "links": [
-        {
-          "name": "Concurso Beca FONCyT",
-          "url": "#",
-          "description": "Más información"
-        },
-        {
-          "name": "CONICET",
-          "url": "https://www.conicet.gov.ar",
-          "description": "Consejo Nacional de Investigaciones Científicas y Técnicas"
-        },
-        {
-          "name": "Ministerio de Educación",
-          "url": "https://www.argentina.gob.ar/educacion",
-          "description": "Becas de Integración Regional para maestrías en universidades argentinas estatales"
-        },
-        {
-          "name": "CIC",
-          "url": "https://www.cic.gba.gob.ar/",
-          "description": "Comisión de Investigaciones Científicas Prov. de Buenos Aires"
-        },
-        {
-          "name": "UNMdP",
-          "url": "http://www.mdp.edu.ar",
-          "description": "Universidad Nacional de Mar del Plata"
-        },
-        {
-          "name": "Fundación YPF",
-          "url": "#",
-          "description": "Becas para Estudios de Posgrado"
-        },
-        {
-          "name": "Becas Fulbright",
-          "url": "https://fulbright.edu.ar/",
-          "description": "Programa de becas Fulbright"
-        }
-      ]
+      "name": "Concurso Beca FONCyT",
+      "url": "#",
+      "description": "Más información",
+      "category": "Becas"
     },
     {
-      "title": "Documentos de interés",
-      "links": [
-        {
-          "name": "Guide for PhD students",
-          "url": "#",
-          "description": "Guide for PhD students and post-docs aiming for a successful career in science"
-        },
-        {
-          "name": "¿Cómo escribir una tesis?",
-          "url": "#",
-          "description": "Guía para escribir una tesis"
-        },
-        {
-          "name": "Planning for a positive postdoc",
-          "url": "#",
-          "description": "Guía para postdoctorados"
-        }
-      ]
+      "name": "CONICET",
+      "url": "https://www.conicet.gov.ar",
+      "description": "Consejo Nacional de Investigaciones Científicas y Técnicas",
+      "category": "Becas"
     },
     {
-      "title": "Bibliotecas",
-      "links": [
-        {
-          "name": "Biblioteca de la Facultad de Ingeniería",
-          "url": "http://www.fi.mdp.edu.ar/biblioteca/",
-          "description": "UNMdP"
-        },
-        {
-          "name": "Biblioteca Electrónica de Ciencia y Tecnología",
-          "url": "https://www.biblioteca.mincyt.gob.ar/",
-          "description": "MINCyT"
-        }
-      ]
+      "name": "Ministerio de Educación",
+      "url": "https://www.argentina.gob.ar/educacion",
+      "description": "Becas de Integración Regional para maestrías en universidades argentinas estatales",
+      "category": "Becas"
     },
     {
-      "title": "Publicaciones",
-      "links": [
-        {
-          "name": "CIENCIA HOY",
-          "url": "#",
-          "description": "Revista de Divulgación Científica y Tecnológica"
-        },
-        {
-          "name": "Materials Today",
-          "url": "https://www.materialstoday.com/",
-          "description": "Revista científica de materiales"
-        },
-        {
-          "name": "Science Direct",
-          "url": "https://www.sciencedirect.com/",
-          "description": "Elsevier"
-        },
-        {
-          "name": "SCOPUS",
-          "url": "https://www.scopus.com/",
-          "description": "Elsevier"
-        }
-      ]
+      "name": "CIC",
+      "url": "https://www.cic.gba.gob.ar/",
+      "description": "Comisión de Investigaciones Científicas Prov. de Buenos Aires",
+      "category": "Becas"
+    },
+    {
+      "name": "UNMdP",
+      "url": "http://www.mdp.edu.ar",
+      "description": "Universidad Nacional de Mar del Plata",
+      "category": "Becas"
+    },
+    {
+      "name": "Fundación YPF",
+      "url": "#",
+      "description": "Becas para Estudios de Posgrado",
+      "category": "Becas"
+    },
+    {
+      "name": "Becas Fulbright",
+      "url": "https://fulbright.edu.ar/",
+      "description": "Programa de becas Fulbright",
+      "category": "Becas"
+    },
+    {
+      "name": "Guide for PhD students",
+      "url": "#",
+      "description": "Guide for PhD students and post-docs aiming for a successful career in science",
+      "category": "Documentos de interés"
+    },
+    {
+      "name": "¿Cómo escribir una tesis?",
+      "url": "#",
+      "description": "Guía para escribir una tesis",
+      "category": "Documentos de interés"
+    },
+    {
+      "name": "Planning for a positive postdoc",
+      "url": "#",
+      "description": "Guía para postdoctorados",
+      "category": "Documentos de interés"
+    },
+    {
+      "name": "Biblioteca de la Facultad de Ingeniería",
+      "url": "http://www.fi.mdp.edu.ar/biblioteca/",
+      "description": "UNMdP",
+      "category": "Bibliotecas"
+    },
+    {
+      "name": "Biblioteca Electrónica de Ciencia y Tecnología",
+      "url": "https://www.biblioteca.mincyt.gob.ar/",
+      "description": "MINCyT",
+      "category": "Bibliotecas"
+    },
+    {
+      "name": "CIENCIA HOY",
+      "url": "#",
+      "description": "Revista de Divulgación Científica y Tecnológica",
+      "category": "Publicaciones"
+    },
+    {
+      "name": "Materials Today",
+      "url": "https://www.materialstoday.com/",
+      "description": "Revista científica de materiales",
+      "category": "Publicaciones"
+    },
+    {
+      "name": "Science Direct",
+      "url": "https://www.sciencedirect.com/",
+      "description": "Elsevier",
+      "category": "Publicaciones"
+    },
+    {
+      "name": "SCOPUS",
+      "url": "https://www.scopus.com/",
+      "description": "Elsevier",
+      "category": "Publicaciones"
     }
   ]
-}
