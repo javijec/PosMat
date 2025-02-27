@@ -15,6 +15,7 @@ import Professors from "./components/Professors/Professors.jsx";
 import ProfessorsEdit from "./components/ProfessorsEdit/ProfessorsEdit.jsx";
 import Archivos from "./components/Archivos/Archivos.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
+import FAQEdit from "./components/FAQ/FAQEdit.jsx";
 import Tesis from "./components/Tesis/Tesis.jsx";
 import TesisEdit from "./components/TesisEdit/TesisEdit.jsx";
 import Links from "./components/Links/Links.jsx";
@@ -69,6 +70,15 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <TesisEdit />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/faq" element={<FAQ />} />
+                <Route
+                  path="/faq/edit"
+                  element={
+                    <ProtectedRoute>
+                      <FAQEdit />
                     </ProtectedRoute>
                   }
                 />
