@@ -1,6 +1,24 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { fetchData } from "../../../firebase/CRUD";
 
 const Hero = () => {
+  const [data, setData] = useState([]);
+  const collection = "home";
+
+  useEffect(() => {
+    fetchHome();
+  }, []);
+  const fetchHome = async () => {
+    try {
+      const Data = await fetchData(collection);
+      setData(Data);
+    } catch (error) {
+      console.error("Error al obtener cursos:", error);
+      setData([]);
+    }
+  };
+
   return (
     <div className="relative h-[600px] overflow-hidden">
       <div
@@ -19,15 +37,13 @@ const Hero = () => {
             <div className="backdrop-blur-sm bg-black/30 p-6 rounded-lg border border-white/10">
               <p className="text-xl font-light leading-relaxed">
                 Doctorado en Ciencia de Materiales
-                <span className="text-blue-300">
-                  (Categoría "A" CONEAU Res.222/2021)
-                </span>
+                <span className="text-blue-300">({data.doctorado})</span>
               </p>
               <p className="text-xl font-light mt-4 leading-relaxed">
                 Maestría en Ciencia y Tecnología de Materiales
-                <span className="text-blue-300">(CONEAU Res.221/2021)</span>
+                <span className="text-blue-300">({data.master})</span>
               </p>
-              <p className="text-xl mt-4">Directora: Dra. Josefina Ballarre</p>
+              <p className="text-xl mt-4">{data.director}</p>
             </div>
           </div>
         </div>

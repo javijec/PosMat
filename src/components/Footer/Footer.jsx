@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../../context/AuthContext"; // Nuevo import
+import { useAuth } from "../../context/AuthContext";
+import { fetchData } from "../../firebase/CRUD";
 
 const Footer = () => {
-  const { user } = useAuth(); // Obtener usuario logueado
+  const { user } = useAuth();
+  const [contactData, setContactData] = useState({
+    adress: "",
+    email: "",
+    phone: "",
+  });
+  const collection = "contacto";
+
+  useEffect(() => {
+    const loadContact = async () => {
+      const data = await fetchData(collection);
+      if (data.length > 0) {
+        const doc = data[0];
+        setContactData({
+          adress: doc.adress || "",
+          email: doc.email || "",
+          phone: doc.phone || "",
+        });
+      }
+    };
+    loadContact();
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white py-8">
@@ -16,15 +38,15 @@ const Footer = () => {
             <div className="space-y-2">
               <p className="flex items-center gap-2">
                 <Mail className="h-5 w-5" />
-                <span>posgrado@fi.mdp.edu.ar</span>
+                <span>{contactData.email}</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="h-5 w-5" />
-                <span>(0223) 481-6600</span>
+                <span>{contactData.phone}</span>
               </p>
               <p className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
-                <span>Juan B. Justo 4302, Mar del Plata</span>
+                <span>{contactData.adress}</span>
               </p>
             </div>
           </div>

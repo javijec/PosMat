@@ -1,8 +1,34 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { fetchData } from "../../firebase/CRUD";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 const Contact = () => {
+  const [contactData, setContactData] = useState({
+    adress: "",
+    email: "",
+    phone: "",
+    horario: "",
+  });
+  const collection = "contacto";
+
+  useEffect(() => {
+    const loadContact = async () => {
+      const data = await fetchData(collection);
+      if (data.length > 0) {
+        const doc = data[0];
+        setContactData({
+          adress: doc.adress || "",
+          email: doc.email || "",
+          phone: doc.phone || "",
+          horario: doc.horario || "",
+        });
+      }
+    };
+    loadContact();
+  }, []);
+
   return (
     <div className="py-16">
       <div className="max-w-7xl mx-auto px-4">
@@ -14,14 +40,16 @@ const Contact = () => {
             <div className="lg:w-1/2 mb-8 lg:mb-0">
               <div>
                 <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                  <h2 className="text-2xl font-semibold mb-6">Información de Contacto</h2>
+                  <h2 className="text-2xl font-semibold mb-6">
+                    Información de Contacto
+                  </h2>
 
                   <div className="space-y-4">
                     <div className="flex items-center">
                       <Mail className="h-6 w-6 text-ingenieria mr-3" />
                       <div>
                         <h3 className="font-semibold">Email</h3>
-                        <p className="text-gray-600">posgrado@fi.mdp.edu.ar</p>
+                        <p className="text-gray-600">{contactData.email}</p>
                       </div>
                     </div>
 
@@ -29,7 +57,7 @@ const Contact = () => {
                       <Phone className="h-6 w-6 text-ingenieria mr-3" />
                       <div>
                         <h3 className="font-semibold">Teléfono</h3>
-                        <p className="text-gray-600">(0223) 481-6600</p>
+                        <p className="text-gray-600">{contactData.phone}</p>
                       </div>
                     </div>
 
@@ -37,7 +65,7 @@ const Contact = () => {
                       <MapPin className="h-6 w-6 text-ingenieria mr-3" />
                       <div>
                         <h3 className="font-semibold">Dirección</h3>
-                        <p className="text-gray-600">Juan B. Justo 4302, Mar del Plata</p>
+                        <p className="text-gray-600">{contactData.adress}</p>
                       </div>
                     </div>
 
@@ -45,7 +73,9 @@ const Contact = () => {
                       <Clock className="h-6 w-6 text-ingenieria mr-3" />
                       <div>
                         <h3 className="font-semibold">Horario de Atención</h3>
-                        <p className="text-gray-600">Lunes a Viernes: 9:00 - 17:00</p>
+                        <p className="text-gray-600">
+                          {contactData.horario || "No especificado"}
+                        </p>
                       </div>
                     </div>
                   </div>

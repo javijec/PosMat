@@ -12,28 +12,24 @@ const Features = () => {
             <FeatureCard
               icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
               title="Cursos"
-              description="Descubre los cursos disponibles"
             />
           </Link>
           <Link to="/professors" className="group">
             <FeatureCard
               icon={<Users className="h-8 w-8 text-[#447c82]" />}
               title="Profesores"
-              description="Aprende de investigadores y profesionales reconocidos en el campo."
             />
           </Link>
           <Link to="/students" className="group">
             <FeatureCard
               icon={<Users className="h-8 w-8 text-[#447c82]" />}
               title="Alumnos"
-              description="Conoce a nuestros estudiantes y sus logros."
             />
           </Link>
           <Link to="/tesis" className="group">
             <FeatureCard
               icon={<BookOpen className="h-8 w-8 text-[#447c82]" />}
               title="Tesis"
-              description="Tesis de doctorado y maestría."
             />
           </Link>
         </div>

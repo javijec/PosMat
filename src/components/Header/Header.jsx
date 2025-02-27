@@ -40,7 +40,7 @@ const menuItems = [
       },
     ],
   },
-  { path: "/contact", name: "Contacto" },
+  { path: "/contact", name: "Contacto", editPath: "/contact/edit" },
 ];
 
 const Header = () => {
@@ -107,13 +107,22 @@ const Header = () => {
                     </Menu.Items>
                   </Menu>
                 ) : (
-                  <NavLink
-                    key={i}
-                    to={item.path}
-                    className="px-2 py-1 hover:text-gray-300"
-                  >
-                    {item.name}
-                  </NavLink>
+                  <div key={i} className="flex items-center space-x-1">
+                    <NavLink
+                      to={item.path}
+                      className="px-2 py-1 hover:text-gray-300"
+                    >
+                      {item.name}
+                    </NavLink>
+                    {user && item.editPath && (
+                      <NavLink
+                        to={item.editPath}
+                        className="p-1 hover:bg-gray-700 rounded"
+                      >
+                        <PencilSquareIcon className="h-4 w-4" />
+                      </NavLink>
+                    )}
+                  </div>
                 )
               )}
 
@@ -210,13 +219,22 @@ const Header = () => {
                     </div>
                   </div>
                 ) : (
-                  <NavLink
-                    key={i}
-                    to={item.path}
-                    className="block hover:text-gray-300"
-                  >
-                    {item.name}
-                  </NavLink>
+                  <div key={i} className="flex items-center space-x-1">
+                    <NavLink
+                      to={item.path}
+                      className="block hover:text-gray-300"
+                    >
+                      {item.name}
+                    </NavLink>
+                    {user && item.editPath && (
+                      <NavLink
+                        to={item.editPath}
+                        className="p-1 hover:bg-gray-700 rounded"
+                      >
+                        <PencilSquareIcon className="h-4 w-4" />
+                      </NavLink>
+                    )}
+                  </div>
                 )
               )}
 

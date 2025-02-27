@@ -28,6 +28,7 @@ import Logout from "./components/Logout/Logout";
 import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
+import ContactEdit from "./components/Contact/ContactEdit.jsx";
 
 function App() {
   return (
@@ -44,6 +45,15 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route
+                  path="/contact/edit"
+                  element={
+                    <ProtectedRoute>
+                      <ContactEdit />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route
