@@ -9,7 +9,7 @@ const FAQ = () => {
   useEffect(() => {
     const loadFAQs = async () => {
       const data = await fetchData(collection);
-      setFaqs(data);
+      setFaqs(data.sort((a, b) => (a.position || 0) - (b.position || 0)));
     };
     loadFAQs();
   }, []);
