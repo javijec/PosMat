@@ -114,14 +114,24 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user && item.editPath && (
-                      <NavLink
-                        to={item.editPath}
-                        className="p-1 hover:bg-gray-700 rounded"
-                      >
-                        <PencilSquareIcon className="h-4 w-4" />
-                      </NavLink>
-                    )}
+                    {user &&
+                      (item.editPath ? (
+                        <NavLink
+                          to={item.editPath}
+                          className="p-1 hover:bg-gray-700 rounded"
+                        >
+                          <PencilSquareIcon className="h-4 w-4" />
+                        </NavLink>
+                      ) : (
+                        item.name === "Inicio" && (
+                          <NavLink
+                            to="/home/edit"
+                            className="p-1 hover:bg-gray-700 rounded"
+                          >
+                            <PencilSquareIcon className="h-4 w-4" />
+                          </NavLink>
+                        )
+                      ))}
                   </div>
                 )
               )}
@@ -226,14 +236,24 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user && item.editPath && (
-                      <NavLink
-                        to={item.editPath}
-                        className="p-1 hover:bg-gray-700 rounded"
-                      >
-                        <PencilSquareIcon className="h-4 w-4" />
-                      </NavLink>
-                    )}
+                    {user &&
+                      (item.editPath ? (
+                        <NavLink
+                          to={item.editPath}
+                          className="p-1 hover:bg-gray-700 rounded"
+                        >
+                          <PencilSquareIcon className="h-4 w-4" />
+                        </NavLink>
+                      ) : (
+                        item.name === "Inicio" && (
+                          <NavLink
+                            to="/home/edit"
+                            className="p-1 hover:bg-gray-700 rounded"
+                          >
+                            <PencilSquareIcon className="h-4 w-4" />
+                          </NavLink>
+                        )
+                      ))}
                   </div>
                 )
               )}

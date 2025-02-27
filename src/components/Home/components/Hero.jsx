@@ -4,18 +4,19 @@ import { fetchData } from "../../../firebase/CRUD";
 
 const Hero = () => {
   const [data, setData] = useState([]);
-  const collection = "home";
+  const collection = "Home";
 
   useEffect(() => {
     fetchHome();
   }, []);
+
   const fetchHome = async () => {
     try {
-      const Data = await fetchData(collection);
-      setData(Data);
+      const Home = await fetchData(collection);
+      setData(Home[0]);
     } catch (error) {
       console.error("Error al obtener cursos:", error);
-      setData([]);
+      setData({});
     }
   };
 
@@ -36,11 +37,11 @@ const Hero = () => {
             </h1>
             <div className="backdrop-blur-sm bg-black/30 p-6 rounded-lg border border-white/10">
               <p className="text-xl font-light leading-relaxed">
-                Doctorado en Ciencia de Materiales
+                Doctorado en Ciencia de Materiales{" "}
                 <span className="text-blue-300">({data.doctorado})</span>
               </p>
               <p className="text-xl font-light mt-4 leading-relaxed">
-                Maestría en Ciencia y Tecnología de Materiales
+                Maestría en Ciencia y Tecnología de Materiales{" "}
                 <span className="text-blue-300">({data.master})</span>
               </p>
               <p className="text-xl mt-4">{data.director}</p>

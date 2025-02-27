@@ -29,6 +29,7 @@ import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
 import ContactEdit from "./components/Contact/ContactEdit.jsx";
+import HeroEdit from "./components/Home/components/HeroEdit.jsx";
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
             <MainContent>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route
+                  path="/home/edit"
+                  element={
+                    <ProtectedRoute>
+                      <HeroEdit />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
