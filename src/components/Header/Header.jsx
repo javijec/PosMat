@@ -58,25 +58,45 @@ const Header = () => {
         <>
           <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <img src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png" alt="Logo" className="h-10" />
-              <span className="text-xl font-bold">Posgrado en Materiales</span>
+              <img
+                src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png"
+                alt="Logo"
+                className="h-10"
+              />
+              <span className="text-xl font-bold">
+                Posgrado en Ciencia de Materiales
+              </span>
             </Link>
 
             <nav className="hidden md:flex space-x-6 items-center">
               {menuItems.map((item, i) =>
                 item.subItems ? (
-                  <Menu as="div" key={i} className="relative inline-block text-left">
-                    <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">{item.name}</Menu.Button>
+                  <Menu
+                    as="div"
+                    key={i}
+                    className="relative inline-block text-left"
+                  >
+                    <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">
+                      {item.name}
+                    </Menu.Button>
                     <Menu.Items className="absolute left-0 mt-2 w-48 bg-ingenieria shadow-lg z-10">
                       {item.subItems.map((subItem, j) => (
                         <Menu.Item key={j}>
                           {({ active }) => (
                             <div className="flex items-center justify-between px-4 py-2">
-                              <NavLink to={subItem.path} className={`block ${active ? "text-gray-300" : ""}`}>
+                              <NavLink
+                                to={subItem.path}
+                                className={`block ${
+                                  active ? "text-gray-300" : ""
+                                }`}
+                              >
                                 {subItem.name}
                               </NavLink>
                               {user && subItem.editPath && (
-                                <NavLink to={subItem.editPath} className="ml-2 p-1 hover:bg-gray-700 rounded">
+                                <NavLink
+                                  to={subItem.editPath}
+                                  className="ml-2 p-1 hover:bg-gray-700 rounded"
+                                >
                                   <PencilSquareIcon className="h-4 w-4" />
                                 </NavLink>
                               )}
@@ -87,7 +107,11 @@ const Header = () => {
                     </Menu.Items>
                   </Menu>
                 ) : (
-                  <NavLink key={i} to={item.path} className="px-2 py-1 hover:text-gray-300">
+                  <NavLink
+                    key={i}
+                    to={item.path}
+                    className="px-2 py-1 hover:text-gray-300"
+                  >
                     {item.name}
                   </NavLink>
                 )
@@ -105,7 +129,9 @@ const Header = () => {
                         {({ active }) => (
                           <NavLink
                             to="/manage-emails"
-                            className={`block px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
+                            className={`block px-4 py-2 text-sm ${
+                              active ? "bg-gray-700" : ""
+                            }`}
                           >
                             Gestionar Emails
                           </NavLink>
@@ -116,7 +142,9 @@ const Header = () => {
                       {({ active }) => (
                         <button
                           onClick={handleAuth}
-                          className={`w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}
+                          className={`w-full text-left px-4 py-2 text-sm ${
+                            active ? "bg-gray-700" : ""
+                          }`}
                         >
                           Cerrar Sesión
                         </button>
@@ -127,7 +155,12 @@ const Header = () => {
                   <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
                     <Menu.Item>
                       {({ active }) => (
-                        <NavLink to="/login" className={`block px-4 py-2 text-sm ${active ? "bg-gray-700" : ""}`}>
+                        <NavLink
+                          to="/login"
+                          className={`block px-4 py-2 text-sm ${
+                            active ? "bg-gray-700" : ""
+                          }`}
+                        >
                           Ingresar
                         </NavLink>
                       )}
@@ -138,7 +171,11 @@ const Header = () => {
             </nav>
 
             <Disclosure.Button className="md:hidden focus:outline-none">
-              {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+              {open ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
             </Disclosure.Button>
           </div>
 
@@ -150,12 +187,21 @@ const Header = () => {
                     <span className="block font-semibold">{item.name}</span>
                     <div className="pl-4">
                       {item.subItems.map((subItem, j) => (
-                        <div key={j} className="flex items-center justify-between py-1">
-                          <NavLink to={subItem.path} className="block hover:text-gray-300">
+                        <div
+                          key={j}
+                          className="flex items-center justify-between py-1"
+                        >
+                          <NavLink
+                            to={subItem.path}
+                            className="block hover:text-gray-300"
+                          >
                             {subItem.name}
                           </NavLink>
                           {user && subItem.editPath && (
-                            <NavLink to={subItem.editPath} className="ml-2 p-1 hover:bg-gray-700 rounded">
+                            <NavLink
+                              to={subItem.editPath}
+                              className="ml-2 p-1 hover:bg-gray-700 rounded"
+                            >
                               <PencilSquareIcon className="h-4 w-4" />
                             </NavLink>
                           )}
@@ -164,7 +210,11 @@ const Header = () => {
                     </div>
                   </div>
                 ) : (
-                  <NavLink key={i} to={item.path} className="block hover:text-gray-300">
+                  <NavLink
+                    key={i}
+                    to={item.path}
+                    className="block hover:text-gray-300"
+                  >
                     {item.name}
                   </NavLink>
                 )
@@ -174,16 +224,25 @@ const Header = () => {
                 {user ? (
                   <>
                     {user.email === "javijec@gmail.com" && (
-                      <NavLink to="/manage-emails" className="block text-sm text-gray-300 hover:text-white mb-2">
+                      <NavLink
+                        to="/manage-emails"
+                        className="block text-sm text-gray-300 hover:text-white mb-2"
+                      >
                         Gestionar Emails
                       </NavLink>
                     )}
-                    <button onClick={handleAuth} className="w-full px-4 py-2 text-left hover:bg-gray-700">
+                    <button
+                      onClick={handleAuth}
+                      className="w-full px-4 py-2 text-left hover:bg-gray-700"
+                    >
                       Cerrar Sesión
                     </button>
                   </>
                 ) : (
-                  <NavLink to="/login" className="w-full px-4 py-2 text-left hover:bg-gray-700">
+                  <NavLink
+                    to="/login"
+                    className="w-full px-4 py-2 text-left hover:bg-gray-700"
+                  >
                     Ingresar
                   </NavLink>
                 )}

@@ -13,11 +13,15 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="text-white max-w-2xl">
-            <h1 className="text-6xl font-bold mb-6 leading-tight">Posgrado en Materiales</h1>
+            <h1 className="text-6xl font-bold mb-6 leading-tight">
+              Posgrado en Ciencia de Materiales
+            </h1>
             <div className="backdrop-blur-sm bg-black/30 p-6 rounded-lg border border-white/10">
               <p className="text-xl font-light leading-relaxed">
                 Doctorado en Ciencia de Materiales
-                <span className="text-blue-300">(Categoría "A" CONEAU Res.222/2021)</span>
+                <span className="text-blue-300">
+                  (Categoría "A" CONEAU Res.222/2021)
+                </span>
               </p>
               <p className="text-xl font-light mt-4 leading-relaxed">
                 Maestría en Ciencia y Tecnología de Materiales
