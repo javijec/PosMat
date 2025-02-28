@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import StudentsEditCard from "./StudentEditCard";
-import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import {
+  fetchData,
+  getItem,
+  saveItem,
+  addItem,
+  deleteItem,
+} from "../../firebase/CRUD";
 
 const StudentsEdit = () => {
   const [data, setStudents] = useState([]);
@@ -23,12 +29,15 @@ const StudentsEdit = () => {
 
   const fetchStudents = async () => {
     const Data = await fetchData(collection);
-    const sortedData = Data.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+    const sortedData = Data.sort((a, b) =>
+      (a.lastName || "").localeCompare(b.lastName || "")
+    );
 
     setStudents(sortedData);
   };
 
   const handleEdit = async (data) => {
+    window.scrollTo(0, 0);
     const { id } = data;
     try {
       setEditingIndex(id);
@@ -55,7 +64,15 @@ const StudentsEdit = () => {
 
   const handleAdd = () => {
     setEditingIndex(-1);
-    setForm({ firstName: "", lastName: "", email: "", director: "", codirector: "", thesis_topic: "", program: "" });
+    setForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      director: "",
+      codirector: "",
+      thesis_topic: "",
+      program: "",
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -81,7 +98,10 @@ const StudentsEdit = () => {
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Estudiantes</h1>
-        <button onClick={handleAdd} className="bg-green-600 text-white py-2 px-4 rounded mb-4">
+        <button
+          onClick={handleAdd}
+          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
+        >
           Agregar Estudiante Nuevo
         </button>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -140,13 +160,20 @@ const StudentsEdit = () => {
               className="w-full border rounded px-2 py-1"
             />
           </div>
-          <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 px-4 rounded"
+          >
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
           </button>
         </form>
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Estudiantes Existentes</h2>
-        <StudentsEditCard students={data} handleEdit={handleEdit} handleDelete={handleDelete} />
+        <StudentsEditCard
+          students={data}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
       </div>
     </div>
   );

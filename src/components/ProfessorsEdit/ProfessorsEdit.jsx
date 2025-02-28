@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import {
+  fetchData,
+  getItem,
+  saveItem,
+  addItem,
+  deleteItem,
+} from "../../firebase/CRUD";
 
 const ProfessorsEdit = () => {
   const [data, setData] = useState([]);
@@ -20,12 +26,15 @@ const ProfessorsEdit = () => {
   const fetchProfessors = async () => {
     const Data = await fetchData(collection);
 
-    const sortedData = Data.sort((a, b) => (a.lastName || "").localeCompare(b.lastName || ""));
+    const sortedData = Data.sort((a, b) =>
+      (a.lastName || "").localeCompare(b.lastName || "")
+    );
 
     setData(sortedData);
   };
 
   const handleEdit = async (data) => {
+    window.scrollTo(0, 0);
     const { id } = data;
     try {
       setEditingIndex(id);
@@ -78,7 +87,10 @@ const ProfessorsEdit = () => {
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Profesores</h1>
-        <button onClick={handleAdd} className="bg-green-600 text-white py-2 px-4 rounded mb-4">
+        <button
+          onClick={handleAdd}
+          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
+        >
           Agregar Profesor Nuevo
         </button>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -118,7 +130,10 @@ const ProfessorsEdit = () => {
               className="w-full border rounded px-2 py-1"
             />
           </div>
-          <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 px-4 rounded"
+          >
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
           </button>
         </form>
@@ -126,7 +141,10 @@ const ProfessorsEdit = () => {
         <h2 className="text-2xl font-bold mb-4">Profesores Existentes</h2>
         <div className="space-y-4">
           {data.map((prof, index) => (
-            <div key={index} className="p-4 bg-white rounded shadow flex justify-between items-center">
+            <div
+              key={index}
+              className="p-4 bg-white rounded shadow flex justify-between items-center"
+            >
               <div>
                 <p>
                   {prof.title} {prof.firstName} {prof.lastName}
@@ -134,10 +152,16 @@ const ProfessorsEdit = () => {
                 <p>{prof.email}</p>
               </div>
               <div className="space-x-2">
-                <button onClick={() => handleEdit(prof)} className="bg-yellow-500 text-white py-1 px-3 rounded">
+                <button
+                  onClick={() => handleEdit(prof)}
+                  className="bg-yellow-500 text-white py-1 px-3 rounded"
+                >
                   Editar
                 </button>
-                <button onClick={() => handleDelete(prof.id)} className="bg-red-600 text-white py-1 px-3 rounded">
+                <button
+                  onClick={() => handleDelete(prof.id)}
+                  className="bg-red-600 text-white py-1 px-3 rounded"
+                >
                   Eliminar
                 </button>
               </div>

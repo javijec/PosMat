@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TesisEditItem from "./TesisEditItem";
-import { fetchData, getItem, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import {
+  fetchData,
+  getItem,
+  saveItem,
+  addItem,
+  deleteItem,
+} from "../../firebase/CRUD";
 
 const TesisEdit = () => {
   const [editingIndex, setEditingIndex] = useState(-1);
@@ -39,6 +45,7 @@ const TesisEdit = () => {
   };
 
   const handleEdit = async (data) => {
+    window.scrollTo(0, 0);
     const { id } = data;
     try {
       setEditingIndex(id);
@@ -99,7 +106,10 @@ const TesisEdit = () => {
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Tesis</h1>
-        <button onClick={handleAdd} className="bg-green-600 text-white py-2 px-4 rounded mb-4">
+        <button
+          onClick={handleAdd}
+          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
+        >
           Agregar Tesis Nueva
         </button>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -169,7 +179,10 @@ const TesisEdit = () => {
               <option value="doctoral">Doctorado</option>
             </select>
           </div>
-          <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 px-4 rounded"
+          >
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
           </button>
         </form>
@@ -177,7 +190,11 @@ const TesisEdit = () => {
         <h2 className="text-2xl font-bold mb-4">Tesis Existentes</h2>
         <div>
           {data.map((t, index) => (
-            <TesisEditItem t={t} handleEdit={handleEdit} handleDelete={handleDelete} />
+            <TesisEditItem
+              t={t}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           ))}
         </div>
       </div>

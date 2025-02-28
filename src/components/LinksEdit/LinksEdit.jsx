@@ -40,6 +40,7 @@ const LinksEdit = () => {
   };
 
   const handleEdit = (item) => {
+    window.scrollTo(0, 0);
     setEditingId(item.id);
     setForm(item);
   };
