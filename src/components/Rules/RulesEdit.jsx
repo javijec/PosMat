@@ -133,44 +133,11 @@ const RulesEdit = () => {
     }
   };
 
-  const handleLoadFromJson = async () => {
-    if (
-      !window.confirm(
-        "¿Desea cargar los datos desde rules.json? Esto reemplazará todos los datos existentes."
-      )
-    ) {
-      return;
-    }
-
-    try {
-      // Primero eliminamos los documentos existentes
-      const existingData = await fetchData(collection);
-      await Promise.all(
-        existingData.map((doc) => deleteItem(collection, doc.id))
-      );
-
-      // Luego agregamos los nuevos datos
-      await Promise.all(rulesData.map((rule) => addItem(collection, rule)));
-
-      alert("Datos cargados exitosamente");
-      loadRules();
-    } catch (error) {
-      console.error("Error loading rules from JSON:", error);
-      alert("Error al cargar los datos");
-    }
-  };
-
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Editar reglamentos</h1>
-          <button
-            onClick={handleLoadFromJson}
-            className="bg-purple-600 text-white py-2 px-4 rounded shadow hover:bg-purple-700 transition-colors"
-          >
-            Cargar desde JSON
-          </button>
         </div>
         {/* Formulario para agregar nueva regla */}
         <div className="mb-8 p-4 border rounded-md">
