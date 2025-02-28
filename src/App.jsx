@@ -8,6 +8,7 @@ import MainContent from "./components/MainContent.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
+import AboutEdit from "./components/About/AboutEdit.jsx";
 import Contact from "./components/Contact/Contact.jsx";
 import Courses from "./components/Courses/Courses.jsx";
 import CursesEdit from "./components/CoursesEdit/CoursesEdit.jsx";
@@ -54,6 +55,14 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/about" element={<About />} />
+                <Route
+                  path="/about/edit"
+                  element={
+                    <ProtectedRoute>
+                      <AboutEdit />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/contact" element={<Contact />} />
                 <Route
                   path="/contact/edit"
