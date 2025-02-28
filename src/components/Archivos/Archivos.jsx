@@ -3,19 +3,19 @@ import React from "react";
 const resources = [
   {
     name: "Modelo Informe anual",
-    path: "/modelo_informe_anual.doc",
+    path: "/assets/modelo_informe_anual.doc",
     type: "doc",
     tag: "formularios",
   },
   {
     name: "Planilla de Inscripción al doctorado",
-    path: "/assets/formulario-inscripcio%cc%81n-doctorado-2021.docx",
+    path: "/assets/formulario-inscripcion-doctorado-2021.docx",
     type: "docx",
     tag: "formularios",
   },
   {
     name: "Planilla de Inscripción a la maestría",
-    path: "/assets/formulario-inscripci%c3%b3n-maestr%c3%ada-20212.docx",
+    path: "/assets/formulario-inscripcion-maestria-2021.docx",
     type: "docx",
     tag: "formularios",
   },
@@ -55,7 +55,9 @@ const Archivos = () => {
                   className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200"
                 >
                   <div>
-                    <span className="text-lg font-medium text-gray-900">{resource.name}</span>
+                    <span className="text-lg font-medium text-gray-900">
+                      {resource.name}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-4">
                     <a

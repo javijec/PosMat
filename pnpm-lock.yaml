@@ -35,6 +35,9 @@ importers:
       react-router-dom:
         specifier: ^7.1.5
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-simple-wysiwyg:
+        specifier: ^3.2.0
+        version: 3.2.0(react@19.0.0)
       recharts:
         specifier: ^2.15.1
         version: 2.15.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1741,6 +1744,11 @@ packages:
     peerDependenciesMeta:
       react-dom:
         optional: true
+
+  react-simple-wysiwyg@3.2.0:
+    resolution: {integrity: sha512-Iaqoe3GxnDKtx5otvM1TnYh7GrP+VxysI6QuqKwnbhkqSmo2MPm0xbZYsmNRmO7w4S5AyVlqprRu1MEImqj2sw==}
+    peerDependencies:
+      react: '>=16.8'
 
   react-smooth@4.0.4:
     resolution: {integrity: sha512-gnGKTpYwqL0Iii09gHobNolvX4Kiq4PKx6eWBCYYix+8cdw+cGo3do906l1NBPKkSWx1DghC1dlWG9L2uGd61Q==}
@@ -3842,6 +3850,10 @@ snapshots:
       turbo-stream: 2.4.0
     optionalDependencies:
       react-dom: 19.0.0(react@19.0.0)
+
+  react-simple-wysiwyg@3.2.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react-smooth@4.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:

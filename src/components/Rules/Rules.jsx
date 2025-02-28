@@ -1,33 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import { Hash, ChevronLeft, ChevronRight } from "lucide-react";
-import rulesContent from "../../files/rules.json";
+import { fetchData } from "../../firebase/CRUD";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Rules = () => {
-  const [selectedSection, setSelectedSection] = useState(rulesContent.sections[0]);
-  const selectedIndex = rulesContent.sections.findIndex((section) => section.title === selectedSection.title);
+  const [data, setData] = useState([]);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const collection = "rules";
+
+  useEffect(() => {
+    fetchRules();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0 && !selectedSection) {
+      setSelectedSection(data[0]);
+    }
+  }, [data]);
+
+  const fetchRules = async () => {
+    try {
+      const rulesData = await fetchData(collection);
+      const sortedData = rulesData.sort(
+        (a, b) => (a.position || 0) - (b.position || 0)
+      );
+      setData(sortedData);
+    } catch (error) {
+      console.error("Error fetching rules data: ", error);
+    }
+  };
+
+  if (!selectedSection) return null;
+
+  const selectedIndex = data.findIndex(
+    (section) => section.id === selectedSection.id
+  );
 
   const previousSection = () => {
     if (selectedIndex > 0) {
-      setSelectedSection(rulesContent.sections[selectedIndex - 1]);
+      setSelectedSection(data[selectedIndex - 1]);
     }
   };
 
   const nextSection = () => {
-    if (selectedIndex < rulesContent.sections.length - 1) {
-      setSelectedSection(rulesContent.sections[selectedIndex + 1]);
+    if (selectedIndex < data.length - 1) {
+      setSelectedSection(data[selectedIndex + 1]);
     }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 break-words">{rulesContent.title}</h1>
-      {/* Navigation with previous and next buttons and a unified Listbox */}
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 break-words">
+        Reglamentos
+      </h1>
       <div className="flex items-center space-x-2">
         <button
           onClick={previousSection}
@@ -36,23 +65,30 @@ const Rules = () => {
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
-        <Listbox value={selectedSection} onChange={setSelectedSection} as="div" className="flex-1">
+        <Listbox
+          value={selectedSection}
+          onChange={setSelectedSection}
+          as="div"
+          className="flex-1"
+        >
           <Listbox.Button className="w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md border border-gray-300 focus:outline-none">
             <div className="flex items-center">
               <div className="flex items-center mr-2">
                 <Hash className="w-4 h-4 mr-1" />
                 <span className="font-medium">{selectedIndex + 1}.</span>
               </div>
-              <span className="block line-clamp-2 md:line-clamp-none">{selectedSection.title}</span>
+              <span className="block line-clamp-2 md:line-clamp-none">
+                {selectedSection.title}
+              </span>
             </div>
           </Listbox.Button>
           <Listbox.Options
             as="div"
             className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
-            {rulesContent.sections.map((section, index) => (
+            {data.map((section, index) => (
               <Listbox.Option
-                key={index}
+                key={section.id}
                 value={section}
                 className={({ active }) =>
                   classNames(
@@ -64,8 +100,16 @@ const Rules = () => {
                 {({ selected }) => (
                   <div className="flex items-center">
                     <Hash className="w-4 h-4 mr-1" />
-                    <span className={classNames(selected ? "font-medium" : "font-normal")}>{index + 1}.</span>
-                    <span className="ml-2 block line-clamp-2 md:line-clamp-none">{section.title}</span>
+                    <span
+                      className={classNames(
+                        selected ? "font-medium" : "font-normal"
+                      )}
+                    >
+                      {index + 1}.
+                    </span>
+                    <span className="ml-2 block line-clamp-2 md:line-clamp-none">
+                      {section.title}
+                    </span>
                   </div>
                 )}
               </Listbox.Option>
@@ -74,13 +118,13 @@ const Rules = () => {
         </Listbox>
         <button
           onClick={nextSection}
-          disabled={selectedIndex === rulesContent.sections.length - 1}
+          disabled={selectedIndex === data.length - 1}
           className="p-2 rounded-lg border border-gray-300 bg-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-      <div className="mt-4 text-sm md:text-base">
+      <div className="mt-4 text-sm md:text-base prose prose-indigo max-w-none">
         <div dangerouslySetInnerHTML={{ __html: selectedSection.html }} />
       </div>
     </div>
