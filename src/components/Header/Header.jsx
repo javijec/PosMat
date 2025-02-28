@@ -7,8 +7,8 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 
 const menuItems = [
-  { path: "/", name: "Inicio" },
-  { path: "/about", name: "Acerca de" },
+  { path: "/", name: "Inicio", editPath: "/home/edit" },
+  { path: "/about", name: "Acerca de", editPath: "/about/edit" },
   {
     name: "Comunidad",
     subItems: [
@@ -27,7 +27,7 @@ const menuItems = [
   {
     name: "Posgrado",
     subItems: [
-      { path: "/rules", name: "Reglamento" },
+      { path: "/rules", name: "Reglamento", editPath: "/rules/edit" }, // sin editPath = sin botón de edición
       {
         path: "/courses",
         name: "Cursos",
@@ -114,24 +114,14 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user &&
-                      (item.editPath ? (
-                        <NavLink
-                          to={item.editPath}
-                          className="p-1 hover:bg-gray-700 rounded"
-                        >
-                          <PencilSquareIcon className="h-4 w-4" />
-                        </NavLink>
-                      ) : (
-                        item.name === "Inicio" && (
-                          <NavLink
-                            to="/home/edit"
-                            className="p-1 hover:bg-gray-700 rounded"
-                          >
-                            <PencilSquareIcon className="h-4 w-4" />
-                          </NavLink>
-                        )
-                      ))}
+                    {user && item.editPath && (
+                      <NavLink
+                        to={item.editPath}
+                        className="p-1 hover:bg-gray-700 rounded"
+                      >
+                        <PencilSquareIcon className="h-4 w-4" />
+                      </NavLink>
+                    )}
                   </div>
                 )
               )}
@@ -236,24 +226,14 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user &&
-                      (item.editPath ? (
-                        <NavLink
-                          to={item.editPath}
-                          className="p-1 hover:bg-gray-700 rounded"
-                        >
-                          <PencilSquareIcon className="h-4 w-4" />
-                        </NavLink>
-                      ) : (
-                        item.name === "Inicio" && (
-                          <NavLink
-                            to="/home/edit"
-                            className="p-1 hover:bg-gray-700 rounded"
-                          >
-                            <PencilSquareIcon className="h-4 w-4" />
-                          </NavLink>
-                        )
-                      ))}
+                    {user && item.editPath && (
+                      <NavLink
+                        to={item.editPath}
+                        className="p-1 hover:bg-gray-700 rounded"
+                      >
+                        <PencilSquareIcon className="h-4 w-4" />
+                      </NavLink>
+                    )}
                   </div>
                 )
               )}
