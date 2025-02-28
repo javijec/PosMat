@@ -24,6 +24,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Students from "./components/Students/Students.jsx";
 import StudentsEdit from "./components/StudentsEdit/StudentsEdit.jsx";
 import Rules from "./components/Rules/Rules.jsx";
+import RulesEdit from "./components/Rules/RulesEdit.jsx";
 import Login from "./components/login/login.jsx";
 import Logout from "./components/Logout/Logout";
 import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
@@ -130,6 +131,14 @@ function App() {
                   }
                 />
                 <Route path="/rules" element={<Rules />} />
+                <Route
+                  path="/rules/edit"
+                  element={
+                    <ProtectedRoute>
+                      <RulesEdit />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/manage-emails"
                   element={
