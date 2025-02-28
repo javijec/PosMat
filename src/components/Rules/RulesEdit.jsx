@@ -6,12 +6,11 @@ import {
   ArrowUpIcon,
   ArrowDownIcon,
 } from "@heroicons/react/24/outline";
-import Editor from "react-simple-wysiwyg";
 
 const RulesEdit = () => {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({ title: "", html: "" });
-  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editingId, setEditingId] = useState(-1);
   const collection = "rules";
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const RulesEdit = () => {
       return;
     }
     try {
-      if (editingIndex === -1) {
+      if (editingId === -1) {
         const newPosition =
           data.length > 0
             ? Math.max(...data.map((f) => f.position || 0)) + 1
@@ -46,10 +45,10 @@ const RulesEdit = () => {
           title: form.title,
           html: form.html,
         };
-        await saveItem(collection, editingIndex, updatedRule, { merge: true });
+        await saveItem(collection, editingId, updatedRule, { merge: true });
       }
       setForm({ title: "", html: "" });
-      setEditingIndex(-1);
+      setEditingId(-1);
       loadRules();
     } catch (error) {
       console.error("Error al guardar la regla:", error);
@@ -58,7 +57,7 @@ const RulesEdit = () => {
 
   const handleEditClick = (rule) => {
     window.scrollTo(0, 0);
-    setEditingIndex(rule.id);
+    setEditingId(rule.id);
     setForm({
       title: rule.title,
       html: rule.html,
@@ -128,7 +127,7 @@ const RulesEdit = () => {
         {/* Formulario unificado para agregar/editar */}
         <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded-md">
           <h2 className="text-xl mb-2">
-            {editingIndex === -1
+            {editingId === -1
               ? "Agregar nuevo reglamento"
               : "Editar reglamento"}
           </h2>
@@ -139,16 +138,18 @@ const RulesEdit = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
             placeholder="Título"
           />
-          <Editor
+          <textarea
             name="html"
             value={form.html}
             onChange={(e) => setForm({ ...form, html: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
+            placeholder="Contenido"
           />
           <button
             type="submit"
             className="bg-green-600 text-white py-1 px-3 rounded shadow hover:bg-green-700 transition-colors"
           >
-            {editingIndex === -1 ? "Agregar Reglamento" : "Guardar Cambios"}
+            {editingId === -1 ? "Agregar Reglamento" : "Guardar Cambios"}
           </button>
         </form>
 
