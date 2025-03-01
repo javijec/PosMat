@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Listbox } from "@headlessui/react";
 import { Hash, ChevronLeft, ChevronRight } from "lucide-react";
 import { fetchData } from "../../firebase/CRUD";
+import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -125,7 +126,11 @@ const Rules = () => {
         </button>
       </div>
       <div className="mt-4 text-sm md:text-base prose prose-indigo max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: selectedSection.html }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: sanitizeHtml(selectedSection.html),
+          }}
+        />
       </div>
     </div>
   );

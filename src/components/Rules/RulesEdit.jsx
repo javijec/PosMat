@@ -18,6 +18,7 @@ import "froala-editor/js/third_party/font_awesome.min.js";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "font-awesome/css/font-awesome.css";
+import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 const RulesEdit = () => {
   const [data, setData] = useState([]);
@@ -70,14 +71,14 @@ const RulesEdit = () => {
             : 1;
         const ruleToAdd = {
           ...form,
-          html: form.html,
+          html: sanitizeHtml(form.html),
           position: newPosition,
         };
         await addItem(collection, ruleToAdd);
       } else {
         const updatedRule = {
           title: form.title,
-          html: form.html,
+          html: sanitizeHtml(form.html),
         };
         await saveItem(collection, editingId, updatedRule, { merge: true });
       }
@@ -94,7 +95,7 @@ const RulesEdit = () => {
     setEditingId(rule.id);
     setForm({
       title: rule.title,
-      html: rule.html,
+      html: sanitizeHtml(rule.html),
     });
   };
 
