@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Clock, MapPin, Users } from "lucide-react";
 
 const CourseCard = ({ course, index }) => {
@@ -19,7 +18,6 @@ const CourseCard = ({ course, index }) => {
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
-      {/* Tag humanístico */}
       {course.humanistico && (
         <div className="absolute top-2 right-2 bg-ingenieria text-white text-xs font-semibold px-2 py-1 rounded-full">
           Humanístico
@@ -29,7 +27,9 @@ const CourseCard = ({ course, index }) => {
       <div className="p-6 flex-1 flex flex-col">
         {/* Contenedor del título con altura fija y padding extra para el tag */}
         <div className="h-[4.5rem] mb-4 pr-[5.5rem]">
-          <h2 className="text-xl font-bold text-gray-900 line-clamp-2">{course.nombre}</h2>
+          <h2 className="text-xl font-bold text-gray-900 line-clamp-2">
+            {course.nombre}
+          </h2>
         </div>
 
         {/* Contenedor de información con flex-1 */}
@@ -53,7 +53,9 @@ const CourseCard = ({ course, index }) => {
             {course.profesores && course.profesores.length > 0 && (
               <div className="flex items-start text-gray-600">
                 <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-                <div className="text-sm">{course.profesores.map((prof) => prof.nombre).join(", ")}</div>
+                <div className="text-sm">
+                  {course.profesores.map((prof) => prof.nombre).join(", ")}
+                </div>
               </div>
             )}
           </div>

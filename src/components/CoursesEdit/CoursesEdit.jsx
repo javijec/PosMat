@@ -26,13 +26,49 @@ const CoursesEdit = () => {
   const collection = "courses";
   const x = "curso";
 
+  // Search states
+  const [searchYear, setSearchYear] = useState("");
+  const [searchSemester, setSearchSemester] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
   useEffect(() => {
     fetchCourses();
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [data, searchYear, searchSemester, searchName]);
 
   const fetchCourses = async () => {
-    const Data = await fetchData(collection);
-    setData(Data);
+    try {
+      const Data = await fetchData(collection);
+
+      if (!Data || !Array.isArray(Data)) {
+        console.error("Error: Data no es un array válido");
+        setData([]);
+        return;
+      }
+
+      const coursesData = Data.map((doc) => ({
+        id: doc.id,
+        ...doc,
+        año: Number(doc.año),
+        semestre: Number(doc.semestre),
+      }));
+
+      coursesData.sort((a, b) => {
+        if (b.año !== a.año) {
+          return b.año - a.año;
+        }
+        return a.semestre - b.semestre;
+      });
+
+      setData(coursesData);
+    } catch (error) {
+      console.error("Error al obtener cursos:", error);
+      setData([]);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -57,7 +93,21 @@ const CoursesEdit = () => {
   };
 
   const handleChange = (e) => {
-    setForm({ ...Form, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+
+    const newValue = type === "checkbox" ? checked : value;
+
+    setForm({
+      ...Form,
+      [name]:
+        name === "humanistico"
+          ? newValue === "true"
+            ? true
+            : newValue === "false"
+            ? false
+            : newValue
+          : newValue,
+    });
   };
 
   const handleAddProfessor = () => {
@@ -113,6 +163,26 @@ const CoursesEdit = () => {
     }
   };
 
+  const handleSearch = () => {
+    let filtered = data;
+
+    if (searchYear) {
+      filtered = filtered.filter((course) => String(course.año) === searchYear);
+    }
+    if (searchSemester) {
+      filtered = filtered.filter(
+        (course) => String(course.semestre) === searchSemester
+      );
+    }
+    if (searchName) {
+      filtered = filtered.filter((course) =>
+        course.nombre.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
+
+    setFilteredData(filtered);
+  };
+
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
@@ -123,6 +193,7 @@ const CoursesEdit = () => {
         >
           Agregar Curso Nuevo
         </button>
+
         <form onSubmit={handleSubmit} className="mb-8 space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -308,11 +379,56 @@ const CoursesEdit = () => {
           </button>
         </form>
         <hr className="mb-8" />
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Buscar Cursos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Año
+              </label>
+              <input
+                type="text"
+                placeholder="Año"
+                value={searchYear}
+                onChange={(e) => setSearchYear(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Semestre
+              </label>
+
+              <select
+                name="semeste"
+                value={searchSemester}
+                onChange={(e) => setSearchSemester(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              >
+                <option value="1">1er Semestre</option>
+                <option value="2">2do Semestre</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Nombre
+              </label>
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+          </div>
+        </div>
+        <hr className="mb-8" />
         <h2 className="text-2xl font-bold mb-4">Cursos Existentes</h2>
         <div className="space-y-4">
-          {data.map((course, index) => (
+          {filteredData.map((course, index) => (
             <CourseItem
-              key={course.id} // Usa el ID del curso como key
+              key={course.id}
               course={course}
               onEdit={handleEdit}
               onDelete={handleDelete}

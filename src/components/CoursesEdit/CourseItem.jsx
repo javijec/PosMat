@@ -7,13 +7,22 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
         <h3 className="text-xl font-semibold">
           {course.nombre}-{course.año}-{course.semestre} semestre
         </h3>
+        <p className="text-gray-600">ID: {course.id}</p>
         <p className="text-gray-600">
-          {course.horasTeoricas > 0 && <span className="text-gray-700">{course.horasTeoricas} HT, </span>}
-          {course.horasPracticas > 0 && <span className="text-gray-700">{course.horasPracticas} HP, </span>}
-          {course.horasTP > 0 && <span className="text-gray-700">{course.horasTP} HT-HP, </span>}
+          {course.horasTeoricas > 0 && (
+            <span className="text-gray-700">{course.horasTeoricas} HT, </span>
+          )}
+          {course.horasPracticas > 0 && (
+            <span className="text-gray-700">{course.horasPracticas} HP, </span>
+          )}
+          {course.horasTP > 0 && (
+            <span className="text-gray-700">{course.horasTP} HT-HP, </span>
+          )}
           {course.uvacs} UVACS
         </p>
-        {course.fechaInicio && <p className="text-gray-600">Inicio: {course.fechaInicio}</p>}
+        {course.fechaInicio && (
+          <p className="text-gray-600">Inicio: {course.fechaInicio}</p>
+        )}
         {course.lugar && <p className="text-gray-600">Lugar: {course.lugar}</p>}
         {course.profesores && course.profesores.length > 0 && (
           <ul className="list-disc pl-5 text-gray-600">
@@ -23,6 +32,9 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
               </li>
             ))}
           </ul>
+        )}
+        {course.humanistico && (
+          <p className="text-gray-600">Humanístico: {course.humanistico}</p>
         )}
       </div>
       <div className="space-x-2">
