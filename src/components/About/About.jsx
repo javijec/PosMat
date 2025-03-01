@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../firebase/CRUD";
+import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 const About = () => {
   const [data, setData] = useState([]);
@@ -39,9 +40,12 @@ const About = () => {
                 <h3 className="text-2xl font-semibold mb-4 text-gray-900">
                   {section.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {section.content}
-                </p>
+                <p
+                  className="text-gray-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(section.content),
+                  }}
+                ></p>
               </div>
             ))}
           </div>

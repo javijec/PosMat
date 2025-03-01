@@ -1,17 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  PencilIcon,
-  TrashIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-} from "@heroicons/react/24/outline";
+  faPencilAlt,
+  faTrash,
+  faArrowUp,
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
+import FroalaEditor from "react-froala-wysiwyg";
+import "froala-editor/js/froala_editor.pkgd.min.js";
+import "froala-editor/js/plugins.pkgd.min.js";
+import "froala-editor/js/plugins/align.min.js";
+import "froala-editor/js/third_party/spell_checker.min.js";
+import "froala-editor/js/languages/es.js";
+import "froala-editor/js/third_party/font_awesome.min.js";
+
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
+import "font-awesome/css/font-awesome.css";
+import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 const RulesEdit = () => {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({ title: "", html: "" });
   const [editingId, setEditingId] = useState(-1);
   const collection = "rules";
+
+  const [froalaOptions] = useState({
+    toolbarButtons: [
+      "bold",
+      "italic",
+      "underline",
+      "subscript",
+      "superscript",
+      "align",
+      "formatOL",
+      "formatUL",
+      "outdent",
+      "indent",
+      "quote",
+      "insertLink",
+      "emoticons",
+      "specialCharacters",
+      "undo",
+      "redo",
+      "clearFormatting",
+    ],
+  });
 
   useEffect(() => {
     loadRules();
@@ -36,14 +71,14 @@ const RulesEdit = () => {
             : 1;
         const ruleToAdd = {
           ...form,
-          html: form.html,
+          html: sanitizeHtml(form.html),
           position: newPosition,
         };
         await addItem(collection, ruleToAdd);
       } else {
         const updatedRule = {
           title: form.title,
-          html: form.html,
+          html: sanitizeHtml(form.html),
         };
         await saveItem(collection, editingId, updatedRule, { merge: true });
       }
@@ -60,7 +95,7 @@ const RulesEdit = () => {
     setEditingId(rule.id);
     setForm({
       title: rule.title,
-      html: rule.html,
+      html: sanitizeHtml(rule.html),
     });
   };
 
@@ -120,6 +155,10 @@ const RulesEdit = () => {
     }
   };
 
+  const handleModelChange = (model) => {
+    setForm({ ...form, html: model });
+  };
+
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
@@ -138,12 +177,10 @@ const RulesEdit = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
             placeholder="Título"
           />
-          <textarea
-            name="html"
-            value={form.html}
-            onChange={(e) => setForm({ ...form, html: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
-            placeholder="Contenido"
+          <FroalaEditor
+            model={form.html}
+            onModelChange={handleModelChange}
+            config={froalaOptions}
           />
           <button
             type="submit"
@@ -167,25 +204,25 @@ const RulesEdit = () => {
                   onClick={() => handleEditClick(rule)}
                   className="flex items-center bg-indigo-600 text-white py-1 px-2 rounded shadow hover:bg-indigo-700 transition-colors"
                 >
-                  <PencilIcon className="w-5 h-5" />
+                  <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleDelete(rule.id)}
                   className="flex items-center bg-red-600 text-white py-1 px-2 rounded shadow hover:bg-red-700 transition-colors"
                 >
-                  <TrashIcon className="w-5 h-5" />
+                  <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleMoveUp(rule)}
                   className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
                 >
-                  <ArrowUpIcon className="w-5 h-5" />
+                  <FontAwesomeIcon icon={faArrowUp} className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleMoveDown(rule)}
                   className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
                 >
-                  <ArrowDownIcon className="w-5 h-5" />
+                  <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
                 </button>
               </div>
             </div>
