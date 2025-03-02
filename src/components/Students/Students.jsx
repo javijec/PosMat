@@ -58,7 +58,7 @@ const Students = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Nombre Completo
+              Nombre o Apellido
             </label>
             <input
               type="text"
