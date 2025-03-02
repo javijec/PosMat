@@ -53,7 +53,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Otros</h3>
             <ul className="space-y-2">
-              <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2 justify-between">
                 <Link to="/links" className="hover:text-blue-300">
                   Enlaces Útiles
                 </Link>
@@ -66,13 +66,13 @@ const Footer = () => {
                   </Link>
                 )}
               </li>
-              <li>
-                <Link to="/archivos" className="hover:text-blue-300">
+              <li className="flex items-center gap-2 justify-between">
+                <Link to="/archivos" className="hover:text-blue-300 ">
                   Archivos
                 </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <Link to="/faq" className="hover:text-blue-300">
+              <li className="flex items-center gap-2 justify-between">
+                <Link to="/faq" className="hover:text-blue-300 ">
                   FAQ
                 </Link>
                 {user && (

@@ -29,18 +29,18 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="py-16">
+    <div className="py-10">
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Contacto</h1>
 
-        <div className="lg:flex lg:gap-8">
+        <div className="md:flex md:gap-8">
           {/* Columna izquierda - Información y formulario */}
-          <div className="lg:w-1/2 mb-8 lg:mb-0">
+          <div className="md:w-1/2 mb-8 md:mb-0">
             <ContactInfo contactData={contactData} />
           </div>
 
           {/* Columna derecha - Mapa */}
-          <div className="lg:w-1/2">
+          <div className="md:w-1/2">
             <ContactMap />
           </div>
         </div>

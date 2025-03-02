@@ -69,12 +69,9 @@ const Header = () => {
                 alt="Logo"
                 className="h-10"
               />
-              <span className="text-xl font-bold">
-                Posgrado en Ciencia de Materiales
-              </span>
             </Link>
 
-            <nav className="hidden md:flex space-x-6 items-center">
+            <nav className="hidden lg:flex space-x-6 items-center">
               {menuItems.map((item, i) =>
                 item.subItems ? (
                   <Menu
@@ -200,7 +197,7 @@ const Header = () => {
               </Menu>
             </nav>
 
-            <Disclosure.Button className="md:hidden focus:outline-none">
+            <Disclosure.Button className="lg:hidden focus:outline-none">
               {open ? (
                 <XMarkIcon className="h-6 w-6" />
               ) : (
@@ -209,7 +206,7 @@ const Header = () => {
             </Disclosure.Button>
           </div>
 
-          <Disclosure.Panel className="md:hidden px-4 pb-4">
+          <Disclosure.Panel className="lg:hidden px-4 pb-4">
             <nav className="flex flex-col space-y-2">
               {menuItems.map((item, i) =>
                 item.subItems ? (

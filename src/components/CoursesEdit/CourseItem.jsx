@@ -1,13 +1,16 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const CourseItem = ({ course, onEdit, onDelete }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
       <div>
+        <h3 className="text-xl font-semibold">{course.nombre}</h3>
         <h3 className="text-xl font-semibold">
-          {course.nombre}-{course.año}-{course.semestre} semestre
+          {course.año}-{course.semestre == 1 && <>1er</>}
+          {course.semestre == 2 && <>2do</>} semestre
         </h3>
-        <p className="text-gray-600">ID: {course.id}</p>
         <p className="text-gray-600">
           {course.horasTeoricas > 0 && (
             <span className="text-gray-700">{course.horasTeoricas} HT, </span>
@@ -38,18 +41,22 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
         )}
       </div>
       <div className="space-x-2">
-        <button
-          onClick={() => onEdit(course)} // Pasa el objeto course completo
-          className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition-colors"
-        >
-          Editar
-        </button>
-        <button
-          onClick={() => onDelete(course.id)} // Pasa el ID para eliminar
-          className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition-colors"
-        >
-          Eliminar
-        </button>
+        <div>
+          <button
+            onClick={() => onEdit(course)} // Pasa el objeto course completo
+            className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition-colors"
+          >
+            <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => onDelete(course.id)} // Pasa el ID para eliminar
+            className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition-colors"
+          >
+            <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );

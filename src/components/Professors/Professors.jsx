@@ -37,9 +37,9 @@ const Professors = () => {
   };
 
   return (
-    <div className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <div className="py-10 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-16 text-gray-900">
+        <h1 className="py-1 text-3xl sm:text-5xl font-bold mb-16 text-gray-900">
           Lista de Profesores
         </h1>
 
@@ -58,7 +58,7 @@ const Professors = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-8">
           {filteredData.map((prof, index) => (
             <ProfessorCard key={index} professor={prof} />
           ))}

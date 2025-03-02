@@ -24,7 +24,7 @@ const Links = () => {
   }, [links]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto max-w-250 px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Enlaces Útiles</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Object.keys(groupedLinks).map((category, index) => (

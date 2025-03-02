@@ -51,7 +51,9 @@ const Tesis = () => {
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
-    setSelectedYears((prev) => (prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]));
+    setSelectedYears((prev) =>
+      prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]
+    );
   };
 
   const handleTypeChange = (event) => {
@@ -64,14 +66,18 @@ const Tesis = () => {
   // Generar datos para el gráfico
   const chartData = years.map((year) => ({
     year,
-    doctorado: data.filter((t) => t.year === year && t.tag === "doctorado").length,
-    maestria: data.filter((t) => t.year === year && t.tag === "maestria").length,
+    doctorado: data.filter((t) => t.year === year && t.tag === "doctorado")
+      .length,
+    maestria: data.filter((t) => t.year === year && t.tag === "maestria")
+      .length,
   }));
 
   return (
-    <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-12 text-gray-900">Tesis</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-12 text-gray-900">
+          Tesis
+        </h1>
         <div className="mb-6">
           <button
             onClick={() => setShowStats(true)}
@@ -102,7 +108,11 @@ const Tesis = () => {
 
       {/* Diálogo de estadísticas */}
       <Transition appear show={showStats} as={Fragment}>
-        <Dialog as="div" className="relative z-50" onClose={() => setShowStats(false)}>
+        <Dialog
+          as="div"
+          className="relative z-50"
+          onClose={() => setShowStats(false)}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

@@ -11,7 +11,6 @@ import About from "./components/About/About.jsx";
 import AboutEdit from "./components/AboutEdit/AboutEdit.jsx";
 import Contact from "./components/Contact/Contact.jsx";
 import ContactEdit from "./components/ContactEdit/ContactEdit.jsx";
-
 import Courses from "./components/Courses/Courses.jsx";
 import CursesEdit from "./components/CoursesEdit/CoursesEdit.jsx";
 import Professors from "./components/Professors/Professors.jsx";

@@ -2,53 +2,12 @@ import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
 import AboutForm from "./AboutForm";
 import AboutList from "./AboutList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPencilAlt,
-  faTrash,
-  faArrowUp,
-  faArrowDown,
-} from "@fortawesome/free-solid-svg-icons";
-import FroalaEditor from "react-froala-wysiwyg";
-import "froala-editor/js/froala_editor.pkgd.min.js";
-import "froala-editor/js/plugins.pkgd.min.js";
-import "froala-editor/js/plugins/align.min.js";
-import "froala-editor/js/third_party/spell_checker.min.js";
-import "froala-editor/js/languages/es.js";
-import "froala-editor/js/third_party/font_awesome.min.js";
-
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-import "font-awesome/css/font-awesome.css";
-import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 const AboutEdit = () => {
   const [data, setData] = useState([]);
   const [form, setForm] = useState({ title: "", content: "" });
   const [editingId, setEditingId] = useState(-1);
   const collection = "about";
-
-  const [froalaOptions] = useState({
-    toolbarButtons: [
-      "bold",
-      "italic",
-      "underline",
-      "subscript",
-      "superscript",
-      "align",
-      "formatOL",
-      "formatUL",
-      "outdent",
-      "indent",
-      "quote",
-      "insertLink",
-      "emoticons",
-      "specialCharacters",
-      "undo",
-      "redo",
-      "clearFormatting",
-    ],
-  });
 
   useEffect(() => {
     loadAbouts();

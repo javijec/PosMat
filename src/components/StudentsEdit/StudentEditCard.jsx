@@ -1,8 +1,15 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
   return (
     <div className="space-y-4">
       {students.map((student, index) => (
-        <div key={index} className="p-4 bg-white rounded shadow flex justify-between items-center">
+        <div
+          key={index}
+          className="p-4 bg-white rounded shadow flex justify-between items-center"
+        >
           <div>
             <p>
               {student.lastName}, {student.firstName}
@@ -14,19 +21,30 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
               <strong>Codirector:</strong> {student.codirector || "-"}
             </p>
             <p className="text-sm">
-              <strong>Programa:</strong> {student.program === "doctorado" ? "Doctorado" : "Maestría"}
+              <strong>Programa:</strong>{" "}
+              {student.program === "doctorado" ? "Doctorado" : "Maestría"}
             </p>
             <p className="text-sm">
               <strong>Tema de Tesis:</strong> {student.thesis_topic}
             </p>
           </div>
-          <div className="space-x-2">
-            <button onClick={() => handleEdit(student)} className="bg-yellow-500 text-white py-1 px-3 rounded">
-              Editar
-            </button>
-            <button onClick={() => handleDelete(student.id)} className="bg-red-600 text-white py-1 px-3 rounded">
-              Eliminar
-            </button>
+          <div className="space-x-2 ">
+            <div>
+              <button
+                onClick={() => handleEdit(student)}
+                className="bg-yellow-500 text-white py-1 px-3 rounded"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() => handleDelete(student.id)}
+                className="bg-red-600 text-white py-1 px-3 rounded"
+              >
+                <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       ))}

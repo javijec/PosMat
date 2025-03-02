@@ -21,7 +21,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[600px] overflow-hidden">
+    <div className="relative h-[450px] md:h-[600] overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center transform scale-105"
         style={{
@@ -32,7 +32,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="text-white max-w-2xl">
-            <h1 className="text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 leading-tight">
               Posgrado en Ciencia de Materiales
             </h1>
             <div className="backdrop-blur-sm bg-black/30 p-6 rounded-lg border border-white/10">

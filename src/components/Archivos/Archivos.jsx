@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 const resources = [
   {
@@ -43,7 +45,7 @@ const Archivos = () => {
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         <h1 className="text-5xl font-bold mb-12 text-gray-900">Recursos</h1>
         {Object.keys(groupedResources).map((tag) => (
           <div key={tag} className="mb-8">
@@ -66,7 +68,10 @@ const Archivos = () => {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-700 font-semibold"
                     >
-                      Descargar
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="bg-blue-500 text-white py-1 px-3 rounded"
+                      />
                     </a>
                   </div>
                 </li>

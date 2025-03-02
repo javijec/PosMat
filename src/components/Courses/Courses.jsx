@@ -94,9 +94,9 @@ const Courses = () => {
   }, [filteredCourses]);
 
   return (
-    <div className="py-24 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-12 text-gray-900">
+        <h1 className="text-3xl md:text-5xl font-bold mb-12 text-gray-900">
           Cursos de Posgrado
         </h1>
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">

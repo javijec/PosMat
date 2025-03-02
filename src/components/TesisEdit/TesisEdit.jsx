@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TesisEditItem from "./TesisEditItem";
+import TesisForm from "./TesisForm";
+import SearchForm from "./SearchForm";
 import {
   fetchData,
   getItem,
@@ -136,7 +138,7 @@ const TesisEdit = () => {
   };
 
   return (
-    <div className="py-16">
+    <div className="py-10">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Tesis</h1>
         <button
@@ -145,138 +147,34 @@ const TesisEdit = () => {
         >
           Agregar Tesis Nueva
         </button>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label>Año:</label>
-            <input
-              name="year"
-              value={Form.year}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>Nombre:</label>
-            <input
-              name="name"
-              value={Form.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>Título:</label>
-            <input
-              name="title"
-              value={Form.title}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>URL:</label>
-            <input
-              name="url"
-              value={Form.url}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>Director:</label>
-            <input
-              name="director"
-              value={Form.director}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>Co-Director:</label>
-            <input
-              name="co_director"
-              value={Form.co_director}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label>Tag:</label>
-            <select
-              name="tag"
-              value={Form.tag}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            >
-              <option value="maestria">Maestría</option>
-              <option value="doctoral">Doctorado</option>
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded"
-          >
-            {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
-          </button>
-        </form>
+
+        <TesisForm
+          Form={Form}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          editingIndex={editingIndex}
+        />
+
         <hr className="my-8" />
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-4">Buscar Tesis</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Nombre del Autor
-              </label>
-              <input
-                type="text"
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Programa
-              </label>
-              <select
-                value={searchTag}
-                onChange={(e) => setSearchTag(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              >
-                <option value="">Todos</option>
-                <option value="maestria">Maestría</option>
-                <option value="doctoral">Doctorado</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Título de Tesis
-              </label>
-              <input
-                type="text"
-                value={searchTitle}
-                onChange={(e) => setSearchTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Año
-              </label>
-              <input
-                type="text"
-                value={searchYear}
-                onChange={(e) => setSearchYear(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-        </div>
+
+        <SearchForm
+          searchName={searchName}
+          searchTag={searchTag}
+          searchTitle={searchTitle}
+          searchYear={searchYear}
+          setSearchName={setSearchName}
+          setSearchTag={setSearchTag}
+          setSearchTitle={setSearchTitle}
+          setSearchYear={setSearchYear}
+        />
+
         <hr className="my-8" />
+
         <h2 className="text-2xl font-bold mb-4">Tesis Existentes</h2>
         <div>
           {filteredData.map((t, index) => (
             <TesisEditItem
+              key={t.id}
               t={t}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
