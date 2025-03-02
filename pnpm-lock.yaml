@@ -59,9 +59,6 @@ importers:
       font-awesome:
         specifier: ^4.7.0
         version: 4.7.0
-      froala-editor:
-        specifier: ^4.5.0
-        version: 4.5.0
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.0.0)
@@ -71,9 +68,6 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
-      react-froala-wysiwyg:
-        specifier: ^4.5.0
-        version: 4.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-router-dom:
         specifier: ^7.1.5
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1520,9 +1514,6 @@ packages:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
     engines: {node: '>= 0.4'}
 
-  froala-editor@4.5.0:
-    resolution: {integrity: sha512-UPJGPnpQh/aL6u6BIXwrRZ+hIbYcCglKRvN0QA5RJeHckXHu/plwvkUAU4LxOqeYe6DfXSkLIay0Bjk+Oku1CA==}
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -2041,12 +2032,6 @@ packages:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
       react: ^19.0.0
-
-  react-froala-wysiwyg@4.5.0:
-    resolution: {integrity: sha512-cIQFyIjS6bw+EC0H7JpcKeiDhQZA2cC7Zs2GHLl0ddCFGYJTLDuJAe5HiyHJyNIcxzRwGb7U0FHs/W3PasXAPg==}
-    peerDependencies:
-      react: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -3946,8 +3931,6 @@ snapshots:
     dependencies:
       is-callable: 1.2.7
 
-  froala-editor@4.5.0: {}
-
   fsevents@2.3.3:
     optional: true
 
@@ -4506,12 +4489,6 @@ snapshots:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
-
-  react-froala-wysiwyg@4.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      froala-editor: 4.5.0
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
 
   react-is@16.13.1: {}
 

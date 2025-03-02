@@ -128,7 +128,6 @@ const AboutEdit = () => {
         <AboutForm
           form={form}
           editingId={editingId}
-          froalaOptions={froalaOptions}
           setForm={setForm}
           handleSubmit={handleSubmit}
           handleModelChange={handleModelChange}
