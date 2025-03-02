@@ -10,6 +10,8 @@ import Home from "./components/Home/Home.jsx";
 import About from "./components/About/About.jsx";
 import AboutEdit from "./components/AboutEdit/AboutEdit.jsx";
 import Contact from "./components/Contact/Contact.jsx";
+import ContactEdit from "./components/ContactEdit/ContactEdit.jsx";
+
 import Courses from "./components/Courses/Courses.jsx";
 import CursesEdit from "./components/CoursesEdit/CoursesEdit.jsx";
 import Professors from "./components/Professors/Professors.jsx";
@@ -30,7 +32,6 @@ import Logout from "./components/Logout/Logout";
 import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
-import ContactEdit from "./components/Contact/ContactEdit.jsx";
 import HeroEdit from "./components/Home/components/HeroEdit.jsx";
 
 function App() {
