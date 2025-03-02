@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
-import {
-  PencilIcon,
-  TrashIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-} from "@heroicons/react/24/outline";
+import FAQForm from "./FAQForm";
+import FAQList from "./FAQList";
 
 const FAQEdit = () => {
   const [faqs, setFaqs] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editingForm, setEditingForm] = useState({ question: "", answer: "" });
-  const [newFAQ, setNewFAQ] = useState({ question: "", answer: "" });
+  const [form, setForm] = useState({ question: "", answer: "" });
   const collection = "faq";
 
   useEffect(() => {
@@ -21,6 +16,15 @@ const FAQEdit = () => {
   const loadFAQs = async () => {
     const data = await fetchData(collection);
     setFaqs(data.sort((a, b) => (a.position || 0) - (b.position || 0)));
+  };
+
+  const handleEditClick = (faq) => {
+    window.scrollTo(0, 0);
+    setEditingId(faq.id);
+    setForm({
+      question: faq.question,
+      answer: faq.answer,
+    });
   };
 
   const handleDelete = async (id) => {
@@ -33,65 +37,10 @@ const FAQEdit = () => {
     }
   };
 
-  const handleEditClick = (faq) => {
-    setEditingId(faq.id);
-    setEditingForm({
-      question: faq.question,
-      answer: faq.answer.replace(/<br\s*\/?>/gi, "\n"),
-    });
-  };
-
-  const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditingForm({ question: "", answer: "" });
-  };
-
-  const handleChangeEditing = (e) => {
-    setEditingForm({ ...editingForm, [e.target.name]: e.target.value });
-  };
-
-  const handleSaveEdit = async () => {
-    try {
-      const updatedFAQ = {
-        question: editingForm.question,
-        answer: editingForm.answer.replace(/\n/g, "<br/>"),
-      };
-      await saveItem(collection, editingId, updatedFAQ, { merge: true });
-      setEditingId(null);
-      setEditingForm({ question: "", answer: "" });
-      loadFAQs();
-    } catch (error) {
-      console.error("Error updating FAQ:", error);
-    }
-  };
-
-  const handleAddNewFAQ = async () => {
-    if (!newFAQ.question.trim() || !newFAQ.answer.trim()) {
-      alert("Complete ambos campos para la nueva FAQ.");
-      return;
-    }
-    try {
-      const newPosition =
-        faqs.length > 0 ? Math.max(...faqs.map((f) => f.position || 0)) + 1 : 1;
-      const faqToAdd = {
-        ...newFAQ,
-        answer: newFAQ.answer.replace(/\n/g, "<br/>"),
-        position: newPosition,
-      };
-      await addItem(collection, faqToAdd);
-      setNewFAQ({ question: "", answer: "" });
-      loadFAQs();
-    } catch (error) {
-      console.error("Error adding new FAQ:", error);
-    }
-  };
-
-  // Funciones para mover FAQ
   const handleMoveUp = async (faq) => {
     const index = faqs.findIndex((f) => f.id === faq.id);
     if (index > 0) {
       const prevFaq = faqs[index - 1];
-      // Intercambiar posiciones
       const tempPos = faq.position || 0;
       await Promise.all([
         saveItem(
@@ -134,109 +83,55 @@ const FAQEdit = () => {
     }
   };
 
+  const handleModelChange = (html) => {
+    setForm({ ...form, answer: html });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.question.trim() || !form.answer.trim()) {
+      alert("Complete ambos campos.");
+      return;
+    }
+
+    try {
+      if (editingId === null) {
+        const newPosition =
+          faqs.length > 0
+            ? Math.max(...faqs.map((f) => f.position || 0)) + 1
+            : 1;
+        await addItem(collection, { ...form, position: newPosition });
+      } else {
+        await saveItem(collection, editingId, form, { merge: true });
+      }
+      setForm({ question: "", answer: "" });
+      setEditingId(null);
+      loadFAQs();
+    } catch (error) {
+      console.error("Error saving FAQ:", error);
+    }
+  };
+
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar FAQ</h1>
-        {/* Formulario para agregar nueva FAQ */}
-        <div className="mb-8 p-4 border rounded-md">
-          <h2 className="text-xl mb-2">Agregar nueva FAQ</h2>
-          <input
-            name="question"
-            value={newFAQ.question}
-            onChange={(e) => setNewFAQ({ ...newFAQ, question: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
-            placeholder="Pregunta"
-          />
-          <textarea
-            name="answer"
-            value={newFAQ.answer}
-            onChange={(e) => setNewFAQ({ ...newFAQ, answer: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2 h-24"
-            placeholder="Respuesta (usa saltos de línea, sin HTML)"
-          />
-          <button
-            onClick={handleAddNewFAQ}
-            className="bg-green-600 text-white py-1 px-3 rounded shadow hover:bg-green-700 transition-colors"
-          >
-            Agregar FAQ
-          </button>
-        </div>
-        {/* Lista de FAQ */}
-        <div>
-          {faqs.map((faq) =>
-            editingId === faq.id ? (
-              <div
-                key={faq.id}
-                className="p-4 border rounded-md mb-4 bg-gray-50"
-              >
-                <input
-                  name="question"
-                  value={editingForm.question}
-                  onChange={handleChangeEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
-                  placeholder="Pregunta"
-                />
-                <textarea
-                  name="answer"
-                  value={editingForm.answer}
-                  onChange={handleChangeEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2 h-32"
-                  placeholder="Respuesta (usa saltos de línea, sin HTML)"
-                />
-                <div className="flex space-x-2">
-                  <button
-                    onClick={handleSaveEdit}
-                    className="flex items-center bg-blue-600 text-white py-1 px-3 rounded shadow hover:bg-blue-700 transition-colors"
-                  >
-                    <PencilIcon className="w-5 h-5 mr-1" />
-                    Guardar
-                  </button>
-                  <button
-                    onClick={handleCancelEdit}
-                    className="flex items-center bg-gray-300 text-gray-800 py-1 px-3 rounded shadow hover:bg-gray-400 transition-colors"
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div key={faq.id} className="p-4 border rounded-md mb-4 bg-white">
-                <h2 className="font-semibold text-lg">{faq.question}</h2>
-                <div
-                  className="mt-2"
-                  dangerouslySetInnerHTML={{ __html: faq.answer }}
-                />
-                <div className="mt-4 flex space-x-2">
-                  <button
-                    onClick={() => handleEditClick(faq)}
-                    className="flex items-center bg-indigo-600 text-white py-1 px-2 rounded shadow hover:bg-indigo-700 transition-colors"
-                  >
-                    <PencilIcon className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(faq.id)}
-                    className="flex items-center bg-red-600 text-white py-1 px-2 rounded shadow hover:bg-red-700 transition-colors"
-                  >
-                    <TrashIcon className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => handleMoveUp(faq)}
-                    className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
-                  >
-                    <ArrowUpIcon className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => handleMoveDown(faq)}
-                    className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
-                  >
-                    <ArrowDownIcon className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-            )
-          )}
-        </div>
+
+        <FAQForm
+          form={form}
+          editingId={editingId}
+          setForm={setForm}
+          handleSubmit={handleSubmit}
+          handleModelChange={handleModelChange}
+        />
+
+        <FAQList
+          faqs={faqs}
+          handleEditClick={handleEditClick}
+          handleDelete={handleDelete}
+          handleMoveUp={handleMoveUp}
+          handleMoveDown={handleMoveDown}
+        />
       </div>
     </div>
   );
