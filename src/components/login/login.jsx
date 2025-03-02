@@ -21,10 +21,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="sm:min-h-screen flex items-center justify-center bg-gray-150 py-12 px-4 sm:px-1 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Iniciar sesión en tu cuenta</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Iniciar sesión en tu cuenta
+          </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSignIn}>
           <div>
@@ -72,7 +74,10 @@ const Login = () => {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             ¿No tienes una cuenta?{" "}
-            <NavLink to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <NavLink
+              to="/register"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
               Regístrate
             </NavLink>
           </p>
