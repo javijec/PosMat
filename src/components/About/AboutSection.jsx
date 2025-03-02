@@ -1,5 +1,4 @@
 import React from "react";
-import { sanitizeHtml } from "../../utils/htmlSanitizer";
 
 const AboutSection = ({ section }) => {
   return (
@@ -9,7 +8,7 @@ const AboutSection = ({ section }) => {
       </h3>
       <p
         className="text-gray-600 leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(section.content) }}
+        dangerouslySetInnerHTML={{ __html: section.content }}
       />
     </div>
   );

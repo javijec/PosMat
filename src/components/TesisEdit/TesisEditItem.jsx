@@ -16,6 +16,12 @@ const TesisEditItem = ({ t, handleEdit, handleDelete }) => {
         <p>Director: {t.director}</p>
         {t.co_director && <p>Codirector: {t.co_director}</p>}
 
+        {t.url && (
+          <a href={t.url} target="_blank" rel="noopener noreferrer">
+            Resumen: {t.url}
+          </a>
+        )}
+
         <p>Tipo: {t.tag}</p>
       </div>
       <div className="space-x-2">

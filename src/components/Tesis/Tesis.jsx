@@ -8,7 +8,7 @@ import { fetchData } from "../../firebase/CRUD";
 
 const Tesis = () => {
   const [data, setData] = useState([]);
-  const [selectedYears, setSelectedYears] = useState([]);
+  const [selectedYear, setSelectedYear] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [filteredTesis, setFilteredTesis] = useState([]);
   const [showStats, setShowStats] = useState(false);
@@ -28,32 +28,33 @@ const Tesis = () => {
       year: Number(doc.year),
     }));
 
-    tesisData.sort((a, b) => {
-      if (b.year !== a.year) {
-        return b.year - a.year;
-      }
-    });
+    // Corregir el ordenamiento
+    tesisData.sort((a, b) => b.year - a.year);
 
     setData(tesisData);
   };
 
-  // Filtrar datos según el tipo y los años seleccionados
+  // Modificar el efecto de filtrado para ser más explícito
   useEffect(() => {
-    let allTesis = [...data];
+    let filtered = [...data];
+
+    // Filtrar por tipo
     if (selectedType !== "all") {
-      allTesis = allTesis.filter((t) => t.tag === selectedType);
+      filtered = filtered.filter((tesis) => tesis.tag === selectedType);
     }
-    if (selectedYears.length > 0) {
-      allTesis = allTesis.filter((t) => selectedYears.includes(t.year));
+
+    // Filtrar por año
+    if (selectedYear) {
+      filtered = filtered.filter(
+        (tesis) => tesis.year === Number(selectedYear)
+      );
     }
-    setFilteredTesis(allTesis);
-  }, [data, selectedYears, selectedType]);
+
+    setFilteredTesis(filtered);
+  }, [data, selectedYear, selectedType]);
 
   const handleYearChange = (event) => {
-    const year = parseInt(event.target.value);
-    setSelectedYears((prev) =>
-      prev.includes(year) ? prev.filter((y) => y !== year) : [...prev, year]
-    );
+    setSelectedYear(event.target.value);
   };
 
   const handleTypeChange = (event) => {
@@ -91,7 +92,7 @@ const Tesis = () => {
             <TesisFilter
               selectedType={selectedType}
               handleTypeChange={handleTypeChange}
-              selectedYears={selectedYears}
+              selectedYear={selectedYear}
               handleYearChange={handleYearChange}
               years={years}
             />

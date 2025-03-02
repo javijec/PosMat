@@ -266,7 +266,7 @@ const Header = () => {
               <div className="mt-4">
                 {user ? (
                   <>
-                    {user.email === "javijec@gmail.com" && (
+                    {user.email && (
                       <NavLink
                         to="/manage-emails"
                         className="block text-sm text-gray-300 hover:text-white mb-2"

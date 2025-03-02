@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
-import { sanitizeHtml } from "../../utils/htmlSanitizer";
 import RulesForm from "./RulesForm";
 import RulesList from "./RulesList";
 
@@ -33,14 +32,14 @@ const RulesEdit = () => {
             : 1;
         const ruleToAdd = {
           ...form,
-          html: sanitizeHtml(form.html),
+          html: form.html,
           position: newPosition,
         };
         await addItem(collection, ruleToAdd);
       } else {
         const updatedRule = {
           title: form.title,
-          html: sanitizeHtml(form.html),
+          html: form.html,
         };
         await saveItem(collection, editingId, updatedRule, { merge: true });
       }
@@ -57,7 +56,7 @@ const RulesEdit = () => {
     setEditingId(rule.id);
     setForm({
       title: rule.title,
-      html: sanitizeHtml(rule.html),
+      html: rule.html,
     });
   };
 

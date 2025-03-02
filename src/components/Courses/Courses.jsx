@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import CourseCard from "./CourseCard";
 import CourseFilter from "./CourseFilter";
 import CoursesDisplay from "./CoursesDisplay"; // <-- Nuevo import
 import { fetchData } from "../../firebase/CRUD";
