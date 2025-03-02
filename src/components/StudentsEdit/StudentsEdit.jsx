@@ -153,12 +153,15 @@ const StudentsEdit = () => {
           </div>
           <div>
             <label>Programa:</label>
-            <input
+            <select
               name="program"
               value={Form.program}
               onChange={handleChange}
               className="w-full border rounded px-2 py-1"
-            />
+            >
+              <option value="doctorado">Doctorado</option>
+              <option value="maestria">Maestría</option>
+            </select>
           </div>
           <button
             type="submit"
