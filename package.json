@@ -24,7 +24,6 @@
     "@tiptap/extension-underline": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "dompurify": "^3.0.8",
     "firebase": "^11.3.1",
     "font-awesome": "^4.7.0",
     "lucide-react": "^0.475.0",
