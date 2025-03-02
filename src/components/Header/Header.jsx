@@ -52,9 +52,15 @@ const Header = () => {
     }
   };
 
+  const closeDisclosure = (close) => {
+    if (close) {
+      close();
+    }
+  };
+
   return (
     <Disclosure as="header" className="bg-ingenieria text-white shadow">
-      {({ open }) => (
+      {({ open, close }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <Link to="/" className="flex items-center space-x-2">
@@ -76,35 +82,41 @@ const Header = () => {
                     key={i}
                     className="relative inline-block text-left"
                   >
-                    <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">
-                      {item.name}
-                    </Menu.Button>
-                    <Menu.Items className="absolute left-0 mt-2 w-48 bg-ingenieria shadow-lg z-10">
-                      {item.subItems.map((subItem, j) => (
-                        <Menu.Item key={j}>
-                          {({ active }) => (
-                            <div className="flex items-center justify-between px-4 py-2">
-                              <NavLink
-                                to={subItem.path}
-                                className={`block ${
-                                  active ? "text-gray-300" : ""
-                                }`}
-                              >
-                                {subItem.name}
-                              </NavLink>
-                              {user && subItem.editPath && (
-                                <NavLink
-                                  to={subItem.editPath}
-                                  className="ml-2 p-1 hover:bg-gray-700 rounded"
-                                >
-                                  <PencilSquareIcon className="h-4 w-4" />
-                                </NavLink>
+                    {({ close: menuClose }) => (
+                      <>
+                        <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">
+                          {item.name}
+                        </Menu.Button>
+                        <Menu.Items className="absolute left-0 mt-2 w-48 bg-ingenieria shadow-lg z-10">
+                          {item.subItems.map((subItem, j) => (
+                            <Menu.Item key={j}>
+                              {({ active }) => (
+                                <div className="flex items-center justify-between px-4 py-2">
+                                  <NavLink
+                                    to={subItem.path}
+                                    className={`block ${
+                                      active ? "text-gray-300" : ""
+                                    }`}
+                                    onClick={() => closeDisclosure(menuClose)}
+                                  >
+                                    {subItem.name}
+                                  </NavLink>
+                                  {user && subItem.editPath && (
+                                    <NavLink
+                                      to={subItem.editPath}
+                                      className="ml-2 p-1 hover:bg-gray-700 rounded"
+                                      onClick={() => closeDisclosure(menuClose)}
+                                    >
+                                      <PencilSquareIcon className="h-4 w-4" />
+                                    </NavLink>
+                                  )}
+                                </div>
                               )}
-                            </div>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </Menu.Items>
+                            </Menu.Item>
+                          ))}
+                        </Menu.Items>
+                      </>
+                    )}
                   </Menu>
                 ) : (
                   <div key={i} className="flex items-center space-x-1">
@@ -128,53 +140,62 @@ const Header = () => {
 
               {/* User Menu */}
               <Menu as="div" className="relative inline-block text-left">
-                <Menu.Button className="p-2 hover:bg-ingenieria-dark rounded-full transition-colors">
-                  <UserIcon className="h-5 w-5" />
-                </Menu.Button>
-                {user ? (
-                  <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
-                    {user.email === "javijec@gmail.com" && (
-                      <Menu.Item>
-                        {({ active }) => (
-                          <NavLink
-                            to="/manage-emails"
-                            className={`block px-4 py-2 text-sm ${
-                              active ? "bg-gray-700" : ""
-                            }`}
-                          >
-                            Gestionar Emails
-                          </NavLink>
+                {({ close: menuClose }) => (
+                  <>
+                    <Menu.Button className="p-2 hover:bg-ingenieria-dark rounded-full transition-colors">
+                      <UserIcon className="h-5 w-5" />
+                    </Menu.Button>
+                    {user ? (
+                      <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
+                        {user.email === "javijec@gmail.com" && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <NavLink
+                                to="/manage-emails"
+                                className={`block px-4 py-2 text-sm ${
+                                  active ? "bg-gray-700" : ""
+                                }`}
+                                onClick={() => closeDisclosure(menuClose)}
+                              >
+                                Gestionar Emails
+                              </NavLink>
+                            )}
+                          </Menu.Item>
                         )}
-                      </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={() => {
+                                handleAuth();
+                                closeDisclosure(menuClose);
+                              }}
+                              className={`w-full text-left px-4 py-2 text-sm ${
+                                active ? "bg-gray-700" : ""
+                              }`}
+                            >
+                              Cerrar Sesión
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    ) : (
+                      <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <NavLink
+                              to="/login"
+                              className={`block px-4 py-2 text-sm ${
+                                active ? "bg-gray-700" : ""
+                              }`}
+                              onClick={() => closeDisclosure(menuClose)}
+                            >
+                              Ingresar
+                            </NavLink>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
                     )}
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          onClick={handleAuth}
-                          className={`w-full text-left px-4 py-2 text-sm ${
-                            active ? "bg-gray-700" : ""
-                          }`}
-                        >
-                          Cerrar Sesión
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </Menu.Items>
-                ) : (
-                  <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <NavLink
-                          to="/login"
-                          className={`block px-4 py-2 text-sm ${
-                            active ? "bg-gray-700" : ""
-                          }`}
-                        >
-                          Ingresar
-                        </NavLink>
-                      )}
-                    </Menu.Item>
-                  </Menu.Items>
+                  </>
                 )}
               </Menu>
             </nav>
@@ -203,6 +224,7 @@ const Header = () => {
                           <NavLink
                             to={subItem.path}
                             className="block hover:text-gray-300"
+                            onClick={() => closeDisclosure(close)}
                           >
                             {subItem.name}
                           </NavLink>
@@ -210,6 +232,7 @@ const Header = () => {
                             <NavLink
                               to={subItem.editPath}
                               className="ml-2 p-1 hover:bg-gray-700 rounded"
+                              onClick={() => closeDisclosure(close)}
                             >
                               <PencilSquareIcon className="h-4 w-4" />
                             </NavLink>
@@ -219,10 +242,14 @@ const Header = () => {
                     </div>
                   </div>
                 ) : (
-                  <div key={i} className="flex items-center space-x-1">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between py-1"
+                  >
                     <NavLink
                       to={item.path}
                       className="block hover:text-gray-300"
+                      onClick={() => closeDisclosure(close)}
                     >
                       {item.name}
                     </NavLink>
@@ -230,6 +257,7 @@ const Header = () => {
                       <NavLink
                         to={item.editPath}
                         className="p-1 hover:bg-gray-700 rounded"
+                        onClick={() => closeDisclosure(close)}
                       >
                         <PencilSquareIcon className="h-4 w-4" />
                       </NavLink>

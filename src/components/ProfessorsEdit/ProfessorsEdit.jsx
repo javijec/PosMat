@@ -16,12 +16,18 @@ const ProfessorsEdit = () => {
     email: "",
     title: "",
   });
+  const [searchName, setSearchName] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const collection = "professors";
   const x = "profesor";
 
   useEffect(() => {
     fetchProfessors();
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [data, searchName]);
 
   const fetchProfessors = async () => {
     const Data = await fetchData(collection);
@@ -31,6 +37,18 @@ const ProfessorsEdit = () => {
     );
 
     setData(sortedData);
+  };
+
+  const handleSearch = () => {
+    let filtered = data;
+    if (searchName) {
+      filtered = filtered.filter(
+        (prof) =>
+          prof.firstName.toLowerCase().includes(searchName.toLowerCase()) ||
+          prof.lastName.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
+    setFilteredData(filtered);
   };
 
   const handleEdit = async (data) => {
@@ -137,10 +155,25 @@ const ProfessorsEdit = () => {
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
           </button>
         </form>
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Buscar Profesores</h2>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Nombre o Apellido
+            </label>
+            <input
+              type="text"
+              placeholder="Buscar por nombre..."
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+        </div>
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Profesores Existentes</h2>
         <div className="space-y-4">
-          {data.map((prof, index) => (
+          {filteredData.map((prof, index) => (
             <div
               key={index}
               className="p-4 bg-white rounded shadow flex justify-between items-center"

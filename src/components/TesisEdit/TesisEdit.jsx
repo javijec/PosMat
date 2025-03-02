@@ -23,9 +23,19 @@ const TesisEdit = () => {
   const collection = "tesis";
   const x = "tesis";
 
+  const [searchName, setSearchName] = useState("");
+  const [searchTag, setSearchTag] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
   useEffect(() => {
     fetchTesis();
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [data, searchName, searchTag, searchTitle, searchYear]);
 
   const fetchTesis = async () => {
     const Data = await fetchData(collection);
@@ -100,6 +110,29 @@ const TesisEdit = () => {
     }
     fetchData();
     handleAdd();
+  };
+
+  const handleSearch = () => {
+    let filtered = data;
+
+    if (searchName) {
+      filtered = filtered.filter((tesis) =>
+        tesis.name.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
+    if (searchTag) {
+      filtered = filtered.filter((tesis) => tesis.tag === searchTag);
+    }
+    if (searchTitle) {
+      filtered = filtered.filter((tesis) =>
+        tesis.title.toLowerCase().includes(searchTitle.toLowerCase())
+      );
+    }
+    if (searchYear) {
+      filtered = filtered.filter((tesis) => String(tesis.year) === searchYear);
+    }
+
+    setFilteredData(filtered);
   };
 
   return (
@@ -187,9 +220,62 @@ const TesisEdit = () => {
           </button>
         </form>
         <hr className="my-8" />
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Buscar Tesis</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Nombre del Autor
+              </label>
+              <input
+                type="text"
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Programa
+              </label>
+              <select
+                value={searchTag}
+                onChange={(e) => setSearchTag(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Todos</option>
+                <option value="maestria">Maestría</option>
+                <option value="doctoral">Doctorado</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Título de Tesis
+              </label>
+              <input
+                type="text"
+                value={searchTitle}
+                onChange={(e) => setSearchTitle(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Año
+              </label>
+              <input
+                type="text"
+                value={searchYear}
+                onChange={(e) => setSearchYear(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+          </div>
+        </div>
+        <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Tesis Existentes</h2>
         <div>
-          {data.map((t, index) => (
+          {filteredData.map((t, index) => (
             <TesisEditItem
               t={t}
               handleEdit={handleEdit}

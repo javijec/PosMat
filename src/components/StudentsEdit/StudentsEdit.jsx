@@ -23,9 +23,18 @@ const StudentsEdit = () => {
   const collection = "students";
   const x = "estudiante";
 
+  const [searchFullName, setSearchFullName] = useState("");
+  const [searchProgram, setSearchProgram] = useState("");
+  const [searchThesis, setSearchThesis] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+
   useEffect(() => {
     fetchStudents();
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [data, searchFullName, searchProgram, searchThesis]);
 
   const fetchStudents = async () => {
     const Data = await fetchData(collection);
@@ -34,6 +43,30 @@ const StudentsEdit = () => {
     );
 
     setStudents(sortedData);
+  };
+
+  const handleSearch = () => {
+    let filtered = data;
+
+    if (searchFullName) {
+      filtered = filtered.filter((student) =>
+        (student.firstName + " " + student.lastName)
+          .toLowerCase()
+          .includes(searchFullName.toLowerCase())
+      );
+    }
+    if (searchProgram) {
+      filtered = filtered.filter(
+        (student) => student.program === searchProgram
+      );
+    }
+    if (searchThesis) {
+      filtered = filtered.filter((student) =>
+        student.thesis_topic.toLowerCase().includes(searchThesis.toLowerCase())
+      );
+    }
+
+    setFilteredData(filtered);
   };
 
   const handleEdit = async (data) => {
@@ -170,10 +203,54 @@ const StudentsEdit = () => {
             {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
           </button>
         </form>
+
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold mb-4">Buscar Estudiantes</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Nombre Completo
+              </label>
+              <input
+                type="text"
+                value={searchFullName}
+                onChange={(e) => setSearchFullName(e.target.value)}
+                placeholder="Buscar por nombre o apellido..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Programa
+              </label>
+              <select
+                value={searchProgram}
+                onChange={(e) => setSearchProgram(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              >
+                <option value="">Todos</option>
+                <option value="doctorado">Doctorado</option>
+                <option value="maestria">Maestría</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Tema de Tesis
+              </label>
+              <input
+                type="text"
+                value={searchThesis}
+                onChange={(e) => setSearchThesis(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+          </div>
+        </div>
+
         <hr className="my-8" />
         <h2 className="text-2xl font-bold mb-4">Estudiantes Existentes</h2>
         <StudentsEditCard
-          students={data}
+          students={filteredData}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
         />
