@@ -14,7 +14,7 @@ const RulesList = ({ data, onEditClick, onDelete, onMoveUp, onMoveDown }) => {
         <div key={rule.id} className="p-4 border rounded-md mb-4 bg-white">
           <h2 className="font-semibold text-lg">{rule.title}</h2>
           <div
-            className="mt-2"
+            className="mt-2 prose [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
             dangerouslySetInnerHTML={{ __html: rule.html }}
           />
           <div className="mt-4 flex space-x-2">

@@ -20,7 +20,7 @@ const AboutList = ({
         <div key={about.id} className="p-4 border rounded-md mb-4 bg-white">
           <h2 className="font-semibold text-lg">{about.title}</h2>
           <div
-            className="mt-2"
+            className="mt-2 prose [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
             dangerouslySetInnerHTML={{ __html: about.content }}
           />
           <div className="mt-4 flex space-x-2">
