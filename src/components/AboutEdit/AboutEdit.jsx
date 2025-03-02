@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
+import AboutForm from "./AboutForm";
+import AboutList from "./AboutList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencilAlt,
@@ -163,68 +165,23 @@ const AboutEdit = () => {
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar About</h1>
-        {/* Formulario unificado para agregar/editar */}
-        <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded-md">
-          <h2 className="text-xl mb-2">
-            {editingId === -1 ? "Agregar nuevo About" : "Editar About"}
-          </h2>
-          <input
-            name="title"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
-            placeholder="Título"
-          />
-          <FroalaEditor
-            model={form.content}
-            onModelChange={handleModelChange}
-            config={froalaOptions}
-          />
-          <button
-            type="submit"
-            className="bg-green-600 text-white py-1 px-3 rounded shadow hover:bg-green-700 transition-colors"
-          >
-            {editingId === -1 ? "Agregar About" : "Guardar Cambios"}
-          </button>
-        </form>
-        {/* Lista de About */}
-        <div>
-          {data.map((about) => (
-            <div key={about.id} className="p-4 border rounded-md mb-4 bg-white">
-              <h2 className="font-semibold text-lg">{about.title}</h2>
-              <div
-                className="mt-2"
-                dangerouslySetInnerHTML={{ __html: about.content }}
-              />
-              <div className="mt-4 flex space-x-2">
-                <button
-                  onClick={() => handleEditClick(about)}
-                  className="flex items-center bg-indigo-600 text-white py-1 px-2 rounded shadow hover:bg-indigo-700 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDelete(about.id)}
-                  className="flex items-center bg-red-600 text-white py-1 px-2 rounded shadow hover:bg-red-700 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleMoveUp(about)}
-                  className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faArrowUp} className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleMoveDown(about)}
-                  className="flex items-center bg-green-600 text-white py-1 px-2 rounded shadow hover:bg-green-700 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faArrowDown} className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Renderizamos el formulario a través del componente AboutForm */}
+        <AboutForm
+          form={form}
+          editingId={editingId}
+          froalaOptions={froalaOptions}
+          setForm={setForm}
+          handleSubmit={handleSubmit}
+          handleModelChange={handleModelChange}
+        />
+        {/* Renderizamos la lista de Abouts a través del componente AboutList */}
+        <AboutList
+          data={data}
+          handleEditClick={handleEditClick}
+          handleDelete={handleDelete}
+          handleMoveUp={handleMoveUp}
+          handleMoveDown={handleMoveDown}
+        />
       </div>
     </div>
   );

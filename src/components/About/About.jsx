@@ -1,7 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchData } from "../../firebase/CRUD";
 import { sanitizeHtml } from "../../utils/htmlSanitizer";
+import AboutSection from "./AboutSection";
 
 const About = () => {
   const [data, setData] = useState([]);
@@ -32,21 +32,10 @@ const About = () => {
             alt="Laboratory"
             className="float-right rounded-2xl shadow-xl md:w-1/2 w-full ml-8 mb-8 object-cover"
           />
-
-          {/* Section headings and content */}
+          {/* Se reemplaza la renderización de secciones por AboutSection */}
           <div className="space-y-12">
             {data.map((section, index) => (
-              <div key={index} className="mb-12">
-                <h3 className="text-2xl font-semibold mb-4 text-gray-900">
-                  {section.title}
-                </h3>
-                <p
-                  className="text-gray-600 leading-relaxed"
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(section.content),
-                  }}
-                ></p>
-              </div>
+              <AboutSection key={index} section={section} />
             ))}
           </div>
         </section>
