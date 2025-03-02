@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import LinkForm from "./components/LinkForm";
+import LinksList from "./components/LinksList";
 
 const LinksEdit = () => {
-  // Cambiamos el estado "form" para representar un link individual
   const [data, setData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({
@@ -66,10 +67,9 @@ const LinksEdit = () => {
   };
 
   return (
-    <div className="py-16">
+    <div className="py-16"></div>
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Links</h1>
-        {/* Botón para agregar un link nuevo */}
         <div className="mb-4">
           <button
             onClick={handleNewLink}
@@ -78,89 +78,18 @@ const LinksEdit = () => {
             Agregar Link Nuevo
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="mb-8 space-y-4">
-          {/* Campos para ingresar los datos del link */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nombre
-            </label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                URL
-              </label>
-              <input
-                name="url"
-                value={form.url}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Categoría
-              </label>
-              <input
-                name="category"
-                value={form.category}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Descripción
-            </label>
-            <input
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            {editingId ? "Guardar Cambios" : "Agregar Link"}
-          </button>
-        </form>
+        <LinkForm
+          form={form}
+          editingId={editingId}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
         <hr className="mb-8" />
-        <h2 className="text-2xl font-bold mb-4">Links Existentes</h2>
-        <div className="space-y-4">
-          {data.map((link) => (
-            <div
-              key={link.id}
-              className="p-4 border rounded-md flex justify-between items-center"
-            >
-              <span className="font-semibold">
-                {link.name} ({link.category})
-              </span>
-              <div>
-                <button
-                  onClick={() => handleEdit(link)}
-                  className="mr-2 text-indigo-600 hover:underline"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => handleDelete(link.id)}
-                  className="text-red-600 hover:underline"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <LinksList
+          data={data}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </div>
     </div>
   );
