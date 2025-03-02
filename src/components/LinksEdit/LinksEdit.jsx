@@ -67,7 +67,7 @@ const LinksEdit = () => {
   };
 
   return (
-    <div className="py-16">
+    <div className="py-10">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Links</h1>
         <div className="mb-4">
