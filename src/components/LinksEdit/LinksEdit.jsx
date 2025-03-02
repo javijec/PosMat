@@ -67,7 +67,7 @@ const LinksEdit = () => {
   };
 
   return (
-    <div className="py-16"></div>
+    <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar Links</h1>
         <div className="mb-4">
@@ -85,11 +85,7 @@ const LinksEdit = () => {
           handleSubmit={handleSubmit}
         />
         <hr className="mb-8" />
-        <LinksList
-          data={data}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
+        <LinksList data={data} onEdit={handleEdit} onDelete={handleDelete} />
       </div>
     </div>
   );
