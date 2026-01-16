@@ -5,6 +5,8 @@ import StudentForm from "./StudentForm";
 import { fetchData } from "../../firebase/CRUD";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import SearchBar from "../shared/SearchBar";
+import FilterGrid from "../shared/FilterGrid";
 
 const StudentsEdit = () => {
   const collectionName = "students";
@@ -123,20 +125,15 @@ const StudentsEdit = () => {
       />
 
       <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Buscar Estudiantes
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <FilterGrid title="Buscar Estudiantes">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nombre Completo
             </label>
-            <input
-              type="text"
+            <SearchBar
               value={searchFullName}
-              onChange={(e) => setSearchFullName(e.target.value)}
+              onChange={setSearchFullName}
               placeholder="Nombre o apellido..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
             />
           </div>
           <div>
@@ -146,7 +143,7 @@ const StudentsEdit = () => {
             <select
               value={searchProgram}
               onChange={(e) => setSearchProgram(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-all shadow-sm"
             >
               <option value="">Todos</option>
               <option value="doctorado">Doctorado</option>
@@ -157,17 +154,13 @@ const StudentsEdit = () => {
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Tema de Tesis
             </label>
-            <input
-              type="text"
+            <SearchBar
               value={searchThesis}
-              onChange={(e) => setSearchThesis(e.target.value)}
+              onChange={setSearchThesis}
               placeholder="Palabra clave..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
             />
           </div>
-        </div>
-
-        <hr className="my-8 border-gray-100" />
+        </FilterGrid>
 
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Estudiantes Registrados

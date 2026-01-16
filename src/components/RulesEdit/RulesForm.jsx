@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Link from "@tiptap/extension-link";
-import MenuBar from "./MenuBar";
+import RichTextEditor from "../shared/RichTextEditor";
+import FormActions from "../shared/FormActions";
 
 const ruleSchema = z.object({
   title: z.string().min(1, "El título es obligatorio"),
@@ -24,7 +20,7 @@ const RulesForm = ({
   const {
     register,
     handleSubmit,
-    setValue,
+    control,
     reset,
     formState: { errors },
   } = useForm({
@@ -32,36 +28,9 @@ const RulesForm = ({
     defaultValues,
   });
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        bulletList: { keepMarks: true, keepAttributes: false },
-        orderedList: { keepMarks: true, keepAttributes: false },
-      }),
-      Underline,
-      TextAlign.configure({
-        types: ["heading", "paragraph", "bulletList", "orderedList"],
-        alignments: ["left", "center", "right", "justify"],
-      }),
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: {
-          class: "text-blue-500 hover:text-blue-700 underline",
-        },
-      }),
-    ],
-    content: defaultValues.html,
-    onUpdate: ({ editor }) => {
-      setValue("html", editor.getHTML(), { shouldValidate: true });
-    },
-  });
-
   useEffect(() => {
     reset(defaultValues);
-    if (editor) {
-      editor.commands.setContent(defaultValues.html);
-    }
-  }, [defaultValues, reset, editor]);
+  }, [defaultValues, reset]);
 
   return (
     <form
@@ -92,44 +61,30 @@ const RulesForm = ({
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Contenido
         </label>
-        <div
-          className={`border rounded-md overflow-hidden ${
-            errors.html ? "border-red-500" : "border-gray-300"
-          }`}
-        >
-          <MenuBar editor={editor} />
-          <EditorContent
-            editor={editor}
-            className="prose max-w-none min-h-[200px] p-4 focus:outline-none [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
-          />
-        </div>
+        <Controller
+          name="html"
+          control={control}
+          render={({ field }) => (
+            <RichTextEditor
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.html}
+            />
+          )}
+        />
         {errors.html && (
           <p className="text-red-500 text-xs mt-1">{errors.html.message}</p>
         )}
       </div>
 
-      <div className="flex space-x-3 mt-8">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 font-medium"
-        >
-          {isSubmitting
-            ? "Guardando..."
-            : editingId === -1
-            ? "Agregar Reglamento"
-            : "Guardar Cambios"}
-        </button>
-        {editingId !== -1 && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-100 text-gray-700 py-2 px-6 rounded-md shadow-sm hover:bg-gray-200 transition-colors font-medium"
-          >
-            Cancelar
-          </button>
-        )}
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        onCancel={onCancel}
+        isEditing={editingId !== -1}
+        submitLabel={
+          editingId === -1 ? "Agregar Reglamento" : "Guardar Cambios"
+        }
+      />
     </form>
   );
 };

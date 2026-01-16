@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import TextAlign from "@tiptap/extension-text-align";
-import Link from "@tiptap/extension-link";
-import MenuBar from "../AboutEdit/MenuBar";
+import RichTextEditor from "../shared/RichTextEditor";
 import FormActions from "../shared/FormActions";
 
 const faqSchema = z.object({
@@ -25,7 +20,7 @@ const FAQForm = ({
   const {
     register,
     handleSubmit,
-    setValue,
+    control,
     reset,
     formState: { errors },
   } = useForm({
@@ -33,36 +28,9 @@ const FAQForm = ({
     defaultValues,
   });
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        bulletList: { keepMarks: true, keepAttributes: false },
-        orderedList: { keepMarks: true, keepAttributes: false },
-      }),
-      Underline,
-      TextAlign.configure({
-        types: ["heading", "paragraph", "bulletList", "orderedList"],
-        alignments: ["left", "center", "right", "justify"],
-      }),
-      Link.configure({
-        openOnClick: false,
-        HTMLAttributes: {
-          class: "text-blue-500 hover:text-blue-700 underline",
-        },
-      }),
-    ],
-    content: defaultValues.answer,
-    onUpdate: ({ editor }) => {
-      setValue("answer", editor.getHTML(), { shouldValidate: true });
-    },
-  });
-
   useEffect(() => {
     reset(defaultValues);
-    if (editor) {
-      editor.commands.setContent(defaultValues.answer || "");
-    }
-  }, [defaultValues, reset, editor]);
+  }, [defaultValues, reset]);
 
   return (
     <form
@@ -93,17 +61,17 @@ const FAQForm = ({
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Respuesta
         </label>
-        <div
-          className={`border rounded-md overflow-hidden ${
-            errors.answer ? "border-red-500" : "border-gray-300"
-          }`}
-        >
-          <MenuBar editor={editor} />
-          <EditorContent
-            editor={editor}
-            className="prose max-w-none min-h-[200px] p-4 focus:outline-none [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
-          />
-        </div>
+        <Controller
+          name="answer"
+          control={control}
+          render={({ field }) => (
+            <RichTextEditor
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.answer}
+            />
+          )}
+        />
         {errors.answer && (
           <p className="text-red-500 text-xs mt-1">{errors.answer.message}</p>
         )}

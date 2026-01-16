@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencilAlt,
   faTrash,
-  faSearch,
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import SearchBar from "../shared/SearchBar";
 
 const ProfessorsEdit = () => {
   const collectionName = "professors";
@@ -108,18 +108,12 @@ const ProfessorsEdit = () => {
           <h2 className="text-2xl font-bold text-gray-800">
             Profesores Registrados
           </h2>
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-              <FontAwesomeIcon icon={faSearch} />
-            </span>
-            <input
-              type="text"
-              placeholder="Buscar por nombre o email..."
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none w-full md:w-64 text-sm"
-            />
-          </div>
+          <SearchBar
+            value={searchName}
+            onChange={setSearchName}
+            placeholder="Buscar por nombre o email..."
+            className="w-full md:w-64"
+          />
         </div>
 
         <div className="grid grid-cols-1 gap-4">

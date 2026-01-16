@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
+import { fetchData, saveItem } from "../../firebase/CRUD";
 import RulesForm from "./RulesForm";
 import RulesList from "./RulesList";
-import { toast } from "sonner";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const RulesEdit = () => {
   const queryClient = useQueryClient();
@@ -24,51 +25,24 @@ const RulesEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(-1);
-      resetForm();
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (data) => {
-      const newPosition =
-        rules.length > 0
-          ? Math.max(...rules.map((f) => f.position || 0)) + 1
-          : 1;
-      return addItem(collectionName, { ...data, position: newPosition });
-    },
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Reglamento agregado con éxito");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Reglamento actualizado con éxito");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Reglamento eliminado con éxito");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "Reglamento agregado con éxito",
+      updateMessage: "Reglamento actualizado con éxito",
+      deleteMessage: "Reglamento eliminado con éxito",
+      customAddFn: async (newData) => {
+        const newPosition =
+          rules.length > 0
+            ? Math.max(...rules.map((f) => f.position || 0)) + 1
+            : 1;
+        return { ...newData, position: newPosition };
+      },
+    });
 
   const reorderMutation = useMutation({
     mutationFn: async ({ rule, direction }) => {
@@ -94,7 +68,9 @@ const RulesEdit = () => {
         ]);
       }
     },
-    ...mutationOptions,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+    },
   });
 
   const handleEditClick = (rule) => {
@@ -134,32 +110,26 @@ const RulesEdit = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Editar Reglamentos
-        </h1>
+    <EditPageContainer title="Editar Reglamentos" maxWidth="4xl">
+      <RulesForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
 
-        <RulesForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={resetForm}
-        />
-
-        <RulesList
-          data={rules}
-          onEditClick={handleEditClick}
-          onDelete={handleDelete}
-          onMoveUp={(rule) => reorderMutation.mutate({ rule, direction: "up" })}
-          onMoveDown={(rule) =>
-            reorderMutation.mutate({ rule, direction: "down" })
-          }
-          isReordering={reorderMutation.isPending}
-        />
-      </div>
-    </div>
+      <RulesList
+        data={rules}
+        onEditClick={handleEditClick}
+        onDelete={handleDelete}
+        onMoveUp={(rule) => reorderMutation.mutate({ rule, direction: "up" })}
+        onMoveDown={(rule) =>
+          reorderMutation.mutate({ rule, direction: "down" })
+        }
+        isReordering={reorderMutation.isPending}
+      />
+    </EditPageContainer>
   );
 };
 

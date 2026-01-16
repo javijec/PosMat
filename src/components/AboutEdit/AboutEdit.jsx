@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
+import { fetchData, saveItem } from "../../firebase/CRUD";
 import AboutForm from "./AboutForm";
 import AboutList from "./AboutList";
-import { toast } from "sonner";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const AboutEdit = () => {
   const queryClient = useQueryClient();
@@ -22,51 +23,24 @@ const AboutEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(-1);
-      setDefaultValues({ title: "", content: "" });
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (newData) => {
-      const newPosition =
-        abouts.length > 0
-          ? Math.max(...abouts.map((f) => f.position || 0)) + 1
-          : 1;
-      return addItem(collectionName, { ...newData, position: newPosition });
-    },
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("¡Agregado con éxito!");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("¡Actualizado con éxito!");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("¡Eliminado con éxito!");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "¡Agregado con éxito!",
+      updateMessage: "¡Actualizado con éxito!",
+      deleteMessage: "¡Eliminado con éxito!",
+      customAddFn: async (newData) => {
+        const newPosition =
+          abouts.length > 0
+            ? Math.max(...abouts.map((f) => f.position || 0)) + 1
+            : 1;
+        return { ...newData, position: newPosition };
+      },
+    });
 
   const reorderMutation = useMutation({
     mutationFn: async ({ about, direction }) => {
@@ -92,7 +66,9 @@ const AboutEdit = () => {
         ]);
       }
     },
-    ...mutationOptions,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+    },
   });
 
   const handleEditClick = (about) => {
@@ -117,6 +93,11 @@ const AboutEdit = () => {
     }
   };
 
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({ title: "", content: "" });
+  };
+
   if (isLoading) {
     return (
       <div className="py-16 flex justify-center">
@@ -126,33 +107,27 @@ const AboutEdit = () => {
   }
 
   return (
-    <div className="py-16">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar About</h1>
-        <AboutForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={() => {
-            setEditingId(-1);
-            setDefaultValues({ title: "", content: "" });
-          }}
-        />
-        <AboutList
-          data={abouts}
-          handleEditClick={handleEditClick}
-          handleDelete={handleDelete}
-          handleMoveUp={(about) =>
-            reorderMutation.mutate({ about, direction: "up" })
-          }
-          handleMoveDown={(about) =>
-            reorderMutation.mutate({ about, direction: "down" })
-          }
-          isReordering={reorderMutation.isPending}
-        />
-      </div>
-    </div>
+    <EditPageContainer title="Editar About" maxWidth="4xl">
+      <AboutForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
+      <AboutList
+        data={abouts}
+        handleEditClick={handleEditClick}
+        handleDelete={handleDelete}
+        handleMoveUp={(about) =>
+          reorderMutation.mutate({ about, direction: "up" })
+        }
+        handleMoveDown={(about) =>
+          reorderMutation.mutate({ about, direction: "down" })
+        }
+        isReordering={reorderMutation.isPending}
+      />
+    </EditPageContainer>
   );
 };
 
