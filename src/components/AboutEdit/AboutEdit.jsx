@@ -1,144 +1,155 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
 import AboutForm from "./AboutForm";
 import AboutList from "./AboutList";
+import { toast } from "sonner";
 
 const AboutEdit = () => {
-  const [data, setData] = useState([]);
-  const [form, setForm] = useState({ title: "", content: "" });
+  const queryClient = useQueryClient();
+  const collectionName = "about";
   const [editingId, setEditingId] = useState(-1);
-  const collection = "about";
+  const [defaultValues, setDefaultValues] = useState({
+    title: "",
+    content: "",
+  });
 
-  useEffect(() => {
-    loadAbouts();
-  }, []);
+  const { data: abouts = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      return result.sort((a, b) => (a.position || 0) - (b.position || 0));
+    },
+  });
 
-  const loadAbouts = async () => {
-    const abouts = await fetchData(collection);
-    setData(abouts.sort((a, b) => (a.position || 0) - (b.position || 0)));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.title.trim() || !form.content.trim()) {
-      alert("Complete ambos campos.");
-      return;
-    }
-    try {
-      if (editingId === -1) {
-        const newPosition =
-          data.length > 0
-            ? Math.max(...data.map((f) => f.position || 0)) + 1
-            : 1;
-        const aboutToAdd = {
-          ...form,
-          content: form.content,
-          position: newPosition,
-        };
-        await addItem(collection, aboutToAdd);
-      } else {
-        const updatedAbout = {
-          title: form.title,
-          content: form.content,
-        };
-        await saveItem(collection, editingId, updatedAbout, { merge: true });
-      }
-      setForm({ title: "", content: "" });
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
       setEditingId(-1);
-      loadAbouts();
-    } catch (error) {
-      console.error("Error guardando About:", error);
-    }
+      setDefaultValues({ title: "", content: "" });
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
   };
+
+  const addMutation = useMutation({
+    mutationFn: (newData) => {
+      const newPosition =
+        abouts.length > 0
+          ? Math.max(...abouts.map((f) => f.position || 0)) + 1
+          : 1;
+      return addItem(collectionName, { ...newData, position: newPosition });
+    },
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("¡Agregado con éxito!");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("¡Actualizado con éxito!");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("¡Eliminado con éxito!");
+    },
+  });
+
+  const reorderMutation = useMutation({
+    mutationFn: async ({ about, direction }) => {
+      const index = abouts.findIndex((f) => f.id === about.id);
+      const targetIndex = direction === "up" ? index - 1 : index + 1;
+
+      if (targetIndex >= 0 && targetIndex < abouts.length) {
+        const otherAbout = abouts[targetIndex];
+        const tempPos = about.position || 0;
+        await Promise.all([
+          saveItem(
+            collectionName,
+            about.id,
+            { position: otherAbout.position },
+            { merge: true }
+          ),
+          saveItem(
+            collectionName,
+            otherAbout.id,
+            { position: tempPos },
+            { merge: true }
+          ),
+        ]);
+      }
+    },
+    ...mutationOptions,
+  });
 
   const handleEditClick = (about) => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(about.id);
-    setForm({
-      title: about.title,
-      content: about.content,
-    });
+    setDefaultValues({ title: about.title, content: about.content });
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Eliminar About?")) return;
-    try {
-      await deleteItem(collection, id);
-      loadAbouts();
-    } catch (error) {
-      console.error("Error deleting About:", error);
+  const handleDelete = (id) => {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar este elemento?")
+    ) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleMoveUp = async (about) => {
-    const index = data.findIndex((f) => f.id === about.id);
-    if (index > 0) {
-      const prevAbout = data[index - 1];
-      const tempPos = about.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          about.id,
-          { position: prevAbout.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          prevAbout.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadAbouts();
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
     }
   };
 
-  const handleMoveDown = async (about) => {
-    const index = data.findIndex((f) => f.id === about.id);
-    if (index < data.length - 1) {
-      const nextAbout = data[index + 1];
-      const tempPos = about.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          about.id,
-          { position: nextAbout.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          nextAbout.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadAbouts();
-    }
-  };
-
-  const handleModelChange = (model) => {
-    setForm({ ...form, content: model });
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-16">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold mb-8">Editar About</h1>
-        {/* Renderizamos el formulario a través del componente AboutForm */}
         <AboutForm
-          form={form}
           editingId={editingId}
-          setForm={setForm}
-          handleSubmit={handleSubmit}
-          handleModelChange={handleModelChange}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={() => {
+            setEditingId(-1);
+            setDefaultValues({ title: "", content: "" });
+          }}
         />
-        {/* Renderizamos la lista de Abouts a través del componente AboutList */}
         <AboutList
-          data={data}
+          data={abouts}
           handleEditClick={handleEditClick}
           handleDelete={handleDelete}
-          handleMoveUp={handleMoveUp}
-          handleMoveDown={handleMoveDown}
+          handleMoveUp={(about) =>
+            reorderMutation.mutate({ about, direction: "up" })
+          }
+          handleMoveDown={(about) =>
+            reorderMutation.mutate({ about, direction: "down" })
+          }
+          isReordering={reorderMutation.isPending}
         />
       </div>
     </div>
