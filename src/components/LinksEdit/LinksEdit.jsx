@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
-import LinkForm from "./components/LinkForm";
-import LinksList from "./components/LinksList";
-import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
+import { fetchData } from "../../firebase/CRUD";
+import LinkForm from "./LinkForm";
+import LinksList from "./LinksList";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const LinksEdit = () => {
-  const queryClient = useQueryClient();
   const collectionName = "links";
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState(-1);
   const [defaultValues, setDefaultValues] = useState({
     name: "",
     url: "",
@@ -25,45 +25,17 @@ const LinksEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(null);
-      resetForm();
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (data) => addItem(collectionName, data),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Link agregado con éxito");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Link actualizado con éxito");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Link eliminado con éxito");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "Enlace agregado con éxito",
+      updateMessage: "Enlace actualizado con éxito",
+      deleteMessage: "Enlace eliminado con éxito",
+    });
 
   const handleEdit = (item) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -78,7 +50,7 @@ const LinksEdit = () => {
   };
 
   const onSubmit = (data) => {
-    if (editingId === null) {
+    if (editingId === -1) {
       addMutation.mutate(data);
     } else {
       updateMutation.mutate({ id: editingId, data });
@@ -86,7 +58,7 @@ const LinksEdit = () => {
   };
 
   const resetForm = () => {
-    setEditingId(null);
+    setEditingId(-1);
     setDefaultValues({ name: "", url: "", description: "", category: "" });
   };
 
@@ -99,28 +71,22 @@ const LinksEdit = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Panel de Links
-        </h1>
+    <EditPageContainer title="Panel de Links">
+      <LinkForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
 
-        <LinkForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={resetForm}
-        />
-
-        <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
-            Links Registrados
-          </h2>
-          <LinksList data={links} onEdit={handleEdit} onDelete={handleDelete} />
-        </div>
+      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
+          Links Registrados
+        </h2>
+        <LinksList data={links} onEdit={handleEdit} onDelete={handleDelete} />
       </div>
-    </div>
+    </EditPageContainer>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CourseItem from "./CourseItem";
 import CourseForm from "./CourseForm";
-import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
-import { toast } from "sonner";
+import { fetchData } from "../../firebase/CRUD";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const CoursesEdit = () => {
-  const queryClient = useQueryClient();
   const collectionName = "courses";
   const [editingId, setEditingId] = useState(-1);
   const [defaultValues, setDefaultValues] = useState({
@@ -48,45 +48,17 @@ const CoursesEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(-1);
-      resetForm();
-    },
-    onError: (error) => {
-      console.error("Error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (data) => addItem(collectionName, data),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Curso agregado con éxito");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Curso actualizado con éxito");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Curso eliminado con éxito");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "Curso agregado con éxito",
+      updateMessage: "Curso actualizado con éxito",
+      deleteMessage: "Curso eliminado con éxito",
+    });
 
   const handleEdit = (course) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -151,85 +123,79 @@ const CoursesEdit = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Panel de Cursos
-        </h1>
+    <EditPageContainer title="Panel de Cursos">
+      <CourseForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
 
-        <CourseForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={resetForm}
-        />
+      <div className="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          Cursos Existentes
+        </h2>
 
-        <div className="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Cursos Existentes
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Año
-              </label>
-              <input
-                type="text"
-                placeholder="Ej: 2024"
-                value={searchYear}
-                onChange={(e) => setSearchYear(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Semestre
-              </label>
-              <select
-                value={searchSemester}
-                onChange={(e) => setSearchSemester(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-              >
-                <option value="">Todos</option>
-                <option value="1">1er Semestre</option>
-                <option value="2">2do Semestre</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nombre
-              </label>
-              <input
-                type="text"
-                placeholder="Buscar por nombre..."
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-              />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Año
+            </label>
+            <input
+              type="text"
+              placeholder="Ej: 2024"
+              value={searchYear}
+              onChange={(e) => setSearchYear(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
           </div>
-
-          <div className="space-y-4">
-            {filteredData.length === 0 ? (
-              <p className="text-center text-gray-500 py-8 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                No se encontraron cursos que coincidan con la búsqueda.
-              </p>
-            ) : (
-              filteredData.map((course) => (
-                <CourseItem
-                  key={course.id}
-                  course={course}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              ))
-            )}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Semestre
+            </label>
+            <select
+              value={searchSemester}
+              onChange={(e) => setSearchSemester(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            >
+              <option value="">Todos</option>
+              <option value="1">1er Semestre</option>
+              <option value="2">2do Semestre</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Nombre
+            </label>
+            <input
+              type="text"
+              placeholder="Buscar por nombre..."
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
           </div>
         </div>
+
+        <div className="space-y-4">
+          {filteredData.length === 0 ? (
+            <p className="text-center text-gray-500 py-8 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+              No se encontraron cursos que coincidan con la búsqueda.
+            </p>
+          ) : (
+            filteredData.map((course) => (
+              <CourseItem
+                key={course.id}
+                course={course}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </EditPageContainer>
   );
 };
 

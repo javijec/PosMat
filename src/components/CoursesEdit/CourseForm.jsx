@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import FormActions from "../shared/FormActions";
 
 const courseSchema = z.object({
   nombre: z.string().min(1, "El nombre es obligatorio"),
@@ -248,28 +249,12 @@ const CourseForm = ({
         </div>
       </div>
 
-      <div className="flex space-x-3 mt-8">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 font-medium"
-        >
-          {isSubmitting
-            ? "Guardando..."
-            : editingId === -1
-            ? "Agregar Curso"
-            : "Guardar Cambios"}
-        </button>
-        {editingId !== -1 && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-100 text-gray-700 py-2 px-6 rounded-md shadow-sm hover:bg-gray-200 transition-colors font-medium"
-          >
-            Cancelar
-          </button>
-        )}
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        onCancel={onCancel}
+        isEditing={editingId !== -1}
+        submitLabel={editingId === -1 ? "Agregar Curso" : "Guardar Cambios"}
+      />
     </form>
   );
 };

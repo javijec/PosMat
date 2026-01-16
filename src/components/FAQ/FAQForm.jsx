@@ -8,6 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link";
 import MenuBar from "../AboutEdit/MenuBar";
+import FormActions from "../shared/FormActions";
 
 const faqSchema = z.object({
   question: z.string().min(1, "La pregunta es obligatoria"),
@@ -59,7 +60,7 @@ const FAQForm = ({
   useEffect(() => {
     reset(defaultValues);
     if (editor) {
-      editor.commands.setContent(defaultValues.answer);
+      editor.commands.setContent(defaultValues.answer || "");
     }
   }, [defaultValues, reset, editor]);
 
@@ -69,7 +70,7 @@ const FAQForm = ({
       className="mb-8 p-6 border rounded-lg bg-white shadow-sm"
     >
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        {editingId === null ? "Agregar nueva FAQ" : "Editar FAQ"}
+        {editingId === -1 ? "Agregar nueva FAQ" : "Editar FAQ"}
       </h2>
 
       <div className="mb-4">
@@ -108,28 +109,12 @@ const FAQForm = ({
         )}
       </div>
 
-      <div className="flex space-x-3 mt-8">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 font-medium"
-        >
-          {isSubmitting
-            ? "Guardando..."
-            : editingId === null
-            ? "Agregar FAQ"
-            : "Guardar Cambios"}
-        </button>
-        {editingId !== null && (
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-100 text-gray-700 py-2 px-6 rounded-md shadow-sm hover:bg-gray-200 transition-colors font-medium"
-          >
-            Cancelar
-          </button>
-        )}
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        onCancel={onCancel}
+        isEditing={editingId !== -1}
+        submitLabel={editingId === -1 ? "Agregar FAQ" : "Guardar Cambios"}
+      />
     </form>
   );
 };

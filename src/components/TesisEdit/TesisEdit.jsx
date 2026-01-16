@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import TesisEditItem from "./TesisEditItem";
 import TesisForm from "./TesisForm";
 import SearchForm from "./SearchForm";
-import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
-import { toast } from "sonner";
+import { fetchData } from "../../firebase/CRUD";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const TesisEdit = () => {
-  const queryClient = useQueryClient();
   const collectionName = "tesis";
   const [editingId, setEditingId] = useState(-1);
   const [defaultValues, setDefaultValues] = useState({
@@ -41,45 +41,17 @@ const TesisEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(-1);
-      resetForm();
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (data) => addItem(collectionName, data),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Tesis agregada con éxito");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Tesis actualizada con éxito");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("Tesis eliminada con éxito");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "Tesis agregada con éxito",
+      updateMessage: "Tesis actualizada con éxito",
+      deleteMessage: "Tesis eliminada con éxito",
+    });
 
   const handleEdit = (t) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -140,59 +112,53 @@ const TesisEdit = () => {
   }
 
   return (
-    <div className="py-10 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Panel de Tesis
-        </h1>
+    <EditPageContainer title="Panel de Tesis">
+      <TesisForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
 
-        <TesisForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={resetForm}
+      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          Buscar y Filtrar
+        </h2>
+        <SearchForm
+          searchName={searchName}
+          searchTag={searchTag}
+          searchTitle={searchTitle}
+          searchYear={searchYear}
+          setSearchName={setSearchName}
+          setSearchTag={setSearchTag}
+          setSearchTitle={setSearchTitle}
+          setSearchYear={setSearchYear}
         />
 
-        <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Buscar y Filtrar
-          </h2>
-          <SearchForm
-            searchName={searchName}
-            searchTag={searchTag}
-            searchTitle={searchTitle}
-            searchYear={searchYear}
-            setSearchName={setSearchName}
-            setSearchTag={setSearchTag}
-            setSearchTitle={setSearchTitle}
-            setSearchYear={setSearchYear}
-          />
+        <hr className="my-8 border-gray-100" />
 
-          <hr className="my-8 border-gray-100" />
-
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Repositorio de Tesis
-          </h2>
-          <div className="space-y-4">
-            {filteredData.length === 0 ? (
-              <p className="text-center text-gray-500 py-10 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                No se encontraron tesis que coincidan con los criterios.
-              </p>
-            ) : (
-              filteredData.map((t) => (
-                <TesisEditItem
-                  key={t.id}
-                  t={t}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                />
-              ))
-            )}
-          </div>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          Repositorio de Tesis
+        </h2>
+        <div className="space-y-4">
+          {filteredData.length === 0 ? (
+            <p className="text-center text-gray-500 py-10 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+              No se encontraron tesis que coincidan con los criterios.
+            </p>
+          ) : (
+            filteredData.map((t) => (
+              <TesisEditItem
+                key={t.id}
+                t={t}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            ))
+          )}
         </div>
       </div>
-    </div>
+    </EditPageContainer>
   );
 };
 

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
+import { fetchData, saveItem, addItem } from "../../firebase/CRUD";
 import FAQForm from "./FAQForm";
 import FAQList from "./FAQList";
-import { toast } from "sonner";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
 
 const FAQEdit = () => {
   const queryClient = useQueryClient();
   const collectionName = "faq";
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState(-1);
   const [defaultValues, setDefaultValues] = useState({
     question: "",
     answer: "",
@@ -24,49 +25,24 @@ const FAQEdit = () => {
     },
   });
 
-  const mutationOptions = {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      setEditingId(null);
-      resetForm();
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al procesar la solicitud.");
-    },
-  };
-
-  const addMutation = useMutation({
-    mutationFn: (data) => {
-      const newPosition =
-        faqs.length > 0 ? Math.max(...faqs.map((f) => f.position || 0)) + 1 : 1;
-      return addItem(collectionName, { ...data, position: newPosition });
-    },
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("FAQ agregada con éxito");
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) =>
-      saveItem(collectionName, id, data, { merge: true }),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("FAQ actualizada con éxito");
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
-    ...mutationOptions,
-    onSuccess: () => {
-      mutationOptions.onSuccess();
-      toast.success("FAQ eliminada con éxito");
-    },
-  });
+  const { addMutation, updateMutation, deleteMutation, isPending } =
+    useFirebaseMutations({
+      collectionName,
+      onSuccess: () => {
+        setEditingId(-1);
+        resetForm();
+      },
+      addMessage: "FAQ agregada con éxito",
+      updateMessage: "FAQ actualizada con éxito",
+      deleteMessage: "FAQ eliminada con éxito",
+      customAddFn: (data) => {
+        const newPosition =
+          faqs.length > 0
+            ? Math.max(...faqs.map((f) => f.position || 0)) + 1
+            : 1;
+        return addItem(collectionName, { ...data, position: newPosition });
+      },
+    });
 
   const reorderMutation = useMutation({
     mutationFn: async ({ faq, direction }) => {
@@ -92,7 +68,9 @@ const FAQEdit = () => {
         ]);
       }
     },
-    ...mutationOptions,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+    },
   });
 
   const handleEditClick = (faq) => {
@@ -111,7 +89,7 @@ const FAQEdit = () => {
   };
 
   const onSubmit = (data) => {
-    if (editingId === null) {
+    if (editingId === -1) {
       addMutation.mutate(data);
     } else {
       updateMutation.mutate({ id: editingId, data });
@@ -119,7 +97,7 @@ const FAQEdit = () => {
   };
 
   const resetForm = () => {
-    setEditingId(null);
+    setEditingId(-1);
     setDefaultValues({ question: "", answer: "" });
   };
 
@@ -132,34 +110,26 @@ const FAQEdit = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Panel de FAQ
-        </h1>
+    <EditPageContainer title="Panel de FAQ">
+      <FAQForm
+        editingId={editingId}
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        isSubmitting={isPending}
+        onCancel={resetForm}
+      />
 
-        <FAQForm
-          editingId={editingId}
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          isSubmitting={addMutation.isPending || updateMutation.isPending}
-          onCancel={resetForm}
-        />
-
-        <FAQList
-          faqs={faqs}
-          handleEditClick={handleEditClick}
-          handleDelete={handleDelete}
-          handleMoveUp={(faq) =>
-            reorderMutation.mutate({ faq, direction: "up" })
-          }
-          handleMoveDown={(faq) =>
-            reorderMutation.mutate({ faq, direction: "down" })
-          }
-          isReordering={reorderMutation.isPending}
-        />
-      </div>
-    </div>
+      <FAQList
+        faqs={faqs}
+        handleEditClick={handleEditClick}
+        handleDelete={handleDelete}
+        handleMoveUp={(faq) => reorderMutation.mutate({ faq, direction: "up" })}
+        handleMoveDown={(faq) =>
+          reorderMutation.mutate({ faq, direction: "down" })
+        }
+        isReordering={reorderMutation.isPending}
+      />
+    </EditPageContainer>
   );
 };
 

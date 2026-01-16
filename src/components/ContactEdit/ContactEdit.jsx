@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { fetchData, saveItem } from "../../firebase/CRUD";
-import { toast } from "sonner";
+import { fetchData } from "../../firebase/CRUD";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
   faMapMarkerAlt,
   faEnvelope,
   faPhone,
-  faSave,
 } from "@fortawesome/free-solid-svg-icons";
+import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import EditPageContainer from "../shared/EditPageContainer";
+import FormActions from "../shared/FormActions";
+import { toast } from "sonner";
 
 const contactSchema = z.object({
   horario: z.string().min(1, "El horario es obligatorio"),
@@ -22,7 +24,6 @@ const contactSchema = z.object({
 });
 
 const ContactEdit = () => {
-  const queryClient = useQueryClient();
   const collectionName = "contacto";
 
   const { data: contactList = [], isLoading } = useQuery({
@@ -59,17 +60,9 @@ const ContactEdit = () => {
     }
   }, [contactData, reset]);
 
-  const updateMutation = useMutation({
-    mutationFn: (data) =>
-      saveItem(collectionName, docId, data, { merge: true }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [collectionName] });
-      toast.success("Información de contacto actualizada con éxito");
-    },
-    onError: (error) => {
-      console.error("Mutation error:", error);
-      toast.error("Hubo un error al actualizar el contacto.");
-    },
+  const { updateMutation, isPending } = useFirebaseMutations({
+    collectionName,
+    updateMessage: "Información de contacto actualizada con éxito",
   });
 
   const onSubmit = (data) => {
@@ -77,7 +70,7 @@ const ContactEdit = () => {
       toast.error("No se encontró el documento de contacto para actualizar.");
       return;
     }
-    updateMutation.mutate(data);
+    updateMutation.mutate({ id: docId, data });
   };
 
   if (isLoading) {
@@ -89,117 +82,107 @@ const ContactEdit = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
-          Editar Contacto
-        </h1>
-
-        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-                <FontAwesomeIcon
-                  icon={faClock}
-                  className="mr-2 text-indigo-500"
-                />
-                Horario de Atención
-              </label>
-              <input
-                {...register("horario")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                  errors.horario
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-200"
-                }`}
-                placeholder="Ej: Lunes a Viernes: 9:00 - 17:00"
+    <EditPageContainer title="Editar Contacto" maxWidth="2xl">
+      <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div>
+            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+              <FontAwesomeIcon
+                icon={faClock}
+                className="mr-2 text-indigo-500"
               />
-              {errors.horario && (
-                <p className="text-red-500 text-xs mt-1 font-medium">
-                  {errors.horario.message}
-                </p>
-              )}
-            </div>
+              Horario de Atención
+            </label>
+            <input
+              {...register("horario")}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
+                errors.horario ? "border-red-500 bg-red-50" : "border-gray-200"
+              }`}
+              placeholder="Ej: Lunes a Viernes: 9:00 - 17:00"
+            />
+            {errors.horario && (
+              <p className="text-red-500 text-xs mt-1 font-medium">
+                {errors.horario.message}
+              </p>
+            )}
+          </div>
 
-            <div>
-              <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-                <FontAwesomeIcon
-                  icon={faMapMarkerAlt}
-                  className="mr-2 text-indigo-500"
-                />
-                Dirección
-              </label>
-              <input
-                {...register("adress")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                  errors.adress ? "border-red-500 bg-red-50" : "border-gray-200"
-                }`}
-                placeholder="Ej: Juan B. Justo 4302, Mar del Plata"
+          <div>
+            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+              <FontAwesomeIcon
+                icon={faMapMarkerAlt}
+                className="mr-2 text-indigo-500"
               />
-              {errors.adress && (
-                <p className="text-red-500 text-xs mt-1 font-medium">
-                  {errors.adress.message}
-                </p>
-              )}
-            </div>
+              Dirección
+            </label>
+            <input
+              {...register("adress")}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
+                errors.adress ? "border-red-500 bg-red-50" : "border-gray-200"
+              }`}
+              placeholder="Ej: Juan B. Justo 4302, Mar del Plata"
+            />
+            {errors.adress && (
+              <p className="text-red-500 text-xs mt-1 font-medium">
+                {errors.adress.message}
+              </p>
+            )}
+          </div>
 
-            <div>
-              <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className="mr-2 text-indigo-500"
-                />
-                Correo Electrónico
-              </label>
-              <input
-                type="email"
-                {...register("email")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                  errors.email ? "border-red-500 bg-red-50" : "border-gray-200"
-                }`}
-                placeholder="Ej: posgrado@fi.mdp.edu.ar"
+          <div>
+            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="mr-2 text-indigo-500"
               />
-              {errors.email && (
-                <p className="text-red-500 text-xs mt-1 font-medium">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
+              Correo Electrónico
+            </label>
+            <input
+              type="email"
+              {...register("email")}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
+                errors.email ? "border-red-500 bg-red-50" : "border-gray-200"
+              }`}
+              placeholder="Ej: posgrado@fi.mdp.edu.ar"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1 font-medium">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
 
-            <div>
-              <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-                <FontAwesomeIcon
-                  icon={faPhone}
-                  className="mr-2 text-indigo-500"
-                />
-                Teléfono de Contacto
-              </label>
-              <input
-                {...register("phone")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                  errors.phone ? "border-red-500 bg-red-50" : "border-gray-200"
-                }`}
-                placeholder="Ej: (0223) 481-6600"
+          <div>
+            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+              <FontAwesomeIcon
+                icon={faPhone}
+                className="mr-2 text-indigo-500"
               />
-              {errors.phone && (
-                <p className="text-red-500 text-xs mt-1 font-medium">
-                  {errors.phone.message}
-                </p>
-              )}
-            </div>
+              Teléfono de Contacto
+            </label>
+            <input
+              {...register("phone")}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
+                errors.phone ? "border-red-500 bg-red-50" : "border-gray-200"
+              }`}
+              placeholder="Ej: (0223) 481-6600"
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-xs mt-1 font-medium">
+                {errors.phone.message}
+              </p>
+            )}
+          </div>
 
-            <button
-              type="submit"
-              disabled={updateMutation.isPending}
-              className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-bold shadow-lg hover:bg-indigo-700 transition-all flex items-center justify-center disabled:opacity-50"
-            >
-              <FontAwesomeIcon icon={faSave} className="mr-2" />
-              {updateMutation.isPending ? "Guardando..." : "Guardar Cambios"}
-            </button>
-          </form>
-        </div>
+          <FormActions
+            isSubmitting={isPending}
+            isEditing={true}
+            submitLabel="Guardar Cambios"
+            hideCancel={true}
+          />
+        </form>
       </div>
-    </div>
+    </EditPageContainer>
   );
 };
 
