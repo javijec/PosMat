@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import TesisEditItem from "./TesisEditItem";
 import TesisForm from "./TesisForm";
 import SearchForm from "./SearchForm";
-import {
-  fetchData,
-  getItem,
-  saveItem,
-  addItem,
-  deleteItem,
-} from "../../firebase/CRUD";
+import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import { toast } from "sonner";
 
 const TesisEdit = () => {
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [Form, setForm] = useState({
-    year: "",
+  const queryClient = useQueryClient();
+  const collectionName = "tesis";
+  const [editingId, setEditingId] = useState(-1);
+  const [defaultValues, setDefaultValues] = useState({
+    year: new Date().getFullYear(),
     name: "",
     title: "",
     url: "",
@@ -21,71 +19,95 @@ const TesisEdit = () => {
     co_director: "",
     tag: "maestria",
   });
-  const [data, setData] = useState([]);
-  const collection = "tesis";
-  const x = "tesis";
 
   const [searchName, setSearchName] = useState("");
   const [searchTag, setSearchTag] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const [searchYear, setSearchYear] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
-    fetchTesis();
-  }, []);
+  const { data: tesis = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  useEffect(() => {
-    handleSearch();
-  }, [data, searchName, searchTag, searchTitle, searchYear]);
+      return result
+        .map((doc) => ({
+          id: doc.id,
+          ...doc,
+          year: Number(doc.year),
+        }))
+        .sort((a, b) => b.year - a.year);
+    },
+  });
 
-  const fetchTesis = async () => {
-    const Data = await fetchData(collection);
-    const tesisData = Data.map((doc) => ({
-      id: doc.id,
-      ...doc,
-      year: Number(doc.year),
-    }));
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+      setEditingId(-1);
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
+  };
 
-    tesisData.sort((a, b) => {
-      if (b.year !== a.year) {
-        return b.year - a.year;
-      }
+  const addMutation = useMutation({
+    mutationFn: (data) => addItem(collectionName, data),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Tesis agregada con éxito");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Tesis actualizada con éxito");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Tesis eliminada con éxito");
+    },
+  });
+
+  const handleEdit = (t) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setEditingId(t.id);
+    setDefaultValues({
+      ...t,
+      tag: t.tag === "doctoral" ? "doctorado" : t.tag, // Normalizing old values if any
     });
-
-    setData(tesisData);
   };
 
-  const handleEdit = async (data) => {
-    window.scrollTo(0, 0);
-    const { id } = data;
-    try {
-      setEditingIndex(id);
-      getItem(collection, id);
-    } catch (error) {}
-    setEditingIndex(id);
-
-    setForm(data);
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
-    try {
-      await deleteItem(collection, id);
-      fetchData(); // <-- Actualiza la lista después de eliminar
-    } catch (error) {
-      console.error("Error deleting:", error);
+  const handleDelete = (id) => {
+    if (window.confirm("¿Seguro que deseas eliminar esta tesis?")) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleChange = (e) => {
-    setForm({ ...Form, [e.target.name]: e.target.value });
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
+    }
   };
 
-  const handleAdd = () => {
-    setEditingIndex(-1);
-    setForm({
-      year: "",
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({
+      year: new Date().getFullYear(),
       name: "",
       title: "",
       url: "",
@@ -95,91 +117,79 @@ const TesisEdit = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const filteredData = useMemo(() => {
+    return tesis.filter((t) => {
+      const matchName = searchName
+        ? t.name.toLowerCase().includes(searchName.toLowerCase())
+        : true;
+      const matchTag = searchTag ? t.tag === searchTag : true;
+      const matchTitle = searchTitle
+        ? t.title.toLowerCase().includes(searchTitle.toLowerCase())
+        : true;
+      const matchYear = searchYear ? String(t.year) === searchYear : true;
+      return matchName && matchTag && matchTitle && matchYear;
+    });
+  }, [tesis, searchName, searchTag, searchTitle, searchYear]);
 
-    try {
-      if (editingIndex === -1) {
-        await addItem(collection, Form);
-        alert(x + " agregado");
-      } else {
-        await saveItem(collection, editingIndex, Form, { merge: true });
-        alert(x + " actualizado");
-        setEditingIndex(-1);
-      }
-    } catch (error) {
-      console.error("Error adding/updating " + x + ":", error);
-    }
-    fetchData();
-    handleAdd();
-  };
-
-  const handleSearch = () => {
-    let filtered = data;
-
-    if (searchName) {
-      filtered = filtered.filter((tesis) =>
-        tesis.name.toLowerCase().includes(searchName.toLowerCase())
-      );
-    }
-    if (searchTag) {
-      filtered = filtered.filter((tesis) => tesis.tag === searchTag);
-    }
-    if (searchTitle) {
-      filtered = filtered.filter((tesis) =>
-        tesis.title.toLowerCase().includes(searchTitle.toLowerCase())
-      );
-    }
-    if (searchYear) {
-      filtered = filtered.filter((tesis) => String(tesis.year) === searchYear);
-    }
-
-    setFilteredData(filtered);
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-10">
+    <div className="py-10 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar Tesis</h1>
-        <button
-          onClick={handleAdd}
-          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
-        >
-          Agregar Tesis Nueva
-        </button>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Panel de Tesis
+        </h1>
 
         <TesisForm
-          Form={Form}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          editingIndex={editingIndex}
+          editingId={editingId}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
         />
 
-        <hr className="my-8" />
+        <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Buscar y Filtrar
+          </h2>
+          <SearchForm
+            searchName={searchName}
+            searchTag={searchTag}
+            searchTitle={searchTitle}
+            searchYear={searchYear}
+            setSearchName={setSearchName}
+            setSearchTag={setSearchTag}
+            setSearchTitle={setSearchTitle}
+            setSearchYear={setSearchYear}
+          />
 
-        <SearchForm
-          searchName={searchName}
-          searchTag={searchTag}
-          searchTitle={searchTitle}
-          searchYear={searchYear}
-          setSearchName={setSearchName}
-          setSearchTag={setSearchTag}
-          setSearchTitle={setSearchTitle}
-          setSearchYear={setSearchYear}
-        />
+          <hr className="my-8 border-gray-100" />
 
-        <hr className="my-8" />
-
-        <h2 className="text-2xl font-bold mb-4">Tesis Existentes</h2>
-        <div>
-          {filteredData.map((t, index) => (
-            <TesisEditItem
-              key={t.id}
-              t={t}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Repositorio de Tesis
+          </h2>
+          <div className="space-y-4">
+            {filteredData.length === 0 ? (
+              <p className="text-center text-gray-500 py-10 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                No se encontraron tesis que coincidan con los criterios.
+              </p>
+            ) : (
+              filteredData.map((t) => (
+                <TesisEditItem
+                  key={t.id}
+                  t={t}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import CourseItem from "./CourseItem";
-import {
-  fetchData,
-  getItem,
-  saveItem,
-  addItem,
-  deleteItem,
-} from "../../firebase/CRUD";
+import CourseForm from "./CourseForm";
+import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import { toast } from "sonner";
 
 const CoursesEdit = () => {
-  const [data, setData] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [Form, setForm] = useState({
+  const queryClient = useQueryClient();
+  const collectionName = "courses";
+  const [editingId, setEditingId] = useState(-1);
+  const [defaultValues, setDefaultValues] = useState({
     nombre: "",
     horasTeoricas: "",
     horasPracticas: "",
@@ -20,116 +18,103 @@ const CoursesEdit = () => {
     profesores: [],
     fechaInicio: "",
     lugar: "",
+    semestre: 1,
+    año: new Date().getFullYear(),
+    humanistico: false,
   });
-  const [profesorNombre, setProfesorNombre] = useState("");
-  const [profesorEmail, setProfesorEmail] = useState("");
-  const collection = "courses";
-  const x = "curso";
 
   // Search states
   const [searchYear, setSearchYear] = useState("");
   const [searchSemester, setSearchSemester] = useState("");
   const [searchName, setSearchName] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+  const { data: courses = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  useEffect(() => {
-    handleSearch();
-  }, [data, searchYear, searchSemester, searchName]);
+      return result
+        .map((doc) => ({
+          id: doc.id,
+          ...doc,
+          año: Number(doc.año),
+          semestre: Number(doc.semestre),
+        }))
+        .sort((a, b) => {
+          if (b.año !== a.año) return b.año - a.año;
+          return a.semestre - b.semestre;
+        });
+    },
+  });
 
-  const fetchCourses = async () => {
-    try {
-      const Data = await fetchData(collection);
-
-      if (!Data || !Array.isArray(Data)) {
-        console.error("Error: Data no es un array válido");
-        setData([]);
-        return;
-      }
-
-      const coursesData = Data.map((doc) => ({
-        id: doc.id,
-        ...doc,
-        año: Number(doc.año),
-        semestre: Number(doc.semestre),
-      }));
-
-      coursesData.sort((a, b) => {
-        if (b.año !== a.año) {
-          return b.año - a.año;
-        }
-        return a.semestre - b.semestre;
-      });
-
-      setData(coursesData);
-    } catch (error) {
-      console.error("Error al obtener cursos:", error);
-      setData([]);
-    }
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+      setEditingId(-1);
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
-    try {
-      await deleteItem(collection, id);
-      fetchData();
-    } catch (error) {
-      console.error("Error deleting:", error);
-    }
-  };
+  const addMutation = useMutation({
+    mutationFn: (data) => addItem(collectionName, data),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Curso agregado con éxito");
+    },
+  });
 
-  const handleEdit = async (data) => {
-    const { id } = data;
-    try {
-      setEditingIndex(id);
-      getItem(collection, id);
-    } catch (error) {}
-    setEditingIndex(id);
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Curso actualizado con éxito");
+    },
+  });
 
-    setForm(data);
-  };
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Curso eliminado con éxito");
+    },
+  });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    const newValue = type === "checkbox" ? checked : value;
-
-    setForm({
-      ...Form,
-      [name]:
-        name === "humanistico"
-          ? newValue === "true"
-            ? true
-            : newValue === "false"
-            ? false
-            : newValue
-          : newValue,
+  const handleEdit = (course) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setEditingId(course.id);
+    setDefaultValues({
+      ...course,
+      profesores: course.profesores || [],
+      humanistico: !!course.humanistico,
     });
   };
 
-  const handleAddProfessor = () => {
-    if (profesorNombre.trim()) {
-      const nuevosProfesores = [
-        ...Form.profesores,
-        { nombre: profesorNombre, email: profesorEmail },
-      ];
-      setForm({ ...Form, profesores: nuevosProfesores });
-      setProfesorNombre("");
-      setProfesorEmail("");
+  const handleDelete = (id) => {
+    if (window.confirm("¿Seguro que quieres eliminar este curso?")) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleRemoveProfessor = (index) => {
-    const nuevosProfesores = Form.profesores.filter((_, i) => i !== index);
-    setForm({ ...Form, profesores: nuevosProfesores });
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
+    }
   };
 
-  const handleAdd = () => {
-    setEditingIndex(-1);
-    setForm({
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({
       nombre: "",
       horasTeoricas: "",
       horasPracticas: "",
@@ -139,301 +124,109 @@ const CoursesEdit = () => {
       fechaInicio: "",
       lugar: "",
       semestre: 1,
-      año: "",
+      año: new Date().getFullYear(),
       humanistico: false,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const filteredData = useMemo(() => {
+    return courses.filter((course) => {
+      const matchYear = searchYear ? String(course.año) === searchYear : true;
+      const matchSemester = searchSemester
+        ? String(course.semestre) === searchSemester
+        : true;
+      const matchName = searchName
+        ? course.nombre.toLowerCase().includes(searchName.toLowerCase())
+        : true;
+      return matchYear && matchSemester && matchName;
+    });
+  }, [courses, searchYear, searchSemester, searchName]);
 
-    try {
-      if (editingIndex === -1) {
-        await addItem(collection, Form);
-        alert(x + " agregado");
-      } else {
-        await saveItem(collection, editingIndex, Form, { merge: true });
-        alert(x + " actualizado");
-        setEditingIndex(-1);
-      }
-      fetchData();
-      handleAdd();
-    } catch (error) {
-      console.error("Error adding/updating " + x + ":", error);
-    }
-  };
-
-  const handleSearch = () => {
-    let filtered = data;
-
-    if (searchYear) {
-      filtered = filtered.filter((course) => String(course.año) === searchYear);
-    }
-    if (searchSemester) {
-      filtered = filtered.filter(
-        (course) => String(course.semestre) === searchSemester
-      );
-    }
-    if (searchName) {
-      filtered = filtered.filter((course) =>
-        course.nombre.toLowerCase().includes(searchName.toLowerCase())
-      );
-    }
-
-    setFilteredData(filtered);
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-16">
+    <div className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar Cursos</h1>
-        <button
-          onClick={handleAdd}
-          className="bg-green-600 text-white py-2 px-4 rounded-lg mb-4 hover:bg-green-700 transition-colors"
-        >
-          Agregar Curso Nuevo
-        </button>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Panel de Cursos
+        </h1>
 
-        <form onSubmit={handleSubmit} className="mb-8 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nombre del Curso
-            </label>
-            <input
-              name="nombre"
-              value={Form.nombre}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <CourseForm
+          editingId={editingId}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
+        />
+
+        <div className="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Cursos Existentes
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Horas Teóricas
-              </label>
-              <input
-                name="horasTeoricas"
-                value={Form.horasTeoricas}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Horas Prácticas
-              </label>
-              <input
-                name="horasPracticas"
-                value={Form.horasPracticas}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Horas Teórico-Prácticas
-              </label>
-              <input
-                name="horasTP"
-                value={Form.horasTP}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                UVACS
-              </label>
-              <input
-                name="uvacs"
-                value={Form.uvacs}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Año
-              </label>
-              <input
-                name="año"
-                value={Form.año}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Semestre
-              </label>
-              <select
-                name="semeste"
-                value={Form.semestre}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              >
-                <option value="1">1er Semestre</option>
-                <option value="2">2do Semestre</option>
-              </select>
-            </div>
-          </div>
-          <div className="border p-4 rounded-md">
-            <h3 className="text-lg font-semibold mb-2">
-              Profesor(es) y Mail de Contacto
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Nombre del Profesor
-                </label>
-                <input
-                  value={profesorNombre}
-                  onChange={(e) => setProfesorNombre(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Mail de Contacto
-                </label>
-                <input
-                  value={profesorEmail}
-                  onChange={(e) => setProfesorEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={handleAddProfessor}
-              className="mt-2 bg-indigo-600 text-white py-1 px-3 rounded hover:bg-indigo-700 transition-colors"
-            >
-              Agregar Profesor
-            </button>
-            {Form.profesores.length > 0 && (
-              <ul className="mt-4 list-disc pl-5 text-gray-700">
-                {Form.profesores.map((prof, index) => (
-                  <li key={index} className="flex justify-between items-center">
-                    <span>
-                      {prof.nombre} ({prof.email})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveProfessor(index)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Eliminar
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Fecha de Inicio
-              </label>
-              <input
-                name="fechaInicio"
-                value={Form.fechaInicio}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                type="date"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Lugar de Cursada
-              </label>
-              <input
-                name="lugar"
-                value={Form.lugar}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Humanistico
-              </label>
-              <select
-                name="humanistico"
-                value={Form.humanistico}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                defaultValue={false}
-              >
-                <option value="false">No</option>
-                <option value="true">Si</option>
-              </select>
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            {editingIndex === -1 ? "Agregar Curso" : "Guardar Cambios"}
-          </button>
-        </form>
-        <hr className="mb-8" />
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-4">Buscar Cursos</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Año
               </label>
               <input
                 type="text"
-                placeholder="Año"
+                placeholder="Ej: 2024"
                 value={searchYear}
                 onChange={(e) => setSearchYear(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Semestre
               </label>
-
               <select
-                name="semeste"
                 value={searchSemester}
                 onChange={(e) => setSearchSemester(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               >
+                <option value="">Todos</option>
                 <option value="1">1er Semestre</option>
                 <option value="2">2do Semestre</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Nombre
               </label>
               <input
                 type="text"
-                placeholder="Nombre"
+                placeholder="Buscar por nombre..."
                 value={searchName}
                 onChange={(e) => setSearchName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
           </div>
-        </div>
-        <hr className="mb-8" />
-        <h2 className="text-2xl font-bold mb-4">Cursos Existentes</h2>
-        <div className="space-y-4">
-          {filteredData.map((course, index) => (
-            <CourseItem
-              key={course.id}
-              course={course}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          ))}
+
+          <div className="space-y-4">
+            {filteredData.length === 0 ? (
+              <p className="text-center text-gray-500 py-8 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                No se encontraron cursos que coincidan con la búsqueda.
+              </p>
+            ) : (
+              filteredData.map((course) => (
+                <CourseItem
+                  key={course.id}
+                  course={course}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

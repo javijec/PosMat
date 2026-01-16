@@ -1,232 +1,185 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import StudentsEditCard from "./StudentEditCard";
-import {
-  fetchData,
-  getItem,
-  saveItem,
-  addItem,
-  deleteItem,
-} from "../../firebase/CRUD";
+import StudentForm from "./StudentForm";
+import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import { toast } from "sonner";
 
 const StudentsEdit = () => {
-  const [data, setStudents] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [Form, setForm] = useState({
+  const queryClient = useQueryClient();
+  const collectionName = "students";
+  const [editingId, setEditingId] = useState(-1);
+  const [defaultValues, setDefaultValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     director: "",
     codirector: "",
     thesis_topic: "",
-    program: "",
+    program: "doctorado",
   });
-  const collection = "students";
-  const x = "estudiante";
 
   const [searchFullName, setSearchFullName] = useState("");
   const [searchProgram, setSearchProgram] = useState("");
   const [searchThesis, setSearchThesis] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
-    fetchStudents();
-  }, []);
+  const { data: students = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  useEffect(() => {
-    handleSearch();
-  }, [data, searchFullName, searchProgram, searchThesis]);
-
-  const fetchStudents = async () => {
-    const Data = await fetchData(collection);
-    const sortedData = Data.sort((a, b) =>
-      (a.lastName || "").localeCompare(b.lastName || "")
-    );
-
-    setStudents(sortedData);
-  };
-
-  const handleSearch = () => {
-    let filtered = data;
-
-    if (searchFullName) {
-      filtered = filtered.filter((student) =>
-        (student.firstName + " " + student.lastName)
-          .toLowerCase()
-          .includes(searchFullName.toLowerCase())
+      return result.sort((a, b) =>
+        (a.lastName || "").localeCompare(b.lastName || "")
       );
-    }
-    if (searchProgram) {
-      filtered = filtered.filter(
-        (student) => student.program === searchProgram
-      );
-    }
-    if (searchThesis) {
-      filtered = filtered.filter((student) =>
-        student.thesis_topic.toLowerCase().includes(searchThesis.toLowerCase())
-      );
-    }
+    },
+  });
 
-    setFilteredData(filtered);
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+      setEditingId(-1);
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
   };
 
-  const handleEdit = async (data) => {
-    window.scrollTo(0, 0);
-    const { id } = data;
-    try {
-      setEditingIndex(id);
-      getItem(collection, id);
-    } catch (error) {}
-    setEditingIndex(id);
+  const addMutation = useMutation({
+    mutationFn: (data) => addItem(collectionName, data),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Estudiante agregado con éxito");
+    },
+  });
 
-    setForm(data);
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Estudiante actualizado con éxito");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Estudiante eliminado con éxito");
+    },
+  });
+
+  const handleEdit = (student) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setEditingId(student.id);
+    setDefaultValues(student);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
-    try {
-      await deleteItem(collection, id);
-      fetchData(); //
-    } catch (error) {
-      console.error("Error deleting:", error);
+  const handleDelete = (id) => {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar a este estudiante?")
+    ) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleChange = (e) => {
-    setForm({ ...Form, [e.target.name]: e.target.value });
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
+    }
   };
 
-  const handleAdd = () => {
-    setEditingIndex(-1);
-    setForm({
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({
       firstName: "",
       lastName: "",
       email: "",
       director: "",
       codirector: "",
       thesis_topic: "",
-      program: "",
+      program: "doctorado",
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const filteredData = useMemo(() => {
+    return students.filter((student) => {
+      const lowerFullName = (
+        student.firstName +
+        " " +
+        student.lastName
+      ).toLowerCase();
+      const matchFullName = searchFullName
+        ? lowerFullName.includes(searchFullName.toLowerCase())
+        : true;
+      const matchProgram = searchProgram
+        ? student.program === searchProgram
+        : true;
+      const matchThesis = searchThesis
+        ? student.thesis_topic
+            .toLowerCase()
+            .includes(searchThesis.toLowerCase())
+        : true;
+      return matchFullName && matchProgram && matchThesis;
+    });
+  }, [students, searchFullName, searchProgram, searchThesis]);
 
-    try {
-      if (editingIndex === -1) {
-        await addItem(collection, Form);
-        alert(x + " agregado");
-      } else {
-        await saveItem(collection, editingIndex, Form, { merge: true });
-        alert(x + " actualizado");
-        setEditingIndex(-1);
-      }
-    } catch (error) {
-      console.error("Error adding/updating " + x + ":", error);
-    }
-    fetchData();
-    handleAdd();
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-16">
+    <div className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar Estudiantes</h1>
-        <button
-          onClick={handleAdd}
-          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
-        >
-          Agregar Estudiante Nuevo
-        </button>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label>Nombre:</label>
-            <input
-              name="firstName"
-              value={Form.firstName}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Apellido:</label>
-            <input
-              name="lastName"
-              value={Form.lastName}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Panel de Estudiantes
+        </h1>
 
-          <div>
-            <label>Director:</label>
-            <input
-              name="director"
-              value={Form.director}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Codirector:</label>
-            <input
-              name="codirector"
-              value={Form.codirector}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Tema de Tesis:</label>
-            <input
-              name="thesis_topic"
-              value={Form.thesis_topic}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Programa:</label>
-            <select
-              name="program"
-              value={Form.program}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            >
-              <option value="doctorado">Doctorado</option>
-              <option value="maestria">Maestría</option>
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded"
-          >
-            {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
-          </button>
-        </form>
+        <StudentForm
+          editingId={editingId}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
+        />
 
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-4">Buscar Estudiantes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Buscar Estudiantes
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Nombre Completo
               </label>
               <input
                 type="text"
                 value={searchFullName}
                 onChange={(e) => setSearchFullName(e.target.value)}
-                placeholder="Buscar por nombre o apellido..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                placeholder="Nombre o apellido..."
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Programa
               </label>
               <select
                 value={searchProgram}
                 onChange={(e) => setSearchProgram(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
               >
                 <option value="">Todos</option>
                 <option value="doctorado">Doctorado</option>
@@ -234,26 +187,30 @@ const StudentsEdit = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Tema de Tesis
               </label>
               <input
                 type="text"
                 value={searchThesis}
                 onChange={(e) => setSearchThesis(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                placeholder="Palabra clave..."
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
           </div>
-        </div>
 
-        <hr className="my-8" />
-        <h2 className="text-2xl font-bold mb-4">Estudiantes Existentes</h2>
-        <StudentsEditCard
-          students={filteredData}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
+          <hr className="my-8 border-gray-100" />
+
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Estudiantes Registrados
+          </h2>
+          <StudentsEditCard
+            students={filteredData}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        </div>
       </div>
     </div>
   );

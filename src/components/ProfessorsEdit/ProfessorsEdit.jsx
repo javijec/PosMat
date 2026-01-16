@@ -1,208 +1,216 @@
-import React, { useState, useEffect } from "react";
-import {
-  fetchData,
-  getItem,
-  saveItem,
-  addItem,
-  deleteItem,
-} from "../../firebase/CRUD";
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchData, saveItem, addItem, deleteItem } from "../../firebase/CRUD";
+import ProfessorForm from "./ProfessorForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencilAlt,
+  faTrash,
+  faSearch,
+  faUserGraduate,
+} from "@fortawesome/free-solid-svg-icons";
+import { toast } from "sonner";
 
 const ProfessorsEdit = () => {
-  const [data, setData] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [Form, setForm] = useState({
+  const queryClient = useQueryClient();
+  const collectionName = "professors";
+  const [editingId, setEditingId] = useState(-1);
+  const [searchName, setSearchName] = useState("");
+  const [defaultValues, setDefaultValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     title: "",
   });
-  const [searchName, setSearchName] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-  const collection = "professors";
-  const x = "profesor";
 
-  useEffect(() => {
-    fetchProfessors();
-  }, []);
+  const { data: professors = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  useEffect(() => {
-    handleSearch();
-  }, [data, searchName]);
-
-  const fetchProfessors = async () => {
-    const Data = await fetchData(collection);
-
-    const sortedData = Data.sort((a, b) =>
-      (a.lastName || "").localeCompare(b.lastName || "")
-    );
-
-    setData(sortedData);
-  };
-
-  const handleSearch = () => {
-    let filtered = data;
-    if (searchName) {
-      filtered = filtered.filter(
-        (prof) =>
-          prof.firstName.toLowerCase().includes(searchName.toLowerCase()) ||
-          prof.lastName.toLowerCase().includes(searchName.toLowerCase())
+      return result.sort((a, b) =>
+        (a.lastName || "").localeCompare(b.lastName || "")
       );
+    },
+  });
+
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+      setEditingId(-1);
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
+  };
+
+  const addMutation = useMutation({
+    mutationFn: (data) => addItem(collectionName, data),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Profesor agregado con éxito");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Profesor actualizado con éxito");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Profesor eliminado con éxito");
+    },
+  });
+
+  const handleEdit = (prof) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setEditingId(prof.id);
+    setDefaultValues(prof);
+  };
+
+  const handleDelete = (id) => {
+    if (
+      window.confirm("¿Estás seguro de que quieres eliminar a este profesor?")
+    ) {
+      deleteMutation.mutate(id);
     }
-    setFilteredData(filtered);
   };
 
-  const handleEdit = async (data) => {
-    window.scrollTo(0, 0);
-    const { id } = data;
-    try {
-      setEditingIndex(id);
-      getItem(collection, id);
-    } catch (error) {}
-    setEditingIndex(id);
-
-    setForm(data);
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm(`¿Eliminar ` + x + ` ?`)) return;
-    try {
-      await deleteItem(collection, id);
-      fetchData(); // <-- Actualiza la lista después de eliminar
-    } catch (error) {
-      console.error("Error deleting:", error);
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
     }
   };
 
-  const handleChange = (e) => {
-    setForm({ ...Form, [e.target.name]: e.target.value });
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({ firstName: "", lastName: "", email: "", title: "" });
   };
 
-  const handleAdd = () => {
-    setEditingIndex(-1);
-    setForm({ firstName: "", lastName: "", email: "", title: "" });
-  };
+  const filteredData = useMemo(() => {
+    if (!searchName) return professors;
+    const lowerSearch = searchName.toLowerCase();
+    return professors.filter(
+      (prof) =>
+        prof.firstName.toLowerCase().includes(lowerSearch) ||
+        prof.lastName.toLowerCase().includes(lowerSearch) ||
+        (prof.email && prof.email.toLowerCase().includes(lowerSearch))
+    );
+  }, [professors, searchName]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      if (editingIndex === -1) {
-        await addItem(collection, Form);
-        alert(x + " agregado");
-      } else {
-        await saveItem(collection, editingIndex, Form, { merge: true });
-        alert(x + " actualizado");
-        setEditingIndex(-1);
-      }
-    } catch (error) {
-      console.error("Error adding/updating " + x + ":", error);
-    }
-    fetchData();
-    handleAdd();
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-16">
+    <div className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar Profesores</h1>
-        <button
-          onClick={handleAdd}
-          className="bg-green-600 text-white py-2 px-4 rounded mb-4"
-        >
-          Agregar Profesor Nuevo
-        </button>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label>Nombre:</label>
-            <input
-              name="firstName"
-              value={Form.firstName}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Apellido:</label>
-            <input
-              name="lastName"
-              value={Form.lastName}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input
-              name="email"
-              value={Form.email}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <div>
-            <label>Título:</label>
-            <input
-              name="title"
-              value={Form.title}
-              onChange={handleChange}
-              className="w-full border rounded px-2 py-1"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 px-4 rounded"
-          >
-            {editingIndex === -1 ? "Agregar" : "Guardar Cambios"}
-          </button>
-        </form>
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-4">Buscar Profesores</h2>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nombre o Apellido
-            </label>
-            <input
-              type="text"
-              placeholder="Buscar por nombre..."
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
-        <hr className="my-8" />
-        <h2 className="text-2xl font-bold mb-4">Profesores Existentes</h2>
-        <div className="space-y-4">
-          {filteredData.map((prof, index) => (
-            <div
-              key={index}
-              className="p-4 bg-white rounded shadow flex justify-between items-center"
-            >
-              <div>
-                <p>
-                  {prof.title} {prof.firstName} {prof.lastName}
-                </p>
-                <p>{prof.email}</p>
-              </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => handleEdit(prof)}
-                  className="bg-yellow-500 text-white py-1 px-3 rounded"
-                >
-                  <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDelete(prof.id)}
-                  className="bg-red-600 text-white py-1 px-3 rounded"
-                >
-                  <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
-                </button>
-              </div>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Gestión de Profesores
+        </h1>
+
+        <ProfessorForm
+          editingId={editingId}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
+        />
+
+        <div className="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Profesores Registrados
+            </h2>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                <FontAwesomeIcon icon={faSearch} />
+              </span>
+              <input
+                type="text"
+                placeholder="Buscar por nombre o email..."
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+                className="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none w-full md:w-64 text-sm"
+              />
             </div>
-          ))}
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            {filteredData.length === 0 ? (
+              <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+                <FontAwesomeIcon
+                  icon={faUserGraduate}
+                  className="text-4xl text-gray-300 mb-3"
+                />
+                <p className="text-gray-500 italic">
+                  No se encontraron profesores.
+                </p>
+              </div>
+            ) : (
+              filteredData.map((prof) => (
+                <div
+                  key={prof.id}
+                  className="p-4 bg-white rounded-lg border border-gray-100 shadow-sm flex justify-between items-center hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600">
+                      <FontAwesomeIcon
+                        icon={faUserGraduate}
+                        className="text-xl"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900">
+                        <span className="text-indigo-600 text-sm font-medium mr-1">
+                          {prof.title}
+                        </span>
+                        {prof.firstName} {prof.lastName}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {prof.email || "Sin correo registrado"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEdit(prof)}
+                      className="p-2 bg-amber-50 text-amber-600 rounded-md hover:bg-amber-100 transition-colors"
+                      title="Editar"
+                    >
+                      <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(prof.id)}
+                      className="p-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
+                      title="Eliminar"
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

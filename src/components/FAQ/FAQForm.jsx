@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -6,24 +9,34 @@ import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link";
 import MenuBar from "../AboutEdit/MenuBar";
 
+const faqSchema = z.object({
+  question: z.string().min(1, "La pregunta es obligatoria"),
+  answer: z.string().min(10, "La respuesta debe tener al menos 10 caracteres"),
+});
+
 const FAQForm = ({
-  form,
   editingId,
-  setForm,
-  handleSubmit,
-  handleModelChange,
+  defaultValues,
+  onSubmit,
+  isSubmitting,
+  onCancel,
 }) => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(faqSchema),
+    defaultValues,
+  });
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false,
-        },
-        orderedList: {
-          keepMarks: true,
-          keepAttributes: false,
-        },
+        bulletList: { keepMarks: true, keepAttributes: false },
+        orderedList: { keepMarks: true, keepAttributes: false },
       }),
       Underline,
       TextAlign.configure({
@@ -37,43 +50,86 @@ const FAQForm = ({
         },
       }),
     ],
-    content: form.answer,
+    content: defaultValues.answer,
     onUpdate: ({ editor }) => {
-      handleModelChange(editor.getHTML());
+      setValue("answer", editor.getHTML(), { shouldValidate: true });
     },
   });
 
   useEffect(() => {
-    if (editor && form.answer !== editor.getHTML()) {
-      editor.commands.setContent(form.answer);
+    reset(defaultValues);
+    if (editor) {
+      editor.commands.setContent(defaultValues.answer);
     }
-  }, [form.answer, editor]);
+  }, [defaultValues, reset, editor]);
 
   return (
-    <form onSubmit={handleSubmit} className="mb-8 p-4 border rounded-md">
-      <h2 className="text-xl mb-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="mb-8 p-6 border rounded-lg bg-white shadow-sm"
+    >
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
         {editingId === null ? "Agregar nueva FAQ" : "Editar FAQ"}
       </h2>
-      <input
-        name="question"
-        value={form.question}
-        onChange={(e) => setForm({ ...form, question: e.target.value })}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
-        placeholder="Pregunta"
-      />
-      <div className="border border-gray-300 rounded-md overflow-hidden">
-        <MenuBar editor={editor} />
-        <EditorContent
-          editor={editor}
-          className="prose min-h-[150px] p-4 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ol]:ml-4 [&_.ProseMirror_ul]:ml-4"
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Pregunta
+        </label>
+        <input
+          {...register("question")}
+          className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
+            errors.question ? "border-red-500" : "border-gray-300"
+          }`}
+          placeholder="Ej: ¿Cómo me inscribo?"
         />
+        {errors.question && (
+          <p className="text-red-500 text-xs mt-1">{errors.question.message}</p>
+        )}
       </div>
-      <button
-        type="submit"
-        className="bg-green-600 text-white py-1 px-3 rounded shadow hover:bg-green-700 transition-colors mt-4"
-      >
-        {editingId === null ? "Agregar FAQ" : "Guardar Cambios"}
-      </button>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Respuesta
+        </label>
+        <div
+          className={`border rounded-md overflow-hidden ${
+            errors.answer ? "border-red-500" : "border-gray-300"
+          }`}
+        >
+          <MenuBar editor={editor} />
+          <EditorContent
+            editor={editor}
+            className="prose max-w-none min-h-[200px] p-4 focus:outline-none [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
+          />
+        </div>
+        {errors.answer && (
+          <p className="text-red-500 text-xs mt-1">{errors.answer.message}</p>
+        )}
+      </div>
+
+      <div className="flex space-x-3 mt-8">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 font-medium"
+        >
+          {isSubmitting
+            ? "Guardando..."
+            : editingId === null
+            ? "Agregar FAQ"
+            : "Guardar Cambios"}
+        </button>
+        {editingId !== null && (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="bg-gray-100 text-gray-700 py-2 px-6 rounded-md shadow-sm hover:bg-gray-200 transition-colors font-medium"
+          >
+            Cancelar
+          </button>
+        )}
+      </div>
     </form>
   );
 };

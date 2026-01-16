@@ -1,143 +1,162 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
 import RulesForm from "./RulesForm";
 import RulesList from "./RulesList";
+import { toast } from "sonner";
 
 const RulesEdit = () => {
-  const [data, setData] = useState([]);
-  const [form, setForm] = useState({ title: "", html: "" });
+  const queryClient = useQueryClient();
+  const collectionName = "rules";
   const [editingId, setEditingId] = useState(-1);
-  const collection = "rules";
+  const [defaultValues, setDefaultValues] = useState({
+    title: "",
+    html: "",
+  });
 
-  useEffect(() => {
-    loadRules();
-  }, []);
+  const { data: rules = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  const loadRules = async () => {
-    const rules = await fetchData(collection);
-    setData(rules.sort((a, b) => (a.position || 0) - (b.position || 0)));
-  };
+      return result.sort((a, b) => (a.position || 0) - (b.position || 0));
+    },
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.title.trim() || !form.html.trim()) {
-      alert("Complete ambos campos.");
-      return;
-    }
-    try {
-      if (editingId === -1) {
-        const newPosition =
-          data.length > 0
-            ? Math.max(...data.map((f) => f.position || 0)) + 1
-            : 1;
-        const ruleToAdd = {
-          ...form,
-          html: form.html,
-          position: newPosition,
-        };
-        await addItem(collection, ruleToAdd);
-      } else {
-        const updatedRule = {
-          title: form.title,
-          html: form.html,
-        };
-        await saveItem(collection, editingId, updatedRule, { merge: true });
-      }
-      setForm({ title: "", html: "" });
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
       setEditingId(-1);
-      loadRules();
-    } catch (error) {
-      console.error("Error al guardar la regla:", error);
-    }
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
   };
+
+  const addMutation = useMutation({
+    mutationFn: (data) => {
+      const newPosition =
+        rules.length > 0
+          ? Math.max(...rules.map((f) => f.position || 0)) + 1
+          : 1;
+      return addItem(collectionName, { ...data, position: newPosition });
+    },
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Reglamento agregado con éxito");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Reglamento actualizado con éxito");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("Reglamento eliminado con éxito");
+    },
+  });
+
+  const reorderMutation = useMutation({
+    mutationFn: async ({ rule, direction }) => {
+      const index = rules.findIndex((f) => f.id === rule.id);
+      const targetIndex = direction === "up" ? index - 1 : index + 1;
+
+      if (targetIndex >= 0 && targetIndex < rules.length) {
+        const otherRule = rules[targetIndex];
+        const tempPos = rule.position || 0;
+        await Promise.all([
+          saveItem(
+            collectionName,
+            rule.id,
+            { position: otherRule.position },
+            { merge: true }
+          ),
+          saveItem(
+            collectionName,
+            otherRule.id,
+            { position: tempPos },
+            { merge: true }
+          ),
+        ]);
+      }
+    },
+    ...mutationOptions,
+  });
 
   const handleEditClick = (rule) => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(rule.id);
-    setForm({
+    setDefaultValues({
       title: rule.title,
       html: rule.html,
     });
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Eliminar regla?")) return;
-    try {
-      await deleteItem(collection, id);
-      loadRules();
-    } catch (error) {
-      console.error("Error deleting rule:", error);
+  const handleDelete = (id) => {
+    if (window.confirm("¿Seguro que deseas eliminar este reglamento?")) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleMoveUp = async (rule) => {
-    const index = data.findIndex((f) => f.id === rule.id);
-    if (index > 0) {
-      const prevRule = data[index - 1];
-      const tempPos = rule.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          rule.id,
-          { position: prevRule.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          prevRule.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadRules();
+  const onSubmit = (data) => {
+    if (editingId === -1) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
     }
   };
 
-  const handleMoveDown = async (rule) => {
-    const index = data.findIndex((f) => f.id === rule.id);
-    if (index < data.length - 1) {
-      const nextRule = data[index + 1];
-      const tempPos = rule.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          rule.id,
-          { position: nextRule.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          nextRule.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadRules();
-    }
+  const resetForm = () => {
+    setEditingId(-1);
+    setDefaultValues({ title: "", html: "" });
   };
 
-  const handleModelChange = (model) => {
-    setForm({ ...form, html: model });
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-16">
+    <div className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar reglamentos</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Editar Reglamentos
+        </h1>
+
         <RulesForm
-          form={form}
-          setForm={setForm}
           editingId={editingId}
-          onSubmit={handleSubmit}
-          onModelChange={handleModelChange}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
         />
-        {/* Se reemplaza la lista de reglas por el componente RulesList */}
+
         <RulesList
-          data={data}
+          data={rules}
           onEditClick={handleEditClick}
           onDelete={handleDelete}
-          onMoveUp={handleMoveUp}
-          onMoveDown={handleMoveDown}
+          onMoveUp={(rule) => reorderMutation.mutate({ rule, direction: "up" })}
+          onMoveDown={(rule) =>
+            reorderMutation.mutate({ rule, direction: "down" })
+          }
+          isReordering={reorderMutation.isPending}
         />
       </div>
     </div>

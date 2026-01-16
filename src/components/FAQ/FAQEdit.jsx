@@ -1,136 +1,162 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData, saveItem, deleteItem, addItem } from "../../firebase/CRUD";
 import FAQForm from "./FAQForm";
 import FAQList from "./FAQList";
+import { toast } from "sonner";
 
 const FAQEdit = () => {
-  const [faqs, setFaqs] = useState([]);
+  const queryClient = useQueryClient();
+  const collectionName = "faq";
   const [editingId, setEditingId] = useState(null);
-  const [form, setForm] = useState({ question: "", answer: "" });
-  const collection = "faq";
+  const [defaultValues, setDefaultValues] = useState({
+    question: "",
+    answer: "",
+  });
 
-  useEffect(() => {
-    loadFAQs();
-  }, []);
+  const { data: faqs = [], isLoading } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  const loadFAQs = async () => {
-    const data = await fetchData(collection);
-    setFaqs(data.sort((a, b) => (a.position || 0) - (b.position || 0)));
+      return result.sort((a, b) => (a.position || 0) - (b.position || 0));
+    },
+  });
+
+  const mutationOptions = {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [collectionName] });
+      setEditingId(null);
+      resetForm();
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      toast.error("Hubo un error al procesar la solicitud.");
+    },
   };
 
+  const addMutation = useMutation({
+    mutationFn: (data) => {
+      const newPosition =
+        faqs.length > 0 ? Math.max(...faqs.map((f) => f.position || 0)) + 1 : 1;
+      return addItem(collectionName, { ...data, position: newPosition });
+    },
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("FAQ agregada con éxito");
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }) =>
+      saveItem(collectionName, id, data, { merge: true }),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("FAQ actualizada con éxito");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteItem(collectionName, id),
+    ...mutationOptions,
+    onSuccess: () => {
+      mutationOptions.onSuccess();
+      toast.success("FAQ eliminada con éxito");
+    },
+  });
+
+  const reorderMutation = useMutation({
+    mutationFn: async ({ faq, direction }) => {
+      const index = faqs.findIndex((f) => f.id === faq.id);
+      const targetIndex = direction === "up" ? index - 1 : index + 1;
+
+      if (targetIndex >= 0 && targetIndex < faqs.length) {
+        const otherFaq = faqs[targetIndex];
+        const tempPos = faq.position || 0;
+        await Promise.all([
+          saveItem(
+            collectionName,
+            faq.id,
+            { position: otherFaq.position },
+            { merge: true }
+          ),
+          saveItem(
+            collectionName,
+            otherFaq.id,
+            { position: tempPos },
+            { merge: true }
+          ),
+        ]);
+      }
+    },
+    ...mutationOptions,
+  });
+
   const handleEditClick = (faq) => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(faq.id);
-    setForm({
+    setDefaultValues({
       question: faq.question,
       answer: faq.answer,
     });
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Eliminar FAQ?")) return;
-    try {
-      await deleteItem(collection, id);
-      loadFAQs();
-    } catch (error) {
-      console.error("Error deleting FAQ:", error);
+  const handleDelete = (id) => {
+    if (window.confirm("¿Seguro que deseas eliminar esta FAQ?")) {
+      deleteMutation.mutate(id);
     }
   };
 
-  const handleMoveUp = async (faq) => {
-    const index = faqs.findIndex((f) => f.id === faq.id);
-    if (index > 0) {
-      const prevFaq = faqs[index - 1];
-      const tempPos = faq.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          faq.id,
-          { position: prevFaq.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          prevFaq.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadFAQs();
+  const onSubmit = (data) => {
+    if (editingId === null) {
+      addMutation.mutate(data);
+    } else {
+      updateMutation.mutate({ id: editingId, data });
     }
   };
 
-  const handleMoveDown = async (faq) => {
-    const index = faqs.findIndex((f) => f.id === faq.id);
-    if (index < faqs.length - 1) {
-      const nextFaq = faqs[index + 1];
-      const tempPos = faq.position || 0;
-      await Promise.all([
-        saveItem(
-          collection,
-          faq.id,
-          { position: nextFaq.position },
-          { merge: true }
-        ),
-        saveItem(
-          collection,
-          nextFaq.id,
-          { position: tempPos },
-          { merge: true }
-        ),
-      ]);
-      loadFAQs();
-    }
+  const resetForm = () => {
+    setEditingId(null);
+    setDefaultValues({ question: "", answer: "" });
   };
 
-  const handleModelChange = (html) => {
-    setForm({ ...form, answer: html });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.question.trim() || !form.answer.trim()) {
-      alert("Complete ambos campos.");
-      return;
-    }
-
-    try {
-      if (editingId === null) {
-        const newPosition =
-          faqs.length > 0
-            ? Math.max(...faqs.map((f) => f.position || 0)) + 1
-            : 1;
-        await addItem(collection, { ...form, position: newPosition });
-      } else {
-        await saveItem(collection, editingId, form, { merge: true });
-      }
-      setForm({ question: "", answer: "" });
-      setEditingId(null);
-      loadFAQs();
-    } catch (error) {
-      console.error("Error saving FAQ:", error);
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="py-16">
+    <div className="py-16 bg-gray-50 min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Editar FAQ</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+          Panel de FAQ
+        </h1>
 
         <FAQForm
-          form={form}
           editingId={editingId}
-          setForm={setForm}
-          handleSubmit={handleSubmit}
-          handleModelChange={handleModelChange}
+          defaultValues={defaultValues}
+          onSubmit={onSubmit}
+          isSubmitting={addMutation.isPending || updateMutation.isPending}
+          onCancel={resetForm}
         />
 
         <FAQList
           faqs={faqs}
           handleEditClick={handleEditClick}
           handleDelete={handleDelete}
-          handleMoveUp={handleMoveUp}
-          handleMoveDown={handleMoveDown}
+          handleMoveUp={(faq) =>
+            reorderMutation.mutate({ faq, direction: "up" })
+          }
+          handleMoveDown={(faq) =>
+            reorderMutation.mutate({ faq, direction: "down" })
+          }
+          isReordering={reorderMutation.isPending}
         />
       </div>
     </div>
