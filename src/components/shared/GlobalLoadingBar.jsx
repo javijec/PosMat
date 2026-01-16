@@ -18,7 +18,7 @@ const GlobalLoadingBar = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{ originX: 0 }}
-          className="fixed top-0 left-0 right-0 h-1 bg-[var(--color-ingenieria)] z-[9999] shadow-[0_0_10px_rgba(68,124,130,0.5)]"
+          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 via-ingenieria to-teal-700 z-[9999] shadow-[0_0_15px_rgba(68,124,130,0.6)]"
         />
       )}
     </AnimatePresence>

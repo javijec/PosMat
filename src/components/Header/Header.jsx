@@ -52,7 +52,7 @@ const Header = () => {
   return (
     <Disclosure
       as="header"
-      className="bg-[var(--bg-header)] text-white shadow transition-colors duration-300"
+      className="sticky top-0 z-50 bg-[var(--bg-header)]/90 backdrop-blur-md text-white shadow-sm transition-all duration-300"
     >
       {({ open, close }) => (
         <>
