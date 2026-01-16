@@ -5,11 +5,13 @@ import FAQForm from "./FAQForm";
 import FAQList from "./FAQList";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import ConfirmModal from "../shared/ConfirmModal";
 
 const FAQEdit = () => {
   const queryClient = useQueryClient();
   const collectionName = "faq";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     question: "",
     answer: "",
@@ -82,9 +84,10 @@ const FAQEdit = () => {
     });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar esta FAQ?")) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -122,12 +125,21 @@ const FAQEdit = () => {
       <FAQList
         faqs={faqs}
         handleEditClick={handleEditClick}
-        handleDelete={handleDelete}
+        handleDelete={(id) => setDeleteId(id)}
         handleMoveUp={(faq) => reorderMutation.mutate({ faq, direction: "up" })}
         handleMoveDown={(faq) =>
           reorderMutation.mutate({ faq, direction: "down" })
         }
         isReordering={reorderMutation.isPending}
+      />
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar FAQ"
+        message="¿Estás seguro de que quieres eliminar esta pregunta frecuente? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
       />
     </EditPageContainer>
   );

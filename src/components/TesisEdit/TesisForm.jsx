@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormActions from "../shared/FormActions";
+import FormInput from "../shared/FormInput";
+import FormSelect from "../shared/FormSelect";
 
 const tesisSchema = z.object({
   year: z.coerce
@@ -48,112 +50,57 @@ const TesisForm = ({
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Año
-          </label>
-          <input
-            type="number"
-            {...register("year")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.year ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Ej: 2024"
-          />
-          {errors.year && (
-            <p className="text-red-500 text-xs mt-1">{errors.year.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="Año"
+          type="number"
+          {...register("year")}
+          error={errors.year}
+          placeholder="Ej: 2024"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Tipo de Tesis
-          </label>
-          <select
-            {...register("tag")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="maestria">Maestría</option>
-            <option value="doctorado">Doctorado</option>
-          </select>
-        </div>
+        <FormSelect
+          label="Tipo de Tesis"
+          {...register("tag")}
+          options={[
+            { value: "maestria", label: "Maestría" },
+            { value: "doctorado", label: "Doctorado" },
+          ]}
+        />
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Título de la Tesis
-          </label>
-          <input
-            {...register("title")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.title ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Ej: Análisis de algoritmos concurrentes..."
-          />
-          {errors.title && (
-            <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="Título de la Tesis"
+          {...register("title")}
+          error={errors.title}
+          placeholder="Ej: Análisis de algoritmos concurrentes..."
+          className="md:col-span-2"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Autor
-          </label>
-          <input
-            {...register("name")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.name ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Nombre completo del autor"
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="Autor"
+          {...register("name")}
+          error={errors.name}
+          placeholder="Nombre completo del autor"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            URL / Enlace al Resumen
-          </label>
-          <input
-            {...register("url")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.url ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="https://ejemplo.com/tesis"
-          />
-          {errors.url && (
-            <p className="text-red-500 text-xs mt-1">{errors.url.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="URL / Enlace al Resumen"
+          {...register("url")}
+          error={errors.url}
+          placeholder="https://ejemplo.com/tesis"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Director
-          </label>
-          <input
-            {...register("director")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.director ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Nombre del director"
-          />
-          {errors.director && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.director.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Director"
+          {...register("director")}
+          error={errors.director}
+          placeholder="Nombre del director"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Co-Director (Opcional)
-          </label>
-          <input
-            {...register("co_director")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Nombre del co-director"
-          />
-        </div>
+        <FormInput
+          label="Co-Director (Opcional)"
+          {...register("co_director")}
+          placeholder="Nombre del co-director"
+        />
       </div>
 
       <FormActions

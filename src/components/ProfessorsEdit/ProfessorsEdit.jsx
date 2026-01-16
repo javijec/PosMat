@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../firebase/CRUD";
 import ProfessorForm from "./ProfessorForm";
@@ -9,13 +9,16 @@ import {
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
 import SearchBar from "../shared/SearchBar";
+import ConfirmModal from "../shared/ConfirmModal";
+import EmptyState from "../shared/EmptyState";
 
 const ProfessorsEdit = () => {
   const collectionName = "professors";
   const [editingId, setEditingId] = useState(-1);
-  const [searchName, setSearchName] = useState("");
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     firstName: "",
     lastName: "",
@@ -47,17 +50,30 @@ const ProfessorsEdit = () => {
       deleteMessage: "Profesor eliminado con éxito",
     });
 
+  const { filteredData, filters, updateFilter } = useFilters(
+    professors,
+    { name: "" },
+    (prof, f) => {
+      if (!f.name) return true;
+      const term = f.name.toLowerCase();
+      return (
+        prof.firstName.toLowerCase().includes(term) ||
+        prof.lastName.toLowerCase().includes(term) ||
+        (prof.email && prof.email.toLowerCase().includes(term))
+      );
+    }
+  );
+
   const handleEdit = (prof) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(prof.id);
     setDefaultValues(prof);
   };
 
-  const handleDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar a este profesor?")
-    ) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -73,17 +89,6 @@ const ProfessorsEdit = () => {
     setEditingId(-1);
     setDefaultValues({ firstName: "", lastName: "", email: "", title: "" });
   };
-
-  const filteredData = useMemo(() => {
-    if (!searchName) return professors;
-    const lowerSearch = searchName.toLowerCase();
-    return professors.filter(
-      (prof) =>
-        prof.firstName.toLowerCase().includes(lowerSearch) ||
-        prof.lastName.toLowerCase().includes(lowerSearch) ||
-        (prof.email && prof.email.toLowerCase().includes(lowerSearch))
-    );
-  }, [professors, searchName]);
 
   if (isLoading) {
     return (
@@ -109,8 +114,8 @@ const ProfessorsEdit = () => {
             Profesores Registrados
           </h2>
           <SearchBar
-            value={searchName}
-            onChange={setSearchName}
+            value={filters.name}
+            onChange={(val) => updateFilter("name", val)}
             placeholder="Buscar por nombre o email..."
             className="w-full md:w-64"
           />
@@ -118,15 +123,15 @@ const ProfessorsEdit = () => {
 
         <div className="grid grid-cols-1 gap-4">
           {filteredData.length === 0 ? (
-            <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-              <FontAwesomeIcon
-                icon={faUserGraduate}
-                className="text-4xl text-gray-300 mb-3"
-              />
-              <p className="text-gray-500 italic">
-                No se encontraron profesores.
-              </p>
-            </div>
+            <EmptyState
+              icon={faUserGraduate}
+              title="No se encontraron profesores"
+              description={
+                filters.name
+                  ? "Intenta con otros términos de búsqueda"
+                  : "Aún no hay profesores registrados"
+              }
+            />
           ) : (
             filteredData.map((prof) => (
               <div
@@ -161,7 +166,7 @@ const ProfessorsEdit = () => {
                     <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={() => handleDelete(prof.id)}
+                    onClick={() => setDeleteId(prof.id)}
                     className="p-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
                     title="Eliminar"
                   >
@@ -173,6 +178,15 @@ const ProfessorsEdit = () => {
           )}
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Profesor"
+        message="¿Estás seguro de que quieres eliminar a este profesor? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </EditPageContainer>
   );
 };

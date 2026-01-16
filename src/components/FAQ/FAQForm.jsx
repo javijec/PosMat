@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import RichTextEditor from "../shared/RichTextEditor";
 import FormActions from "../shared/FormActions";
+import FormInput from "../shared/FormInput";
 
 const faqSchema = z.object({
   question: z.string().min(1, "La pregunta es obligatoria"),
@@ -41,21 +42,13 @@ const FAQForm = ({
         {editingId === -1 ? "Agregar nueva FAQ" : "Editar FAQ"}
       </h2>
 
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Pregunta
-        </label>
-        <input
-          {...register("question")}
-          className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-            errors.question ? "border-red-500" : "border-gray-300"
-          }`}
-          placeholder="Ej: ¿Cómo me inscribo?"
-        />
-        {errors.question && (
-          <p className="text-red-500 text-xs mt-1">{errors.question.message}</p>
-        )}
-      </div>
+      <FormInput
+        label="Pregunta"
+        {...register("question")}
+        error={errors.question}
+        placeholder="Ej: ¿Cómo me inscribo?"
+        className="mb-4"
+      />
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">

@@ -7,6 +7,7 @@ import { fetchData } from "../../../firebase/CRUD";
 import { useFirebaseMutations } from "../../../hooks/useFirebaseMutations";
 import EditPageContainer from "../../shared/EditPageContainer";
 import FormActions from "../../shared/FormActions";
+import FormInput from "../../shared/FormInput";
 import { toast } from "sonner";
 
 const heroSchema = z.object({
@@ -79,59 +80,29 @@ const HeroEdit = () => {
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-              Doctorado
-            </label>
-            <input
-              {...register("doctorado")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.doctorado ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Ej: Doctorado en Ciencia de Materiales"
-            />
-            {errors.doctorado && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.doctorado.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label="Doctorado"
+            {...register("doctorado")}
+            error={errors.doctorado}
+            placeholder="Ej: Doctorado en Ciencia de Materiales"
+            className="font-semibold uppercase tracking-wide"
+          />
 
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-              Maestría
-            </label>
-            <input
-              {...register("master")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.master ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Ej: Maestría en Ciencia y Tecnología de Materiales"
-            />
-            {errors.master && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.master.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label="Maestría"
+            {...register("master")}
+            error={errors.master}
+            placeholder="Ej: Maestría en Ciencia y Tecnología de Materiales"
+            className="font-semibold uppercase tracking-wide"
+          />
 
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">
-              Director
-            </label>
-            <input
-              {...register("director")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.director ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Ej: Dr. Juan Pérez"
-            />
-            {errors.director && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.director.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label="Director"
+            {...register("director")}
+            error={errors.director}
+            placeholder="Ej: Dr. Juan Pérez"
+            className="font-semibold uppercase tracking-wide"
+          />
 
           <div className="pt-4">
             <FormActions

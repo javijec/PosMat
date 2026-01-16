@@ -1,16 +1,21 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import StudentsEditCard from "./StudentEditCard";
 import StudentForm from "./StudentForm";
 import { fetchData } from "../../firebase/CRUD";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
 import SearchBar from "../shared/SearchBar";
 import FilterGrid from "../shared/FilterGrid";
+import ConfirmModal from "../shared/ConfirmModal";
+import EmptyState from "../shared/EmptyState";
+import { faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 
 const StudentsEdit = () => {
   const collectionName = "students";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     firstName: "",
     lastName: "",
@@ -20,10 +25,6 @@ const StudentsEdit = () => {
     thesis_topic: "",
     program: "doctorado",
   });
-
-  const [searchFullName, setSearchFullName] = useState("");
-  const [searchProgram, setSearchProgram] = useState("");
-  const [searchThesis, setSearchThesis] = useState("");
 
   const { data: students = [], isLoading } = useQuery({
     queryKey: [collectionName],
@@ -49,17 +50,36 @@ const StudentsEdit = () => {
       deleteMessage: "Estudiante eliminado con éxito",
     });
 
+  const { filteredData, filters, updateFilter } = useFilters(
+    students,
+    { name: "", program: "", thesis: "" },
+    (student, f) => {
+      const lowerFullName = (
+        student.firstName +
+        " " +
+        student.lastName
+      ).toLowerCase();
+      const matchName = !f.name || lowerFullName.includes(f.name.toLowerCase());
+      const matchProgram = !f.program || student.program === f.program;
+      const matchThesis =
+        !f.thesis ||
+        (student.thesis_topic || "")
+          .toLowerCase()
+          .includes(f.thesis.toLowerCase());
+      return matchName && matchProgram && matchThesis;
+    }
+  );
+
   const handleEdit = (student) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(student.id);
     setDefaultValues(student);
   };
 
-  const handleDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar a este estudiante?")
-    ) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -83,28 +103,6 @@ const StudentsEdit = () => {
       program: "doctorado",
     });
   };
-
-  const filteredData = useMemo(() => {
-    return students.filter((student) => {
-      const lowerFullName = (
-        student.firstName +
-        " " +
-        student.lastName
-      ).toLowerCase();
-      const matchFullName = searchFullName
-        ? lowerFullName.includes(searchFullName.toLowerCase())
-        : true;
-      const matchProgram = searchProgram
-        ? student.program === searchProgram
-        : true;
-      const matchThesis = searchThesis
-        ? student.thesis_topic
-            .toLowerCase()
-            .includes(searchThesis.toLowerCase())
-        : true;
-      return matchFullName && matchProgram && matchThesis;
-    });
-  }, [students, searchFullName, searchProgram, searchThesis]);
 
   if (isLoading) {
     return (
@@ -131,8 +129,8 @@ const StudentsEdit = () => {
               Nombre Completo
             </label>
             <SearchBar
-              value={searchFullName}
-              onChange={setSearchFullName}
+              value={filters.name}
+              onChange={(val) => updateFilter("name", val)}
               placeholder="Nombre o apellido..."
             />
           </div>
@@ -141,9 +139,9 @@ const StudentsEdit = () => {
               Programa
             </label>
             <select
-              value={searchProgram}
-              onChange={(e) => setSearchProgram(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-all shadow-sm"
+              value={filters.program}
+              onChange={(e) => updateFilter("program", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-all shadow-sm bg-white"
             >
               <option value="">Todos</option>
               <option value="doctorado">Doctorado</option>
@@ -155,8 +153,8 @@ const StudentsEdit = () => {
               Tema de Tesis
             </label>
             <SearchBar
-              value={searchThesis}
-              onChange={setSearchThesis}
+              value={filters.thesis}
+              onChange={(val) => updateFilter("thesis", val)}
               placeholder="Palabra clave..."
             />
           </div>
@@ -165,12 +163,30 @@ const StudentsEdit = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Estudiantes Registrados
         </h2>
-        <StudentsEditCard
-          students={filteredData}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
+
+        {filteredData.length === 0 ? (
+          <EmptyState
+            icon={faUserGraduate}
+            title="No se encontraron estudiantes"
+            description="Intenta eliminando algunos filtros de búsqueda"
+          />
+        ) : (
+          <StudentsEditCard
+            students={filteredData}
+            handleEdit={handleEdit}
+            handleDelete={(id) => setDeleteId(id)}
+          />
+        )}
       </div>
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Estudiante"
+        message="¿Estás seguro de que quieres eliminar a este estudiante? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </EditPageContainer>
   );
 };

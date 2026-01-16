@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormActions from "../shared/FormActions";
+import FormInput from "../shared/FormInput";
+import FormSelect from "../shared/FormSelect";
 
 const studentSchema = z.object({
   firstName: z.string().min(1, "El nombre es obligatorio"),
@@ -45,111 +47,47 @@ const StudentForm = ({
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Nombre
-          </label>
-          <input
-            {...register("firstName")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.firstName ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.firstName && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.firstName.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Nombre"
+          {...register("firstName")}
+          error={errors.firstName}
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Apellido
-          </label>
-          <input
-            {...register("lastName")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.lastName ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.lastName && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.lastName.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Apellido"
+          {...register("lastName")}
+          error={errors.lastName}
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Director
-          </label>
-          <input
-            {...register("director")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.director ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.director && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.director.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Director"
+          {...register("director")}
+          error={errors.director}
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Codirector (Opcional)
-          </label>
-          <input
-            {...register("codirector")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
+        <FormInput label="Codirector (Opcional)" {...register("codirector")} />
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Tema de Tesis
-          </label>
-          <input
-            {...register("thesis_topic")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.thesis_topic ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.thesis_topic && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.thesis_topic.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Tema de Tesis"
+          {...register("thesis_topic")}
+          error={errors.thesis_topic}
+          className="md:col-span-2"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Programa
-          </label>
-          <select
-            {...register("program")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="doctorado">Doctorado</option>
-            <option value="maestria">Maestría</option>
-          </select>
-        </div>
+        <FormSelect
+          label="Programa"
+          {...register("program")}
+          options={[
+            { value: "doctorado", label: "Doctorado" },
+            { value: "maestria", label: "Maestría" },
+          ]}
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email (Opcional)
-          </label>
-          <input
-            {...register("email")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.email ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="Email (Opcional)"
+          {...register("email")}
+          error={errors.email}
+        />
       </div>
 
       <FormActions

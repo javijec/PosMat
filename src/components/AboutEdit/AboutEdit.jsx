@@ -5,11 +5,13 @@ import AboutForm from "./AboutForm";
 import AboutList from "./AboutList";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import ConfirmModal from "../shared/ConfirmModal";
 
 const AboutEdit = () => {
   const queryClient = useQueryClient();
   const collectionName = "about";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     title: "",
     content: "",
@@ -77,11 +79,10 @@ const AboutEdit = () => {
     setDefaultValues({ title: about.title, content: about.content });
   };
 
-  const handleDelete = (id) => {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este elemento?")
-    ) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -118,7 +119,7 @@ const AboutEdit = () => {
       <AboutList
         data={abouts}
         handleEditClick={handleEditClick}
-        handleDelete={handleDelete}
+        handleDelete={(id) => setDeleteId(id)}
         handleMoveUp={(about) =>
           reorderMutation.mutate({ about, direction: "up" })
         }
@@ -126,6 +127,15 @@ const AboutEdit = () => {
           reorderMutation.mutate({ about, direction: "down" })
         }
         isReordering={reorderMutation.isPending}
+      />
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Elemento"
+        message="¿Estás seguro de que quieres eliminar este elemento de 'About'? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
       />
     </EditPageContainer>
   );

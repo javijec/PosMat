@@ -5,11 +5,13 @@ import RulesForm from "./RulesForm";
 import RulesList from "./RulesList";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import ConfirmModal from "../shared/ConfirmModal";
 
 const RulesEdit = () => {
   const queryClient = useQueryClient();
   const collectionName = "rules";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     title: "",
     html: "",
@@ -82,9 +84,10 @@ const RulesEdit = () => {
     });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar este reglamento?")) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -122,12 +125,21 @@ const RulesEdit = () => {
       <RulesList
         data={rules}
         onEditClick={handleEditClick}
-        onDelete={handleDelete}
+        onDelete={(id) => setDeleteId(id)}
         onMoveUp={(rule) => reorderMutation.mutate({ rule, direction: "up" })}
         onMoveDown={(rule) =>
           reorderMutation.mutate({ rule, direction: "down" })
         }
         isReordering={reorderMutation.isPending}
+      />
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Reglamento"
+        message="¿Estás seguro de que quieres eliminar este reglamento? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
       />
     </EditPageContainer>
   );

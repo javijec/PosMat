@@ -1,15 +1,21 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import TesisEditItem from "./TesisEditItem";
 import TesisForm from "./TesisForm";
-import SearchForm from "./SearchForm";
 import { fetchData } from "../../firebase/CRUD";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
+import SearchBar from "../shared/SearchBar";
+import FilterGrid from "../shared/FilterGrid";
+import ConfirmModal from "../shared/ConfirmModal";
+import EmptyState from "../shared/EmptyState";
+import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 const TesisEdit = () => {
   const collectionName = "tesis";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     year: new Date().getFullYear(),
     name: "",
@@ -19,11 +25,6 @@ const TesisEdit = () => {
     co_director: "",
     tag: "maestria",
   });
-
-  const [searchName, setSearchName] = useState("");
-  const [searchTag, setSearchTag] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
-  const [searchYear, setSearchYear] = useState("");
 
   const { data: tesis = [], isLoading } = useQuery({
     queryKey: [collectionName],
@@ -53,18 +54,37 @@ const TesisEdit = () => {
       deleteMessage: "Tesis eliminada con éxito",
     });
 
+  const { filteredData, filters, updateFilter } = useFilters(
+    tesis,
+    { name: "", tag: "", title: "", year: "" },
+    (t, f) => {
+      const matchName =
+        !f.name || t.name.toLowerCase().includes(f.name.toLowerCase());
+      const matchTag =
+        !f.tag ||
+        t.tag === f.tag ||
+        (f.tag === "doctoral" && t.tag === "doctorado") ||
+        (f.tag === "doctorado" && t.tag === "doctoral");
+      const matchTitle =
+        !f.title || t.title.toLowerCase().includes(f.title.toLowerCase());
+      const matchYear = !f.year || String(t.year) === f.year;
+      return matchName && matchTag && matchTitle && matchYear;
+    }
+  );
+
   const handleEdit = (t) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(t.id);
     setDefaultValues({
       ...t,
-      tag: t.tag === "doctoral" ? "doctorado" : t.tag, // Normalizing old values if any
+      tag: t.tag === "doctoral" ? "doctorado" : t.tag, // Normalizing
     });
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar esta tesis?")) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -89,20 +109,6 @@ const TesisEdit = () => {
     });
   };
 
-  const filteredData = useMemo(() => {
-    return tesis.filter((t) => {
-      const matchName = searchName
-        ? t.name.toLowerCase().includes(searchName.toLowerCase())
-        : true;
-      const matchTag = searchTag ? t.tag === searchTag : true;
-      const matchTitle = searchTitle
-        ? t.title.toLowerCase().includes(searchTitle.toLowerCase())
-        : true;
-      const matchYear = searchYear ? String(t.year) === searchYear : true;
-      return matchName && matchTag && matchTitle && matchYear;
-    });
-  }, [tesis, searchName, searchTag, searchTitle, searchYear]);
-
   if (isLoading) {
     return (
       <div className="py-16 flex justify-center">
@@ -122,42 +128,85 @@ const TesisEdit = () => {
       />
 
       <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Buscar y Filtrar
-        </h2>
-        <SearchForm
-          searchName={searchName}
-          searchTag={searchTag}
-          searchTitle={searchTitle}
-          searchYear={searchYear}
-          setSearchName={setSearchName}
-          setSearchTag={setSearchTag}
-          setSearchTitle={setSearchTitle}
-          setSearchYear={setSearchYear}
-        />
-
-        <hr className="my-8 border-gray-100" />
+        <FilterGrid title="Buscar y Filtrar Tesis">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Nombre del Autor
+            </label>
+            <SearchBar
+              value={filters.name}
+              onChange={(val) => updateFilter("name", val)}
+              placeholder="Autor..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Programa
+            </label>
+            <select
+              value={filters.tag}
+              onChange={(e) => updateFilter("tag", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all shadow-sm bg-white"
+            >
+              <option value="">Todos</option>
+              <option value="maestria">Maestría</option>
+              <option value="doctorado">Doctorado</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Título
+            </label>
+            <SearchBar
+              value={filters.title}
+              onChange={(val) => updateFilter("title", val)}
+              placeholder="Título de la tesis..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Año
+            </label>
+            <SearchBar
+              value={filters.year}
+              onChange={(val) => updateFilter("year", val)}
+              placeholder="Ej: 2024"
+            />
+          </div>
+        </FilterGrid>
 
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Repositorio de Tesis
         </h2>
-        <div className="space-y-4">
-          {filteredData.length === 0 ? (
-            <p className="text-center text-gray-500 py-10 italic bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-              No se encontraron tesis que coincidan con los criterios.
-            </p>
-          ) : (
-            filteredData.map((t) => (
+
+        {filteredData.length === 0 ? (
+          <EmptyState
+            icon={faFileAlt}
+            title="No se encontraron tesis"
+            description="Intenta ajustando los filtros de búsqueda"
+          />
+        ) : (
+          <div className="space-y-4">
+            {filteredData.map((t) => (
               <TesisEditItem
                 key={t.id}
                 t={t}
                 handleEdit={handleEdit}
-                handleDelete={handleDelete}
+                handleDelete={(id) => setDeleteId(id)}
               />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Tesis"
+        message="¿Estás seguro de que quieres eliminar esta tesis? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </EditPageContainer>
   );
 };

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { fetchData } from "../../firebase/CRUD";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
   faMapMarkerAlt,
@@ -14,7 +13,9 @@ import {
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import FormActions from "../shared/FormActions";
+import FormInput from "../shared/FormInput";
 import { toast } from "sonner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const contactSchema = z.object({
   horario: z.string().min(1, "El horario es obligatorio"),
@@ -85,94 +86,66 @@ const ContactEdit = () => {
     <EditPageContainer title="Editar Contacto" maxWidth="2xl">
       <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-              <FontAwesomeIcon
-                icon={faClock}
-                className="mr-2 text-indigo-500"
-              />
-              Horario de Atención
-            </label>
-            <input
-              {...register("horario")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.horario ? "border-red-500 bg-red-50" : "border-gray-200"
-              }`}
-              placeholder="Ej: Lunes a Viernes: 9:00 - 17:00"
-            />
-            {errors.horario && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.horario.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label={
+              <span className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faClock}
+                  className="mr-2 text-indigo-500"
+                />
+                Horario de Atención
+              </span>
+            }
+            {...register("horario")}
+            error={errors.horario}
+            placeholder="Ej: Lunes a Viernes: 9:00 - 17:00"
+          />
 
-          <div>
-            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-              <FontAwesomeIcon
-                icon={faMapMarkerAlt}
-                className="mr-2 text-indigo-500"
-              />
-              Dirección
-            </label>
-            <input
-              {...register("adress")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.adress ? "border-red-500 bg-red-50" : "border-gray-200"
-              }`}
-              placeholder="Ej: Juan B. Justo 4302, Mar del Plata"
-            />
-            {errors.adress && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.adress.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label={
+              <span className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faMapMarkerAlt}
+                  className="mr-2 text-indigo-500"
+                />
+                Dirección
+              </span>
+            }
+            {...register("adress")}
+            error={errors.adress}
+            placeholder="Ej: Juan B. Justo 4302, Mar del Plata"
+          />
 
-          <div>
-            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-              <FontAwesomeIcon
-                icon={faEnvelope}
-                className="mr-2 text-indigo-500"
-              />
-              Correo Electrónico
-            </label>
-            <input
-              type="email"
-              {...register("email")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.email ? "border-red-500 bg-red-50" : "border-gray-200"
-              }`}
-              placeholder="Ej: posgrado@fi.mdp.edu.ar"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label={
+              <span className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="mr-2 text-indigo-500"
+                />
+                Correo Electrónico
+              </span>
+            }
+            type="email"
+            {...register("email")}
+            error={errors.email}
+            placeholder="Ej: posgrado@fi.mdp.edu.ar"
+          />
 
-          <div>
-            <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
-              <FontAwesomeIcon
-                icon={faPhone}
-                className="mr-2 text-indigo-500"
-              />
-              Teléfono de Contacto
-            </label>
-            <input
-              {...register("phone")}
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${
-                errors.phone ? "border-red-500 bg-red-50" : "border-gray-200"
-              }`}
-              placeholder="Ej: (0223) 481-6600"
-            />
-            {errors.phone && (
-              <p className="text-red-500 text-xs mt-1 font-medium">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
+          <FormInput
+            label={
+              <span className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  className="mr-2 text-indigo-500"
+                />
+                Teléfono de Contacto
+              </span>
+            }
+            {...register("phone")}
+            error={errors.phone}
+            placeholder="Ej: (0223) 481-6600"
+          />
 
           <FormActions
             isSubmitting={isPending}

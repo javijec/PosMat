@@ -5,10 +5,14 @@ import LinkForm from "./LinkForm";
 import LinksList from "./LinksList";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
+import ConfirmModal from "../shared/ConfirmModal";
+import EmptyState from "../shared/EmptyState";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const LinksEdit = () => {
   const collectionName = "links";
   const [editingId, setEditingId] = useState(-1);
+  const [deleteId, setDeleteId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     name: "",
     url: "",
@@ -43,9 +47,10 @@ const LinksEdit = () => {
     setDefaultValues(item);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este link?")) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (deleteId) {
+      deleteMutation.mutate(deleteId);
+      setDeleteId(null);
     }
   };
 
@@ -84,8 +89,30 @@ const LinksEdit = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
           Links Registrados
         </h2>
-        <LinksList data={links} onEdit={handleEdit} onDelete={handleDelete} />
+
+        {links.length === 0 ? (
+          <EmptyState
+            icon={faLink}
+            title="No hay links registrados"
+            description="Agrega un nuevo enlace arriba"
+          />
+        ) : (
+          <LinksList
+            data={links}
+            onEdit={handleEdit}
+            onDelete={(id) => setDeleteId(id)}
+          />
+        )}
       </div>
+
+      <ConfirmModal
+        isOpen={!!deleteId}
+        title="Eliminar Enlace"
+        message="¿Estás seguro de que quieres eliminar este enlace? Esta acción no se puede deshacer."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </EditPageContainer>
   );
 };

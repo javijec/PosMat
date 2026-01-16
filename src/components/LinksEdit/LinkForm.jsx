@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormActions from "../shared/FormActions";
+import FormInput from "../shared/FormInput";
 
 const linkSchema = z.object({
   name: z.string().min(1, "El nombre es obligatorio"),
@@ -42,66 +43,34 @@ const LinkForm = ({
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Nombre del Sitio / Recurso
-          </label>
-          <input
-            {...register("name")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.name ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Ej: Biblioteca Digital"
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="Nombre del Sitio / Recurso"
+          {...register("name")}
+          error={errors.name}
+          placeholder="Ej: Biblioteca Digital"
+          className="md:col-span-2"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            URL
-          </label>
-          <input
-            {...register("url")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.url ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="https://ejemplo.com"
-          />
-          {errors.url && (
-            <p className="text-red-500 text-xs mt-1">{errors.url.message}</p>
-          )}
-        </div>
+        <FormInput
+          label="URL"
+          {...register("url")}
+          error={errors.url}
+          placeholder="https://ejemplo.com"
+        />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Categoría
-          </label>
-          <input
-            {...register("category")}
-            className={`w-full px-4 py-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 ${
-              errors.category ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Ej: Recursos Útiles"
-          />
-          {errors.category && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.category.message}
-            </p>
-          )}
-        </div>
+        <FormInput
+          label="Categoría"
+          {...register("category")}
+          error={errors.category}
+          placeholder="Ej: Recursos Útiles"
+        />
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Descripción (Opcional)
-          </label>
-          <input
-            {...register("description")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Una breve explicación del link"
-          />
-        </div>
+        <FormInput
+          label="Descripción (Opcional)"
+          {...register("description")}
+          placeholder="Una breve explicación del link"
+          className="md:col-span-2"
+        />
       </div>
 
       <FormActions
