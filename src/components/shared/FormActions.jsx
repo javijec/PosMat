@@ -13,7 +13,7 @@ const FormActions = ({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-indigo-600 text-white py-2 px-6 rounded-md shadow-sm hover:bg-indigo-700 transition-colors disabled:opacity-50 font-medium"
+        className="bg-[var(--color-ingenieria)] text-white py-2 px-6 rounded-md shadow-sm hover:bg-[var(--color-ingenieria-hover)] transition-colors disabled:opacity-50 font-medium"
       >
         {isSubmitting ? submittingLabel : submitLabel}
       </button>
@@ -21,7 +21,7 @@ const FormActions = ({
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-100 text-gray-700 py-2 px-6 rounded-md shadow-sm hover:bg-gray-200 transition-colors font-medium"
+          className="bg-[var(--bg-surface)] text-[var(--text-main)] py-2 px-6 rounded-md border border-[var(--border-subtle)] shadow-sm hover:bg-[var(--bg-card)] transition-colors font-medium border border-transparent"
         >
           {cancelLabel}
         </button>

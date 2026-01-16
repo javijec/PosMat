@@ -5,10 +5,11 @@ import * as z from "zod";
 import RichTextEditor from "../shared/RichTextEditor";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
+import useConfirmExit from "../../hooks/useConfirmExit";
 
 const faqSchema = z.object({
   question: z.string().min(1, "La pregunta es obligatoria"),
-  answer: z.string().min(10, "La respuesta debe tener al menos 10 caracteres"),
+  answer: z.string().min(1, "La respuesta es obligatoria"),
 });
 
 const FAQForm = ({
@@ -23,11 +24,13 @@ const FAQForm = ({
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(faqSchema),
     defaultValues,
   });
+
+  useConfirmExit(isDirty);
 
   useEffect(() => {
     reset(defaultValues);

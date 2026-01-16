@@ -2,49 +2,40 @@
 import React from "react";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Link, NavLink } from "react-router-dom";
-import { Bars3Icon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  UserIcon,
+  SunIcon,
+  MoonIcon,
+} from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 const menuItems = [
-  { path: "/", name: "Inicio", editPath: "/home/edit" },
-  { path: "/about", name: "Acerca de", editPath: "/about/edit" },
+  { path: "/", name: "Inicio" },
+  { path: "/about", name: "Acerca de" },
   {
     name: "Comunidad",
     subItems: [
-      {
-        path: "/professors",
-        name: "Profesores",
-        editPath: "/professors/edit",
-      },
-      {
-        path: "/students",
-        name: "Estudiantes",
-        editPath: "/students/edit",
-      },
+      { path: "/professors", name: "Profesores" },
+      { path: "/students", name: "Estudiantes" },
     ],
   },
   {
     name: "Posgrado",
     subItems: [
-      { path: "/rules", name: "Reglamento", editPath: "/rules/edit" }, // sin editPath = sin botón de edición
-      {
-        path: "/courses",
-        name: "Cursos",
-        editPath: "/courses/edit",
-      },
-      {
-        path: "/tesis",
-        name: "Tesis",
-        editPath: "/tesis/edit",
-      },
+      { path: "/rules", name: "Reglamento" },
+      { path: "/courses", name: "Cursos" },
+      { path: "/tesis", name: "Tesis" },
     ],
   },
-  { path: "/contact", name: "Contacto", editPath: "/contact/edit" },
+  { path: "/contact", name: "Contacto" },
 ];
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleAuth = async () => {
     if (user) {
@@ -59,7 +50,10 @@ const Header = () => {
   };
 
   return (
-    <Disclosure as="header" className="bg-ingenieria text-white shadow">
+    <Disclosure
+      as="header"
+      className="bg-[var(--bg-header)] text-white shadow transition-colors duration-300"
+    >
       {({ open, close }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -98,15 +92,6 @@ const Header = () => {
                                   >
                                     {subItem.name}
                                   </NavLink>
-                                  {user && subItem.editPath && (
-                                    <NavLink
-                                      to={subItem.editPath}
-                                      className="ml-2 p-1 hover:bg-gray-700 rounded"
-                                      onClick={() => closeDisclosure(menuClose)}
-                                    >
-                                      <PencilSquareIcon className="h-4 w-4" />
-                                    </NavLink>
-                                  )}
                                 </div>
                               )}
                             </Menu.Item>
@@ -123,14 +108,6 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user && item.editPath && (
-                      <NavLink
-                        to={item.editPath}
-                        className="p-1 hover:bg-gray-700 rounded"
-                      >
-                        <PencilSquareIcon className="h-4 w-4" />
-                      </NavLink>
-                    )}
                   </div>
                 )
               )}
@@ -144,21 +121,19 @@ const Header = () => {
                     </Menu.Button>
                     {user ? (
                       <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
-                        {user.email === "javijec@gmail.com" && (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <NavLink
-                                to="/manage-emails"
-                                className={`block px-4 py-2 text-sm ${
-                                  active ? "bg-gray-700" : ""
-                                }`}
-                                onClick={() => closeDisclosure(menuClose)}
-                              >
-                                Gestionar Emails
-                              </NavLink>
-                            )}
-                          </Menu.Item>
-                        )}
+                        <Menu.Item>
+                          {({ active }) => (
+                            <NavLink
+                              to="/admin"
+                              className={`block px-4 py-2 text-sm font-semibold text-indigo-600 ${
+                                active ? "bg-gray-100" : ""
+                              }`}
+                              onClick={() => closeDisclosure(menuClose)}
+                            >
+                              Panel de Control
+                            </NavLink>
+                          )}
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <button
@@ -195,15 +170,45 @@ const Header = () => {
                   </>
                 )}
               </Menu>
+
+              {/* Theme Toggle (Desktop) - Temporarily disabled
+              <button
+                onClick={toggleTheme}
+                className="ml-2 p-2 hover:bg-white/10 rounded-full transition-colors text-white/80 hover:text-white"
+                title={theme === "light" ? "Modo Oscuro" : "Modo Claro"}
+              >
+                {theme === "light" ? (
+                  <MoonIcon className="h-5 w-5" />
+                ) : (
+                  <SunIcon className="h-5 w-5" />
+                )}
+              </button>
+              */}
             </nav>
 
-            <Disclosure.Button className="lg:hidden focus:outline-none">
-              {open ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
-            </Disclosure.Button>
+            <div className="flex items-center space-x-2 lg:hidden">
+              {/* Theme Toggle (Mobile) - Temporarily disabled
+              <button
+                onClick={toggleTheme}
+                className="p-2 hover:bg-ingenieria-hover rounded-full transition-colors text-white/80 hover:text-white"
+                title={theme === "light" ? "Modo Oscuro" : "Modo Claro"}
+              >
+                {theme === "light" ? (
+                  <MoonIcon className="h-6 w-6" />
+                ) : (
+                  <SunIcon className="h-6 w-6" />
+                )}
+              </button>
+              */}
+
+              <Disclosure.Button className="lg:hidden focus:outline-none">
+                {open ? (
+                  <XMarkIcon className="h-6 w-6" />
+                ) : (
+                  <Bars3Icon className="h-6 w-6" />
+                )}
+              </Disclosure.Button>
+            </div>
           </div>
 
           <Disclosure.Panel className="lg:hidden px-4 pb-4">
@@ -225,15 +230,6 @@ const Header = () => {
                           >
                             {subItem.name}
                           </NavLink>
-                          {user && subItem.editPath && (
-                            <NavLink
-                              to={subItem.editPath}
-                              className="ml-2 p-1 hover:bg-gray-700 rounded"
-                              onClick={() => closeDisclosure(close)}
-                            >
-                              <PencilSquareIcon className="h-4 w-4" />
-                            </NavLink>
-                          )}
                         </div>
                       ))}
                     </div>
@@ -250,15 +246,6 @@ const Header = () => {
                     >
                       {item.name}
                     </NavLink>
-                    {user && item.editPath && (
-                      <NavLink
-                        to={item.editPath}
-                        className="p-1 hover:bg-gray-700 rounded"
-                        onClick={() => closeDisclosure(close)}
-                      >
-                        <PencilSquareIcon className="h-4 w-4" />
-                      </NavLink>
-                    )}
                   </div>
                 )
               )}
@@ -266,14 +253,13 @@ const Header = () => {
               <div className="mt-4">
                 {user ? (
                   <>
-                    {user.email && (
-                      <NavLink
-                        to="/manage-emails"
-                        className="block text-sm text-gray-300 hover:text-white mb-2"
-                      >
-                        Gestionar Emails
-                      </NavLink>
-                    )}
+                    <NavLink
+                      to="/admin"
+                      className="block text-sm font-bold text-indigo-400 hover:text-indigo-300 mb-4 px-4 py-2 border border-indigo-500/30 rounded-lg bg-indigo-500/10"
+                      onClick={() => closeDisclosure(close)}
+                    >
+                      Panel de Control
+                    </NavLink>
                     <button
                       onClick={handleAuth}
                       className="w-full px-4 py-2 text-left hover:bg-gray-700"

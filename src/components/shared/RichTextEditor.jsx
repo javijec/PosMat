@@ -21,7 +21,8 @@ const RichTextEditor = ({ value, onChange, error }) => {
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
-          class: "text-blue-500 hover:text-blue-700 underline",
+          class:
+            "text-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria-hover)] underline",
         },
       }),
     ],
@@ -39,16 +40,16 @@ const RichTextEditor = ({ value, onChange, error }) => {
 
   return (
     <div
-      className={`border rounded-md overflow-hidden bg-white transition-all ${
+      className={`border rounded-md overflow-hidden bg-[var(--bg-card)] text-[var(--text-main)] transition-all ${
         error
           ? "border-red-500 ring-1 ring-red-500"
-          : "border-gray-300 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500"
+          : "border-[var(--border-subtle)] focus-within:ring-2 focus-within:ring-[var(--color-ingenieria)] focus-within:border-[var(--color-ingenieria)]"
       }`}
     >
       <MenuBar editor={editor} />
       <EditorContent
         editor={editor}
-        className="prose max-w-none min-h-[200px] p-4 focus:outline-none [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
+        className="prose dark:prose-invert max-w-none min-h-[200px] p-4 focus:outline-none [&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-4 [&_ul]:ml-4"
       />
     </div>
   );

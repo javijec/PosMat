@@ -7,6 +7,7 @@ import {
   faPencilAlt,
   faTrash,
   faUserGraduate,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import { useFilters } from "../../hooks/useFilters";
@@ -14,6 +15,8 @@ import EditPageContainer from "../shared/EditPageContainer";
 import SearchBar from "../shared/SearchBar";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
+import { ListSkeleton } from "../shared/Skeleton";
+import { exportToCSV } from "../../utils/csvExport";
 
 const ProfessorsEdit = () => {
   const collectionName = "professors";
@@ -108,17 +111,26 @@ const ProfessorsEdit = () => {
         onCancel={resetForm}
       />
 
-      <div className="mt-12 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-          <h2 className="text-2xl font-bold text-gray-800">
+      <div className="mt-12 bg-[var(--bg-card)] p-6 rounded-lg shadow-sm border border-[var(--border-subtle)]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 border-b border-[var(--border-subtle)] pb-4">
+          <h2 className="text-2xl font-bold text-[var(--text-main)]">
             Profesores Registrados
           </h2>
-          <SearchBar
-            value={filters.name}
-            onChange={(val) => updateFilter("name", val)}
-            placeholder="Buscar por nombre o email..."
-            className="w-full md:w-64"
-          />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => exportToCSV(professors, "profesores")}
+              className="inline-flex items-center px-4 py-2 bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)] hover:bg-[var(--color-ingenieria)] hover:text-white rounded-lg transition-all text-sm font-semibold border border-[var(--color-ingenieria)]/20 shadow-sm"
+            >
+              <FontAwesomeIcon icon={faDownload} className="mr-2" />
+              Exportar CSV
+            </button>
+            <SearchBar
+              value={filters.name}
+              onChange={(val) => updateFilter("name", val)}
+              placeholder="Buscar por nombre o email..."
+              className="w-full md:w-64"
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-4">
@@ -136,23 +148,23 @@ const ProfessorsEdit = () => {
             filteredData.map((prof) => (
               <div
                 key={prof.id}
-                className="p-4 bg-white rounded-lg border border-gray-100 shadow-sm flex justify-between items-center hover:shadow-md transition-shadow"
+                className="p-4 bg-[var(--bg-card)] rounded-lg border border-[var(--border-subtle)] shadow-sm flex justify-between items-center hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600">
+                  <div className="w-12 h-12 bg-[var(--color-ingenieria)]/10 rounded-full flex items-center justify-center text-[var(--color-ingenieria)]">
                     <FontAwesomeIcon
                       icon={faUserGraduate}
                       className="text-xl"
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900">
-                      <span className="text-indigo-600 text-sm font-medium mr-1">
+                    <h3 className="font-bold text-[var(--text-main)]">
+                      <span className="text-[var(--color-ingenieria)] text-sm font-medium mr-1">
                         {prof.title}
                       </span>
                       {prof.firstName} {prof.lastName}
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-[var(--text-main)]/60">
                       {prof.email || "Sin correo registrado"}
                     </p>
                   </div>
@@ -160,14 +172,14 @@ const ProfessorsEdit = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleEdit(prof)}
-                    className="p-2 bg-amber-50 text-amber-600 rounded-md hover:bg-amber-100 transition-colors"
+                    className="p-2 bg-amber-500/10 text-amber-600 rounded-md hover:bg-amber-500/20 transition-colors border border-amber-500/20"
                     title="Editar"
                   >
                     <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setDeleteId(prof.id)}
-                    className="p-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
+                    className="p-2 bg-red-500/10 text-red-600 rounded-md hover:bg-red-500/20 transition-colors border border-red-500/20"
                     title="Eliminar"
                   >
                     <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />

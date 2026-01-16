@@ -5,18 +5,19 @@ import * as z from "zod";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
+import useConfirmExit from "../../hooks/useConfirmExit";
 
 const tesisSchema = z.object({
-  year: z.coerce
-    .number({ invalid_type_error: "Debe ser un número" })
-    .min(1900)
-    .max(2100),
-  name: z.string().min(1, "El nombre del autor es obligatorio"),
-  title: z.string().min(1, "El título es obligatorio"),
-  url: z.string().url("URL inválida").or(z.literal("")),
-  director: z.string().min(1, "El director es obligatorio"),
-  co_director: z.string().optional(),
-  tag: z.enum(["maestria", "doctorado"]),
+  name: z.string().min(1, "El nombre del tesista es obligatorio"),
+  title: z.string().min(1, "El título de la tesis es obligatorio"),
+  year: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z
+      .number({ invalid_type_error: "Debe ser un año válido" })
+      .min(1900)
+      .max(new Date().getFullYear() + 1)
+  ),
+  tag: z.string().min(1, "El tag o área es obligatorio"),
 });
 
 const TesisForm = ({
@@ -30,11 +31,13 @@ const TesisForm = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(tesisSchema),
     defaultValues,
   });
+
+  useConfirmExit(isDirty);
 
   useEffect(() => {
     reset(defaultValues);

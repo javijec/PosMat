@@ -12,10 +12,12 @@ import {
 } from "firebase/firestore";
 import AuthorizedEmailForm from "./AuthorizedEmailForm";
 import AuthorizedEmailsList from "./AuthorizedEmailsList";
+import ConfirmModal from "../shared/ConfirmModal";
 import { toast } from "sonner";
 
 const AuthorizedEmails = () => {
   const queryClient = useQueryClient();
+  const [emailToDelete, setEmailToDelete] = React.useState(null);
   const collectionName = "authorizedEmails";
 
   const { data: authorizedEmails = [], isLoading } = useQuery({
@@ -78,13 +80,10 @@ const AuthorizedEmails = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    if (
-      window.confirm(
-        "¿Estás seguro de que deseas eliminar este email de la lista de autorizados?"
-      )
-    ) {
-      deleteMutation.mutate(id);
+  const handleConfirmDelete = () => {
+    if (emailToDelete) {
+      deleteMutation.mutate(emailToDelete);
+      setEmailToDelete(null);
     }
   };
 
@@ -97,17 +96,17 @@ const AuthorizedEmails = () => {
   }
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
+    <div className="py-16 bg-[var(--bg-main)] min-h-screen transition-colors">
       <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-gray-900 border-l-4 border-indigo-600 pl-4">
+        <h1 className="text-4xl font-bold mb-8 text-[var(--text-main)] border-l-4 border-[var(--color-ingenieria)] pl-4">
           Gestión de Accesos
         </h1>
 
-        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        <div className="bg-[var(--bg-card)] p-8 rounded-xl shadow-sm border border-[var(--border-subtle)]">
+          <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)]">
             Autorizar Nuevo Email
           </h2>
-          <p className="text-sm text-gray-500 mb-6 italic">
+          <p className="text-sm text-[var(--text-main)]/50 mb-6 italic">
             Solo los usuarios con correos electrónicos en esta lista podrán
             registrarse en la plataforma.
           </p>
@@ -117,21 +116,30 @@ const AuthorizedEmails = () => {
             isSubmitting={addMutation.isPending}
           />
 
-          <hr className="my-10 border-gray-100" />
+          <hr className="my-10 border-[var(--border-subtle)]" />
 
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center justify-between">
+          <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)] flex items-center justify-between">
             Emails Autorizados
-            <span className="text-xs bg-gray-100 text-gray-500 py-1 px-3 rounded-full font-bold">
+            <span className="text-xs bg-[var(--bg-surface)] text-[var(--text-main)]/50 py-1 px-3 rounded-full font-bold">
               {authorizedEmails.length} TOTAL
             </span>
           </h2>
           <AuthorizedEmailsList
             authorizedEmails={authorizedEmails}
-            onDeleteEmail={handleDelete}
+            onDeleteEmail={(id) => setEmailToDelete(id)}
             isDeleting={deleteMutation.isPending}
           />
         </div>
       </div>
+
+      <ConfirmModal
+        isOpen={!!emailToDelete}
+        title="Eliminar Email Autorizado"
+        message="¿Estás seguro de que deseas eliminar este email de la lista de autorizados? El usuario ya no podrá registrarse o re-autenticarse si es eliminado."
+        confirmLabel="Eliminar"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setEmailToDelete(null)}
+      />
     </div>
   );
 };

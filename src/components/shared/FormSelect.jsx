@@ -8,8 +8,8 @@ const FormSelect = React.forwardRef(
         <select
           ref={ref}
           {...props}
-          className={`w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-all shadow-sm bg-white cursor-pointer ${
-            error ? "border-red-500" : ""
+          className={`w-full px-4 py-2 border border-[var(--border-subtle)] rounded-full focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:border-[var(--color-ingenieria)] focus:outline-none transition-all shadow-sm bg-[var(--bg-card)] text-[var(--text-main)] cursor-pointer ${
+            error ? "border-red-500 ring-1 ring-red-500" : ""
           }`}
         >
           {options.map((opt) => (

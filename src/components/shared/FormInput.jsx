@@ -8,8 +8,10 @@ const FormInput = React.forwardRef(
         <input
           ref={ref}
           {...props}
-          className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all ${
-            error ? "border-red-500" : "border-gray-300"
+          className={`w-full px-4 py-2 bg-[var(--bg-card)] text-[var(--text-main)] border rounded-md focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:border-[var(--color-ingenieria)] outline-none transition-all placeholder:text-[var(--text-main)]/30 ${
+            error
+              ? "border-red-500 ring-1 ring-red-500"
+              : "border-[var(--border-subtle)]"
           }`}
         />
       </FormField>

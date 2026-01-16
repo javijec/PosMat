@@ -7,6 +7,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
+import useConfirmExit from "../../hooks/useConfirmExit";
 
 const courseSchema = z.object({
   nombre: z.string().min(1, "El nombre es obligatorio"),
@@ -47,11 +48,13 @@ const CourseForm = ({
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(courseSchema),
     defaultValues,
   });
+
+  useConfirmExit(isDirty);
 
   const { fields, append, remove } = useFieldArray({
     control,

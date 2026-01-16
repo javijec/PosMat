@@ -10,7 +10,15 @@ import SearchBar from "../shared/SearchBar";
 import FilterGrid from "../shared/FilterGrid";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
-import { faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { ListSkeleton } from "../shared/Skeleton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPencilAlt,
+  faTrash,
+  faUserGraduate,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
+import { exportToCSV } from "../../utils/csvExport";
 
 const StudentsEdit = () => {
   const collectionName = "students";
@@ -122,10 +130,10 @@ const StudentsEdit = () => {
         onCancel={resetForm}
       />
 
-      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div className="mt-12 bg-[var(--bg-card)] p-6 rounded-xl shadow-sm border border-[var(--border-subtle)]">
         <FilterGrid title="Buscar Estudiantes">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Nombre Completo
             </label>
             <SearchBar
@@ -135,13 +143,13 @@ const StudentsEdit = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Programa
             </label>
             <select
               value={filters.program}
               onChange={(e) => updateFilter("program", e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none transition-all shadow-sm bg-white"
+              className="w-full px-4 py-2 border border-[var(--border-subtle)] rounded-full focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:border-[var(--color-ingenieria)] focus:outline-none transition-all shadow-sm bg-[var(--bg-card)] text-[var(--text-main)]"
             >
               <option value="">Todos</option>
               <option value="doctorado">Doctorado</option>
@@ -149,7 +157,7 @@ const StudentsEdit = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Tema de Tesis
             </label>
             <SearchBar
@@ -160,9 +168,18 @@ const StudentsEdit = () => {
           </div>
         </FilterGrid>
 
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Estudiantes Registrados
-        </h2>
+        <div className="flex justify-between items-center mb-6 border-b border-[var(--border-subtle)] pb-4">
+          <h2 className="text-2xl font-bold text-[var(--text-main)]">
+            Estudiantes Registrados
+          </h2>
+          <button
+            onClick={() => exportToCSV(students, "estudiantes")}
+            className="inline-flex items-center px-4 py-2 bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)] hover:bg-[var(--color-ingenieria)] hover:text-white rounded-lg transition-all text-sm font-semibold border border-[var(--color-ingenieria)]/20 shadow-sm"
+          >
+            <FontAwesomeIcon icon={faDownload} className="mr-2" />
+            Exportar CSV
+          </button>
+        </div>
 
         {filteredData.length === 0 ? (
           <EmptyState

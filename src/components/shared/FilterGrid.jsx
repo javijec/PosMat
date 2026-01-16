@@ -2,7 +2,7 @@ import React from "react";
 
 const FilterGrid = ({ children, title }) => {
   return (
-    <div className="mb-8 p-6 bg-gray-50/50 rounded-xl border border-gray-100">
+    <div className="mb-8 p-6 bg-[var(--bg-surface)] rounded-xl border border-[var(--border-subtle)] transition-colors">
       {title && (
         <h2 className="text-2xl font-bold mb-6 text-gray-800">{title}</h2>
       )}

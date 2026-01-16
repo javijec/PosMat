@@ -17,8 +17,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
-  const baseClasses = "p-2 hover:bg-gray-100";
-  const activeClasses = "bg-gray-200";
+  const baseClasses =
+    "p-2 hover:bg-[var(--bg-surface)] transition-colors text-[var(--text-main)]/60";
+  const activeClasses =
+    "bg-[var(--bg-surface)] text-[var(--color-ingenieria)] font-bold";
 
   const setLink = () => {
     const url = window.prompt("URL:");
@@ -28,7 +30,7 @@ const MenuBar = ({ editor }) => {
   };
 
   return (
-    <div className="border-b border-gray-300 flex flex-wrap gap-1 p-1 bg-gray-50">
+    <div className="border-b border-[var(--border-subtle)] flex flex-wrap gap-1 p-1 bg-[var(--bg-card)]">
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -62,7 +64,7 @@ const MenuBar = ({ editor }) => {
         <FontAwesomeIcon icon={faUnderline} />
       </button>
 
-      <div className="w-px h-6 bg-gray-300 mx-1 self-center" />
+      <div className="w-px h-6 bg-[var(--border-subtle)] mx-1 self-center" />
 
       <button
         type="button"
@@ -108,7 +110,7 @@ const MenuBar = ({ editor }) => {
         <FontAwesomeIcon icon={faAlignJustify} />
       </button>
 
-      <div className="w-px h-6 bg-gray-300 mx-1 self-center" />
+      <div className="w-px h-6 bg-[var(--border-subtle)] mx-1 self-center" />
 
       <button
         type="button"
@@ -131,7 +133,7 @@ const MenuBar = ({ editor }) => {
         <FontAwesomeIcon icon={faUnlink} />
       </button>
 
-      <div className="w-px h-6 bg-gray-300 mx-1 self-center" />
+      <div className="w-px h-6 bg-[var(--border-subtle)] mx-1 self-center" />
 
       <button
         type="button"

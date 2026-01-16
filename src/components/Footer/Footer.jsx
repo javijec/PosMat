@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 import { fetchData } from "../../firebase/CRUD";
 
@@ -30,7 +29,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-gray-900 text-white py-8">
+    <footer className="bg-[var(--bg-header)] text-white py-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -57,14 +56,6 @@ const Footer = () => {
                 <Link to="/links" className="hover:text-blue-300">
                   Enlaces Útiles
                 </Link>
-                {user && (
-                  <Link
-                    to="/links/edit"
-                    className="p-1 hover:bg-gray-700 rounded"
-                  >
-                    <PencilSquareIcon className="h-4 w-4" />
-                  </Link>
-                )}
               </li>
               <li className="flex items-center gap-2 justify-between">
                 <Link to="/archivos" className="hover:text-blue-300 ">
@@ -75,14 +66,6 @@ const Footer = () => {
                 <Link to="/faq" className="hover:text-blue-300 ">
                   FAQ
                 </Link>
-                {user && (
-                  <Link
-                    to="/faq/edit"
-                    className="p-1 hover:bg-gray-700 rounded"
-                  >
-                    <PencilSquareIcon className="h-4 w-4" />
-                  </Link>
-                )}
               </li>
             </ul>
           </div>

@@ -10,6 +10,7 @@ import SearchBar from "../shared/SearchBar";
 import FilterGrid from "../shared/FilterGrid";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
+import { ListSkeleton } from "../shared/Skeleton";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 const CoursesEdit = () => {
@@ -117,14 +118,6 @@ const CoursesEdit = () => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="py-16 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
-
   return (
     <EditPageContainer title="Panel de Cursos">
       <CourseForm
@@ -135,10 +128,10 @@ const CoursesEdit = () => {
         onCancel={resetForm}
       />
 
-      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div className="mt-12 bg-[var(--bg-card)] p-6 rounded-xl shadow-sm border border-[var(--border-subtle)]">
         <FilterGrid title="Cursos Existentes">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Año
             </label>
             <SearchBar
@@ -148,13 +141,13 @@ const CoursesEdit = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Semestre
             </label>
             <select
               value={filters.semester}
               onChange={(e) => updateFilter("semester", e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all shadow-sm bg-white"
+              className="w-full px-4 py-2 border border-[var(--border-subtle)] rounded-full focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:outline-none transition-all shadow-sm bg-[var(--bg-card)] text-[var(--text-main)]"
             >
               <option value="">Todos</option>
               <option value="1">1er Semestre</option>
@@ -162,7 +155,7 @@ const CoursesEdit = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Nombre
             </label>
             <SearchBar
@@ -174,7 +167,9 @@ const CoursesEdit = () => {
         </FilterGrid>
 
         <div className="space-y-4">
-          {filteredData.length === 0 ? (
+          {isLoading ? (
+            <ListSkeleton items={5} />
+          ) : filteredData.length === 0 ? (
             <EmptyState
               icon={faBook}
               title="No se encontraron cursos"
@@ -192,7 +187,6 @@ const CoursesEdit = () => {
           )}
         </div>
       </div>
-
       <ConfirmModal
         isOpen={!!deleteId}
         title="Eliminar Curso"

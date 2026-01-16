@@ -1,5 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
@@ -32,144 +39,170 @@ import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
 import HeroEdit from "./components/Home/components/HeroEdit.jsx";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard.jsx";
+import GlobalLoadingBar from "./components/shared/GlobalLoadingBar.jsx";
 import { Toaster } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
 
-function App() {
+/**
+ * RootLayout provides the global providers and shared UI structure.
+ * It uses <Outlet /> to render the current route's component.
+ */
+const RootLayout = () => {
   const location = useLocation();
 
   return (
-    <AuthProvider>
-      <Toaster position="top-right" richColors />
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <div className="flex flex-1">
-          <MainContent>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Home />} />
-                  <Route
-                    path="/home/edit"
-                    element={
-                      <ProtectedRoute>
-                        <HeroEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/logout" element={<Logout />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/about" element={<About />} />
-                  <Route
-                    path="/about/edit"
-                    element={
-                      <ProtectedRoute>
-                        <AboutEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route
-                    path="/contact/edit"
-                    element={
-                      <ProtectedRoute>
-                        <ContactEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/courses" element={<Courses />} />
-                  <Route
-                    path="/courses/edit"
-                    element={
-                      <ProtectedRoute>
-                        <CursesEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/professors" element={<Professors />} />
-                  <Route
-                    path="/professors/edit"
-                    element={
-                      <ProtectedRoute>
-                        <ProfessorsEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/archivos" element={<Archivos />} />
-                  <Route path="/tesis" element={<Tesis />} />
-                  <Route
-                    path="/tesis/edit"
-                    element={
-                      <ProtectedRoute>
-                        <TesisEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route
-                    path="/faq/edit"
-                    element={
-                      <ProtectedRoute>
-                        <FAQEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/links/edit"
-                    element={
-                      <ProtectedRoute>
-                        <LinksEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/links" element={<Links />} />
-                  <Route path="/students" element={<Students />} />
-                  <Route
-                    path="/students/edit"
-                    element={
-                      <ProtectedRoute>
-                        <StudentsEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/rules" element={<Rules />} />
-                  <Route
-                    path="/rules/edit"
-                    element={
-                      <ProtectedRoute>
-                        <RulesEdit />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/manage-emails"
-                    element={
-                      <ProtectedRoute>
-                        <AuthorizedEmails />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/*" element={<Home />} />
-                </Routes>
-              </motion.div>
-            </AnimatePresence>
-          </MainContent>
+    <ThemeProvider>
+      <AuthProvider>
+        <GlobalLoadingBar />
+        <Toaster position="top-right" richColors />
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+          <Header />
+          <div className="flex flex-1">
+            <MainContent>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={location.pathname}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Outlet />
+                </motion.div>
+              </AnimatePresence>
+            </MainContent>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </AuthProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
+};
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: "admin",
+        element: (
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "home/edit",
+        element: (
+          <ProtectedRoute>
+            <HeroEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "logout", element: <Logout /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "about", element: <About /> },
+      {
+        path: "about/edit",
+        element: (
+          <ProtectedRoute>
+            <AboutEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "contact", element: <Contact /> },
+      {
+        path: "contact/edit",
+        element: (
+          <ProtectedRoute>
+            <ContactEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "courses", element: <Courses /> },
+      {
+        path: "courses/edit",
+        element: (
+          <ProtectedRoute>
+            <CursesEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "professors", element: <Professors /> },
+      {
+        path: "professors/edit",
+        element: (
+          <ProtectedRoute>
+            <ProfessorsEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "archivos", element: <Archivos /> },
+      { path: "tesis", element: <Tesis /> },
+      {
+        path: "tesis/edit",
+        element: (
+          <ProtectedRoute>
+            <TesisEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "faq", element: <FAQ /> },
+      {
+        path: "faq/edit",
+        element: (
+          <ProtectedRoute>
+            <FAQEdit />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "links/edit",
+        element: (
+          <ProtectedRoute>
+            <LinksEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "links", element: <Links /> },
+      { path: "students", element: <Students /> },
+      {
+        path: "students/edit",
+        element: (
+          <ProtectedRoute>
+            <StudentsEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "rules", element: <Rules /> },
+      {
+        path: "rules/edit",
+        element: (
+          <ProtectedRoute>
+            <RulesEdit />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "manage-emails",
+        element: (
+          <ProtectedRoute>
+            <AuthorizedEmails />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "*", element: <Navigate to="/" replace /> },
+    ],
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;

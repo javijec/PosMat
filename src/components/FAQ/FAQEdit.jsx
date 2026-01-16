@@ -6,6 +6,9 @@ import FAQList from "./FAQList";
 import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import ConfirmModal from "../shared/ConfirmModal";
+import { ListSkeleton } from "../shared/Skeleton";
+import EmptyState from "../shared/EmptyState";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 const FAQEdit = () => {
   const queryClient = useQueryClient();
@@ -104,14 +107,6 @@ const FAQEdit = () => {
     setDefaultValues({ question: "", answer: "" });
   };
 
-  if (isLoading) {
-    return (
-      <div className="py-16 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
-
   return (
     <EditPageContainer title="Panel de FAQ">
       <FAQForm
@@ -122,16 +117,28 @@ const FAQEdit = () => {
         onCancel={resetForm}
       />
 
-      <FAQList
-        faqs={faqs}
-        handleEditClick={handleEditClick}
-        handleDelete={(id) => setDeleteId(id)}
-        handleMoveUp={(faq) => reorderMutation.mutate({ faq, direction: "up" })}
-        handleMoveDown={(faq) =>
-          reorderMutation.mutate({ faq, direction: "down" })
-        }
-        isReordering={reorderMutation.isPending}
-      />
+      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
+          Preguntas Frecuentes
+        </h2>
+
+        {isLoading ? (
+          <ListSkeleton items={5} />
+        ) : (
+          <FAQList
+            faqs={faqs}
+            handleEditClick={handleEditClick}
+            handleDelete={(id) => setDeleteId(id)}
+            handleMoveUp={(faq) =>
+              reorderMutation.mutate({ faq, direction: "up" })
+            }
+            handleMoveDown={(faq) =>
+              reorderMutation.mutate({ faq, direction: "down" })
+            }
+            isReordering={reorderMutation.isPending}
+          />
+        )}
+      </div>
 
       <ConfirmModal
         isOpen={!!deleteId}

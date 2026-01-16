@@ -5,6 +5,7 @@ import * as z from "zod";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
+import useConfirmExit from "../../hooks/useConfirmExit";
 
 const studentSchema = z.object({
   firstName: z.string().min(1, "El nombre es obligatorio"),
@@ -27,11 +28,13 @@ const StudentForm = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(studentSchema),
     defaultValues,
   });
+
+  useConfirmExit(isDirty);
 
   useEffect(() => {
     reset(defaultValues);

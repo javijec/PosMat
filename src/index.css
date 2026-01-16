@@ -1,6 +1,41 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    --color-ingenieria: #447c82;
+    --color-ingenieria-hover: #386a72;
+    --bg-main: #ffffff;
+    --text-main: #1f2937;
+    --bg-card: #ffffff;
+    --bg-surface: #f9fafb;
+    --border-card: #f2f4f7;
+    --border-subtle: #e5e7eb;
+    --bg-skeleton: #f3f4f6;
+    --highlight-skeleton: #ffffff;
+    --bg-header: #447c82;
+  }
+
+  .dark {
+    --bg-main: #0a1f21;
+    --text-main: #e2f1f2;
+    --bg-card: #132f32;
+    --bg-surface: #0e272b;
+    --border-card: #204d52;
+    --border-subtle: #1a3d41;
+    --bg-skeleton: #1a3d41;
+    --highlight-skeleton: #204d52;
+    --bg-header: #447c82;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    @apply transition-colors duration-300;
+  }
+}
+
 @theme {
-  --color-ingenieria: #447c82;
-  --color-ingenieria-hover: #386a72;
+  --color-ingenieria: var(--color-ingenieria);
+  --color-ingenieria-hover: var(--color-ingenieria-hover);
+  --color-header-bg: var(--bg-header);
 }

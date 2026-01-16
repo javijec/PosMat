@@ -7,6 +7,7 @@ import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
+import { ListSkeleton } from "../shared/Skeleton";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const LinksEdit = () => {
@@ -67,14 +68,6 @@ const LinksEdit = () => {
     setDefaultValues({ name: "", url: "", description: "", category: "" });
   };
 
-  if (isLoading) {
-    return (
-      <div className="py-16 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
-
   return (
     <EditPageContainer title="Panel de Links">
       <LinkForm
@@ -85,12 +78,14 @@ const LinksEdit = () => {
         onCancel={resetForm}
       />
 
-      <div className="mt-12 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
+      <div className="mt-12 bg-[var(--bg-card)] p-6 rounded-xl shadow-sm border border-[var(--border-subtle)]">
+        <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)] border-b border-[var(--border-subtle)] pb-4">
           Links Registrados
         </h2>
 
-        {links.length === 0 ? (
+        {isLoading ? (
+          <ListSkeleton items={5} />
+        ) : links.length === 0 ? (
           <EmptyState
             icon={faLink}
             title="No hay links registrados"
