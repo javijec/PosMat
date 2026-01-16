@@ -1,56 +1,51 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useMemo, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
 import { fetchData } from "../../firebase/CRUD";
 
 const Tesis = () => {
-  const [data, setData] = useState([]);
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedType, setSelectedType] = useState("all");
-  const [filteredTesis, setFilteredTesis] = useState([]);
   const [showStats, setShowStats] = useState(false);
-  const collection = "tesis";
-  const x = "tesis";
+  const collectionName = "tesis";
 
-  // Obtener datos de Firestore
-  useEffect(() => {
-    fetchTesis();
-  }, []); // <-- Importante: El useEffect solo se ejecuta al montar el componente
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [collectionName],
+    queryFn: async () => {
+      const result = await fetchData(collectionName);
+      if (!result || !Array.isArray(result)) return [];
 
-  const fetchTesis = async () => {
-    const Data = await fetchData(collection);
-    const tesisData = Data.map((doc) => ({
-      id: doc.id,
-      ...doc,
-      year: Number(doc.year),
-    }));
+      return result
+        .map((doc) => ({
+          id: doc.id,
+          ...doc,
+          year: Number(doc.year),
+        }))
+        .sort((a, b) => b.year - a.year);
+    },
+  });
 
-    // Corregir el ordenamiento
-    tesisData.sort((a, b) => b.year - a.year);
-
-    setData(tesisData);
-  };
-
-  // Modificar el efecto de filtrado para ser más explícito
-  useEffect(() => {
+  const filteredTesis = useMemo(() => {
     let filtered = [...data];
-
-    // Filtrar por tipo
     if (selectedType !== "all") {
       filtered = filtered.filter((tesis) => tesis.tag === selectedType);
     }
-
-    // Filtrar por año
     if (selectedYear) {
       filtered = filtered.filter(
         (tesis) => tesis.year === Number(selectedYear)
       );
     }
-
-    setFilteredTesis(filtered);
+    return filtered;
   }, [data, selectedYear, selectedType]);
 
   const handleYearChange = (event) => {
@@ -61,20 +56,32 @@ const Tesis = () => {
     setSelectedType(event.target.value);
   };
 
-  // Obtener años únicos de Firestore
-  const years = [...new Set(data.map((t) => t.year))].sort((a, b) => b - a);
+  const years = useMemo(
+    () => [...new Set(data.map((t) => t.year))].sort((a, b) => b - a),
+    [data]
+  );
 
-  // Generar datos para el gráfico
-  const chartData = years.map((year) => ({
-    year,
-    doctorado: data.filter((t) => t.year === year && t.tag === "doctorado")
-      .length,
-    maestria: data.filter((t) => t.year === year && t.tag === "maestria")
-      .length,
-  }));
+  const chartData = useMemo(
+    () =>
+      years.map((year) => ({
+        year,
+        doctorado: data.filter((t) => t.year === year && t.tag === "doctorado")
+          .length,
+        maestria: data.filter((t) => t.year === year && t.tag === "maestria")
+          .length,
+      })),
+    [years, data]
+  );
 
   return (
     <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+      <Helmet>
+        <title>Tesis | PosMat</title>
+        <meta
+          name="description"
+          content="Tesis presentadas en el Posgrado en Matemática."
+        />
+      </Helmet>
       <div className="max-w-7xl mx-auto px-4">
         <h1 className="text-3xl md:text-5xl font-bold mb-12 text-gray-900">
           Tesis
@@ -82,7 +89,8 @@ const Tesis = () => {
         <div className="mb-6">
           <button
             onClick={() => setShowStats(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            disabled={isLoading}
           >
             Estadísticas
           </button>
@@ -98,16 +106,30 @@ const Tesis = () => {
             />
           </div>
           <div className="lg:col-span-3 mt-8 lg:mt-0">
-            <ul className="space-y-4">
-              {filteredTesis.map((tesisItem) => (
-                <TesisCard key={tesisItem.id} tesis={tesisItem} />
-              ))}
-            </ul>
+            {isLoading ? (
+              <div className="space-y-4">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="bg-white p-6 rounded-lg shadow-sm">
+                    <Skeleton height={24} width="60%" />
+                    <Skeleton height={16} width="40%" className="mt-2" />
+                  </div>
+                ))}
+              </div>
+            ) : error ? (
+              <div className="text-center text-red-600 py-10">
+                Error al cargar las tesis.
+              </div>
+            ) : (
+              <ul className="space-y-4">
+                {filteredTesis.map((tesisItem) => (
+                  <TesisCard key={tesisItem.id} tesis={tesisItem} />
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Diálogo de estadísticas */}
       <Transition appear show={showStats} as={Fragment}>
         <Dialog
           as="div"

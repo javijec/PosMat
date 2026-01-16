@@ -32,128 +32,142 @@ import AuthorizedEmails from "./components/AutorizedEmails/AutorizedEmails.jsx";
 import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
 import HeroEdit from "./components/Home/components/HeroEdit.jsx";
+import { Toaster } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
   return (
     <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex flex-1">
-            <MainContent>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                  path="/home/edit"
-                  element={
-                    <ProtectedRoute>
-                      <HeroEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                  path="/about/edit"
-                  element={
-                    <ProtectedRoute>
-                      <AboutEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/contact" element={<Contact />} />
-                <Route
-                  path="/contact/edit"
-                  element={
-                    <ProtectedRoute>
-                      <ContactEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route
-                  path="/courses/edit"
-                  element={
-                    <ProtectedRoute>
-                      <CursesEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/professors" element={<Professors />} />
-                <Route
-                  path="/professors/edit"
-                  element={
-                    <ProtectedRoute>
-                      <ProfessorsEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/archivos" element={<Archivos />} />
-                <Route path="/tesis" element={<Tesis />} />
-                <Route
-                  path="/tesis/edit"
-                  element={
-                    <ProtectedRoute>
-                      <TesisEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/faq" element={<FAQ />} />
-                <Route
-                  path="/faq/edit"
-                  element={
-                    <ProtectedRoute>
-                      <FAQEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/links/edit"
-                  element={
-                    <ProtectedRoute>
-                      <LinksEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/links" element={<Links />} />
-                <Route path="/students" element={<Students />} />
-                <Route
-                  path="/students/edit"
-                  element={
-                    <ProtectedRoute>
-                      <StudentsEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/rules" element={<Rules />} />
-                <Route
-                  path="/rules/edit"
-                  element={
-                    <ProtectedRoute>
-                      <RulesEdit />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/manage-emails"
-                  element={
-                    <ProtectedRoute>
-                      <AuthorizedEmails />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/*" element={<Home />} />
-              </Routes>
-            </MainContent>
-          </div>
-          <Footer />
+      <Toaster position="top-right" richColors />
+      <ScrollToTop />
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <div className="flex flex-1">
+          <MainContent>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Routes location={location} key={location.pathname}>
+                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/home/edit"
+                    element={
+                      <ProtectedRoute>
+                        <HeroEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/logout" element={<Logout />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/about" element={<About />} />
+                  <Route
+                    path="/about/edit"
+                    element={
+                      <ProtectedRoute>
+                        <AboutEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route
+                    path="/contact/edit"
+                    element={
+                      <ProtectedRoute>
+                        <ContactEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/courses" element={<Courses />} />
+                  <Route
+                    path="/courses/edit"
+                    element={
+                      <ProtectedRoute>
+                        <CursesEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/professors" element={<Professors />} />
+                  <Route
+                    path="/professors/edit"
+                    element={
+                      <ProtectedRoute>
+                        <ProfessorsEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/archivos" element={<Archivos />} />
+                  <Route path="/tesis" element={<Tesis />} />
+                  <Route
+                    path="/tesis/edit"
+                    element={
+                      <ProtectedRoute>
+                        <TesisEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route
+                    path="/faq/edit"
+                    element={
+                      <ProtectedRoute>
+                        <FAQEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/links/edit"
+                    element={
+                      <ProtectedRoute>
+                        <LinksEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/links" element={<Links />} />
+                  <Route path="/students" element={<Students />} />
+                  <Route
+                    path="/students/edit"
+                    element={
+                      <ProtectedRoute>
+                        <StudentsEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/rules" element={<Rules />} />
+                  <Route
+                    path="/rules/edit"
+                    element={
+                      <ProtectedRoute>
+                        <RulesEdit />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/manage-emails"
+                    element={
+                      <ProtectedRoute>
+                        <AuthorizedEmails />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/*" element={<Home />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
+          </MainContent>
         </div>
-      </Router>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }
