@@ -52,18 +52,18 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="backdrop-blur-md bg-white/10 p-8 rounded-2xl border border-white/20 shadow-2xl"
+              className="backdrop-blur-md bg-white/10 p-8 rounded-xl border border-white/20 shadow-2xl"
             >
               <div className="space-y-4">
                 <p className="text-xl md:text-2xl font-light leading-relaxed flex items-center gap-3">
                   Doctorado en Ciencia de Materiales{" "}
-                  <span className="bg-ingenieria/30 px-3 py-0.5 rounded-full text-sm font-semibold border border-ingenieria/50">
+                  <span className="bg-ingenieria/30 px-3 py-0.5 rounded-md text-sm font-semibold border border-ingenieria/50">
                     {data.doctorado}
                   </span>
                 </p>
                 <p className="text-xl md:text-2xl font-light leading-relaxed flex items-center gap-3">
                   Maestría en Ciencia y Tecnología de Materiales{" "}
-                  <span className="bg-teal-500/30 px-3 py-0.5 rounded-full text-sm font-semibold border border-teal-500/50">
+                  <span className="bg-ingenieria/30 px-3 py-0.5 rounded-md text-sm font-semibold border border-ingenieria/50">
                     {data.master}
                   </span>
                 </p>

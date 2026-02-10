@@ -12,11 +12,7 @@ const TesisCard = ({ tesis }) => {
         </span>
         <div className="flex gap-2">
           <span
-            className={`px-3 py-1 rounded-full text-xs font-semibold ${
-              tesis.tag === "doctorado"
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-                : "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300"
-            }`}
+            className="px-3 py-1 rounded-md text-xs font-bold bg-ingenieria/10 text-[#2d5257] border border-ingenieria/20 dark:bg-ingenieria/20 dark:text-ingenieria-hover"
           >
             {tesis.tag === "doctorado" ? "Doctorado" : "Maestría"}
           </span>
@@ -25,7 +21,7 @@ const TesisCard = ({ tesis }) => {
               href={tesis.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 hover:bg-purple-200 transition-all dark:bg-purple-900/30 dark:text-purple-300 dark:hover:bg-purple-900/40"
+              className="px-3 py-1 rounded-md text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 transition-all dark:bg-purple-900/40 dark:text-purple-200 dark:hover:bg-purple-900/60 border border-purple-200 dark:border-purple-800"
             >
               Resumen
             </a>
