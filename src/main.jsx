@@ -9,11 +9,9 @@ import { HelmetProvider } from "react-helmet-async";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
     </HelmetProvider>
-  </StrictMode>
 );
