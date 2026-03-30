@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@firebase/auth": "^1.9.0",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -27,13 +26,13 @@
     "@tiptap/extension-underline": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "firebase": "^11.3.1",
+    "firebase": "^12.11.0",
     "font-awesome": "^4.7.0",
     "framer-motion": "^12.26.2",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-helmet-async": "^2.0.5",
+    "react-helmet-async": "^3.0.0",
     "react-hook-form": "^7.71.1",
     "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.1.5",
