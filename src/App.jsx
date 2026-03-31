@@ -57,11 +57,11 @@ const RootLayout = () => {
         <GlobalLoadingBar />
         <Toaster position="top-right" richColors />
         <ScrollToTop />
-        <div className="flex flex-col min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors duration-300">
+        <div className="flex flex-col min-h-screen bg-[var(--bg-main)] text-[var(--text-main)]">
           <Header />
           <div className="flex flex-1">
             <MainContent>
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={location.pathname}
                   initial={{ opacity: 0, x: -10 }}

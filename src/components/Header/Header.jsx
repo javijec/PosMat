@@ -150,56 +150,14 @@ const Header = () => {
                           )}
                         </Menu.Item>
                       </Menu.Items>
-                    ) : (
-                      <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <NavLink
-                              to="/login"
-                              className={`block px-4 py-2 text-sm ${
-                                active ? "bg-gray-700" : ""
-                              }`}
-                              onClick={() => closeDisclosure(menuClose)}
-                            >
-                              Ingresar
-                            </NavLink>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    )}
+                    ) : ("")}
                   </>
                 )}
               </Menu>
-
-              {/* Theme Toggle (Desktop) - Temporarily disabled
-              <button
-                onClick={toggleTheme}
-                className="ml-2 p-2 hover:bg-white/10 rounded-full transition-colors text-white/80 hover:text-white"
-                title={theme === "light" ? "Modo Oscuro" : "Modo Claro"}
-              >
-                {theme === "light" ? (
-                  <MoonIcon className="h-5 w-5" />
-                ) : (
-                  <SunIcon className="h-5 w-5" />
-                )}
-              </button>
-              */}
             </nav>
 
             <div className="flex items-center space-x-2 lg:hidden">
-              {/* Theme Toggle (Mobile) - Temporarily disabled
-              <button
-                onClick={toggleTheme}
-                className="p-2 hover:bg-ingenieria-hover rounded-full transition-colors text-white/80 hover:text-white"
-                title={theme === "light" ? "Modo Oscuro" : "Modo Claro"}
-              >
-                {theme === "light" ? (
-                  <MoonIcon className="h-6 w-6" />
-                ) : (
-                  <SunIcon className="h-6 w-6" />
-                )}
-              </button>
-              */}
+
 
               <Disclosure.Button className="lg:hidden focus:outline-none">
                 {open ? (

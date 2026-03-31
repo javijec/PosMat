@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { fetchData } from "../../../firebase/CRUD";
 
 const Hero = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    doctorado: "",
+    master: "",
+    director: "",
+  });
   const collection = "Home";
 
   useEffect(() => {
@@ -16,16 +19,13 @@ const Hero = () => {
       setData(Home[0]);
     } catch (error) {
       console.error("Error al obtener cursos:", error);
-      setData({});
+      setData({ doctorado: "", master: "", director: "" });
     }
   };
 
   return (
     <div className="relative h-[480px] md:h-[650px] overflow-hidden bg-gray-900">
-      <motion.div
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1.05 }}
-        transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+      <div
         className="absolute inset-0 bg-cover bg-center opacity-70"
         style={{
           backgroundImage:
@@ -35,25 +35,16 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="text-white max-w-2xl relative">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
+            <div>
               <h1 className="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.1] tracking-tight">
                 Posgrado en <br />
                 <span className="text-ingenieria brightness-125">
                   Ciencia de Materiales
                 </span>
               </h1>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="backdrop-blur-md bg-white/10 p-8 rounded-xl border border-white/20 shadow-2xl"
-            >
+            <div className="bg-black/30 p-8 rounded-lg border border-white/15">
               <div className="space-y-4">
                 <p className="text-xl md:text-2xl font-light leading-relaxed flex items-center gap-3">
                   Doctorado en Ciencia de Materiales{" "}
@@ -74,7 +65,7 @@ const Hero = () => {
                   {data.director}
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

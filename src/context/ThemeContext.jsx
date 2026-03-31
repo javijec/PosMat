@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useLayoutEffect, useState } from "react";
 
 const ThemeContext = createContext();
 
@@ -6,15 +6,8 @@ export const ThemeProvider = ({ children }) => {
   // const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [theme, setTheme] = useState("light");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = window.document.documentElement;
-    /*
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    */
     root.classList.remove("dark");
     localStorage.setItem("theme", "light");
   }, [theme]);

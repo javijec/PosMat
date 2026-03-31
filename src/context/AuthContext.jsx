@@ -14,7 +14,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => auth.currentUser);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -83,11 +83,12 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    loading,
     signInWithEmailAndPassword: loginUser,
     signUpWithEmailAndPassword,
     logout,
     error,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
