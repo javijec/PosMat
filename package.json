@@ -13,7 +13,6 @@
     "db:generate": "npm --prefix server run prisma:generate",
     "db:push": "npm --prefix server run prisma:push",
     "db:seed": "npm --prefix server run db:seed",
-    "db:import-firestore": "node scripts/importFirestoreToPostgres.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -35,7 +34,6 @@
     "@tiptap/extension-underline": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "firebase": "^12.11.0",
     "font-awesome": "^4.7.0",
     "framer-motion": "^12.26.2",
     "lucide-react": "^0.475.0",

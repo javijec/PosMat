@@ -1,7 +1,3 @@
-const AUTH_PROVIDER = (
-  import.meta.env.VITE_AUTH_PROVIDER ||
-  import.meta.env.VITE_DATA_PROVIDER ||
-  "backend"
-).toLowerCase();
+const AUTH_PROVIDER = "backend";
 
 export { AUTH_PROVIDER };

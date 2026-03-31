@@ -1,56 +1,56 @@
-# Proyecto React + Vite
+# PosMat
 
-## Descripción del Proyecto
+Aplicación web de PosMat con **frontend en React/Vite** y **backend propio en Express + Prisma + PostgreSQL**.
 
-Este proyecto es una plantilla minimal para desarrollar aplicaciones con React y Vite. Está diseñado para facilitar la puesta en marcha de nuevos proyectos, ofreciendo un entorno de desarrollo moderno con Hot Module Replacement (HMR), soporte para JSX mediante Babel o SWC, y reglas de ESLint preconfiguradas para mantener la calidad del código.
+## Puesta en marcha
 
-## Instalación
+### 1. Instalar dependencias
+```bash
+npm install
+npm --prefix server install
+```
 
-1. Clona el repositorio:
-   ```
-   git clone <URL-del-repositorio>
-   ```
-2. Instala las dependencias:
-   ```
-   npm install
-   ```
+### 2. Configurar entorno
+Frontend (`.env`):
+```env
+VITE_API_BASE_URL=http://localhost:4000/api
+```
 
-## Tecnologías y Herramientas
+Backend (`server/.env`):
+```env
+PORT=4000
+CORS_ORIGIN=http://127.0.0.1:5173
+JWT_SECRET=change-me
+DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/posmat?schema=public
+ADMIN_EMAIL=admin@ejemplo.com
+ADMIN_PASSWORD=change-me
+```
 
-- React: Biblioteca para construir interfaces de usuario.
-- Vite: Herramienta de bundling y desarrollo ultrarrápido.
-- ESLint: Herramienta para análisis de calidad y estilo en el código.
-- Babel / SWC: Transpiladores para convertir JSX y facilitar la compatibilidad.
+### 3. Inicializar base de datos
+```bash
+npm run db:push
+npm run db:seed
+```
 
-## Scripts Disponibles
+### 4. Levantar frontend + backend
+```bash
+npm start
+```
 
-- Desarrollo:
-  ```
-  npm run dev
-  ```
-- Construcción para producción:
-  ```
-  npm run build
-  ```
-- Servir la aplicación localmente:
-  ```
-  npm run serve
-  ```
+## Scripts útiles
 
-## Plugins Oficiales
+- `npm start`: levanta API y web juntos
+- `npm run build`: genera build de producción
+- `npm run db:push`: aplica el esquema Prisma
+- `npm run db:seed`: carga datos iniciales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md):
-  Utiliza [Babel](https://babeljs.io/) para Fast Refresh.
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc):
-  Utiliza [SWC](https://swc.rs/) para Fast Refresh.
+## Stack actual
 
-## Estructura del Proyecto
+- React 19 + Vite
+- Express + Prisma
+- PostgreSQL
+- JWT en cookies para autenticación
 
-Una organización de archivos modular para facilitar la escalabilidad y el mantenimiento:
+## Nota
 
-- /src: Contiene los componentes y lógica central de la aplicación.
-- /public: Archivos estáticos accesibles públicamente.
-
-## Notas
-
-// ...existing code...
+Firebase fue retirado del flujo principal del proyecto; la app ahora opera sobre `PostgreSQL + backend propio`. 
