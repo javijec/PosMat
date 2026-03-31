@@ -1,13 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/dbConnection";
-import { db } from "../firebase/dbConnection";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword as firebaseSignIn,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { fetchData } from "../data";
 
 const AuthContext = createContext();
 
@@ -19,9 +18,12 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const checkAuthorizedEmail = async (email) => {
-    const q = query(collection(db, "authorizedEmails"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-    return !querySnapshot.empty;
+    const normalizedEmail = email?.trim().toLowerCase();
+    const authorizedEmails = await fetchData("authorizedEmails", { force: true });
+
+    return authorizedEmails.some(
+      (item) => item.email?.trim().toLowerCase() === normalizedEmail
+    );
   };
 
   const loginUser = async (email, password) => {

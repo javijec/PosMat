@@ -1,19 +1,10 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { db } from "../../firebase/dbConnection";
-import {
-  collection,
-  setDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  query,
-  where,
-} from "firebase/firestore";
 import AuthorizedEmailForm from "./AuthorizedEmailForm";
 import AuthorizedEmailsList from "./AuthorizedEmailsList";
 import ConfirmModal from "../shared/ConfirmModal";
 import { toast } from "sonner";
+import { addItem, deleteItem, fetchData } from "../../data";
 
 const AuthorizedEmails = () => {
   const queryClient = useQueryClient();
@@ -22,32 +13,28 @@ const AuthorizedEmails = () => {
 
   const { data: authorizedEmails = [], isLoading } = useQuery({
     queryKey: [collectionName],
-    queryFn: async () => {
-      const emailsCollection = collection(db, collectionName);
-      const emailsSnapshot = await getDocs(emailsCollection);
-      return emailsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-    },
+    queryFn: () => fetchData(collectionName, { force: true }),
   });
 
   const addMutation = useMutation({
     mutationFn: async ({ email }) => {
-      const q = query(
-        collection(db, collectionName),
-        where("email", "==", email)
+      const normalizedEmail = email.trim().toLowerCase();
+      const alreadyExists = authorizedEmails.some(
+        (item) => item.email?.trim().toLowerCase() === normalizedEmail
       );
-      const querySnapshot = await getDocs(q);
 
-      if (!querySnapshot.empty) {
+      if (alreadyExists) {
         throw new Error("Este email ya está autorizado");
       }
 
-      await setDoc(doc(db, collectionName, email), {
-        email: email,
+      const id = await addItem(collectionName, {
+        email: normalizedEmail,
         createdAt: new Date().toISOString(),
       });
+
+      if (!id) {
+        throw new Error("No se pudo autorizar el email");
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [collectionName] });
@@ -60,7 +47,11 @@ const AuthorizedEmails = () => {
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      await deleteDoc(doc(db, collectionName, id));
+      const deleted = await deleteItem(collectionName, id);
+
+      if (!deleted) {
+        throw new Error("No se pudo eliminar el email");
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [collectionName] });

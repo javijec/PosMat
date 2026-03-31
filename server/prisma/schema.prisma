@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model AuthorizedEmail {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  @@map("authorized_emails")
+}
+
+model ContentEntry {
+  id             String   @id @default(cuid())
+  collectionName String
+  slug           String?
+  data           Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([collectionName])
+  @@unique([collectionName, slug])
+  @@map("content_entries")
+}
+
+model Course {
+  id              String   @id @default(cuid())
+  nombre          String
+  anio            Int
+  semestre        Int
+  horasTeoricas   String   @default("")
+  horasPracticas  String   @default("")
+  horasTP         String   @default("")
+  uvacs           String   @default("")
+  fechaInicio     String?
+  lugar           String?
+  duracion        String?
+  horario         String?
+  humanistico     Boolean  @default(false)
+  profesores      Json     @default("[]")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([nombre, anio, semestre])
+  @@index([anio, semestre])
+  @@map("courses")
+}
