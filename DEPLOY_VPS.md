@@ -92,7 +92,6 @@ VITE_API_BASE_URL=https://tudominio.com/api
 PORT=4000
 CORS_ORIGIN=https://tudominio.com
 JWT_SECRET=pon_aca_un_secreto_largo_y_seguro
-DATABASE_URL=postgresql://posmat_user:TU_PASSWORD_FUERTE@localhost:5432/posmat?schema=public
 ADMIN_EMAIL=tucorreo@dominio.com
 ADMIN_PASSWORD=TuPasswordAdminSegura
 ```
