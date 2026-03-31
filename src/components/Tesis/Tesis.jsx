@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 
 const Tesis = () => {
   const [selectedYear, setSelectedYear] = useState("");

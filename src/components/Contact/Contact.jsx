@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import ContactInfo from "./ContactInfo";
 import ContactMap from "./ContactMap";
 

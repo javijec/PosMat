@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import ProfessorForm from "./ProfessorForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,7 +9,7 @@ import {
   faUserGraduate,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
-import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useDataMutations } from "../../hooks/useDataMutations";
 import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
 import SearchBar from "../shared/SearchBar";
@@ -42,7 +42,7 @@ const ProfessorsEdit = () => {
   });
 
   const { addMutation, updateMutation, deleteMutation, isPending } =
-    useFirebaseMutations({
+    useDataMutations({
       collectionName,
       onSuccess: () => {
         setEditingId(-1);

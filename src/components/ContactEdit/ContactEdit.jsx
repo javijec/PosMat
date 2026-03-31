@@ -3,14 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import {
   faClock,
   faMapMarkerAlt,
   faEnvelope,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useDataMutations } from "../../hooks/useDataMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
@@ -61,7 +61,7 @@ const ContactEdit = () => {
     }
   }, [contactData, reset]);
 
-  const { updateMutation, isPending } = useFirebaseMutations({
+  const { updateMutation, isPending } = useDataMutations({
     collectionName,
     updateMessage: "Información de contacto actualizada con éxito",
   });

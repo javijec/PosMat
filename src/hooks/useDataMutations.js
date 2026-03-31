@@ -10,6 +10,9 @@ export const useDataMutations = ({
   updateMessage = "Elemento actualizado con éxito",
   deleteMessage = "Elemento eliminado con éxito",
   errorMessage = "Hubo un error al procesar la solicitud.",
+  customAddFn,
+  customUpdateFn,
+  customDeleteFn,
 }) => {
   const queryClient = useQueryClient();
 
@@ -26,7 +29,19 @@ export const useDataMutations = ({
   };
 
   const addMutation = useMutation({
-    mutationFn: (data) => addItem(collectionName, data),
+    mutationFn: async (data) => {
+      if (!customAddFn) {
+        return addItem(collectionName, data);
+      }
+
+      const result = await customAddFn(data);
+
+      if (result && typeof result === "object" && !Array.isArray(result)) {
+        return addItem(collectionName, result);
+      }
+
+      return result;
+    },
     ...mutationOptions,
     onSuccess: (data, variables, context) => {
       mutationOptions.onSuccess(data, variables, context);
@@ -35,7 +50,13 @@ export const useDataMutations = ({
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => saveItem(collectionName, id, data),
+    mutationFn: ({ id, data }) => {
+      if (customUpdateFn) {
+        return customUpdateFn({ id, data });
+      }
+
+      return saveItem(collectionName, id, data);
+    },
     ...mutationOptions,
     onSuccess: (data, variables, context) => {
       mutationOptions.onSuccess(data, variables, context);
@@ -44,7 +65,13 @@ export const useDataMutations = ({
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => deleteItem(collectionName, id),
+    mutationFn: (id) => {
+      if (customDeleteFn) {
+        return customDeleteFn(id);
+      }
+
+      return deleteItem(collectionName, id);
+    },
     ...mutationOptions,
     onSuccess: (data, variables, context) => {
       mutationOptions.onSuccess(data, variables, context);

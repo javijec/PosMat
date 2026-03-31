@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import AboutSection from "./AboutSection";
 
 const About = () => {

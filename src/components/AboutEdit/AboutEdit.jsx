@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData, saveItem } from "../../firebase/CRUD";
+import { fetchData, saveItem } from "../../data";
 import AboutForm from "./AboutForm";
 import AboutList from "./AboutList";
-import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useDataMutations } from "../../hooks/useDataMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import ConfirmModal from "../shared/ConfirmModal";
 
@@ -26,7 +26,7 @@ const AboutEdit = () => {
   });
 
   const { addMutation, updateMutation, deleteMutation, isPending } =
-    useFirebaseMutations({
+    useDataMutations({
       collectionName,
       onSuccess: () => {
         setEditingId(-1);

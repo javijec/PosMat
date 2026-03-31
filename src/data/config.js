@@ -1,5 +1,5 @@
 const DATA_PROVIDER = (
-  import.meta.env.VITE_DATA_PROVIDER || "firebase"
+  import.meta.env.VITE_DATA_PROVIDER || "postgres"
 ).toLowerCase();
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "";

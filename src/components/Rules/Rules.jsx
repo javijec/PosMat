@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import RulesNavigator from "./RulesNavigator";
 import RulesContent from "./RulesContent";
 

@@ -7,7 +7,7 @@ const providerMap = {
   postgres: postgresProvider,
 };
 
-const dataProvider = providerMap[DATA_PROVIDER] ? DATA_PROVIDER : "firebase";
+const dataProvider = providerMap[DATA_PROVIDER] ? DATA_PROVIDER : "postgres";
 const activeProvider = providerMap[dataProvider];
 
 export { activeProvider, dataProvider };

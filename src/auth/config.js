@@ -1,7 +1,7 @@
 const AUTH_PROVIDER = (
   import.meta.env.VITE_AUTH_PROVIDER ||
   import.meta.env.VITE_DATA_PROVIDER ||
-  "firebase"
+  "backend"
 ).toLowerCase();
 
 export { AUTH_PROVIDER };

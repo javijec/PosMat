@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { fetchData } from "../../../firebase/CRUD";
-import { useFirebaseMutations } from "../../../hooks/useFirebaseMutations";
+import { fetchData } from "../../../data";
+import { useDataMutations } from "../../../hooks/useDataMutations";
 import EditPageContainer from "../../shared/EditPageContainer";
 import FormActions from "../../shared/FormActions";
 import FormInput from "../../shared/FormInput";
@@ -51,7 +51,7 @@ const HeroEdit = () => {
     }
   }, [homeData, reset]);
 
-  const { updateMutation, isPending } = useFirebaseMutations({
+  const { updateMutation, isPending } = useDataMutations({
     collectionName,
     updateMessage: "Hero actualizado con éxito",
   });

@@ -7,7 +7,7 @@ const providerMap = {
   firebase: firebaseAuthProvider,
 };
 
-const authProvider = providerMap[AUTH_PROVIDER] ? AUTH_PROVIDER : "firebase";
+const authProvider = providerMap[AUTH_PROVIDER] ? AUTH_PROVIDER : "backend";
 const activeAuthProvider = providerMap[authProvider];
 
 export { activeAuthProvider, authProvider };

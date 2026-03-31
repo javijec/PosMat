@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 
 const Links = () => {
   const [links, setLinks] = useState([]);

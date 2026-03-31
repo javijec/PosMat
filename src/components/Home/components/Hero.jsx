@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchData } from "../../../firebase/CRUD";
+import { fetchData } from "../../../data";
 
 const Hero = () => {
   const [data, setData] = useState({

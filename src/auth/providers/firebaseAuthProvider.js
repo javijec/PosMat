@@ -62,4 +62,4 @@ const logout = async () => {
   return true;
 };
 
-export { checkAuthorizedEmail, getCurrentUser, logout, observeAuthState, signIn, signUp };
+export { getCurrentUser, logout, observeAuthState, signIn, signUp };

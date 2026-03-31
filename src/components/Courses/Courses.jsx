@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import CourseFilter from "./CourseFilter";
 import CoursesDisplay from "./CoursesDisplay";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 
 const Courses = () => {
   const [selectedYear, setSelectedYear] = useState("");

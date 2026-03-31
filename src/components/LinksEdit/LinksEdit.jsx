@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 import LinkForm from "./LinkForm";
 import LinksList from "./LinksList";
-import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { useDataMutations } from "../../hooks/useDataMutations";
 import EditPageContainer from "../shared/EditPageContainer";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
@@ -31,7 +31,7 @@ const LinksEdit = () => {
   });
 
   const { addMutation, updateMutation, deleteMutation, isPending } =
-    useFirebaseMutations({
+    useDataMutations({
       collectionName,
       onSuccess: () => {
         setEditingId(-1);

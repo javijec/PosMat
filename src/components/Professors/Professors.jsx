@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfessorCard from "./ProfessorCard";
-import { fetchData } from "../../firebase/CRUD";
+import { fetchData } from "../../data";
 
 const Professors = () => {
   const [data, setData] = useState([]);

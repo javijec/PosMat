@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CourseItem from "./CourseItem";
 import CourseForm from "./CourseForm";
-import { fetchData } from "../../firebase/CRUD";
-import { useFirebaseMutations } from "../../hooks/useFirebaseMutations";
+import { fetchData } from "../../data";
+import { useDataMutations } from "../../hooks/useDataMutations";
 import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
 import SearchBar from "../shared/SearchBar";
@@ -52,7 +52,7 @@ const CoursesEdit = () => {
   });
 
   const { addMutation, updateMutation, deleteMutation, isPending } =
-    useFirebaseMutations({
+    useDataMutations({
       collectionName,
       onSuccess: () => {
         setEditingId(-1);
