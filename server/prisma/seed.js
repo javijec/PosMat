@@ -33,10 +33,24 @@ const toSlug = (value) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const seedGenericCollection = async (fileName, collectionName) => {
+const readJsonArrayIfExists = async (fileName) => {
   const dataPath = path.resolve(__dirname, `../../src/files/${fileName}`);
-  const raw = await fs.readFile(dataPath, "utf-8");
-  const items = JSON.parse(raw);
+
+  try {
+    const raw = await fs.readFile(dataPath, "utf-8");
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return [];
+    }
+
+    throw error;
+  }
+};
+
+const seedGenericCollection = async (fileName, collectionName) => {
+  const items = await readJsonArrayIfExists(fileName);
 
   for (const [index, item] of items.entries()) {
     const baseSlug = item.id || item.email || item.nombre || item.titulo || item.title || `${collectionName}-${index + 1}`;
@@ -64,9 +78,7 @@ const seedGenericCollection = async (fileName, collectionName) => {
 };
 
 const seedCourses = async () => {
-  const dataPath = path.resolve(__dirname, "../../src/files/courses.json");
-  const raw = await fs.readFile(dataPath, "utf-8");
-  const courses = JSON.parse(raw);
+  const courses = await readJsonArrayIfExists("courses.json");
 
   for (const course of courses) {
     const data = toCourseInput(course);
@@ -112,6 +124,25 @@ const seedCourses = async () => {
   return courses.length;
 };
 
+const seedAuthorizedEmailsFromFile = async () => {
+  const authorizedEmails = await readJsonArrayIfExists("authorizedEmails.json");
+
+  for (const item of authorizedEmails) {
+    const email = item.email || item.emailAddress;
+    if (!email) {
+      continue;
+    }
+
+    await prisma.authorizedEmail.upsert({
+      where: { email },
+      update: {},
+      create: { email },
+    });
+  }
+
+  return authorizedEmails.length;
+};
+
 const seedInitialAdmin = async () => {
   const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.ADMIN_PASSWORD?.trim();
@@ -143,7 +174,11 @@ const seedInitialAdmin = async () => {
 
 async function main() {
   const coursesCount = await seedCourses();
+  const authorizedEmailsCount = await seedAuthorizedEmailsFromFile();
   const genericCollections = [
+    ["home.json", "Home"],
+    ["about.json", "about"],
+    ["contacto.json", "contacto"],
     ["faqs.json", "faq"],
     ["links.json", "links"],
     ["professors.json", "professors"],
@@ -160,7 +195,7 @@ async function main() {
   const adminCreated = await seedInitialAdmin();
 
   console.log(
-    `Seed completed: ${coursesCount} courses and ${genericCount} generic content items processed.`
+    `Seed completed: ${coursesCount} courses, ${authorizedEmailsCount} authorized emails and ${genericCount} generic content items processed.`
   );
 
   if (adminCreated) {

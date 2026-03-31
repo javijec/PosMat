@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { fetchData } from "../../../data";
 
+const defaultHeroData = {
+  doctorado: "",
+  master: "",
+  director: "",
+};
+
 const Hero = () => {
-  const [data, setData] = useState({
-    doctorado: "",
-    master: "",
-    director: "",
-  });
+  const [data, setData] = useState(defaultHeroData);
   const collection = "Home";
 
   useEffect(() => {
@@ -15,11 +17,11 @@ const Hero = () => {
 
   const fetchHome = async () => {
     try {
-      const Home = await fetchData(collection);
-      setData(Home[0]);
+      const homeData = await fetchData(collection);
+      setData(homeData?.[0] ?? defaultHeroData);
     } catch (error) {
-      console.error("Error al obtener cursos:", error);
-      setData({ doctorado: "", master: "", director: "" });
+      console.error("Error al obtener la configuración de inicio:", error);
+      setData(defaultHeroData);
     }
   };
 

@@ -1,608 +1,6 @@
 [
   {
-    "year": 1986,
-    "name": "Rubén Herrera",
-    "title": "Mecánica de fractura elastoplástica. Aplicaciones a uniones soldadas",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1987,
-    "name": "Héctor D. Mejías",
-    "title": "Caracterización fractomecánica de aceros estructurales bajo condiciones de crecimiento estable y propagación dinámica de fisuras",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1987,
-    "name": "Teresita R. Cuadrado",
-    "title": "Polímeros interpenetrados. Redes epoxi poliuretanos",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1987,
-    "name": "Carmen C. Riccardi",
-    "title": "Curado de resinas epoxi con diaminas",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1987,
-    "name": "Enrique Pardo",
-    "title": "Aplicación de métodos numéricos al problema de flujo térmico en uniones soldadas",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1989,
-    "name": "Silvia Simison",
-    "title": "Influencia del molibdeno sobre la susceptibilidad a la corrosión localizada de aceros inoxidables austeníticos soldados",
-    "url": "",
-    "director": "Dr. Susana Rosso",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1989,
-    "name": "Cristina L. García",
-    "title": "Influencia de las variables de preparación y tratamiento de las especies superficiales presentes en catalizadores de CuCl2 soportados sobre SiO2 y Al2O3",
-    "url": "",
-    "director": "Dr. Daniel Resasco",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1989,
-    "name": "Alicia N. Fraga",
-    "title": "Desarrollo de productos a partir de gelatina de merluza (Merluccius Hubbsi)",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1990,
-    "name": "Rosa J. Fenoglio",
-    "title": "Estudio de las interacciones metal soporte en catalizadores de Rh/TiO2 y Pt / TiO2",
-    "url": "",
-    "director": "Dr. Daniel Resasco",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1991,
-    "name": "Guillermo A. Lombera",
-    "title": "Modelado de tensiones residuales en uniones soldadas",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1991,
-    "name": "Juan Carlos Lucas",
-    "title": "Materiales basados en resina poliéster insaturada y su modificación con polímeros termorrígidos",
-    "url": "",
-    "director": "Dr. Robero J.J. Williams",
-    "co_director": "Dr.Julio Borrajo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1992,
-    "name": "Patricia A. Oyanguren",
-    "title": "Polímeros entrecruzados producidos por el cruzado de novolacas epoxidadas con diaminas aromáticas",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1992,
-    "name": "Gustavo L. Bianchi",
-    "title": "Corrosión bajo tensiones en medios gaseosos",
-    "url": "",
-    "director": "Dr. José Galvele",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1992,
-    "name": "Roxana A. Ruseckaite",
-    "title": "Matrices epoxi modificadas con poliésteres derivados el aceite de castor",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1992,
-    "name": "Claudia I. Vallo",
-    "title": "Propiedades mecánicas de resinas epoxi y sus compuestos con vidrio particulados y elastómeros",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "Dra. Patricia Frontini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1993,
-    "name": "Miriam S. Castro",
-    "title": "Preparación y caracterización de varistores de ZnO",
-    "url": "",
-    "director": "Dr. Celso Aldao",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1993,
-    "name": "María José Galante",
-    "title": "Redes poliméricas obtenidas a partir de monómeros epoxi - isocianato",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1993,
-    "name": "Anibal N. Cassanelli",
-    "title": "Mecánica de fractura. Separabilidad de variables y sus aplicaciones",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "Dr. Rubén Herrera",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1993,
-    "name": "Patricia M. Frontini",
-    "title": "Propiedades mecánicas y comportamiento a fractura de polímeros semicristalinos en función de su estructura molecular y supermolecular",
-    "url": "",
-    "director": "Prof. Andrea Paván",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1993,
-    "name": "Ricardo A. Martinez",
-    "title": "Soldaduras de fundiciones esferoidales de alta resistencia",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1994,
-    "name": "Celina R. Bernal",
-    "title": "Deformación fluencia y fractura de polímeros termoplásticos vítreos modificados con goma",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1994,
-    "name": "Walter E. Álvarez",
-    "title": "Efectos de las variables de preparación en catalizadores de Rh y Pt soportado",
-    "url": "",
-    "director": "Dr. Daniel Resasco",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1994,
-    "name": "Alejandra Palermo",
-    "title": "Tratamiento a temperatura programada en zeolitas tipo A",
-    "url": "",
-    "director": "Dr. Celso Aldao",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1994,
-    "name": "Pablo G. Galliano",
-    "title": "Vidrios y vitrocerámicos bioactivos de silicofosfatos, alcalinoférreos",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1995,
-    "name": "Guillermina Urretavizcaya",
-    "title": "Materiales compuestos Al2O3 / SiCu: síntesis, procesamiento y caracterización",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1995,
-    "name": "Mirco D. Chapetti",
-    "title": "Propagación subcrítica de fisuras en aceros estructurales soldados",
-    "url": "",
-    "director": "Dr. José Luis Otegui",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1995,
-    "name": "Ricardo H. Podgaiz",
-    "title": "Materiales compuestos basados en matriz epoxi-fibra de vidrio recubierto con elastómeros",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1996,
-    "name": "Analía Vázquez",
-    "title": "Formación de redes epoxi por homopolimerización amonica",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1996,
-    "name": "Segundo A. Tavara Aponte",
-    "title": "Influencia del contenido de Ni en corrosión fatiga de soldadura de inoxidables duplex en agua de mar",
-    "url": "",
-    "director": "Dr. José Luis Otegui",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1996,
-    "name": "Norma E. Marcovich",
-    "title": "Materiales compuestos de matriz polimérica y refuerzos de origen vegetal",
-    "url": "",
-    "director": "Dra. Mirta Aranguren",
-    "co_director": "Ms.Sc. María Marta Reboredo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1997,
-    "name": "Juan M. Massone",
-    "title": "Fundiciones esferoidales austemperizadas. Estudio de sus transformaciones metalúrgicas",
-    "url": "",
-    "director": "Dr. Roberto Boeri",
-    "co_director": "Ing. Jorge Sikora",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1997,
-    "name": "Graciela L. Greno",
-    "title": "Fatiga en fundiciones modulares austemperizadas",
-    "url": "",
-    "director": "Dr. Roberto Boeri",
-    "co_director": "Dr. Enrique Pardo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1997,
-    "name": "Ricardo C. Dommarco",
-    "title": "Fatiga de contacto por rodadura, degradación y falla superficial",
-    "url": "",
-    "director": "Ing. Héctor A. Dall'O",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Gustavo A. Abraham",
-    "title": "Poliuretanos segmentados de uso médico",
-    "url": "",
-    "director": "Dra. Teresita Cuadrado",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Silvia M. Ceré",
-    "title": "Cinética de reducción de oxígeno y peróxido de hidrógeno sobre aleaciones de Cu-Ni",
-    "url": "",
-    "director": "Dra. Susana Rosso",
-    "co_director": "Dra. Marcela Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Juan Pablo Tomba",
-    "title": "Difusión de polímeros miscibles en régimen concentrado tratamiento termodinámico, cinético y verificación experimental",
-    "url": "",
-    "director": "Dr. José Carella",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Pablo E. Montemartini",
-    "title": "Materiales acrílicos para uso en ortopedia",
-    "url": "",
-    "director": "Dra. Teresita Cuadrado",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Analía G. Tomba Martinez",
-    "title": "Choque térmico de alúmina densa",
-    "url": "",
-    "director": "Dra. Ana Lía Cavalieri",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1998,
-    "name": "Juan R. Sanchez",
-    "title": "Estructura de la superficie de silicio y su ataque mediante halógenos",
-    "url": "",
-    "director": "Dr. Celso Aldao",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "María Alejandra Fanovich",
-    "title": "Síntesis, procesamiento y caracterización de materiales bioactivos a base de hidroxipatita",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "María Fernanda González",
-    "title": "Polímeros bioabsorbibles basadas en ácido láctico para aplicaciones médicas",
-    "url": "",
-    "director": "Dra. Teresita Cuadrado",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "Ivonne J. Gallardo",
-    "title": "Materiales obtenidos por sol-gel para cirugía ortopédica",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "Dr. Pablo Galliano",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "Carlos E Cicutti",
-    "title": "Transferencia de calor y solidificación en la colada continua de aceros",
-    "url": "",
-    "director": "Dr. Roberto Boeri",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "María Luján Auad",
-    "title": "Síntesis, caracterización y propiedades de materiales a partir de resinas vinil-éster",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "Dra. Mirta Aranguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "Adriana N. Mauri",
-    "title": "Materiales híbridos orgánico - inorgánico obtenidos mediante modificación de resinas epoxi con silanos funcionalizados",
-    "url": "",
-    "director": "Dra. Carmen Riccardi",
-    "co_director": "Dr. Roberto J.J. Williams",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "Pablo M. Stefani",
-    "title": "Copolímeros de epoxi - uretano",
-    "url": "",
-    "director": "Dra. Mirta Aranguren",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1999,
-    "name": "María A. Camerucci",
-    "title": "Desarrollo y evaluación de materiales cerámicos de cordierita y cordierita - mullita",
-    "url": "",
-    "director": "Dra. Ana Lía Cavalieri",
-    "co_director": "Dra. Guillermina Urretavizcaya",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2000,
-    "name": "Graciela L. Rivera",
-    "title": "Estructura de solidificación de fundiciones de hierro con grafito esferoidal",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "Dr. Roberto Boeri",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2000,
-    "name": "Victor M. Bermont Ocampo",
-    "title": "Fractura en fundiciones en hierro",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2000,
-    "name": "Liliana B. Manfredi",
-    "title": "Materiales compuestos a partir de resoles modificados y su degradación térmica",
-    "url": "",
-    "director": "Dra. Analía Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2000,
-    "name": "Eliana B. Brzozowski",
-    "title": "Desarrollo de cerámicos basado en BaTiO3, para su aplicación en electrónica",
-    "url": "",
-    "director": "Dr. Miriam Castro",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2001,
-    "name": "Walter Morris",
-    "title": "Proceso de corrosión del acero en hormigón expuesto al ambiente marino",
-    "url": "",
-    "director": "Dra. Susana Rosso",
-    "co_director": "Dra. Marcela Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2001,
-    "name": "Viviana P. Cyras",
-    "title": "Relación entre la estructura-propiedades y procesamiento de materiales compuestos biodegradables a partir del almidón PCL y fibras sisal",
-    "url": "",
-    "director": "Dra. Analía Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2001,
-    "name": "Karina I. Mazzitello",
-    "title": "Modelización de procesos de crecimiento de interfaces",
-    "url": "",
-    "director": "Dr. Hector O. Martin",
-    "co_director": "Dr. Celso M. Aldao",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Eleonora Erdmann",
-    "title": "Síntesis de membranas de polimetilfenilsiloxano en la relación metilo/fenilo",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Alejandro M. Ges",
-    "title": "Cinética de crecimiento de la fase y en superaleaciones base níquel",
-    "url": "",
-    "director": "Dr. Hugo Palacio (UNCPBA)",
-    "co_director": "Ing. Jorge Sikora",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Mariana Mollo",
-    "title": "Preparación, morfología y propiedades mecánicas de mezclas de polietileno/poliestireno con agente compatibilizador",
-    "url": "",
-    "director": "Dr. José Carella",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Laura Fasce",
-    "title": "Comportamiento mecánico de polipropileno modificado con una poliolefina elastomérica",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Hugo López Montenegro",
-    "title": "Modelado por funciones de peso del comportamiento de fisuras bajo estados complejos de carga",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "Dr. Adrián Cisilino",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Valeria Pettarin",
-    "title": "Análisis de la información de ensayos de impacto instrumentados sobre Materiales Poliméricos",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2002,
-    "name": "Claudia M. Bidabehere",
-    "title": "Determinación de resistencias difusivas en zeolitas comerciales mediante técnicas dinámicas",
-    "url": "",
-    "director": "Dr. Celso Aldao",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2003,
-    "name": "Fabián A. Buffa",
-    "title": "Análisis termodinámico y propiedades finales de sistemas binarios y ternarios en prepolímeros de poliester insaturados",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2003,
-    "name": "Jhonny E. Ortiz Tavara",
-    "title": "Análisis tridimesional de fisuras de interfaz utilizando el método de los elementos de contorno",
-    "url": "",
-    "director": "Dr. Adrián Cisilino",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2004,
-    "name": "Vera A. Álvarez",
-    "title": "Caracterización de un biocompuesto a partir de celulosa modificada y almidón con fibras sisal",
-    "url": "",
-    "director": "Dra. Analía Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2004,
-    "name": "Pablo M. Botta",
-    "title": "Efectos mecanoquímicos de la reactividad de sistemas metal-oxido compuestos por Al o Zn y óxidos de Ti o Fe",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "Dr. Esteban Aglietti",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2004,
-    "name": "Cristina E. Hoppe",
-    "title": "Cristales líquidos dispersos en polímeros (PDLC) obtenidos mediante separación de fases incluida por reacción química",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "Dra. María José Galante",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2004,
-    "name": "Marina I. Gianotti",
-    "title": "Relación estructura-propiedades de una red epoxi-amina aromática modificada con polisulfona y polieterimida",
-    "url": "",
-    "director": "Dra. Patricia Oyanguren",
-    "co_director": "Dra. María José Galante",
-    "tag": "doctorado"
-  },
-  {
+    "id": "06Qa0ddIG8pGFhE34FRd",
     "year": 2004,
     "name": "Jesica E. Wainstein",
     "title": "Método del parámetro de separabilidad para la estimación del crecimiento de fisuras en registros carga-desplazamiento",
@@ -612,915 +10,7 @@
     "tag": "doctorado"
   },
   {
-    "year": 2004,
-    "name": "María B. Valcarce",
-    "title": "Corrosión de cobre y aleaciones de cobre en aguas potables",
-    "url": "",
-    "director": "Dra. Marcela Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Miguel A. Ponce",
-    "title": "Preparación y evaluación de sensores de SnO2",
-    "url": "",
-    "director": "Dr. Celso Aldao",
-    "co_director": "Dra. Miriam Castro",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Paola A. Massa",
-    "title": "Alternativas para la degradación de contaminantes fenólicos en medio acuoso",
-    "url": "",
-    "director": "Dra. Patricia Haure",
-    "co_director": "Dra. Rosa Fenoglio",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Exequiel R. Rodriguez",
-    "title": "Obtención de materiales compuestos con fibras naturales por medio del proceso de RTM",
-    "url": "",
-    "director": "Dra. Analía Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Adrián J. Núñez",
-    "title": "Materiales compuestos a partir de fibras vegetales y termorrígidos modificados para mejorar su tenacidad",
-    "url": "",
-    "director": "Dra. Mirta Aranguren",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Sergio A. Pellice",
-    "title": "Desarrollo y aplicaciones de materiales híbridos orgánico-inorgánicos basados en trialcoxisilanos y tetraalcoxisilanos",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "Dra. Alicia Durán",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Mirna A. Mosiewicki",
-    "title": "Materiales poliméricos a partir de materiales naturales",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "Dra. Mirta Aranguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Ileana A. Zucchi",
-    "title": "Materiales multifásicos generados por el agregado simultáneo de dos modificadores a un sistema epoxi-amina",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "Dra. María José Galante",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Betiana A. Acha",
-    "title": "Desarrollo y caracterización de materiales compuestos basados en tejido bidireccional de yute",
-    "url": "",
-    "director": "Ms.Sc. María Marta Reboredo",
-    "co_director": "Dra. Norma E. Marcovich",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "María de las Mercedes Ruzzo",
-    "title": "Efecto de la polidispersidad sobre la tensión superficial de oligómeros puros y en solución",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Ignacio E. Dell´Erba",
-    "title": "Redes poliméricas modificadas con silsesquioxanos",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2005,
-    "name": "Rodrigo Parra",
-    "title": "Preparación de varistores cerámicos para la protección de redes eléctricas",
-    "url": "",
-    "director": "Dra. Miriam Castro",
-    "co_director": "Dr. Celso Aldao",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2006,
-    "name": "Dolly L. Granados",
-    "title": "Vida útil de dispositivos biomédicos poliméricos reprocesados",
-    "url": "",
-    "director": "Dra. Teresita Cuadrado",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2006,
-    "name": "Ezequiel R. Soulé",
-    "title": "Separación de fases inducida por una polimerización por radicales libres",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "Dr. Roberto J.J. Williams",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2006,
-    "name": "Walter Schroeder",
-    "title": "Modificación de resinas vinil-ester con polímeros termoplásticos: Separación de fases, morfologías y propiedades finales",
-    "url": "",
-    "director": "Dr. Julio Borrajo",
-    "co_director": "Dra. Mirta Aranguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2006,
-    "name": "Martin Caldera",
-    "title": "Fundiciones esferoidales de pequeño espesor; Producción, estructura y propiedades",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "Dr. Juan Massone",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2007,
-    "name": "Roxana Cocco",
-    "title": "Tenacidad a la fractura en la región de transición dúctil-frágil de polímeros",
-    "url": "",
-    "director": "Dr. Perez Ipiña",
-    "co_director": "Dra. Patricia Frontini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2007,
-    "name": "Leandro Ramajo",
-    "title": "Procesamiento y propiedades de materiales compuestos epoxi/BaTiO3, para su utilización en la fabricación de condensadores integrados",
-    "url": "",
-    "director": "Dra. Miriam Castro",
-    "co_director": "Ms.Sc. María Marta Reboredo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2008,
-    "name": "Gustavo Carr",
-    "title": "Caracterización tribológica y desgaste de materiales para la industria siderúrgica",
-    "url": "",
-    "director": "Dr. Raúl H. Conde",
-    "co_director": "Dr. Mirco Chapetti",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2008,
-    "name": "Josefa Martucci",
-    "title": "Relación estructura - propiedades en materiales basados en gelatina",
-    "url": "",
-    "director": "Dra. Roxana Ruseckaite",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2008,
-    "name": "Andrés Pepe",
-    "title": "Recubrimientos híbridos (orgánico-inorgánico) sobre metales para uso en ambientes agresivos",
-    "url": "",
-    "director": "Dra. Silvia Ceré",
-    "co_director": "Dr. Mario Aparicio",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2008,
-    "name": "Susana de los Ángeles Montecinos Espinoza",
-    "title": "Efecto pseudoelástico Cu-Al-Be. Su relación con parámetros microestructurales",
-    "url": "",
-    "director": "Dra. Adela Cuniberti",
-    "co_director": "Dr. Roberto Boeri",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2009,
-    "name": "Sebastián Laino",
-    "title": "Fundición nodular austemperada con carburos (CADI): estudio sobre su obtención y su resistencia a la abrasión",
-    "url": "",
-    "director": "Dr. Ricardo Dommarco",
-    "co_director": "Ing. Jorge Sikora",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2009,
-    "name": "Alejandro Basso",
-    "title": "Fundiciones esferoidales austemperizadas (ADI) con estructuras Dual Phase",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "Dr. Ricardo Martinez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2009,
-    "name": "Ariel L. Stocchi",
-    "title": "Comportamiento mecánico y fractura de compuestos de matriz polimérica basados en recursos renovables",
-    "url": "",
-    "director": "Dra. Celina Bernal",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2009,
-    "name": "Pablo David",
-    "title": "Tecnologia de fabricación, caracterización y propiedades de piezas de fundición nodular de pequeño espesor",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "Dr. Juan Massone",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2009,
-    "name": "Josefina Ballarre",
-    "title": "Diseño y evaluación de recubrimientos híbridos orgánico-inorgánicos sobre aleaciones de uso quirúrgico",
-    "url": "",
-    "director": "Dra. Silvia Ceré",
-    "co_director": "Dra. Ana Lía Cavalieri",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Pablo C. Caracciolo",
-    "title": "Matrices poliuretánicas biorreabsorbibles para aplicaciones en ingeniería de tejidos",
-    "url": "",
-    "director": "Dr. Gustavo Abraham",
-    "co_director": "Dra. Teresita Cuadrado",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Hernán E. Romeo",
-    "title": "Cementos óseos de fosfatos de calcio incorporando micropartículas híbridas funcionalizadas con ácido acetilsalicílico",
-    "url": "",
-    "director": "Dra. María Alejandra Fanovich",
-    "co_director": "Dr. Roberto J.J. Williams",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Adrián Cristóbal",
-    "title": "Síntesis mecanoquímica, caracterización y propiedades de materiales magnéticos basados en óxidos mixtos de hierro",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "Dr. Esteban Aglietti",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Mariana Pereda",
-    "title": "Polímeros naturales como materiales para envases de alimentos",
-    "url": "",
-    "director": "Dra. Norma Marcovich",
-    "co_director": "Dra. Mirta Aranguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Luciano Paolinelli",
-    "title": "Influencia de la microestructura y la composición química de aceros en la eficiencia de inhibidores en medios salinos con CO2",
-    "url": "",
-    "director": "Dra. Silvia Simison",
-    "co_director": "Ing. Teresa Pérez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Daniel Amadeo Sosa",
-    "title": "Tecnología de superficies en fundición de hierro con grafito esferoidal",
-    "url": "",
-    "director": "Ing. Osvaldo Moncada",
-    "co_director": "Ing. Jorge Sikora",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Leandro Ludueña",
-    "title": "Biocompuestos de matriz biodegradable con nanorefuerzos",
-    "url": "",
-    "director": "Dra. Vera Álvarez",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Juan Morán",
-    "title": "Nanocompuestos biodegradables basados en almidón y nanocelulosa",
-    "url": "",
-    "director": "Dra. Analía Vázquez",
-    "co_director": "Dra. Viviana Cyras",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Silvana Asmussen",
-    "title": "Resinas de fotocurado a partir de silsesquioxanos para aplicaciones dentales",
-    "url": "",
-    "director": "Dra. Claudia Vallo",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Diego Santiago",
-    "title": "Modelado computacional de uniones realizadas por soldadura por fricción",
-    "url": "",
-    "director": "Dr. Guillermo Lombera",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2010,
-    "name": "Verónica Mucci",
-    "title": "Resinas fotopolimerizables para aplicaciones dentales como materiales de obturación",
-    "url": "",
-    "director": "Dra. Claudia Vallo",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Guillermo Terranova",
-    "title": "Análisis y simulación computacional de difusión por reptación",
-    "url": "",
-    "director": "Dr. Héctor Martín",
-    "co_director": "Dr. Celso Aldao",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Matías Valdés",
-    "title": "Deposición de CuInSe2 (CISe) y CuInS2 (CIS) sobre películas semiconductoras para su aplicación en celdas solares fotovoltaicas",
-    "url": "",
-    "director": "Dra. Marcela Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Alejandro Miccio",
-    "title": "Redes poliméricas modificadas con especies fluoradas",
-    "url": "",
-    "director": "Dra. Patricia Oyanguren",
-    "co_director": "Dr. Pablo R. Montemartini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Leandro Jaureguizahar",
-    "title": "Modelos para la predicción del comportamiento a fatiga de uniones soldadas",
-    "url": "",
-    "director": "Dr. Mirco Chapetti",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Facundo Altuna",
-    "title": "Espumas epoxi basadas en aceites vegetales epoxidados",
-    "url": "",
-    "director": "Dr. Pablo Stefani",
-    "co_director": "Dra. Roxana Ruseckaite",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2011,
-    "name": "Gaston Francucci",
-    "title": "Procesamiento de Materiales compuestos de matriz termorrígida basados en fibras naturales",
-    "url": "",
-    "director": "Dr. Exequiel Rodríguez",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2012,
-    "name": "Mariana Berruet",
-    "title": "Preparación de celdas solares con calcogenuros de cobre e indio como material absorbente",
-    "url": "",
-    "director": "Dra. Marcela Vázquez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2012,
-    "name": "Mariano Talou",
-    "title": "Procesamiento de materiales cerámicos porosos de mullita por consolidación directa con almidón",
-    "url": "",
-    "director": "Dra. Andrea Camerucci",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2012,
-    "name": "Hugo Flores",
-    "title": "Uso de reactivo diluyente en la fabricación de caños de ERFV",
-    "url": "",
-    "director": "Dra. Carmen Riccardi",
-    "co_director": "Dra. Laura Fasce",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2012,
-    "name": "Marcela Elisabeth Penoff",
-    "title": "Redes poliméricas modificadas con especies fluoradas",
-    "url": "",
-    "director": "Dr. Pablo Montemartini",
-    "co_director": "Dra. Patricia Oyanguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Guadalupe Rivero",
-    "title": "Recubrimientos de alta performance en base a resinas furánicas y nanopartículas",
-    "url": "",
-    "director": "Dra. Liliana Manfredi",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Luciana Saiz",
-    "title": "Diseño de materiales con comportamiento óptico anisotrópico",
-    "url": "",
-    "director": "Dra. María José Galante",
-    "co_director": "Dra. Patricia Oyanguren",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Cintia Meiorin",
-    "title": "Polímeros inteligentes basados en aceite de Tung",
-    "url": "",
-    "director": "Dra. Mirta Aranguren",
-    "co_director": "Dra. Mirna Mosiewicki",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Diego Colombo",
-    "title": "Recubrimientos PVD de TiN y CrN sobre fundiciones de hierro con grafito esferoidal: influencia de las características del sustrato y del recubrimiento sobre las propiedades mecánicas y la resistencia al desgaste",
-    "url": "",
-    "director": "Dr. Juan Massone",
-    "co_director": "Ing. Moncada",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Emiliano Ciannamea",
-    "title": "Obtención de películas activas biodegradables basadas en proteínas",
-    "url": "",
-    "director": "Dra. Roxana Ruseckaite",
-    "co_director": "Dr. Pablo Stefani",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Natalia Inchaurrondo",
-    "title": "Catalizadores compuestos para la oxidación de contaminantes modelo, fenol y Orange II, con peróxido de hidrógeno",
-    "url": "",
-    "director": "Dra. Patricia Haure",
-    "co_director": "Dra. Rosa Fenoglio",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Vanesa Muñoz",
-    "title": "Degradación química y mecánica de materiales refractarios Al2O3-MgO-C de uso siderúrgico",
-    "url": "",
-    "director": "Dra. Analía Tomba Martinez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Marco Dondero",
-    "title": "Diseño computacional de materiales micro y nanoestructurados para transporte de calor y masa",
-    "url": "",
-    "director": "Dr. Adrián Cisilino",
-    "co_director": "Dr. Juan Pablo Tomba",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Marcos Federico Rittano",
-    "title": "Reparación de tubos de ERFV de conducción de petróleo",
-    "url": "",
-    "director": "Dra. Liliana Manfredi",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Carlos Walter Schamber",
-    "title": "Efecto de las variables de procesamiento en las propiedades de un componente fabricado con materiales compuestos reforzados con fibras",
-    "url": "",
-    "director": "Dr. Exequiel Rodríguez",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Guillermo Ghione",
-    "title": "Estudio del proceso de difusión de agua y su efecto sobre las propiedades finales en materiales compuestos",
-    "url": "",
-    "director": "Dra. Vera Álvarez",
-    "co_director": "Dra. Analía Vázquez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Mariela Desimone",
-    "title": "Inhibidores de corrosión para aceros al C-Mn en medios salinos con CO2",
-    "url": "",
-    "director": "Dra. Silvia Simison",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "David Martelo Guarin",
-    "title": "Fatiga y fractura de aceros austeníticos metaestables",
-    "url": "",
-    "director": "Dr. Mirco Chapetti",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Jimena S. González",
-    "title": "Hidrogeles compuestos basados en polivinilalcohol para aplicaciones biomédicas",
-    "url": "",
-    "director": "Dra. Vera Álvarez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Sebastián Pereyra",
-    "title": "Análisis computacional del proceso de soldadura por fricción",
-    "url": "",
-    "director": "Dr. Guillermo Lombera",
-    "co_director": "Dr. Santiago Urquiza",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "David D'Amico",
-    "title": "Nanocompuestos biodegradables basados en polihidroxibutirato y nanoarcillas: preparación, cristalización y propiedades",
-    "url": "",
-    "director": "Dra. Viviana Cyras",
-    "co_director": "Dra. Liliana Manfredi",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2013,
-    "name": "Humar Ávila Vanegas",
-    "title": "Síntesis de cerámicos nanoestructurados de BaTiO3 por los métodos hidrotermal y sol-gel-electrospinning para el desarrollo de compuestos dieléctricos de matriz polimérica",
-    "url": "",
-    "director": "Dr. Rodrigo Parra",
-    "co_director": "M.Sc. María Marta Reboredo, Dra. Miriam Castro",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2014,
-    "name": "María de la Paz Miguel",
-    "title": "Difusión y dinámica molecular en interfases poliméricas por Microscopía Raman Confocal",
-    "url": "",
-    "director": "Dr. Juan Pablo Tomba",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2014,
-    "name": "María Laura Sandoval",
-    "title": "Desarrollo y caracterización de materiales celulares de mullita obtenidos por espumado y consolidación térmica con albúmina",
-    "url": "",
-    "director": "Dra. Andrea Camerucci",
-    "co_director": "Dra. Analía Tomba Martínez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2014,
-    "name": "Ianina Santana",
-    "title": "Síntesis y caracterización de recubrimientos nanoestructurados de aplicación industrial",
-    "url": "",
-    "director": "Dra. Silvia Ceré",
-    "co_director": "Dr. Sergio Pellice",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2014,
-    "name": "Julieta Puig",
-    "title": "Materiales funcionales basados en matrices poliméricas con cadenas alquílicas pendientes",
-    "url": "",
-    "director": "Dra. Cristina Hoppe",
-    "co_director": "Dr. Roberto J.J. Williams",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2014,
-    "name": "Gabriela Messineo",
-    "title": "Análisis inverso de señales ultrasónicas aplicado a la caracterización de materiales en capas",
-    "url": "",
-    "director": "Dra. Gloria Frontini",
-    "co_director": "Dr. Guillermo Eliçabe",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Pablo R. Cortez Tornello",
-    "title": "Sistemas poliméricos biocompatibles para liberación controlada de embelina",
-    "url": "",
-    "director": "Dr. Gustavo Abraham",
-    "co_director": "Dra. Teresita R. Cuadrado",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Florencia Montini Ballarin",
-    "title": "Estructuras poliméricas nanofibrosas biorreabsorbibles para ingeniería de tejidos vasculares",
-    "url": "",
-    "director": "Dr. Gustavo Abraham",
-    "co_director": "Dra. Patricia M. Frontini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Romina P. Ollier Primiano",
-    "title": "Estrategias de Microencapsulación de Monómeros Reactivos",
-    "url": "",
-    "director": "Dra. Vera Álvarez",
-    "co_director": "Dr. Exequiel Rodriguez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Antonella Orofino",
-    "title": "Síntesis de materiales epoxi foto-anisotrópicos para almacenamiento óptico reversible",
-    "url": "",
-    "director": "Dra. Patricia Oyanguren",
-    "co_director": "Dra. María José Galante",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Diego Fernandino",
-    "title": "Fractura en fundición de hierro con grafito esferoidal. Análisis experimental y modelado multi-escala",
-    "url": "",
-    "director": "Dr. Roberto Boeri",
-    "co_director": "Dr. Adrián Cisilino",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Carla Di Luca",
-    "title": "Desarrollo de catalizadores en base Fe para su aplicación en la oxidación de compuestos orgánicos en presencia de peróxido de hidrógeno",
-    "url": "",
-    "director": "Dra. Rosa Fenoglio",
-    "co_director": "Dra. Paola Massa",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2015,
-    "name": "Lisandro Escalada",
-    "title": "Modificación superficial de aceros inoxidables mediante tratamientos de nitruración y recubrimientos asistidos por plasma",
-    "url": "",
-    "director": "Dra. Silvia Simison",
-    "co_director": "Dra. Sonia Brühl",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2016,
-    "name": "Juan Pablo Torres",
-    "title": "Mecánica de polímeros termoplásticos en condiciones de impacto",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "Dr. Enrique Pardo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2016,
-    "name": "Alejandra Constantino",
-    "title": "Relación procesamiento/estructura/desempeño de piezas complejas inyectadas de polipropileno y sus compuestos de aplicación en la industria automotriz",
-    "url": "",
-    "director": "Dra. Valeria Pettarin",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2016,
-    "name": "Federico Rueda",
-    "title": "Colapso por pandeo inducido por presión externa en liners de polietileno de alta densidad",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "Dr. José Luis Otegui",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2016,
-    "name": "Agustina Leonardi",
-    "title": "Redes epoxi nanoestructuradas",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "Dra. Ileana Zucchi",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2016,
-    "name": "Lucía Asaro",
-    "title": "Desarrollo de nuevos materiales compuestos ablativos para aplicaciones de alto desempeño",
-    "url": "",
-    "director": "Dr. Exequiel Rodriguez",
-    "co_director": "Dra. Liliana Manfredi",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Guillermina Capiel",
-    "title": "Degradación de sistemas epoxi utilizados en cañerías de ERFV",
-    "url": "",
-    "director": "Dr. Pablo Montemartini",
-    "co_director": "Dr. Juan Morán",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Laura C. Covinich",
-    "title": "Reducción de la carga orgánica recalcitrante presente en efluentes del procesamiento químico de la biomasa forestal",
-    "url": "",
-    "director": "Dra. María Cristina Area",
-    "co_director": "Dra. Rosa Fenoglio",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Laura Neira Hazime",
-    "title": "Películas comestibles de gelatina de pescado con actividad antioxidante. Obtención y caracterización in vitro e in vivo",
-    "url": "",
-    "director": "Dra. Roxana Ruseckaite",
-    "co_director": "Dra. Josefa Martucci",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Diana C. Marín Quintero",
-    "title": "Materiales compuestos obtenidos a partir de películas de celulosa bacteriana y un triglicérido epoxidado hecho a medida",
-    "url": "",
-    "director": "Dr. Pablo Stefani",
-    "co_director": "Dra. Piedad Gañan",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Úrsula María Montoya Rojo",
-    "title": "Materiales nanoestructurados obtenidos por modificación de matrices poliméricas con copolímeros en bloque basados en policaprolactona",
-    "url": "",
-    "director": "Dra. Carmen Riccardi",
-    "co_director": "Dra. Piedad Gañan",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Irene Seoane",
-    "title": "Relación estructura, propiedades y procesamiento del material compuesto biodegradable obtenido a partir de policaprolactona/almidón y fibra sisal",
-    "url": "",
-    "director": "Dra. Viviana Cyras",
-    "co_director": "Dra. Liliana Manfredi",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Merari Turmin Chevalier",
-    "title": "Nanosistemas biopoliméricos portadores de fármacos oncológicos: obtención, caracterización y evaluación in vitro e in vivo",
-    "url": "",
-    "director": "Dra. Vera Álvarez",
-    "co_director": "Dr. Hernán Farina",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2017,
-    "name": "Sheila Omar",
-    "title": "Modificación superficial de materiales metálicos de uso en implantología",
-    "url": "",
-    "director": "Dra. Silvia Ceré",
-    "co_director": "Dres. Josefina Ballarre y Sergio Pellice",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2018,
-    "name": "María Paula Guarás",
-    "title": "Obtención a escala planta piloto y caracterización de nanocompuestos basados en almidón termoplástico",
-    "url": "",
-    "director": "Dr. Leandro Ludueña",
-    "co_director": "Dra. Vera Álvarez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2018,
-    "name": "Lucas Colabella",
-    "title": "Diseño multiescala de estructuras porosas inspiradas en el hueso trabecular",
-    "url": "",
-    "director": "Dr. Adrián Cisilino",
-    "co_director": "Dra. Josefina Ballarre",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2018,
-    "name": "Camila Quintana",
-    "title": "Análisis de la distribución de la orientación de fibras discontinuas en piezas de matriz termoplástica fabricadas mediante moldeo por inyección: Evaluación experimental y simulación 3D",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "Dr. Santiago Urquiza",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2018,
-    "name": "Hugo Fernando Giraldo Mejía",
-    "title": "Desarrollo y evaluación de materiales híbridos orgánico-inorgánicos de interés biotecnológico preparados a partir de la química sol-gel",
-    "url": "",
-    "director": "Dr. Sergio Pellice",
-    "co_director": "Dr. Raúl Procaccini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2018,
-    "name": "María Victoria Eugenia Hormaiztegui",
-    "title": "Films y recubrimientos a partir de biopoliuretanos de base acuosa reforzados con nano-celulosa",
-    "url": "",
-    "director": "Dra. Mirta Aranguren",
-    "co_director": "Dra. Verónica Mucci",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Lucas Sanchez Fellay",
-    "title": "Caracterización Constitutiva de Materiales Poliméricos Mediante Indentación Instrumentada",
-    "url": "",
-    "director": "Dra. Laura Fasce",
-    "co_director": "Dra. Patricia Frontini",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Gianina Kloster",
-    "title": "Síntesis y caracterización de películas magnéticas de matriz biopolimérica con propiedades adsorbentes",
-    "url": "",
-    "director": "Dra. Mirna A. Mosiewicki",
-    "co_director": "Dra. Norma E. Marcovich",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Danila Merino",
-    "title": "Desarrollo de bioinsumos para su aplicación en agricultura moderna",
-    "url": "",
-    "director": "Dra. Vera Alvarez",
-    "co_director": "Dra. Claudia Casalongué",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Nicolas Tenaglia",
-    "title": "Aceros colados bainíticos libres de carburos: estudio de la estructura de solidificación, cinética de transformación y propiedades mecánicas",
-    "url": "",
-    "director": "Dr. Juan Massone",
-    "co_director": "Dr. Alejandro Basso",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Andrés Calvo",
-    "title": "Corrosión de materiales refractarios conteniendo carbono: aspectos motedológicos y comportamiento de los materiales",
-    "url": "",
-    "director": "Dra. Analía G. Tomba Martínez",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2019,
-    "name": "Ceferino Stembreger",
-    "title": "Modelos fractomecánicos para análisis del comportamiento a fatiga de uniones soldadas",
-    "url": "",
-    "director": "Dr. Mirco Chapetti",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
+    "id": "07tCXTtaXxJQmrDvsStr",
     "year": 2019,
     "name": "Fabiola Andrea Prado Espinosa",
     "title": "Desarrollo de cerámicos relaxores pertenecientes al sistema Bi0.5Na0.5TiO3-BaTiO3-K0.5Na0.5NbO3",
@@ -1530,384 +20,37 @@
     "tag": "doctorado"
   },
   {
-    "year": 2019,
-    "name": "Sebastián Gass",
-    "title": "Efecto de las variables composicionales en el comportamiento termomecánico de refractarios de MgO-C",
+    "id": "0GgEh8ik05d9D7Jh0X4G",
+    "year": 2014,
+    "name": "María Laura Sandoval",
+    "title": "Desarrollo y caracterización de materiales celulares de mullita obtenidos por espumado y consolidación térmica con albúmina",
     "url": "",
-    "director": "Dra. Analía Tomba Martínez",
-    "co_director": "Dr. Pablo Galliano",
+    "director": "Dra. Andrea Camerucci",
+    "co_director": "Dra. Analía Tomba Martínez",
     "tag": "doctorado"
   },
   {
-    "year": 2019,
-    "name": "Marcelo Pelayo",
-    "title": "Desarrollo de un proceso de soldadura de punto por Fricción-Agitación para el uso en la Industria Naval Argentina de bajo porte",
+    "id": "0birYfdeq2QETQugg0Nn",
+    "year": 2011,
+    "name": "Leandro Jaureguizahar",
+    "title": "Modelos para la predicción del comportamiento a fatiga de uniones soldadas",
     "url": "",
-    "director": "Dr. Guillermo Lombera",
-    "co_director": "Dr. Oscar Pascal",
+    "director": "Dr. Mirco Chapetti",
+    "co_director": "",
     "tag": "doctorado"
   },
   {
-    "year": 2019,
-    "name": "Nahuel Rull",
-    "title": "Comportamiento constitutivo de materiales elastoméricos de distinta composición físico-química: simulación por elementos finitos y validación experimental",
+    "id": "0mWwEojVlMEfSPdJM3Wx",
+    "year": 1994,
+    "name": "Celina R. Bernal",
+    "title": "Deformación fluencia y fractura de polímeros termoplásticos vítreos modificados con goma",
     "url": "",
     "director": "Dra. Patricia Frontini",
     "co_director": "",
     "tag": "doctorado"
   },
   {
-    "year": 2020,
-    "name": "Javier Camargo",
-    "title": "Desarrollo de cerámicos pertenecientes al sistema Bi0,5(Na0,8K0,2)0,5TiO3 con aplicaciones piezoeléctricas y magnetoeléctricas",
-    "url": "",
-    "director": "Dra. Miriam Castro",
-    "co_director": "Dr. Leandro Ramajo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Diego Pedro",
-    "title": "Tribología de fundición nodular austemperada con carburos. Fatiga de contacto por rodadura y deslizamiento",
-    "url": "",
-    "director": "Dr. Ricardo Dommarco",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Gloria Hernández Ortiz",
-    "title": "Biocerámicos porosos compuestos de hidroxiapatita y dióxido de titanio",
-    "url": "",
-    "director": "Dra. Maria Alejandra Fanovich",
-    "co_director": "Dr. Rodrigo Parra",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Diego Morales Urrea",
-    "title": "Desarrollo de biocatalizadores para el tratamiento de efluentes líquidos industriales",
-    "url": "",
-    "director": "Dr. Edgardo Contreras",
-    "co_director": "Dra. Patricia Haure",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Magdalena Iglesias Montes",
-    "title": "Desarrollo de mezclas de poliésteres derivados de recursos cmo estrategia para obtener un nuevo material completamente biodegradable apto para envases",
-    "url": "",
-    "director": "Dra. Viviana Cyras",
-    "co_director": "Dra. Liliana Manfredi",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Marcos López",
-    "title": "Análisis de la estructura de solidificación de fundiciones de hierro con grafito laminar y vermicular",
-    "url": "",
-    "director": "Dr. Juan Massone",
-    "co_director": "Dr. Roberto Boeri",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Edgar Villegas Gómez",
-    "title": "Desarrollo de películas cerámicas nano y microestructuradas aplicadas a dispositivos electrónicos",
-    "url": "",
-    "director": "Dr. Rodrigo Parra",
-    "co_director": "Dr. Leandro Ramajo",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2020,
-    "name": "Caren Rosales",
-    "title": "Estrategias para la optimización del desempeño mecánico de mezclas de polipropileno/polietileno provenientes del reciclado",
-    "url": "",
-    "director": "Dra. Valeria Pettarin",
-    "co_director": "Dra. Celina Bernal",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2021,
-    "name": "Nancy Cativa",
-    "title": "Materiales funcionales obtenidos por ensamblado y organización de nanopartículas metálicas funcionalizadas",
-    "url": "",
-    "director": "Dra. Cristina Hoppe",
-    "co_director": "Dr. Guillermo EliÇabe",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2021,
-    "name": "Mariana Poliserpi",
-    "title": "Materiales funcionales obtenidos por ensamblado y organización de nanopartículas metálicas funcionalizadas",
-    "url": "",
-    "director": "Dra. Silvana Sommadossi – IITCI CONICET UNCo",
-    "co_director": "Dr. Roberto Boeri",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2021,
-    "name": "Marcos Moliné",
-    "title": "Corrosión de refractarios MgO-C de uso siderúrgico",
-    "url": "",
-    "director": "Dra. Analía G. Tomba Martínez",
-    "co_director": "Dr. Pablo Galliano",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2022,
-    "name": "Daiana Simón",
-    "title": "Valorización de residuos agroindustriales como adsorbentes de metales pesados, y su reutilización en la fabricación de ladrillos de construcción",
-    "url": "",
-    "director": "Dr. Adrián Cristobal",
-    "co_director": "Dra. Nancy Quaranta",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2022,
-    "name": "Juan Pablo Vitale",
-    "title": "Diseño y comportamiento mecánico de núcleos ultra-livianos basados en CFRP para uso en estructuras sandwich",
-    "url": "",
-    "director": "Dr. Adrián Stocchi",
-    "co_director": "Dr. Gastón Francucci",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2022,
-    "name": "Florencia Arrosio",
-    "title": "Desarrollo y vida en servicio de tubulares de ERFV",
-    "url": "",
-    "director": "Dr. Pablo Montemartini",
-    "co_director": "Dr.Juan Ignacio Morán",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2022,
-    "name": "María José Churruca",
-    "title": "Microfisuración en materiales compuestos",
-    "url": "",
-    "director": "Dr. Exequiel Rodríguez",
-    "co_director": "Dr. Juan Morán",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2022,
-    "name": "Javier O. Bolaños Rivera",
-    "title": "Procesamiento y evaluación de materiales cerámicos porosos derivados de un polímero precerámico basado en silicio",
-    "url": "",
-    "director": "Dra. Ma. Andrea Camerucci",
-    "co_director": "Dr. Mariano Talou",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Nayla Lores",
-    "title": "Impresión 3D de estructuras porosas basadas en poliuretanos para aplicaciones en ingeniería de tejidos",
-    "url": "",
-    "director": "Dr.Pablo Caracciolo",
-    "co_director": "Dr. Gustavo Abraham",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Ruth Schmarsow",
-    "title": "Materiales funcionales obtenidos por autoensamblado de copolímeros de bloque semicristalinos en matrices políméricas",
-    "url": "",
-    "director": "Dr. Walter Schroeder",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Emanuel Hernández",
-    "title": "Materiales poliméricos a partir de ácidos grasos y aceites vegetales derivatizados",
-    "url": "",
-    "director": "Dra. Norma Marcovich",
-    "co_director": "Dra. Mirna Mosiewiki",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Matthäus Popov Pereira da Cunha",
-    "title": "Matrices electrohiladas basadas en proteína de soja para ingeniería de tejidos",
-    "url": "",
-    "director": "Dr. Gustavo Abraham",
-    "co_director": "",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Mariano Prudente",
-    "title": "Electrodos bio-híbridos crioestructurados para la generación de corriente eléctrica a partir de orina",
-    "url": "",
-    "director": "Dr. Hernán Romeo",
-    "co_director": "Dr. Diego Massazza",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Yuk Ming Xavier Hung Hung",
-    "title": "Desarrollo de estructuras cerámicas porosas por impresión 3D",
-    "url": "",
-    "director": "Dr. Mariano H. Talou",
-    "co_director": "Dra. M. Andrea Camerucci",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2023,
-    "name": "Pedro Calderón Bedoya",
-    "title": "Biomateriales compuestos de nanopartículas magnéticas de óxidos de hierro (IONPs) y cementos de fosfatos de calcio",
-    "url": "",
-    "director": "Dra. María Alejandra Fanovich",
-    "co_director": "Dr. Pablo Botta",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2024,
-    "name": "Erika Nicolao",
-    "title": "Desarrollo de tableros contrachapados de madera forestada con adhesivos biogénicos",
-    "url": "",
-    "director": "Dr. Pablo Stefani",
-    "co_director": "Dr. Emiliano Ciannamea",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2024,
-    "name": "Rodrigo Ariel Demoor",
-    "title": "Desarrollo y Aplicación de modelos de permeabilidad y difusión en nanocompuestos poliméricos",
-    "url": "",
-    "director": "Dr. Juan Pablo Tomba",
-    "co_director": "Dra. Vera Alejandra Alvarez",
-    "tag": "doctorado"
-  },
-  {
-    "year": 2024,
-    "name": "Mauro César Difeo",
-    "title": "Desarrollo de dispositivos piezoeléctricos a partir de cerámicos libres de plomo",
-    "url": "",
-    "director": "Dr. Leandro Ramajo",
-    "co_director": "Dra. Miriam Castro",
-    "tag": "doctorado"
-  },
-  {
-    "year": 1986,
-    "name": "Analía Vázquez",
-    "title": "Espumas fenólicas",
-    "url": "",
-    "director": "Dr. Roberto J.J. Williams",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1986,
-    "name": "María Marta Reboredo",
-    "title": "Moldeo por inyección reactiva de plásticos reforzados con fibra de vidrio",
-    "url": "",
-    "director": "Dr. Alfredo Rojas",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1987,
-    "name": "William James Villacis Verdesoto",
-    "title": "Mecánica de fractura de fundiciones nodulares",
-    "url": "",
-    "director": "Ing. Jorge Sikora",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1990,
-    "name": "Jorge Enrique Rodriguez Paez",
-    "title": "Proceso de oxidación del Y-Ba-Cu-O y el efecto del agregado de Ag sobre sus propiedades",
-    "url": "",
-    "director": "Dr. Daniel Resasco",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1996,
-    "name": "Daniel A. Suarez",
-    "title": "Estudio de los catalizadores de CuCl2 empleados en la oxicloración de etileno, efecto del agregado de KCl como promotor",
-    "url": "",
-    "director": "Dra. Patricia Haure",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1996,
-    "name": "Gabriel E. Carcagno",
-    "title": "Mecánica de fractura elastoplástica, determinación de curvas J-R, mediante el ensayo charpy instrumentado",
-    "url": "",
-    "director": "Ing. Luis de Vedia",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 1997,
-    "name": "Juan Pablo Grammatico",
-    "title": "Preparación de titanatos de bario y plomo por el método sol-gel",
-    "url": "",
-    "director": "Dr. José M. Porto López",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 2000,
-    "name": "Jhonny E. Ortiz Tavara",
-    "title": "Modelado computacional de la propagación de fisuras por fatiga en materiales microfisurados",
-    "url": "",
-    "director": "Dr. José Luis Otegui",
-    "co_director": "Dr. Adrián Cisilino",
-    "tag": "maestria"
-  },
-  {
-    "year": 2000,
-    "name": "Cristina S. Cordón",
-    "title": "Procesos de fusión, fraccionamiento y caracterización de copolímeros semicristalinos. Modelo termodinámico",
-    "url": "",
-    "director": "Dr. José Carella",
-    "co_director": "Dr. Julio Borrajo",
-    "tag": "maestria"
-  },
-  {
-    "year": 2002,
-    "name": "María Lila Arias",
-    "title": "Micromecanismos de deformación y falla en resinas epoxi modificadas con goma",
-    "url": "",
-    "director": "Dra. Patricia. Frontini",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 2002,
-    "name": "Edgardo L. Santarelli",
-    "title": "Efectos de tamaño y geometría en las evaluaciones de tenacidad a la fractura de polipropileno isotáctico a temperatura ambiente",
-    "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 2002,
-    "name": "Claudia N. Zárate",
-    "title": "Materiales compuestos de matriz fenólica reforzados con fibras naturales",
-    "url": "",
-    "director": "Ms.Sc. María Marta Reboredo",
-    "co_director": "",
-    "tag": "maestria"
-  },
-  {
-    "year": 2002,
-    "name": "Juan Miguel Borrajo",
-    "title": "Modelado de las características de los nódulos de grafito durante la solidificación de fundiciones esferoidales de pequeño espesor",
-    "url": "",
-    "director": "Dr. Roberto Boeri",
-    "co_director": "Dr. Ricardo Martínez",
-    "tag": "maestria"
-  },
-  {
+    "id": "0x1uuDdThocWW8Re5Jbp",
     "year": 2005,
     "name": "Rocío Seltzer",
     "title": "Caracterización mecánica y morfológica de nanocompuestos nylon66/organoarcilla/SEBS-g-MA obtenidos por moldeo por inyección",
@@ -1917,6 +60,7 @@
     "tag": "maestria"
   },
   {
+    "id": "19cqFwaODL7QI7uqwGwm",
     "year": 2005,
     "name": "María Alejandra Frontini",
     "title": "Corrosión Microbiológica",
@@ -1926,33 +70,917 @@
     "tag": "maestria"
   },
   {
-    "year": 2006,
-    "name": "Matías Martínez Gamba",
-    "title": "Propiedades de impacto y microdureza de polipropilenos reforzados con fibras de vidrio",
+    "id": "1TZtzGWPnlwyLIzcJaF1",
+    "year": 1995,
+    "name": "Guillermina Urretavizcaya",
+    "title": "Materiales compuestos Al2O3 / SiCu: síntesis, procesamiento y caracterización",
     "url": "",
-    "director": "Dra. Patricia Frontini",
-    "co_director": "Dr. Antonio Pouzada",
-    "tag": "maestria"
+    "director": "Dr. José M. Porto López",
+    "co_director": "",
+    "tag": "doctorado"
   },
   {
+    "id": "1XPeZe2MWh5BYZwT4DXK",
     "year": 2008,
-    "name": "Andrés Martínez del Pezzo",
-    "title": "Análisis de la influencia de parámetros geométricos en el comportamiento a fatiga de uniones soldadas utilizando nuevas metodologías",
+    "name": "Gustavo Carr",
+    "title": "Caracterización tribológica y desgaste de materiales para la industria siderúrgica",
     "url": "",
-    "director": "Dr. Mirco Chapetti",
+    "director": "Dr. Raúl H. Conde",
+    "co_director": "Dr. Mirco Chapetti",
+    "tag": "doctorado"
+  },
+  {
+    "id": "1hVTJHgomCP3GRSXqx0C",
+    "year": 2017,
+    "name": "Merari Turmin Chevalier",
+    "title": "Nanosistemas biopoliméricos portadores de fármacos oncológicos: obtención, caracterización y evaluación in vitro e in vivo",
+    "url": "",
+    "director": "Dra. Vera Álvarez",
+    "co_director": "Dr. Hernán Farina",
+    "tag": "doctorado"
+  },
+  {
+    "id": "1qaRr5yYaIo8ygGPyHAg",
+    "year": 1997,
+    "name": "Juan Pablo Grammatico",
+    "title": "Preparación de titanatos de bario y plomo por el método sol-gel",
+    "url": "",
+    "director": "Dr. José M. Porto López",
     "co_director": "",
     "tag": "maestria"
   },
   {
-    "year": 2011,
-    "name": "Ariel Ibarra Pino",
-    "title": "Estudio del comportamiento mecánico del hueso trabecular mediante técnicas de homogeneización",
+    "id": "21vg6C3wAlQCsVv5zLf2",
+    "year": 2019,
+    "name": "Danila Merino",
+    "title": "Desarrollo de bioinsumos para su aplicación en agricultura moderna",
     "url": "",
-    "director": "Dr. Adrián Cisilino",
-    "co_director": "Dr. Mirco Chapetti",
+    "director": "Dra. Vera Alvarez",
+    "co_director": "Dra. Claudia Casalongué",
+    "tag": "doctorado"
+  },
+  {
+    "id": "2NaZ3eI06lPxV8kZnIZ3",
+    "year": 2010,
+    "name": "Verónica Mucci",
+    "title": "Resinas fotopolimerizables para aplicaciones dentales como materiales de obturación",
+    "url": "",
+    "director": "Dra. Claudia Vallo",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "2n9JYy7p37n6W3mWYYlX",
+    "year": 2023,
+    "name": "Ruth Schmarsow",
+    "title": "Materiales funcionales obtenidos por autoensamblado de copolímeros de bloque semicristalinos en matrices políméricas",
+    "url": "",
+    "director": "Dr. Walter Schroeder",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "3L211KtNMkxdt5nNJEyb",
+    "year": 1993,
+    "name": "María José Galante",
+    "title": "Redes poliméricas obtenidas a partir de monómeros epoxi - isocianato",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "3igMUH2ZPpJwPGk4aFBR",
+    "year": 1997,
+    "name": "Juan M. Massone",
+    "title": "Fundiciones esferoidales austemperizadas. Estudio de sus transformaciones metalúrgicas",
+    "url": "",
+    "director": "Dr. Roberto Boeri",
+    "co_director": "Ing. Jorge Sikora",
+    "tag": "doctorado"
+  },
+  {
+    "id": "46lm7FqDjxNOZgTlpQzu",
+    "year": 2012,
+    "name": "Mariana Berruet",
+    "title": "Preparación de celdas solares con calcogenuros de cobre e indio como material absorbente",
+    "url": "",
+    "director": "Dra. Marcela Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "4KlGE6NdFMDTgS5vceLr",
+    "year": 2000,
+    "name": "Liliana B. Manfredi",
+    "title": "Materiales compuestos a partir de resoles modificados y su degradación térmica",
+    "url": "",
+    "director": "Dra. Analía Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "4V0jbs5tBbJOLhHOBPng",
+    "year": 2000,
+    "name": "Jhonny E. Ortiz Tavara",
+    "title": "Modelado computacional de la propagación de fisuras por fatiga en materiales microfisurados",
+    "url": "",
+    "director": "Dr. José Luis Otegui",
+    "co_director": "Dr. Adrián Cisilino",
     "tag": "maestria"
   },
   {
+    "id": "4smEP9fiYVuhPcafxZwc",
+    "year": 1999,
+    "name": "Carlos E Cicutti",
+    "title": "Transferencia de calor y solidificación en la colada continua de aceros",
+    "url": "",
+    "director": "Dr. Roberto Boeri",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "5M3kdEfxiqcpYzQBIu6A",
+    "year": 2018,
+    "name": "Camila Quintana",
+    "title": "Análisis de la distribución de la orientación de fibras discontinuas en piezas de matriz termoplástica fabricadas mediante moldeo por inyección: Evaluación experimental y simulación 3D",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "Dr. Santiago Urquiza",
+    "tag": "doctorado"
+  },
+  {
+    "id": "5eS1yomI0vM0TqMwqs8k",
+    "year": 1999,
+    "name": "María Luján Auad",
+    "title": "Síntesis, caracterización y propiedades de materiales a partir de resinas vinil-éster",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "Dra. Mirta Aranguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "5lQBTNlq1liEtfKQcL2T",
+    "year": 1986,
+    "title": "Espumas fenólicas",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "maestria",
+    "name": "Analía Vázquez"
+  },
+  {
+    "id": "5t0WAFtwJY5ND27PubbW",
+    "year": 2018,
+    "name": "Hugo Fernando Giraldo Mejía",
+    "title": "Desarrollo y evaluación de materiales híbridos orgánico-inorgánicos de interés biotecnológico preparados a partir de la química sol-gel",
+    "url": "",
+    "director": "Dr. Sergio Pellice",
+    "co_director": "Dr. Raúl Procaccini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "5uyh3B37xGZ3nlcu3gu9",
+    "year": 2010,
+    "name": "Leandro Ludueña",
+    "title": "Biocompuestos de matriz biodegradable con nanorefuerzos",
+    "url": "",
+    "director": "Dra. Vera Álvarez",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "7z0ClMK6SIYXtiX2ql3W",
+    "year": 2013,
+    "name": "David D'Amico",
+    "title": "Nanocompuestos biodegradables basados en polihidroxibutirato y nanoarcillas: preparación, cristalización y propiedades",
+    "url": "",
+    "director": "Dra. Viviana Cyras",
+    "co_director": "Dra. Liliana Manfredi",
+    "tag": "doctorado"
+  },
+  {
+    "id": "8MNywKoQAW1CPREZ1CNj",
+    "year": 2013,
+    "name": "Jimena S. González",
+    "title": "Hidrogeles compuestos basados en polivinilalcohol para aplicaciones biomédicas",
+    "url": "",
+    "director": "Dra. Vera Álvarez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "8NIrXh3dFv5QWqLTFaRC",
+    "year": 2010,
+    "name": "Mariana Pereda",
+    "title": "Polímeros naturales como materiales para envases de alimentos",
+    "url": "",
+    "director": "Dra. Norma Marcovich",
+    "co_director": "Dra. Mirta Aranguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "8TXLj4Wb9j2uQI9tAJNe",
+    "year": 2010,
+    "name": "Diego Santiago",
+    "title": "Modelado computacional de uniones realizadas por soldadura por fricción",
+    "url": "",
+    "director": "Dr. Guillermo Lombera",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "8UqKcGOkcUbLxdYoB1VY",
+    "year": 2001,
+    "name": "Karina I. Mazzitello",
+    "title": "Modelización de procesos de crecimiento de interfaces",
+    "url": "",
+    "director": "Dr. Hector O. Martin",
+    "co_director": "Dr. Celso M. Aldao",
+    "tag": "doctorado"
+  },
+  {
+    "id": "8Y7KF5132DcK5piFJ51I",
+    "year": 2002,
+    "name": "Eleonora Erdmann",
+    "title": "Síntesis de membranas de polimetilfenilsiloxano en la relación metilo/fenilo",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "9kcSFYziqA3nNzUV3cBQ",
+    "year": 2013,
+    "name": "Guadalupe Rivero",
+    "title": "Recubrimientos de alta performance en base a resinas furánicas y nanopartículas",
+    "url": "",
+    "director": "Dra. Liliana Manfredi",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "A1VHyq4GWA2ypiKLtTPJ",
+    "year": 2024,
+    "director": "Dr. Leandro Ramajo",
+    "co_director": "Dra. Miriam Castro",
+    "tag": "doctorado",
+    "name": "Mauro César Difeo",
+    "title": "Desarrollo de dispositivos piezoeléctricos a partir de cerámicos libres de plomo",
+    "url": "https://www3.fi.mdp.edu.ar/posmat/assets/difeo-resumen.pdf"
+  },
+  {
+    "id": "AjANtrW1VtL7kqoMnpjt",
+    "year": 1986,
+    "name": "María Marta Reboredo",
+    "title": "Moldeo por inyección reactiva de plásticos reforzados con fibra de vidrio",
+    "url": "",
+    "director": "Dr. Alfredo Rojas",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "AmG4HNzuvIfPJQHhmpyV",
+    "year": 2004,
+    "name": "María B. Valcarce",
+    "title": "Corrosión de cobre y aleaciones de cobre en aguas potables",
+    "url": "",
+    "director": "Dra. Marcela Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Aph1j6ilTYcW3tSqKQNV",
+    "year": 1992,
+    "name": "Patricia A. Oyanguren",
+    "title": "Polímeros entrecruzados producidos por el cruzado de novolacas epoxidadas con diaminas aromáticas",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "At9xWXYSFLaoahbqw7JP",
+    "year": 2017,
+    "name": "Laura Neira Hazime",
+    "title": "Películas comestibles de gelatina de pescado con actividad antioxidante. Obtención y caracterización in vitro e in vivo",
+    "url": "",
+    "director": "Dra. Roxana Ruseckaite",
+    "co_director": "Dra. Josefa Martucci",
+    "tag": "doctorado"
+  },
+  {
+    "id": "AtA3vZtAdxNompjbq3nO",
+    "year": 2005,
+    "name": "Mirna A. Mosiewicki",
+    "title": "Materiales poliméricos a partir de materiales naturales",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "Dra. Mirta Aranguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "BK4CHOHOXKKgj0Qz5Ixa",
+    "year": 2011,
+    "name": "Alejandro Miccio",
+    "title": "Redes poliméricas modificadas con especies fluoradas",
+    "url": "",
+    "director": "Dra. Patricia Oyanguren",
+    "co_director": "Dr. Pablo R. Montemartini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Bk7ymmqQVJwmwM51w55W",
+    "year": 2013,
+    "name": "Mariela Desimone",
+    "title": "Inhibidores de corrosión para aceros al C-Mn en medios salinos con CO2",
+    "url": "",
+    "director": "Dra. Silvia Simison",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "BmiHR8rnA0vn7WWPTA5Q",
+    "year": 2013,
+    "name": "Carlos Walter Schamber",
+    "title": "Efecto de las variables de procesamiento en las propiedades de un componente fabricado con materiales compuestos reforzados con fibras",
+    "url": "",
+    "director": "Dr. Exequiel Rodríguez",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Bmwd4NYOzpUCJANJRud4",
+    "year": 1994,
+    "name": "Pablo G. Galliano",
+    "title": "Vidrios y vitrocerámicos bioactivos de silicofosfatos, alcalinoférreos",
+    "url": "",
+    "director": "Dr. José M. Porto López",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "C46X5tsEyuWY2K7f6JBE",
+    "year": 2000,
+    "name": "Victor M. Bermont Ocampo",
+    "title": "Fractura en fundiciones en hierro",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "CrGPtnrt54OMPFZgqYGp",
+    "year": 2019,
+    "name": "Andrés Calvo",
+    "title": "Corrosión de materiales refractarios conteniendo carbono: aspectos motedológicos y comportamiento de los materiales",
+    "url": "",
+    "director": "Dra. Analía G. Tomba Martínez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "DPWQcxQrsT13qIdAOAuv",
+    "year": 1999,
+    "name": "Ivonne J. Gallardo",
+    "title": "Materiales obtenidos por sol-gel para cirugía ortopédica",
+    "url": "",
+    "director": "Dr. José M. Porto López",
+    "co_director": "Dr. Pablo Galliano",
+    "tag": "doctorado"
+  },
+  {
+    "id": "DwJ85rAk14i2eGzEMRrZ",
+    "year": 2020,
+    "name": "Edgar Villegas Gómez",
+    "title": "Desarrollo de películas cerámicas nano y microestructuradas aplicadas a dispositivos electrónicos",
+    "url": "",
+    "director": "Dr. Rodrigo Parra",
+    "co_director": "Dr. Leandro Ramajo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "E7XSmlWSM9XoRgZj1ESc",
+    "year": 2002,
+    "name": "Mariana Mollo",
+    "title": "Preparación, morfología y propiedades mecánicas de mezclas de polietileno/poliestireno con agente compatibilizador",
+    "url": "",
+    "director": "Dr. José Carella",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ECEyGO2BRjOoIZeNAYip",
+    "year": 2012,
+    "name": "Hugo Flores",
+    "title": "Uso de reactivo diluyente en la fabricación de caños de ERFV",
+    "url": "",
+    "director": "Dra. Carmen Riccardi",
+    "co_director": "Dra. Laura Fasce",
+    "tag": "doctorado"
+  },
+  {
+    "id": "EF4QkuBWaKKKB3KScd6u",
+    "year": 2006,
+    "name": "Dolly L. Granados",
+    "title": "Vida útil de dispositivos biomédicos poliméricos reprocesados",
+    "url": "",
+    "director": "Dra. Teresita Cuadrado",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "EdkgF7n9p80SkTKCumnL",
+    "year": 2013,
+    "name": "Guillermo Ghione",
+    "title": "Estudio del proceso de difusión de agua y su efecto sobre las propiedades finales en materiales compuestos",
+    "url": "",
+    "director": "Dra. Vera Álvarez",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "EfAoGDETZdRHUVE2AYVQ",
+    "year": 1987,
+    "name": "Carmen C. Riccardi",
+    "title": "Curado de resinas epoxi con diaminas",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Eq1zZGnQSq9xwDXVDInl",
+    "year": 2013,
+    "name": "Luciana Saiz",
+    "title": "Diseño de materiales con comportamiento óptico anisotrópico",
+    "url": "",
+    "director": "Dra. María José Galante",
+    "co_director": "Dra. Patricia Oyanguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "EsREH9wKkvM7xHcknGV4",
+    "year": 2024,
+    "name": "Erika Nicolao",
+    "title": "Desarrollo de tableros contrachapados de madera forestada con adhesivos biogénicos",
+    "url": "",
+    "director": "Dr. Pablo Stefani",
+    "co_director": "Dr. Emiliano Ciannamea",
+    "tag": "doctorado"
+  },
+  {
+    "id": "FWP4vtuWWNnrx4mCjpMK",
+    "year": 2010,
+    "name": "Daniel Amadeo Sosa",
+    "title": "Tecnología de superficies en fundición de hierro con grafito esferoidal",
+    "url": "",
+    "director": "Ing. Osvaldo Moncada",
+    "co_director": "Ing. Jorge Sikora",
+    "tag": "doctorado"
+  },
+  {
+    "id": "FgZmcdjsjeUtLm01wq92",
+    "year": 1992,
+    "name": "Claudia I. Vallo",
+    "title": "Propiedades mecánicas de resinas epoxi y sus compuestos con vidrio particulados y elastómeros",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "Dra. Patricia Frontini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "G5PZ9QM0EEsDAGHXJbGj",
+    "year": 2019,
+    "name": "Marcelo Pelayo",
+    "title": "Desarrollo de un proceso de soldadura de punto por Fricción-Agitación para el uso en la Industria Naval Argentina de bajo porte",
+    "url": "",
+    "director": "Dr. Guillermo Lombera",
+    "co_director": "Dr. Oscar Pascal",
+    "tag": "doctorado"
+  },
+  {
+    "id": "G7WOVDesYf7NyRuqXNaY",
+    "year": 2013,
+    "name": "Marcos Federico Rittano",
+    "title": "Reparación de tubos de ERFV de conducción de petróleo",
+    "url": "",
+    "director": "Dra. Liliana Manfredi",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "H2m3VJoaHPLIOivz8yWC",
+    "year": 2003,
+    "name": "Fabián A. Buffa",
+    "title": "Análisis termodinámico y propiedades finales de sistemas binarios y ternarios en prepolímeros de poliester insaturados",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Horeb0QoL6ARpm09T8r8",
+    "year": 2023,
+    "name": "Matthäus Popov Pereira da Cunha",
+    "title": "Matrices electrohiladas basadas en proteína de soja para ingeniería de tejidos",
+    "url": "",
+    "director": "Dr. Gustavo Abraham",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "HqNZsNZtC8jeYn3IX7Jr",
+    "year": 2013,
+    "name": "Humar Ávila Vanegas",
+    "title": "Síntesis de cerámicos nanoestructurados de BaTiO3 por los métodos hidrotermal y sol-gel-electrospinning para el desarrollo de compuestos dieléctricos de matriz polimérica",
+    "url": "",
+    "director": "Dr. Rodrigo Parra",
+    "co_director": "M.Sc. María Marta Reboredo, Dra. Miriam Castro",
+    "tag": "doctorado"
+  },
+  {
+    "id": "IdSMHwMk8F9BkRuXFfbz",
+    "year": 2003,
+    "name": "Jhonny E. Ortiz Tavara",
+    "title": "Análisis tridimesional de fisuras de interfaz utilizando el método de los elementos de contorno",
+    "url": "",
+    "director": "Dr. Adrián Cisilino",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "If8VLh4aP1O8smvbiQFk",
+    "year": 2013,
+    "name": "Vanesa Muñoz",
+    "title": "Degradación química y mecánica de materiales refractarios Al2O3-MgO-C de uso siderúrgico",
+    "url": "",
+    "director": "Dra. Analía Tomba Martinez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "IocuWLntI4qejoN5tFlC",
+    "year": 2013,
+    "name": "Sebastián Pereyra",
+    "title": "Análisis computacional del proceso de soldadura por fricción",
+    "url": "",
+    "director": "Dr. Guillermo Lombera",
+    "co_director": "Dr. Santiago Urquiza",
+    "tag": "doctorado"
+  },
+  {
+    "id": "J4VtKLmtGMBaNgJ8epPL",
+    "year": 1995,
+    "name": "Mirco D. Chapetti",
+    "title": "Propagación subcrítica de fisuras en aceros estructurales soldados",
+    "url": "",
+    "director": "Dr. José Luis Otegui",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "JSfwpaPkDQrTadwYll9y",
+    "year": 1999,
+    "name": "María Fernanda González",
+    "title": "Polímeros bioabsorbibles basadas en ácido láctico para aplicaciones médicas",
+    "url": "",
+    "director": "Dra. Teresita Cuadrado",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "JUT9BszIL2tfW1o7yXP2",
+    "year": 2005,
+    "name": "Betiana A. Acha",
+    "title": "Desarrollo y caracterización de materiales compuestos basados en tejido bidireccional de yute",
+    "url": "",
+    "director": "Ms.Sc. María Marta Reboredo",
+    "co_director": "Dra. Norma E. Marcovich",
+    "tag": "doctorado"
+  },
+  {
+    "id": "JuKaWzfEelu1DUSMurwm",
+    "year": 2022,
+    "name": "Florencia Arrosio",
+    "title": "Desarrollo y vida en servicio de tubulares de ERFV",
+    "url": "",
+    "director": "Dr. Pablo Montemartini",
+    "co_director": "Dr.Juan Ignacio Morán",
+    "tag": "doctorado"
+  },
+  {
+    "id": "K2nUd5Xz8GA586BOpRXp",
+    "year": 2000,
+    "name": "Cristina S. Cordón",
+    "title": "Procesos de fusión, fraccionamiento y caracterización de copolímeros semicristalinos. Modelo termodinámico",
+    "url": "",
+    "director": "Dr. José Carella",
+    "co_director": "Dr. Julio Borrajo",
+    "tag": "maestria"
+  },
+  {
+    "id": "K7Btcw6TTthRf5L5JEfQ",
+    "year": 2019,
+    "name": "Lucas Sanchez Fellay",
+    "title": "Caracterización Constitutiva de Materiales Poliméricos Mediante Indentación Instrumentada",
+    "url": "",
+    "director": "Dra. Laura Fasce",
+    "co_director": "Dra. Patricia Frontini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "KEjGPgvlNCyLs9o2g9vP",
+    "year": 1999,
+    "name": "María A. Camerucci",
+    "title": "Desarrollo y evaluación de materiales cerámicos de cordierita y cordierita - mullita",
+    "url": "",
+    "director": "Dra. Ana Lía Cavalieri",
+    "co_director": "Dra. Guillermina Urretavizcaya",
+    "tag": "doctorado"
+  },
+  {
+    "id": "KKcCFpKrKrObC9nwu1r1",
+    "year": 2002,
+    "name": "Valeria Pettarin",
+    "title": "Análisis de la información de ensayos de impacto instrumentados sobre Materiales Poliméricos",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "KLq0PNl5hcC3rUhEFXk7",
+    "year": 2018,
+    "name": "María Victoria Eugenia Hormaiztegui",
+    "title": "Films y recubrimientos a partir de biopoliuretanos de base acuosa reforzados con nano-celulosa",
+    "url": "",
+    "director": "Dra. Mirta Aranguren",
+    "co_director": "Dra. Verónica Mucci",
+    "tag": "doctorado"
+  },
+  {
+    "id": "KPlQxg5YT32xJN5Mw1kY",
+    "year": 2015,
+    "name": "Romina P. Ollier Primiano",
+    "title": "Estrategias de Microencapsulación de Monómeros Reactivos",
+    "url": "",
+    "director": "Dra. Vera Álvarez",
+    "co_director": "Dr. Exequiel Rodriguez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "KVEdntSlU3BVYOyWsV41",
+    "year": 2023,
+    "name": "Yuk Ming Xavier Hung Hung",
+    "title": "Desarrollo de estructuras cerámicas porosas por impresión 3D",
+    "url": "",
+    "director": "Dr. Mariano H. Talou",
+    "co_director": "Dra. M. Andrea Camerucci",
+    "tag": "doctorado"
+  },
+  {
+    "id": "LNq1CoIeFeyDUMOvDXjY",
+    "year": 1998,
+    "name": "Silvia M. Ceré",
+    "title": "Cinética de reducción de oxígeno y peróxido de hidrógeno sobre aleaciones de Cu-Ni",
+    "url": "",
+    "director": "Dra. Susana Rosso",
+    "co_director": "Dra. Marcela Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "LRDsQDQ78KWTQTjJm1fF",
+    "year": 2019,
+    "name": "Ceferino Stembreger",
+    "title": "Modelos fractomecánicos para análisis del comportamiento a fatiga de uniones soldadas",
+    "url": "",
+    "director": "Dr. Mirco Chapetti",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "LgngysFEEYoTNeZRlqXS",
+    "year": 2020,
+    "name": "Javier Camargo",
+    "title": "Desarrollo de cerámicos pertenecientes al sistema Bi0,5(Na0,8K0,2)0,5TiO3 con aplicaciones piezoeléctricas y magnetoeléctricas",
+    "url": "",
+    "director": "Dra. Miriam Castro",
+    "co_director": "Dr. Leandro Ramajo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "McajfsSEH3TxlYqazqn3",
+    "year": 2013,
+    "name": "Cintia Meiorin",
+    "title": "Polímeros inteligentes basados en aceite de Tung",
+    "url": "",
+    "director": "Dra. Mirta Aranguren",
+    "co_director": "Dra. Mirna Mosiewicki",
+    "tag": "doctorado"
+  },
+  {
+    "id": "MeFkSxHp9QYUGOSKJbRh",
+    "year": 2004,
+    "name": "Marina I. Gianotti",
+    "title": "Relación estructura-propiedades de una red epoxi-amina aromática modificada con polisulfona y polieterimida",
+    "url": "",
+    "director": "Dra. Patricia Oyanguren",
+    "co_director": "Dra. María José Galante",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Nd6c6r106cMyC1ZRky2i",
+    "year": 1989,
+    "name": "Silvia Simison",
+    "title": "Influencia del molibdeno sobre la susceptibilidad a la corrosión localizada de aceros inoxidables austeníticos soldados",
+    "url": "",
+    "director": "Dr. Susana Rosso",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "NtD20zkntOyZr3a1wyM4",
+    "year": 2019,
+    "name": "Sebastián Gass",
+    "title": "Efecto de las variables composicionales en el comportamiento termomecánico de refractarios de MgO-C",
+    "url": "",
+    "director": "Dra. Analía Tomba Martínez",
+    "co_director": "Dr. Pablo Galliano",
+    "tag": "doctorado"
+  },
+  {
+    "id": "OHoZEZ7sraNs18EVKMtD",
+    "year": 2002,
+    "name": "Edgardo L. Santarelli",
+    "title": "Efectos de tamaño y geometría en las evaluaciones de tenacidad a la fractura de polipropileno isotáctico a temperatura ambiente",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "OZ8l3ncSnccxlZX8Szyl",
+    "year": 2000,
+    "name": "Eliana B. Brzozowski",
+    "title": "Desarrollo de cerámicos basado en BaTiO3, para su aplicación en electrónica",
+    "url": "",
+    "director": "Dr. Miriam Castro",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Oem7Gn1WRu85md0d1R04",
+    "year": 2024,
+    "name": "Rodrigo Ariel Demoor",
+    "title": "Desarrollo y Aplicación de modelos de permeabilidad y difusión en nanocompuestos poliméricos",
+    "url": "",
+    "director": "Dr. Juan Pablo Tomba",
+    "co_director": "Dra. Vera Alejandra Alvarez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "OipipqpClIrhGuaJRjck",
+    "year": 2016,
+    "name": "Agustina Leonardi",
+    "title": "Redes epoxi nanoestructuradas",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "Dra. Ileana Zucchi",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Or3O7dzrl5KH2GJxMPMT",
+    "year": 1998,
+    "name": "Juan R. Sanchez",
+    "title": "Estructura de la superficie de silicio y su ataque mediante halógenos",
+    "url": "",
+    "director": "Dr. Celso Aldao",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Orv0eIseKORh0WQnXNGE",
+    "year": 1993,
+    "name": "Miriam S. Castro",
+    "title": "Preparación y caracterización de varistores de ZnO",
+    "url": "",
+    "director": "Dr. Celso Aldao",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "OvYAypxQc2mTQNZgLd5K",
+    "year": 2005,
+    "name": "Exequiel R. Rodriguez",
+    "title": "Obtención de materiales compuestos con fibras naturales por medio del proceso de RTM",
+    "url": "",
+    "director": "Dra. Analía Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "P6XTjnQjFuxuapjqzxXF",
+    "year": 2019,
+    "name": "Nicolas Tenaglia",
+    "title": "Aceros colados bainíticos libres de carburos: estudio de la estructura de solidificación, cinética de transformación y propiedades mecánicas",
+    "url": "",
+    "director": "Dr. Juan Massone",
+    "co_director": "Dr. Alejandro Basso",
+    "tag": "doctorado"
+  },
+  {
+    "id": "PDGcObLWxHIeEPhd3A0u",
+    "year": 2010,
+    "name": "Juan Morán",
+    "title": "Nanocompuestos biodegradables basados en almidón y nanocelulosa",
+    "url": "",
+    "director": "Dra. Analía Vázquez",
+    "co_director": "Dra. Viviana Cyras",
+    "tag": "doctorado"
+  },
+  {
+    "id": "PIphpHckTsouZrdnGkX3",
+    "year": 2023,
+    "name": "Nayla Lores",
+    "title": "Impresión 3D de estructuras porosas basadas en poliuretanos para aplicaciones en ingeniería de tejidos",
+    "url": "",
+    "director": "Dr.Pablo Caracciolo",
+    "co_director": "Dr. Gustavo Abraham",
+    "tag": "doctorado"
+  },
+  {
+    "id": "POA5PtTE7Jl50nQOyXNr",
+    "year": 2013,
+    "name": "Diego Colombo",
+    "title": "Recubrimientos PVD de TiN y CrN sobre fundiciones de hierro con grafito esferoidal: influencia de las características del sustrato y del recubrimiento sobre las propiedades mecánicas y la resistencia al desgaste",
+    "url": "",
+    "director": "Dr. Juan Massone",
+    "co_director": "Ing. Moncada",
+    "tag": "doctorado"
+  },
+  {
+    "id": "PPpFZnj8Yp7ZPxDMXw06",
+    "year": 2021,
+    "name": "Mariana Poliserpi",
+    "title": "Materiales funcionales obtenidos por ensamblado y organización de nanopartículas metálicas funcionalizadas",
+    "url": "",
+    "director": "Dra. Silvana Sommadossi – IITCI CONICET UNCo",
+    "co_director": "Dr. Roberto Boeri",
+    "tag": "doctorado"
+  },
+  {
+    "id": "PtVJE4O148z8cjRMnHzo",
+    "year": 1987,
+    "name": "Enrique Pardo",
+    "title": "Aplicación de métodos numéricos al problema de flujo térmico en uniones soldadas",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "QWYXXEgSI7xx6KdmCEiM",
+    "year": 2015,
+    "name": "Florencia Montini Ballarin",
+    "title": "Estructuras poliméricas nanofibrosas biorreabsorbibles para ingeniería de tejidos vasculares",
+    "url": "",
+    "director": "Dr. Gustavo Abraham",
+    "co_director": "Dra. Patricia M. Frontini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "QqQM2DCMWbHXizmg6a1m",
+    "year": 1986,
+    "name": "Rubén Herrera",
+    "title": "Mecánica de fractura elastoplástica. Aplicaciones a uniones soldadas",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "QwPmdEbjGT617WoXgpV6",
+    "year": 1997,
+    "name": "Graciela L. Greno",
+    "title": "Fatiga en fundiciones modulares austemperizadas",
+    "url": "",
+    "director": "Dr. Roberto Boeri",
+    "co_director": "Dr. Enrique Pardo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "RxNkYnfxbYVvCuqnWira",
+    "year": 1996,
+    "name": "Segundo A. Tavara Aponte",
+    "title": "Influencia del contenido de Ni en corrosión fatiga de soldadura de inoxidables duplex en agua de mar",
+    "url": "",
+    "director": "Dr. José Luis Otegui",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "S8eLlDM3zD0kjir8AWSa",
     "year": 2017,
     "name": "María Lucía González Granados",
     "title": "Películas de gelatina bovina modificadas con aceite de soja epoxidado producidas por mezclado intensivo y moldeo por compresión",
@@ -1962,11 +990,1202 @@
     "tag": "maestria"
   },
   {
+    "id": "T0BDQLOjlnrPlvlgVzAx",
+    "year": 2014,
+    "name": "Gabriela Messineo",
+    "title": "Análisis inverso de señales ultrasónicas aplicado a la caracterización de materiales en capas",
+    "url": "",
+    "director": "Dra. Gloria Frontini",
+    "co_director": "Dr. Guillermo Eliçabe",
+    "tag": "doctorado"
+  },
+  {
+    "id": "T9sFfLbZHAnvrhUwzf3W",
+    "year": 2017,
+    "name": "Laura C. Covinich",
+    "title": "Reducción de la carga orgánica recalcitrante presente en efluentes del procesamiento químico de la biomasa forestal",
+    "url": "",
+    "director": "Dra. María Cristina Area",
+    "co_director": "Dra. Rosa Fenoglio",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TSu6L9VTlmh6OBhBqTkx",
+    "year": 2006,
+    "name": "Martin Caldera",
+    "title": "Fundiciones esferoidales de pequeño espesor; Producción, estructura y propiedades",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "Dr. Juan Massone",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TV20wjLQg3M8I4FPgTdO",
+    "year": 2020,
+    "name": "Caren Rosales",
+    "title": "Estrategias para la optimización del desempeño mecánico de mezclas de polipropileno/polietileno provenientes del reciclado",
+    "url": "",
+    "director": "Dra. Valeria Pettarin",
+    "co_director": "Dra. Celina Bernal",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TYwo62HsDRWa1P9VNzaF",
+    "year": 2022,
+    "name": "Javier O. Bolaños Rivera",
+    "title": "Procesamiento y evaluación de materiales cerámicos porosos derivados de un polímero precerámico basado en silicio",
+    "url": "",
+    "director": "Dra. Ma. Andrea Camerucci",
+    "co_director": "Dr. Mariano Talou",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TZCcLkeaCj6zlKGlGQjN",
+    "year": 1987,
+    "name": "Teresita R. Cuadrado",
+    "title": "Polímeros interpenetrados. Redes epoxi poliuretanos",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TgP0YdzAbyrFC44Le9Sx",
+    "year": 2005,
+    "name": "Adrián J. Núñez",
+    "title": "Materiales compuestos a partir de fibras vegetales y termorrígidos modificados para mejorar su tenacidad",
+    "url": "",
+    "director": "Dra. Mirta Aranguren",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "TwDp5VsdVhlXhMWjznRP",
+    "year": 1996,
+    "name": "Norma E. Marcovich",
+    "title": "Materiales compuestos de matriz polimérica y refuerzos de origen vegetal",
+    "url": "",
+    "director": "Dra. Mirta Aranguren",
+    "co_director": "Ms.Sc. María Marta Reboredo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "U0WN636jnbmvx3USXju6",
+    "year": 2015,
+    "name": "Antonella Orofino",
+    "title": "Síntesis de materiales epoxi foto-anisotrópicos para almacenamiento óptico reversible",
+    "url": "",
+    "director": "Dra. Patricia Oyanguren",
+    "co_director": "Dra. María José Galante",
+    "tag": "doctorado"
+  },
+  {
+    "id": "U2FqWUUeEKdrdj1GyU4T",
+    "year": 2011,
+    "name": "Ariel Ibarra Pino",
+    "title": "Estudio del comportamiento mecánico del hueso trabecular mediante técnicas de homogeneización",
+    "url": "",
+    "director": "Dr. Adrián Cisilino",
+    "co_director": "Dr. Mirco Chapetti",
+    "tag": "maestria"
+  },
+  {
+    "id": "U9LZDRH4VXBtcyd4tw4b",
+    "year": 2013,
+    "name": "David Martelo Guarin",
+    "title": "Fatiga y fractura de aceros austeníticos metaestables",
+    "url": "",
+    "director": "Dr. Mirco Chapetti",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "UkBmkg7FDRxMuLMhnoE5",
+    "year": 1998,
+    "name": "Gustavo A. Abraham",
+    "title": "Poliuretanos segmentados de uso médico",
+    "url": "",
+    "director": "Dra. Teresita Cuadrado",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "Uo8D84Nb6ATo7M20fs7M",
+    "year": 2019,
+    "name": "Gianina Kloster",
+    "title": "Síntesis y caracterización de películas magnéticas de matriz biopolimérica con propiedades adsorbentes",
+    "url": "",
+    "director": "Dra. Mirna A. Mosiewicki",
+    "co_director": "Dra. Norma E. Marcovich",
+    "tag": "doctorado"
+  },
+  {
+    "id": "V22MAkdkBBrGTJB98R7k",
+    "year": 2020,
+    "name": "Gloria Hernández Ortiz",
+    "title": "Biocerámicos porosos compuestos de hidroxiapatita y dióxido de titanio",
+    "url": "",
+    "director": "Dra. Maria Alejandra Fanovich",
+    "co_director": "Dr. Rodrigo Parra",
+    "tag": "doctorado"
+  },
+  {
+    "id": "VIhQSqsqyFWv8wxDBjKl",
+    "year": 2011,
+    "name": "Guillermo Terranova",
+    "title": "Análisis y simulación computacional de difusión por reptación",
+    "url": "",
+    "director": "Dr. Héctor Martín",
+    "co_director": "Dr. Celso Aldao",
+    "tag": "doctorado"
+  },
+  {
+    "id": "VeWP1xrpWxXqCXxMt6nP",
+    "year": 2010,
+    "name": "Silvana Asmussen",
+    "title": "Resinas de fotocurado a partir de silsesquioxanos para aplicaciones dentales",
+    "url": "",
+    "director": "Dra. Claudia Vallo",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "W5cxLpx1jiR6uuQEKdiO",
+    "year": 2008,
+    "name": "Susana de los Ángeles Montecinos Espinoza",
+    "title": "Efecto pseudoelástico Cu-Al-Be. Su relación con parámetros microestructurales",
+    "url": "",
+    "director": "Dra. Adela Cuniberti",
+    "co_director": "Dr. Roberto Boeri",
+    "tag": "doctorado"
+  },
+  {
+    "id": "WO0K6PhXNmJnRvLlemB7",
+    "year": 2020,
+    "name": "Magdalena Iglesias Montes",
+    "title": "Desarrollo de mezclas de poliésteres derivados de recursos cmo estrategia para obtener un nuevo material completamente biodegradable apto para envases",
+    "url": "",
+    "director": "Dra. Viviana Cyras",
+    "co_director": "Dra. Liliana Manfredi",
+    "tag": "doctorado"
+  },
+  {
+    "id": "WsKMAs29kIfkb8anCIS4",
+    "year": 1996,
+    "name": "Gabriel E. Carcagno",
+    "title": "Mecánica de fractura elastoplástica, determinación de curvas J-R, mediante el ensayo charpy instrumentado",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "WxYcKmtRGjOsMMt5k16y",
+    "year": 2001,
+    "name": "Viviana P. Cyras",
+    "title": "Relación entre la estructura-propiedades y procesamiento de materiales compuestos biodegradables a partir del almidón PCL y fibras sisal",
+    "url": "",
+    "director": "Dra. Analía Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "X9Y4JdB7BWjEYukEeDA8",
+    "year": 2007,
+    "name": "Roxana Cocco",
+    "title": "Tenacidad a la fractura en la región de transición dúctil-frágil de polímeros",
+    "url": "",
+    "director": "Dr. Perez Ipiña",
+    "co_director": "Dra. Patricia Frontini",
+    "tag": "doctorado"
+  },
+  {
+    "id": "YMhfXVcxM41I7lmXgQnM",
+    "year": 2000,
+    "name": "Graciela L. Rivera",
+    "title": "Estructura de solidificación de fundiciones de hierro con grafito esferoidal",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "Dr. Roberto Boeri",
+    "tag": "doctorado"
+  },
+  {
+    "id": "YV9532Jeloma2NykgjjZ",
+    "year": 2012,
+    "name": "Marcela Elisabeth Penoff",
+    "title": "Redes poliméricas modificadas con especies fluoradas",
+    "url": "",
+    "director": "Dr. Pablo Montemartini",
+    "co_director": "Dra. Patricia Oyanguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "YfPFqxIuB6WwB4UGSkYd",
+    "year": 1989,
+    "name": "Cristina L. García",
+    "title": "Influencia de las variables de preparación y tratamiento de las especies superficiales presentes en catalizadores de CuCl2 soportados sobre SiO2 y Al2O3",
+    "url": "",
+    "director": "Dr. Daniel Resasco",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ZQG31lmNGbmdN8H2Qp7z",
+    "year": 2005,
+    "name": "Rodrigo Parra",
+    "title": "Preparación de varistores cerámicos para la protección de redes eléctricas",
+    "url": "",
+    "director": "Dra. Miriam Castro",
+    "co_director": "Dr. Celso Aldao",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ZRXtTvoirSlgTN7KRBAI",
+    "year": 2020,
+    "name": "Marcos López",
+    "title": "Análisis de la estructura de solidificación de fundiciones de hierro con grafito laminar y vermicular",
+    "url": "",
+    "director": "Dr. Juan Massone",
+    "co_director": "Dr. Roberto Boeri",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ZSMmYaNvjPJehE2au6j6",
+    "year": 2017,
+    "name": "Sheila Omar",
+    "title": "Modificación superficial de materiales metálicos de uso en implantología",
+    "url": "",
+    "director": "Dra. Silvia Ceré",
+    "co_director": "Dres. Josefina Ballarre y Sergio Pellice",
+    "tag": "doctorado"
+  },
+  {
+    "id": "aGSoOkD21pdiBbPx55Sc",
+    "year": 2017,
+    "name": "Úrsula María Montoya Rojo",
+    "title": "Materiales nanoestructurados obtenidos por modificación de matrices poliméricas con copolímeros en bloque basados en policaprolactona",
+    "url": "",
+    "director": "Dra. Carmen Riccardi",
+    "co_director": "Dra. Piedad Gañan",
+    "tag": "doctorado"
+  },
+  {
+    "id": "aW8aJ4trCtvZHxsllfqy",
+    "year": 1993,
+    "name": "Ricardo A. Martinez",
+    "title": "Soldaduras de fundiciones esferoidales de alta resistencia",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "bBT2OJOizceDndPckjFV",
+    "year": 2004,
+    "name": "Vera A. Álvarez",
+    "title": "Caracterización de un biocompuesto a partir de celulosa modificada y almidón con fibras sisal",
+    "url": "",
+    "director": "Dra. Analía Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "cNqu7gzdBBEjMMVh8Tgo",
+    "year": 2015,
+    "name": "Lisandro Escalada",
+    "title": "Modificación superficial de aceros inoxidables mediante tratamientos de nitruración y recubrimientos asistidos por plasma",
+    "url": "",
+    "director": "Dra. Silvia Simison",
+    "co_director": "Dra. Sonia Brühl",
+    "tag": "doctorado"
+  },
+  {
+    "id": "cXSwTFYLdpzTeSgfMIrU",
+    "year": 1999,
+    "name": "Pablo M. Stefani",
+    "title": "Copolímeros de epoxi - uretano",
+    "url": "",
+    "director": "Dra. Mirta Aranguren",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "cdGUa3jS7Jf8njkLEd76",
+    "year": 1998,
+    "name": "Analía G. Tomba Martinez",
+    "title": "Choque térmico de alúmina densa",
+    "url": "",
+    "director": "Dra. Ana Lía Cavalieri",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ciiRdJe63TWhX3jPBqf3",
+    "year": 2020,
+    "name": "Diego Morales Urrea",
+    "title": "Desarrollo de biocatalizadores para el tratamiento de efluentes líquidos industriales",
+    "url": "",
+    "director": "Dr. Edgardo Contreras",
+    "co_director": "Dra. Patricia Haure",
+    "tag": "doctorado"
+  },
+  {
+    "id": "d0nXOPlNZ12NRxM93KYX",
+    "year": 2015,
+    "name": "Carla Di Luca",
+    "title": "Desarrollo de catalizadores en base Fe para su aplicación en la oxidación de compuestos orgánicos en presencia de peróxido de hidrógeno",
+    "url": "",
+    "director": "Dra. Rosa Fenoglio",
+    "co_director": "Dra. Paola Massa",
+    "tag": "doctorado"
+  },
+  {
+    "id": "dL8HvtWE012dGwYlOrin",
+    "year": 2022,
+    "name": "María José Churruca",
+    "title": "Microfisuración en materiales compuestos",
+    "url": "",
+    "director": "Dr. Exequiel Rodríguez",
+    "co_director": "Dr. Juan Morán",
+    "tag": "doctorado"
+  },
+  {
+    "id": "dbnNK14EHgdir0U4z9OE",
+    "year": 1998,
+    "name": "Pablo E. Montemartini",
+    "title": "Materiales acrílicos para uso en ortopedia",
+    "url": "",
+    "director": "Dra. Teresita Cuadrado",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "dey7KCEtadtml8RGnZkL",
+    "year": 2014,
+    "name": "Julieta Puig",
+    "title": "Materiales funcionales basados en matrices poliméricas con cadenas alquílicas pendientes",
+    "url": "",
+    "director": "Dra. Cristina Hoppe",
+    "co_director": "Dr. Roberto J.J. Williams",
+    "tag": "doctorado"
+  },
+  {
+    "id": "dlLUytMC3zTmzYGRlU7f",
+    "year": 2019,
+    "name": "Nahuel Rull",
+    "title": "Comportamiento constitutivo de materiales elastoméricos de distinta composición físico-química: simulación por elementos finitos y validación experimental",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "e0wDIxvMLhWqzDMli6Tt",
+    "year": 2009,
+    "name": "Sebastián Laino",
+    "title": "Fundición nodular austemperada con carburos (CADI): estudio sobre su obtención y su resistencia a la abrasión",
+    "url": "",
+    "director": "Dr. Ricardo Dommarco",
+    "co_director": "Ing. Jorge Sikora",
+    "tag": "doctorado"
+  },
+  {
+    "id": "eUDcCjtppYJ9Bp2rn1ne",
+    "year": 1997,
+    "name": "Ricardo C. Dommarco",
+    "title": "Fatiga de contacto por rodadura, degradación y falla superficial",
+    "url": "",
+    "director": "Ing. Héctor A. Dall'O",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "f6gtPStjKQidS7GCjCmD",
+    "year": 1996,
+    "name": "Analía Vázquez",
+    "title": "Formación de redes epoxi por homopolimerización amonica",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "fC38H8o7lnETGdKipTz7",
+    "year": 2010,
+    "name": "Adrián Cristóbal",
+    "title": "Síntesis mecanoquímica, caracterización y propiedades de materiales magnéticos basados en óxidos mixtos de hierro",
+    "url": "",
+    "director": "Dr. José M. Porto López",
+    "co_director": "Dr. Esteban Aglietti",
+    "tag": "doctorado"
+  },
+  {
+    "id": "fIMbqKZMFdWHICLyWzNx",
+    "year": 2009,
+    "name": "Josefina Ballarre",
+    "title": "Diseño y evaluación de recubrimientos híbridos orgánico-inorgánicos sobre aleaciones de uso quirúrgico",
+    "url": "",
+    "director": "Dra. Silvia Ceré",
+    "co_director": "Dra. Ana Lía Cavalieri",
+    "tag": "doctorado"
+  },
+  {
+    "id": "fQQHt2R09BQ65QGckw75",
+    "year": 2018,
+    "name": "Lucas Colabella",
+    "title": "Diseño multiescala de estructuras porosas inspiradas en el hueso trabecular",
+    "url": "",
+    "director": "Dr. Adrián Cisilino",
+    "co_director": "Dra. Josefina Ballarre",
+    "tag": "doctorado"
+  },
+  {
+    "id": "fbxKJWw8Wtznh5GpmFDY",
+    "year": 2022,
+    "name": "Juan Pablo Vitale",
+    "title": "Diseño y comportamiento mecánico de núcleos ultra-livianos basados en CFRP para uso en estructuras sandwich",
+    "url": "",
+    "director": "Dr. Adrián Stocchi",
+    "co_director": "Dr. Gastón Francucci",
+    "tag": "doctorado"
+  },
+  {
+    "id": "gE4aNpuFvBwddJjW3JjN",
+    "year": 2005,
+    "name": "Ignacio E. Dell´Erba",
+    "title": "Redes poliméricas modificadas con silsesquioxanos",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "gLnrQHLd8NDLmmzGM3qn",
+    "year": 1999,
+    "name": "Adriana N. Mauri",
+    "title": "Materiales híbridos orgánico - inorgánico obtenidos mediante modificación de resinas epoxi con silanos funcionalizados",
+    "url": "",
+    "director": "Dra. Carmen Riccardi",
+    "co_director": "Dr. Roberto J.J. Williams",
+    "tag": "doctorado"
+  },
+  {
+    "id": "gOiZX9ssEr8ByieOzKwg",
+    "year": 2023,
+    "name": "Mariano Prudente",
+    "title": "Electrodos bio-híbridos crioestructurados para la generación de corriente eléctrica a partir de orina",
+    "url": "",
+    "director": "Dr. Hernán Romeo",
+    "co_director": "Dr. Diego Massazza",
+    "tag": "doctorado"
+  },
+  {
+    "id": "gbWir1lrjdjjK80VAISC",
+    "year": 2011,
+    "name": "Matías Valdés",
+    "title": "Deposición de CuInSe2 (CISe) y CuInS2 (CIS) sobre películas semiconductoras para su aplicación en celdas solares fotovoltaicas",
+    "url": "",
+    "director": "Dra. Marcela Vázquez",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "gd2XzoDYcs0LBlypVKJR",
+    "year": 2010,
+    "name": "Hernán E. Romeo",
+    "title": "Cementos óseos de fosfatos de calcio incorporando micropartículas híbridas funcionalizadas con ácido acetilsalicílico",
+    "url": "",
+    "director": "Dra. María Alejandra Fanovich",
+    "co_director": "Dr. Roberto J.J. Williams",
+    "tag": "doctorado"
+  },
+  {
+    "id": "h8vkZHyxdeJZlp1PA2Wk",
+    "year": 2005,
+    "name": "Ileana A. Zucchi",
+    "title": "Materiales multifásicos generados por el agregado simultáneo de dos modificadores a un sistema epoxi-amina",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "Dra. María José Galante",
+    "tag": "doctorado"
+  },
+  {
+    "id": "hwV2CqXCORpUPJ9OvXzz",
+    "year": 1990,
+    "name": "Rosa J. Fenoglio",
+    "title": "Estudio de las interacciones metal soporte en catalizadores de Rh/TiO2 y Pt / TiO2",
+    "url": "",
+    "director": "Dr. Daniel Resasco",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "i8EEUWDpkn5bQKPVWEQd",
+    "year": 1989,
+    "name": "Alicia N. Fraga",
+    "title": "Desarrollo de productos a partir de gelatina de merluza (Merluccius Hubbsi)",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "iGQdkHswq4WjFdvud6oN",
+    "year": 2011,
+    "name": "Gaston Francucci",
+    "title": "Procesamiento de Materiales compuestos de matriz termorrígida basados en fibras naturales",
+    "url": "",
+    "director": "Dr. Exequiel Rodríguez",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "idjwP0kDXcn3bRyTG7Z4",
+    "year": 2020,
+    "name": "Diego Pedro",
+    "title": "Tribología de fundición nodular austemperada con carburos. Fatiga de contacto por rodadura y deslizamiento",
+    "url": "",
+    "director": "Dr. Ricardo Dommarco",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "imKWaZTBrMGSOjCCESnE",
+    "year": 2002,
+    "name": "Hugo López Montenegro",
+    "title": "Modelado por funciones de peso del comportamiento de fisuras bajo estados complejos de carga",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "Dr. Adrián Cisilino",
+    "tag": "doctorado"
+  },
+  {
+    "id": "inNe1B0lThvtH4uZmctD",
+    "year": 2023,
+    "name": "Emanuel Hernández",
+    "title": "Materiales poliméricos a partir de ácidos grasos y aceites vegetales derivatizados",
+    "url": "",
+    "director": "Dra. Norma Marcovich",
+    "co_director": "Dra. Mirna Mosiewiki",
+    "tag": "doctorado"
+  },
+  {
+    "id": "iqyRkysKrGuioHAwqZaF",
+    "year": 1990,
+    "name": "Jorge Enrique Rodriguez Paez",
+    "title": "Proceso de oxidación del Y-Ba-Cu-O y el efecto del agregado de Ag sobre sus propiedades",
+    "url": "",
+    "director": "Dr. Daniel Resasco",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "itciyqJeh9E80ZX3kmHV",
+    "year": 2007,
+    "name": "Leandro Ramajo",
+    "title": "Procesamiento y propiedades de materiales compuestos epoxi/BaTiO3, para su utilización en la fabricación de condensadores integrados",
+    "url": "",
+    "director": "Dra. Miriam Castro",
+    "co_director": "Ms.Sc. María Marta Reboredo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "jkQt9pq51kNmzm75odyO",
+    "year": 2010,
+    "name": "Luciano Paolinelli",
+    "title": "Influencia de la microestructura y la composición química de aceros en la eficiencia de inhibidores en medios salinos con CO2",
+    "url": "",
+    "director": "Dra. Silvia Simison",
+    "co_director": "Ing. Teresa Pérez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "k8S0SjERZb7NwB5CxEcM",
+    "year": 1998,
+    "name": "Juan Pablo Tomba",
+    "title": "Difusión de polímeros miscibles en régimen concentrado tratamiento termodinámico, cinético y verificación experimental",
+    "url": "",
+    "director": "Dr. José Carella",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "kYsjBYJVZjsbg2gsJ8zS",
+    "year": 2010,
+    "name": "Pablo C. Caracciolo",
+    "title": "Matrices poliuretánicas biorreabsorbibles para aplicaciones en ingeniería de tejidos",
+    "url": "",
+    "director": "Dr. Gustavo Abraham",
+    "co_director": "Dra. Teresita Cuadrado",
+    "tag": "doctorado"
+  },
+  {
+    "id": "kZJoBNRB5Ouep4UzhK7T",
+    "year": 2016,
+    "name": "Federico Rueda",
+    "title": "Colapso por pandeo inducido por presión externa en liners de polietileno de alta densidad",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "Dr. José Luis Otegui",
+    "tag": "doctorado"
+  },
+  {
+    "id": "m7kLCsXOVa1x2oQYzBmk",
+    "year": 1994,
+    "name": "Alejandra Palermo",
+    "title": "Tratamiento a temperatura programada en zeolitas tipo A",
+    "url": "",
+    "director": "Dr. Celso Aldao",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "m8mukFqdk1AxYZjWMgci",
+    "year": 1993,
+    "name": "Anibal N. Cassanelli",
+    "title": "Mecánica de fractura. Separabilidad de variables y sus aplicaciones",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "Dr. Rubén Herrera",
+    "tag": "doctorado"
+  },
+  {
+    "id": "mMd0w5sbIH7xQTPrxm09",
+    "year": 1987,
+    "name": "Héctor D. Mejías",
+    "title": "Caracterización fractomecánica de aceros estructurales bajo condiciones de crecimiento estable y propagación dinámica de fisuras",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "mQRS7z9nX1Vrm0v8dhAS",
+    "year": 1987,
+    "name": "William James Villacis Verdesoto",
+    "title": "Mecánica de fractura de fundiciones nodulares",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "mkA1yziDBjPsczzXCBR0",
+    "year": 2022,
+    "name": "Daiana Simón",
+    "title": "Valorización de residuos agroindustriales como adsorbentes de metales pesados, y su reutilización en la fabricación de ladrillos de construcción",
+    "url": "",
+    "director": "Dr. Adrián Cristobal",
+    "co_director": "Dra. Nancy Quaranta",
+    "tag": "doctorado"
+  },
+  {
+    "id": "nAq1Z3H2AEQYJvfFLgnE",
+    "year": 2002,
+    "name": "Laura Fasce",
+    "title": "Comportamiento mecánico de polipropileno modificado con una poliolefina elastomérica",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "nK0xUPpqN9DPp8mPLhts",
+    "year": 2006,
+    "name": "Walter Schroeder",
+    "title": "Modificación de resinas vinil-ester con polímeros termoplásticos: Separación de fases, morfologías y propiedades finales",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "Dra. Mirta Aranguren",
+    "tag": "doctorado"
+  },
+  {
+    "id": "nRnq1ojlH16BosIejbYd",
     "year": 2022,
     "name": "Mayra Lagarde",
     "title": "Tribología de UHMWPE modificado superficialmente por irradiación con iones",
     "url": "",
     "director": "Dra. Laura Fasce",
     "co_director": "Dr. Ricardo Dommarco"
+  },
+  {
+    "id": "nSkTwO3PlOxaasjuZ5WS",
+    "year": 2015,
+    "name": "Pablo R. Cortez Tornello",
+    "title": "Sistemas poliméricos biocompatibles para liberación controlada de embelina",
+    "url": "",
+    "director": "Dr. Gustavo Abraham",
+    "co_director": "Dra. Teresita R. Cuadrado",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ndZKK588EpsmHsRLuD3x",
+    "year": 1991,
+    "name": "Juan Carlos Lucas",
+    "title": "Materiales basados en resina poliéster insaturada y su modificación con polímeros termorrígidos",
+    "url": "",
+    "director": "Dr. Robero J.J. Williams",
+    "co_director": "Dr.Julio Borrajo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "oBXYD7PdaA96IKrjNEf6",
+    "year": 1992,
+    "name": "Roxana A. Ruseckaite",
+    "title": "Matrices epoxi modificadas con poliésteres derivados el aceite de castor",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "pTqxDqHwDnXcfY1qClBW",
+    "year": 2017,
+    "name": "Guillermina Capiel",
+    "title": "Degradación de sistemas epoxi utilizados en cañerías de ERFV",
+    "url": "",
+    "director": "Dr. Pablo Montemartini",
+    "co_director": "Dr. Juan Morán",
+    "tag": "doctorado"
+  },
+  {
+    "id": "pW3DXLLt4REGhiibocj1",
+    "year": 2015,
+    "name": "Diego Fernandino",
+    "title": "Fractura en fundición de hierro con grafito esferoidal. Análisis experimental y modelado multi-escala",
+    "url": "",
+    "director": "Dr. Roberto Boeri",
+    "co_director": "Dr. Adrián Cisilino",
+    "tag": "doctorado"
+  },
+  {
+    "id": "pZyIWpcWNe9Yl0CNwq4t",
+    "year": 2002,
+    "name": "Claudia N. Zárate",
+    "title": "Materiales compuestos de matriz fenólica reforzados con fibras naturales",
+    "url": "",
+    "director": "Ms.Sc. María Marta Reboredo",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "phQFD9RBJq96KbsJbdKf",
+    "year": 2008,
+    "name": "Andrés Pepe",
+    "title": "Recubrimientos híbridos (orgánico-inorgánico) sobre metales para uso en ambientes agresivos",
+    "url": "",
+    "director": "Dra. Silvia Ceré",
+    "co_director": "Dr. Mario Aparicio",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ptLJSGVDwcw0zD2G2tGU",
+    "year": 2018,
+    "name": "María Paula Guarás",
+    "title": "Obtención a escala planta piloto y caracterización de nanocompuestos basados en almidón termoplástico",
+    "url": "",
+    "director": "Dr. Leandro Ludueña",
+    "co_director": "Dra. Vera Álvarez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ptn7zz050lGRWrjrhCCk",
+    "year": 2005,
+    "name": "Miguel A. Ponce",
+    "title": "Preparación y evaluación de sensores de SnO2",
+    "url": "",
+    "director": "Dr. Celso Aldao",
+    "co_director": "Dra. Miriam Castro",
+    "tag": "doctorado"
+  },
+  {
+    "id": "q2xg3c2ahwgTaVUftMXT",
+    "year": 2016,
+    "name": "Juan Pablo Torres",
+    "title": "Mecánica de polímeros termoplásticos en condiciones de impacto",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "Dr. Enrique Pardo",
+    "tag": "doctorado"
+  },
+  {
+    "id": "qM5UjZnSQkdV0BTIYpnI",
+    "year": 2016,
+    "name": "Alejandra Constantino",
+    "title": "Relación procesamiento/estructura/desempeño de piezas complejas inyectadas de polipropileno y sus compuestos de aplicación en la industria automotriz",
+    "url": "",
+    "director": "Dra. Valeria Pettarin",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "qa2ETXk4ts9Zkn0voJXJ",
+    "year": 2017,
+    "name": "Diana C. Marín Quintero",
+    "title": "Materiales compuestos obtenidos a partir de películas de celulosa bacteriana y un triglicérido epoxidado hecho a medida",
+    "url": "",
+    "director": "Dr. Pablo Stefani",
+    "co_director": "Dra. Piedad Gañan",
+    "tag": "doctorado"
+  },
+  {
+    "id": "qqLGXjOhuMZ2tHyAc6CY",
+    "year": 2016,
+    "name": "Lucía Asaro",
+    "title": "Desarrollo de nuevos materiales compuestos ablativos para aplicaciones de alto desempeño",
+    "url": "",
+    "director": "Dr. Exequiel Rodriguez",
+    "co_director": "Dra. Liliana Manfredi",
+    "tag": "doctorado"
+  },
+  {
+    "id": "rNnlXDc0DiA5tz5WP8DI",
+    "year": 2002,
+    "name": "Juan Miguel Borrajo",
+    "title": "Modelado de las características de los nódulos de grafito durante la solidificación de fundiciones esferoidales de pequeño espesor",
+    "url": "",
+    "director": "Dr. Roberto Boeri",
+    "co_director": "Dr. Ricardo Martínez",
+    "tag": "maestria"
+  },
+  {
+    "id": "rRDzx55Kwi7jlJSlXxZ1",
+    "year": 1996,
+    "name": "Daniel A. Suarez",
+    "title": "Estudio de los catalizadores de CuCl2 empleados en la oxicloración de etileno, efecto del agregado de KCl como promotor",
+    "url": "",
+    "director": "Dra. Patricia Haure",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "rY5Yrym8kzIY126u4r5Z",
+    "year": 2013,
+    "name": "Marco Dondero",
+    "title": "Diseño computacional de materiales micro y nanoestructurados para transporte de calor y masa",
+    "url": "",
+    "director": "Dr. Adrián Cisilino",
+    "co_director": "Dr. Juan Pablo Tomba",
+    "tag": "doctorado"
+  },
+  {
+    "id": "sMKXnkfX3yDGijYRKoR4",
+    "year": 2006,
+    "name": "Ezequiel R. Soulé",
+    "title": "Separación de fases inducida por una polimerización por radicales libres",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "Dr. Roberto J.J. Williams",
+    "tag": "doctorado"
+  },
+  {
+    "id": "sSinf6KwML2et98jWG1h",
+    "year": 2021,
+    "name": "Marcos Moliné",
+    "title": "Corrosión de refractarios MgO-C de uso siderúrgico",
+    "url": "",
+    "director": "Dra. Analía G. Tomba Martínez",
+    "co_director": "Dr. Pablo Galliano",
+    "tag": "doctorado"
+  },
+  {
+    "id": "sXGzWyjiz7GJxnVwOoDM",
+    "year": 2005,
+    "name": "María de las Mercedes Ruzzo",
+    "title": "Efecto de la polidispersidad sobre la tensión superficial de oligómeros puros y en solución",
+    "url": "",
+    "director": "Dr. Julio Borrajo",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "shaz4kJjJVz5FSqCMSBq",
+    "year": 2002,
+    "name": "Claudia M. Bidabehere",
+    "title": "Determinación de resistencias difusivas en zeolitas comerciales mediante técnicas dinámicas",
+    "url": "",
+    "director": "Dr. Celso Aldao",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "sm7KvBZUOimDi3NBxmZS",
+    "year": 1995,
+    "name": "Ricardo H. Podgaiz",
+    "title": "Materiales compuestos basados en matriz epoxi-fibra de vidrio recubierto con elastómeros",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "sxlonDKoF7fEsjtnjFIf",
+    "year": 2008,
+    "name": "Josefa Martucci",
+    "title": "Relación estructura - propiedades en materiales basados en gelatina",
+    "url": "",
+    "director": "Dra. Roxana Ruseckaite",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "tL9Ia0HJS3d5dWFOdSAG",
+    "year": 2014,
+    "name": "Ianina Santana",
+    "title": "Síntesis y caracterización de recubrimientos nanoestructurados de aplicación industrial",
+    "url": "",
+    "director": "Dra. Silvia Ceré",
+    "co_director": "Dr. Sergio Pellice",
+    "tag": "doctorado"
+  },
+  {
+    "id": "ubJWyWkd4BImQUxbAX2E",
+    "year": 2001,
+    "name": "Walter Morris",
+    "title": "Proceso de corrosión del acero en hormigón expuesto al ambiente marino",
+    "url": "",
+    "director": "Dra. Susana Rosso",
+    "co_director": "Dra. Marcela Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "uvjTo1x3l0kIkp191Clv",
+    "year": 2004,
+    "name": "Pablo M. Botta",
+    "title": "Efectos mecanoquímicos de la reactividad de sistemas metal-oxido compuestos por Al o Zn y óxidos de Ti o Fe",
+    "url": "",
+    "director": "Dr. José M. Porto López",
+    "co_director": "Dr. Esteban Aglietti",
+    "tag": "doctorado"
+  },
+  {
+    "id": "v6Vb4HeXmCL1hY6w5SPl",
+    "year": 2023,
+    "name": "Pedro Calderón Bedoya",
+    "title": "Biomateriales compuestos de nanopartículas magnéticas de óxidos de hierro (IONPs) y cementos de fosfatos de calcio",
+    "url": "",
+    "director": "Dra. María Alejandra Fanovich",
+    "co_director": "Dr. Pablo Botta",
+    "tag": "doctorado"
+  },
+  {
+    "id": "vAv7CwZDUZIW9UtTkhcO",
+    "year": 2021,
+    "name": "Nancy Cativa",
+    "title": "Materiales funcionales obtenidos por ensamblado y organización de nanopartículas metálicas funcionalizadas",
+    "url": "",
+    "director": "Dra. Cristina Hoppe",
+    "co_director": "Dr. Guillermo EliÇabe",
+    "tag": "doctorado"
+  },
+  {
+    "id": "vbvpYMWgW7Wg1xRzGftY",
+    "year": 2006,
+    "name": "Matías Martínez Gamba",
+    "title": "Propiedades de impacto y microdureza de polipropilenos reforzados con fibras de vidrio",
+    "url": "",
+    "director": "Dra. Patricia Frontini",
+    "co_director": "Dr. Antonio Pouzada",
+    "tag": "maestria"
+  },
+  {
+    "id": "vxc0k8jtPaa57y4OQJJi",
+    "year": 2005,
+    "name": "Sergio A. Pellice",
+    "title": "Desarrollo y aplicaciones de materiales híbridos orgánico-inorgánicos basados en trialcoxisilanos y tetraalcoxisilanos",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "Dra. Alicia Durán",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wCaVycpCPwaN6DvpJB1G",
+    "year": 2002,
+    "name": "Alejandro M. Ges",
+    "title": "Cinética de crecimiento de la fase y en superaleaciones base níquel",
+    "url": "",
+    "director": "Dr. Hugo Palacio (UNCPBA)",
+    "co_director": "Ing. Jorge Sikora",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wXrQtEB1lq3100lvTgFW",
+    "year": 1994,
+    "name": "Walter E. Álvarez",
+    "title": "Efectos de las variables de preparación en catalizadores de Rh y Pt soportado",
+    "url": "",
+    "director": "Dr. Daniel Resasco",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wY7m1IOm0U2U6XfWidDE",
+    "year": 2013,
+    "name": "Natalia Inchaurrondo",
+    "title": "Catalizadores compuestos para la oxidación de contaminantes modelo, fenol y Orange II, con peróxido de hidrógeno",
+    "url": "",
+    "director": "Dra. Patricia Haure",
+    "co_director": "Dra. Rosa Fenoglio",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wg5qDLd4q6pfmNeGAbbS",
+    "year": 2005,
+    "name": "Paola A. Massa",
+    "title": "Alternativas para la degradación de contaminantes fenólicos en medio acuoso",
+    "url": "",
+    "director": "Dra. Patricia Haure",
+    "co_director": "Dra. Rosa Fenoglio",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wpP027fAO2t56JVgKQBz",
+    "year": 2009,
+    "name": "Ariel L. Stocchi",
+    "title": "Comportamiento mecánico y fractura de compuestos de matriz polimérica basados en recursos renovables",
+    "url": "",
+    "director": "Dra. Celina Bernal",
+    "co_director": "Dra. Analía Vázquez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "wy9zqrs3xBsgIGQoaGMp",
+    "year": 2002,
+    "name": "María Lila Arias",
+    "title": "Micromecanismos de deformación y falla en resinas epoxi modificadas con goma",
+    "url": "",
+    "director": "Dra. Patricia. Frontini",
+    "co_director": "",
+    "tag": "maestria"
+  },
+  {
+    "id": "x1q0BCHJJvBevonaFNPr",
+    "year": 2013,
+    "name": "Emiliano Ciannamea",
+    "title": "Obtención de películas activas biodegradables basadas en proteínas",
+    "url": "",
+    "director": "Dra. Roxana Ruseckaite",
+    "co_director": "Dr. Pablo Stefani",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xCm2xIXoF2Nj36r8JtHr",
+    "year": 2011,
+    "name": "Facundo Altuna",
+    "title": "Espumas epoxi basadas en aceites vegetales epoxidados",
+    "url": "",
+    "director": "Dr. Pablo Stefani",
+    "co_director": "Dra. Roxana Ruseckaite",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xDYuV7mDo5Tnr9wi21Kd",
+    "year": 2017,
+    "name": "Irene Seoane",
+    "title": "Relación estructura, propiedades y procesamiento del material compuesto biodegradable obtenido a partir de policaprolactona/almidón y fibra sisal",
+    "url": "",
+    "director": "Dra. Viviana Cyras",
+    "co_director": "Dra. Liliana Manfredi",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xHEhqa7ZM0kCUSlszQiU",
+    "year": 1992,
+    "name": "Gustavo L. Bianchi",
+    "title": "Corrosión bajo tensiones en medios gaseosos",
+    "url": "",
+    "director": "Dr. José Galvele",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xYCIlXpdIYcpSFIrMaNY",
+    "year": 2009,
+    "name": "Alejandro Basso",
+    "title": "Fundiciones esferoidales austemperizadas (ADI) con estructuras Dual Phase",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "Dr. Ricardo Martinez",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xfhbJKUSyjlRhuhA0HOp",
+    "year": 2014,
+    "name": "María de la Paz Miguel",
+    "title": "Difusión y dinámica molecular en interfases poliméricas por Microscopía Raman Confocal",
+    "url": "",
+    "director": "Dr. Juan Pablo Tomba",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "xfpLvs9SF0niwVwCVtPM",
+    "year": 1993,
+    "name": "Patricia M. Frontini",
+    "title": "Propiedades mecánicas y comportamiento a fractura de polímeros semicristalinos en función de su estructura molecular y supermolecular",
+    "url": "",
+    "director": "Prof. Andrea Paván",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "yJjyFthCN6p674otIQd9",
+    "year": 2004,
+    "name": "Cristina E. Hoppe",
+    "title": "Cristales líquidos dispersos en polímeros (PDLC) obtenidos mediante separación de fases incluida por reacción química",
+    "url": "",
+    "director": "Dr. Roberto J.J. Williams",
+    "co_director": "Dra. María José Galante",
+    "tag": "doctorado"
+  },
+  {
+    "id": "yicB2y7sHAIC7GrqRmIO",
+    "year": 2012,
+    "name": "Mariano Talou",
+    "title": "Procesamiento de materiales cerámicos porosos de mullita por consolidación directa con almidón",
+    "url": "",
+    "director": "Dra. Andrea Camerucci",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "z4UKALc17YckyxAy1MCF",
+    "year": 2009,
+    "name": "Pablo David",
+    "title": "Tecnologia de fabricación, caracterización y propiedades de piezas de fundición nodular de pequeño espesor",
+    "url": "",
+    "director": "Ing. Jorge Sikora",
+    "co_director": "Dr. Juan Massone",
+    "tag": "doctorado"
+  },
+  {
+    "id": "zC7BsdhCuYBzQavzSa8H",
+    "year": 1999,
+    "name": "María Alejandra Fanovich",
+    "title": "Síntesis, procesamiento y caracterización de materiales bioactivos a base de hidroxipatita",
+    "url": "",
+    "director": "Dr. José M. Porto López",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "zLX9FRmNGa5dUyZF05u4",
+    "year": 1991,
+    "name": "Guillermo A. Lombera",
+    "title": "Modelado de tensiones residuales en uniones soldadas",
+    "url": "",
+    "director": "Ing. Luis de Vedia",
+    "co_director": "",
+    "tag": "doctorado"
+  },
+  {
+    "id": "zc1PGWoXHsqqLisu0XCi",
+    "year": 2008,
+    "name": "Andrés Martínez del Pezzo",
+    "title": "Análisis de la influencia de parámetros geométricos en el comportamiento a fatiga de uniones soldadas utilizando nuevas metodologías",
+    "url": "",
+    "director": "Dr. Mirco Chapetti",
+    "co_director": "",
+    "tag": "maestria"
   }
 ]

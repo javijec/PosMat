@@ -11,7 +11,8 @@
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
     "db:seed": "node prisma/seed.js",
-    "import:firebase": "node scripts/import-firebase.js"
+    "import:firebase": "node scripts/import-firebase.js",
+    "export:firebase:json": "node scripts/import-firebase.js --json-only"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
@@ -20,6 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "firebase-admin": "^13.7.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "zod": "^4.3.5"
