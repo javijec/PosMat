@@ -8,11 +8,20 @@ const ensureApiBaseUrl = () => {
   }
 };
 
+const routeMap = {
+  authorizedEmails: "authorized-emails",
+  courses: "courses",
+};
+
 const buildCollectionUrl = (collectionName, id = "") => {
   ensureApiBaseUrl();
-  return `${API_BASE_URL}/content/${encodeURIComponent(collectionName)}${
-    id ? `/${encodeURIComponent(id)}` : ""
-  }`;
+
+  const mappedRoute = routeMap[collectionName];
+  const basePath = mappedRoute
+    ? `${API_BASE_URL}/${mappedRoute}`
+    : `${API_BASE_URL}/content/${encodeURIComponent(collectionName)}`;
+
+  return `${basePath}${id ? `/${encodeURIComponent(id)}` : ""}`;
 };
 
 const readJsonResponse = async (response) => {

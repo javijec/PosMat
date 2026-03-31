@@ -29,7 +29,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       console.error("Error signing in:", error);
-      toast.error("Error al iniciar sesión. Verifique sus credenciales.");
+      toast.error(error.message || "Error al iniciar sesión. Verifique sus credenciales.");
     }
   };
 

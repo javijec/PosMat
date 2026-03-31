@@ -1,43 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase/dbConnection";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword as firebaseSignIn,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { fetchData } from "../data";
+import { activeAuthProvider, authProvider } from "../auth";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => auth.currentUser);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const checkAuthorizedEmail = async (email) => {
-    const normalizedEmail = email?.trim().toLowerCase();
-    const authorizedEmails = await fetchData("authorizedEmails", { force: true });
-
-    return authorizedEmails.some(
-      (item) => item.email?.trim().toLowerCase() === normalizedEmail
-    );
-  };
-
   const loginUser = async (email, password) => {
     try {
-      const result = await firebaseSignIn(auth, email, password);
-
-      const isAuthorized = await checkAuthorizedEmail(result.user.email);
-
-      if (!isAuthorized) {
-        await signOut(auth);
-        throw new Error("Email no autorizado. Contacta al administrador.");
-      }
-
-      return result.user;
+      setError(null);
+      const result = await activeAuthProvider.signIn(email, password);
+      setUser(result);
+      return result;
     } catch (error) {
       console.error("Error en el inicio de sesión:", error);
       setError(error.message);
@@ -47,16 +25,10 @@ export const AuthProvider = ({ children }) => {
 
   const signUpWithEmailAndPassword = async (email, password) => {
     try {
-      // Primero verificamos si el email está autorizado
-      const isAuthorized = await checkAuthorizedEmail(email);
-
-      if (!isAuthorized) {
-        throw new Error("Email no autorizado. Contacta al administrador.");
-      }
-
-      // Si está autorizado, procedemos a crear el usuario
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      return result.user;
+      setError(null);
+      const result = await activeAuthProvider.signUp(email, password);
+      setUser(result);
+      return result;
     } catch (error) {
       console.error("Error en el registro:", error);
       setError(error.message);
@@ -66,7 +38,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await signOut(auth);
+      await activeAuthProvider.logout();
+      setUser(null);
       setError(null);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
@@ -75,17 +48,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = activeAuthProvider.observeAuthState((nextUser) => {
+      setUser(nextUser);
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const value = {
     user,
     loading,
+    authProvider,
     signInWithEmailAndPassword: loginUser,
     signUpWithEmailAndPassword,
     logout,

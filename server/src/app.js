@@ -1,6 +1,9 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
+import authRouter from "./routes/auth.routes.js";
+import authorizedEmailsRouter from "./routes/authorizedEmails.routes.js";
 import healthRouter from "./routes/health.routes.js";
 import coursesRouter from "./routes/courses.routes.js";
 import contentRouter from "./routes/content.routes.js";
@@ -18,9 +21,12 @@ app.use(
   })
 );
 app.use(express.json({ limit: "2mb" }));
+app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use("/api/health", healthRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/authorized-emails", authorizedEmailsRouter);
 app.use("/api/content", contentRouter);
 app.use("/api/courses", coursesRouter);
 
