@@ -10,7 +10,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:push": "prisma db push",
     "prisma:studio": "prisma studio",
-    "db:seed": "node prisma/seed.js"
+    "db:seed": "node prisma/seed.js",
+    "import:firebase": "node scripts/import-firebase.js"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
