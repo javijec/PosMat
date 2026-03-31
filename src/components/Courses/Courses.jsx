@@ -27,6 +27,10 @@ const Courses = () => {
           año: Number(doc.año),
           semestre: Number(doc.semestre),
         }))
+        .filter(
+          (course) =>
+            Number.isFinite(course.año) && Number.isFinite(course.semestre)
+        )
         .sort((a, b) => {
           if (b.año !== a.año) return b.año - a.año;
           return a.semestre - b.semestre;
@@ -36,11 +40,7 @@ const Courses = () => {
 
   const { years, semesters } = useMemo(() => {
     const years = [
-      ...new Set(
-        data
-          .map((c) => c.año)
-          .filter((year) => year !== undefined && year !== null)
-      ),
+      ...new Set(data.map((c) => c.año).filter((year) => Number.isFinite(year))),
     ].sort((a, b) => b - a);
     const semesters = [1, 2];
     return { years, semesters };

@@ -14,9 +14,9 @@ const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selecte
         className="w-full px-3 py-2 border border-gray-300 rounded-md"
       >
         <option value="">Seleccionar año</option>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
+        {years.filter((year) => Number.isFinite(year)).map((year) => (
+          <option key={year} value={String(year)}>
+            {String(year)}
           </option>
         ))}
       </select>
@@ -28,8 +28,8 @@ const CourseFilter = ({ years, semesters, selectedYear, setSelectedYear, selecte
         className="w-full px-3 py-2 border border-gray-300 rounded-md mt-4"
       >
         <option value="">Seleccionar semestre</option>
-        {semesters.map((semester) => (
-          <option key={semester} value={semester}>
+        {semesters.filter((semester) => Number.isFinite(semester)).map((semester) => (
+          <option key={semester} value={String(semester)}>
             {semester}° Semestre
           </option>
         ))}
