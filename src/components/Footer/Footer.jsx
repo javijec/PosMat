@@ -73,7 +73,15 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
           <p>
             &copy; {new Date().getFullYear()} Posgrado en Materiales. Todos los
-            derechos reservados.
+            derechos reservados. Página creada por{" "}
+            <a
+              href="https://javijec.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 hover:underline"
+            >
+              Javier Camargo
+            </a>
           </p>
         </div>
       </div>
