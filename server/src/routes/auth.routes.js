@@ -48,8 +48,11 @@ router.post("/register", async (req, res, next) => {
     const { email, password } = authSchema.parse(req.body);
     const normalizedEmail = normalizeEmail(email);
 
+    const userCount = await prisma.user.count();
+    const allowFirstUserBootstrap = userCount === 0;
     const authorized = await isAuthorizedEmail(normalizedEmail);
-    if (!authorized) {
+
+    if (!authorized && !allowFirstUserBootstrap) {
       return res.status(403).json({
         message: "Email no autorizado. Contacta al administrador.",
       });
@@ -72,6 +75,14 @@ router.post("/register", async (req, res, next) => {
         passwordHash,
       },
     });
+
+    if (allowFirstUserBootstrap) {
+      await prisma.authorizedEmail.upsert({
+        where: { email: normalizedEmail },
+        update: {},
+        create: { email: normalizedEmail },
+      });
+    }
 
     const token = signAuthToken(user);
     setAuthCookie(res, token);

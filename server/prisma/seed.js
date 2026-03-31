@@ -1,4 +1,5 @@
 import "dotenv/config";
+import bcrypt from "bcryptjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,7 +33,37 @@ const toSlug = (value) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-async function main() {
+const seedGenericCollection = async (fileName, collectionName) => {
+  const dataPath = path.resolve(__dirname, `../../src/files/${fileName}`);
+  const raw = await fs.readFile(dataPath, "utf-8");
+  const items = JSON.parse(raw);
+
+  for (const [index, item] of items.entries()) {
+    const baseSlug = item.id || item.email || item.nombre || item.titulo || item.title || `${collectionName}-${index + 1}`;
+    const slug = toSlug(baseSlug);
+
+    await prisma.contentEntry.upsert({
+      where: {
+        collectionName_slug: {
+          collectionName,
+          slug,
+        },
+      },
+      update: {
+        data: item,
+      },
+      create: {
+        collectionName,
+        slug,
+        data: item,
+      },
+    });
+  }
+
+  return items.length;
+};
+
+const seedCourses = async () => {
   const dataPath = path.resolve(__dirname, "../../src/files/courses.json");
   const raw = await fs.readFile(dataPath, "utf-8");
   const courses = JSON.parse(raw);
@@ -78,7 +109,63 @@ async function main() {
     });
   }
 
-  console.log(`Seed completed: ${courses.length} courses processed.`);
+  return courses.length;
+};
+
+const seedInitialAdmin = async () => {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD?.trim();
+
+  if (!email || !password) {
+    return false;
+  }
+
+  await prisma.authorizedEmail.upsert({
+    where: { email },
+    update: {},
+    create: { email },
+  });
+
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  await prisma.user.upsert({
+    where: { email },
+    update: { passwordHash },
+    create: {
+      email,
+      passwordHash,
+      role: "admin",
+    },
+  });
+
+  return true;
+};
+
+async function main() {
+  const coursesCount = await seedCourses();
+  const genericCollections = [
+    ["faqs.json", "faq"],
+    ["links.json", "links"],
+    ["professors.json", "professors"],
+    ["rules.json", "rules"],
+    ["students.json", "students"],
+    ["tesis.json", "tesis"],
+  ];
+
+  let genericCount = 0;
+  for (const [fileName, collectionName] of genericCollections) {
+    genericCount += await seedGenericCollection(fileName, collectionName);
+  }
+
+  const adminCreated = await seedInitialAdmin();
+
+  console.log(
+    `Seed completed: ${coursesCount} courses and ${genericCount} generic content items processed.`
+  );
+
+  if (adminCreated) {
+    console.log("Admin user seeded from ADMIN_EMAIL / ADMIN_PASSWORD.");
+  }
 }
 
 main()
