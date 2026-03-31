@@ -112,21 +112,20 @@ const Header = () => {
                 )
               )}
 
-              {/* User Menu */}
-              <Menu as="div" className="relative inline-block text-left">
-                {({ close: menuClose }) => (
-                  <>
-                    <Menu.Button className="p-2 hover:bg-ingenieria-dark rounded-full transition-colors">
-                      <UserIcon className="h-5 w-5" />
-                    </Menu.Button>
-                    {user ? (
-                      <Menu.Items className="absolute right-0 mt-2 w-48 bg-ingenieria shadow-lg z-10 rounded-md">
+              {user && (
+                <Menu as="div" className="relative inline-block text-left">
+                  {({ close: menuClose }) => (
+                    <>
+                      <Menu.Button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                        <UserIcon className="h-5 w-5" />
+                      </Menu.Button>
+                      <Menu.Items className="absolute right-0 mt-2 w-48 bg-[var(--bg-header)] shadow-lg z-10 rounded-md border border-white/10">
                         <Menu.Item>
                           {({ active }) => (
                             <NavLink
                               to="/admin"
-                              className={`block px-4 py-2 text-sm font-semibold text-indigo-600 ${
-                                active ? "bg-gray-100" : ""
+                              className={`block px-4 py-2 text-sm ${
+                                active ? "bg-white/10" : ""
                               }`}
                               onClick={() => closeDisclosure(menuClose)}
                             >
@@ -142,7 +141,7 @@ const Header = () => {
                                 closeDisclosure(menuClose);
                               }}
                               className={`w-full text-left px-4 py-2 text-sm ${
-                                active ? "bg-gray-700" : ""
+                                active ? "bg-white/10" : ""
                               }`}
                             >
                               Cerrar Sesión
@@ -150,10 +149,10 @@ const Header = () => {
                           )}
                         </Menu.Item>
                       </Menu.Items>
-                    ) : ("")}
-                  </>
-                )}
-              </Menu>
+                    </>
+                  )}
+                </Menu>
+              )}
             </nav>
 
             <div className="flex items-center space-x-2 lg:hidden">
