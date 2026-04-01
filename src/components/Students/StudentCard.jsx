@@ -7,6 +7,9 @@ const StudentCard = ({ student }) => {
       <div className="p-6 flex-1 flex flex-col">
         <div className="mb-4">
           <h2 className="text-xl font-bold text-gray-900 line-clamp-2">{student.name}</h2>
+          <p className="mt-2 text-xs font-semibold text-gray-400 break-all">
+            ID: {student.id}
+          </p>
         </div>
 
         <div className="flex-1">
