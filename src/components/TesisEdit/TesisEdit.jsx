@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import TesisEditItem from "./TesisEditItem";
 import TesisForm from "./TesisForm";
@@ -11,18 +11,9 @@ import FilterGrid from "../shared/FilterGrid";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
 import { ListSkeleton } from "../shared/Skeleton";
-import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFileAlt,
-  faDownload,
-  faFilePdf,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { exportToCSV } from "../../utils/csvExport";
-import {
-  EMPTY_THESIS_FORM,
-  importThesisFromPdf,
-} from "../../utils/thesisPdfImport";
 
 const splitLegacyJurors = (value) => {
   if (!value || typeof value !== "string") {
@@ -42,9 +33,23 @@ const TesisEdit = () => {
   const [editingId, setEditingId] = useState(-1);
   const [deleteId, setDeleteId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
-  const [defaultValues, setDefaultValues] = useState({ ...EMPTY_THESIS_FORM });
-  const [isImportingPdf, setIsImportingPdf] = useState(false);
-  const pdfInputRef = useRef(null);
+  const [defaultValues, setDefaultValues] = useState({
+    name: "",
+    title: "",
+    year: "",
+    tag: "",
+    degree_title: "",
+    url: "",
+    director: "",
+    co_director: "",
+    workplace: "",
+    defense_date: "",
+    juror_1: "",
+    juror_2: "",
+    juror_3: "",
+    summary_es: "",
+    abstract_en: "",
+  });
 
   const { data: tesis = [], isLoading } = useQuery({
     queryKey: [collectionName],
@@ -121,54 +126,27 @@ const TesisEdit = () => {
 
   const resetForm = () => {
     setEditingId(-1);
-    setDefaultValues({ ...EMPTY_THESIS_FORM });
-  };
-
-  const handlePdfSelected = async (event) => {
-    const file = event.target.files?.[0];
-
-    if (!file) {
-      return;
-    }
-
-    setIsImportingPdf(true);
-
-    try {
-      const parsedData = await importThesisFromPdf(file);
-      setEditingId(-1);
-      setDefaultValues(parsedData);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      toast.success("PDF procesado. Revisá los datos antes de guardar.");
-    } catch (error) {
-      console.error("Error importing thesis PDF:", error);
-      toast.error("No se pudo procesar el PDF.");
-    } finally {
-      event.target.value = "";
-      setIsImportingPdf(false);
-    }
+    setDefaultValues({
+      name: "",
+      title: "",
+      year: "",
+      tag: "",
+      degree_title: "",
+      url: "",
+      director: "",
+      co_director: "",
+      workplace: "",
+      defense_date: "",
+      juror_1: "",
+      juror_2: "",
+      juror_3: "",
+      summary_es: "",
+      abstract_en: "",
+    });
   };
 
   return (
     <EditPageContainer title="Panel de Tesis">
-      <div className="mb-4 flex justify-end">
-        <input
-          ref={pdfInputRef}
-          type="file"
-          accept="application/pdf"
-          onChange={handlePdfSelected}
-          className="hidden"
-        />
-        <button
-          type="button"
-          onClick={() => pdfInputRef.current?.click()}
-          disabled={isImportingPdf}
-          className="inline-flex items-center rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-700 transition-colors hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
-          {isImportingPdf ? "Procesando PDF..." : "Importar PDF"}
-        </button>
-      </div>
-
       <TesisForm
         editingId={editingId}
         defaultValues={defaultValues}
