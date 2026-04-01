@@ -24,6 +24,9 @@ const TesisEdit = () => {
     title: "",
     year: "",
     tag: "",
+    url: "",
+    director: "",
+    co_director: "",
   });
 
   const { data: tesis = [], isLoading } = useQuery({
@@ -85,7 +88,15 @@ const TesisEdit = () => {
 
   const resetForm = () => {
     setEditingId(-1);
-    setDefaultValues({ name: "", title: "", year: "", tag: "" });
+    setDefaultValues({
+      name: "",
+      title: "",
+      year: "",
+      tag: "",
+      url: "",
+      director: "",
+      co_director: "",
+    });
   };
 
   return (
