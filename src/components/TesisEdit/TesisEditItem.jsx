@@ -1,92 +1,158 @@
+import { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  faChevronUp,
+  faPencilAlt,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+const TesisEditItem = ({ t, expanded, onToggle, handleEdit, handleDelete }) => {
+  const jurors = useMemo(
+    () => [t.juror_1, t.juror_2, t.juror_3].filter(Boolean),
+    [t.juror_1, t.juror_2, t.juror_3]
+  );
 
-const TesisEditItem = ({ t, handleEdit, handleDelete }) => {
   return (
-    <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-md transition-all duration-300">
-      <div className="flex-1">
-        <div className="flex items-center gap-3 mb-2">
-          <span
-            className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
-              t.tag === "maestria"
-                ? "bg-indigo-100 text-indigo-700"
-                : "bg-emerald-100 text-emerald-700"
-            }`}
-          >
-            {t.tag === "maestria" ? "Maestría" : "Doctorado"}
-          </span>
-          <span className="text-sm font-semibold text-gray-500">{t.year}</span>
-        </div>
-
-        <h3 className="text-xl font-bold text-gray-900 mb-2 leading-tight">
-          {t.title}
-        </h3>
-
-        <div className="space-y-1 text-sm text-gray-600 mb-4">
-          <p className="flex items-center">
-            <span className="w-16 font-medium text-gray-400 uppercase text-[10px]">
-              Autor:
-            </span>
-            <span className="font-semibold">{t.name}</span>
-          </p>
-          <p className="flex items-center">
-            <span className="w-16 font-medium text-gray-400 uppercase text-[10px]">
-              Director:
-            </span>
-            {t.director}
-          </p>
-          {t.co_director && (
-            <p className="flex items-center">
-              <span className="w-16 font-medium text-gray-400 uppercase text-[10px]">
-                Codir.:
+    <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm transition-all duration-200 hover:shadow-md">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="w-full p-4 text-left"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center rounded-full bg-[var(--color-ingenieria)]/10 px-2.5 py-0.5 text-xs font-semibold text-[var(--color-ingenieria)]">
+                {t.year}
               </span>
-              {t.co_director}
+              <span
+                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase ${
+                  t.tag === "maestria"
+                    ? "bg-indigo-100 text-indigo-700"
+                    : "bg-emerald-100 text-emerald-700"
+                }`}
+              >
+                {t.tag === "maestria" ? "Maestría" : "Doctorado"}
+              </span>
+            </div>
+
+            <h3 className="truncate text-base font-bold text-[var(--text-main)]">
+              {t.title}
+            </h3>
+
+            <p className="mt-1 truncate text-sm text-[var(--text-main)]/65">
+              {t.name}
             </p>
-          )}
-        </div>
+          </div>
 
-        {t.url && (
-          <a
-            href={t.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center text-xs text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
-          >
-            Ver documento completo
-            <svg
-              className="w-3 h-3 ml-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleEdit(t);
+              }}
+              className="inline-flex items-center rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2 text-sm font-medium text-amber-600 transition-colors hover:bg-amber-500/20"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              <FontAwesomeIcon icon={faPencilAlt} className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleDelete(t.id);
+              }}
+              className="inline-flex items-center rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-500/20"
+            >
+              <FontAwesomeIcon icon={faTrash} className="h-4 w-4" />
+            </button>
+            <span className="pt-1 text-[var(--text-main)]/40">
+              <FontAwesomeIcon
+                icon={expanded ? faChevronUp : faChevronDown}
+                className="h-4 w-4"
               />
-            </svg>
-          </a>
-        )}
-      </div>
+            </span>
+          </div>
+        </div>
+      </button>
 
-      <div className="mt-6 md:mt-0 md:ml-6 flex md:flex-col space-x-2 md:space-x-0 md:space-y-2">
-        <button
-          onClick={() => handleEdit(t)}
-          className="flex-1 md:flex-none p-2 bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors"
-          title="Editar Tesis"
-        >
-          <FontAwesomeIcon icon={faPencilAlt} className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => handleDelete(t.id)}
-          className="flex-1 md:flex-none p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
-          title="Eliminar Tesis"
-        >
-          <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
-        </button>
-      </div>
+      {expanded && (
+        <div className="border-t border-[var(--border-subtle)] px-4 py-4">
+          <div className="grid grid-cols-1 gap-3 text-sm md:grid-cols-2">
+            <p className="text-[var(--text-main)]/80">
+              <span className="font-semibold text-[var(--text-main)]/55">
+                Autor:
+              </span>{" "}
+              {t.name}
+            </p>
+            <p className="text-[var(--text-main)]/80">
+              <span className="font-semibold text-[var(--text-main)]/55">
+                Director:
+              </span>{" "}
+              {t.director || "-"}
+            </p>
+            {t.degree_title && (
+              <p className="text-[var(--text-main)]/80 md:col-span-2">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Título al que aspira:
+                </span>{" "}
+                {t.degree_title}
+              </p>
+            )}
+            {t.co_director && (
+              <p className="text-[var(--text-main)]/80 md:col-span-2 whitespace-pre-line">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Co-director/a:
+                </span>{" "}
+                {t.co_director}
+              </p>
+            )}
+            {t.workplace && (
+              <p className="text-[var(--text-main)]/80">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Lugar de trabajo:
+                </span>{" "}
+                {t.workplace}
+              </p>
+            )}
+            {t.defense_date && (
+              <p className="text-[var(--text-main)]/80">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Fecha de defensa:
+                </span>{" "}
+                {t.defense_date}
+              </p>
+            )}
+            {jurors.length > 0 && (
+              <p className="text-[var(--text-main)]/80 md:col-span-2">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Jurados:
+                </span>{" "}
+                {jurors.join(" | ")}
+              </p>
+            )}
+            {jurors.length === 0 && t.jurors && (
+              <p className="text-[var(--text-main)]/80 md:col-span-2 whitespace-pre-line">
+                <span className="font-semibold text-[var(--text-main)]/55">
+                  Jurados:
+                </span>{" "}
+                {t.jurors}
+              </p>
+            )}
+            {t.url && (
+              <a
+                href={t.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria-hover)]"
+              >
+                Abrir enlace
+              </a>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

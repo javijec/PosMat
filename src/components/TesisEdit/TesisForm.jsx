@@ -5,6 +5,7 @@ import * as z from "zod";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
+import FormTextarea from "../shared/FormTextarea";
 import useConfirmExit from "../../hooks/useConfirmExit";
 
 const tesisSchema = z.object({
@@ -18,6 +19,17 @@ const tesisSchema = z.object({
       .max(new Date().getFullYear() + 1)
   ),
   tag: z.string().min(1, "El tag o área es obligatorio"),
+  degree_title: z.string().optional(),
+  url: z.union([z.string().url("URL inválida"), z.literal("")]).optional(),
+  director: z.string().optional(),
+  co_director: z.string().optional(),
+  workplace: z.string().optional(),
+  defense_date: z.string().optional(),
+  juror_1: z.string().optional(),
+  juror_2: z.string().optional(),
+  juror_3: z.string().optional(),
+  summary_es: z.string().optional(),
+  abstract_en: z.string().optional(),
 });
 
 const TesisForm = ({
@@ -79,6 +91,14 @@ const TesisForm = ({
         />
 
         <FormInput
+          label="Título al que aspira"
+          {...register("degree_title")}
+          error={errors.degree_title}
+          placeholder="Ej: Doctor/a en Ciencia de Materiales"
+          className="md:col-span-2"
+        />
+
+        <FormInput
           label="Autor"
           {...register("name")}
           error={errors.name}
@@ -86,7 +106,7 @@ const TesisForm = ({
         />
 
         <FormInput
-          label="URL / Enlace al Resumen"
+          label="URL / Enlace"
           {...register("url")}
           error={errors.url}
           placeholder="https://ejemplo.com/tesis"
@@ -99,10 +119,65 @@ const TesisForm = ({
           placeholder="Nombre del director"
         />
 
-        <FormInput
-          label="Co-Director (Opcional)"
+        <FormTextarea
+          label="Co-director/a"
           {...register("co_director")}
-          placeholder="Nombre del co-director"
+          error={errors.co_director}
+          rows={3}
+          placeholder="Puede no haber, o podés cargar más de uno. Separalos por línea o coma."
+        />
+
+        <FormInput
+          label="Lugar de Trabajo"
+          {...register("workplace")}
+          error={errors.workplace}
+          placeholder="Ej: INTEMA / FI UNMdP / CONICET"
+        />
+
+        <FormInput
+          label="Fecha de Defensa"
+          type="date"
+          {...register("defense_date")}
+          error={errors.defense_date}
+        />
+
+        <FormInput
+          label="Jurado 1"
+          {...register("juror_1")}
+          error={errors.juror_1}
+          placeholder="Nombre del primer jurado"
+        />
+
+        <FormInput
+          label="Jurado 2"
+          {...register("juror_2")}
+          error={errors.juror_2}
+          placeholder="Nombre del segundo jurado"
+        />
+
+        <FormInput
+          label="Jurado 3"
+          {...register("juror_3")}
+          error={errors.juror_3}
+          placeholder="Nombre del tercer jurado"
+        />
+
+        <FormTextarea
+          label="Resumen en Español"
+          {...register("summary_es")}
+          error={errors.summary_es}
+          rows={6}
+          placeholder="Resumen de la tesis en español"
+          className="md:col-span-2"
+        />
+
+        <FormTextarea
+          label="Abstract en Inglés"
+          {...register("abstract_en")}
+          error={errors.abstract_en}
+          rows={6}
+          placeholder="Abstract of the thesis in English"
+          className="md:col-span-2"
         />
       </div>
 

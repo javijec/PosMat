@@ -15,18 +15,40 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { exportToCSV } from "../../utils/csvExport";
 
+const splitLegacyJurors = (value) => {
+  if (!value || typeof value !== "string") {
+    return ["", "", ""];
+  }
+
+  const items = value
+    .split(/\r?\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return [items[0] || "", items[1] || "", items[2] || ""];
+};
+
 const TesisEdit = () => {
   const collectionName = "tesis";
   const [editingId, setEditingId] = useState(-1);
   const [deleteId, setDeleteId] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     name: "",
     title: "",
     year: "",
     tag: "",
+    degree_title: "",
     url: "",
     director: "",
     co_director: "",
+    workplace: "",
+    defense_date: "",
+    juror_1: "",
+    juror_2: "",
+    juror_3: "",
+    summary_es: "",
+    abstract_en: "",
   });
 
   const { data: tesis = [], isLoading } = useQuery({
@@ -34,7 +56,16 @@ const TesisEdit = () => {
     queryFn: async () => {
       const result = await fetchData(collectionName);
       if (!result || !Array.isArray(result)) return [];
-      return result;
+      return [...result].sort((a, b) => {
+        const yearA = Number(a.year) || 0;
+        const yearB = Number(b.year) || 0;
+
+        if (yearB !== yearA) {
+          return yearB - yearA;
+        }
+
+        return (a.title || "").localeCompare(b.title || "");
+      });
     },
   });
 
@@ -66,9 +97,16 @@ const TesisEdit = () => {
     });
 
   const handleEdit = (item) => {
+    const [juror1, juror2, juror3] = splitLegacyJurors(item.jurors);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(item.id);
-    setDefaultValues(item);
+    setDefaultValues({
+      ...item,
+      juror_1: item.juror_1 ?? juror1,
+      juror_2: item.juror_2 ?? juror2,
+      juror_3: item.juror_3 ?? juror3,
+    });
   };
 
   const handleConfirmDelete = () => {
@@ -93,9 +131,17 @@ const TesisEdit = () => {
       title: "",
       year: "",
       tag: "",
+      degree_title: "",
       url: "",
       director: "",
       co_director: "",
+      workplace: "",
+      defense_date: "",
+      juror_1: "",
+      juror_2: "",
+      juror_3: "",
+      summary_es: "",
+      abstract_en: "",
     });
   };
 
@@ -155,58 +201,21 @@ const TesisEdit = () => {
             description="Intenta ajustar los filtros de búsqueda"
           />
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-[var(--bg-surface)] text-[var(--text-main)]/60 text-sm uppercase tracking-wider">
-                  <th className="px-4 py-3 font-semibold">Tesista</th>
-                  <th className="px-4 py-3 font-semibold">Título</th>
-                  <th className="px-4 py-3 font-semibold text-center">
-                    Año / Tag
-                  </th>
-                  <th className="px-4 py-3 font-semibold text-right">
-                    Acciones
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--border-subtle)]">
-                {filteredData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-[var(--bg-surface)] transition-colors"
-                  >
-                    <td className="px-4 py-4 font-medium text-[var(--text-main)]">
-                      {item.name}
-                    </td>
-                    <td className="px-4 py-4 text-[var(--text-main)]/60 text-sm max-w-xs truncate">
-                      {item.title}
-                    </td>
-                    <td className="px-4 py-4 text-center">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)] mr-2">
-                        {item.year}
-                      </span>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--bg-surface)] text-[var(--text-main)]/50 uppercase tracking-tighter border border-[var(--border-subtle)]">
-                        {item.tag}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 text-right space-x-2">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="text-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria-hover)] font-medium text-sm transition-colors"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => setDeleteId(item.id)}
-                        className="text-red-500 hover:text-red-700 font-medium text-sm transition-colors"
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="space-y-3">
+            {filteredData.map((item) => (
+              <TesisEditItem
+                key={item.id}
+                t={item}
+                expanded={expandedId === item.id}
+                onToggle={() =>
+                  setExpandedId((current) =>
+                    current === item.id ? null : item.id
+                  )
+                }
+                handleEdit={handleEdit}
+                handleDelete={setDeleteId}
+              />
+            ))}
           </div>
         )}
       </div>
