@@ -228,14 +228,7 @@ const Header = () => {
                       Cerrar Sesión
                     </button>
                   </>
-                ) : (
-                  <NavLink
-                    to="/login"
-                    className="w-full px-4 py-2 text-left hover:bg-gray-700"
-                  >
-                    Ingresar
-                  </NavLink>
-                )}
+                ) : null}
               </div>
             </nav>
           </Disclosure.Panel>
