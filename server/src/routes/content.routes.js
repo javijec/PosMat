@@ -8,6 +8,22 @@ const contentSchema = z.object({}).catchall(z.any());
 const isPlainObject = (value) =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
+const findEntryByCollectionAndId = async (collectionName, id) =>
+  prisma.contentEntry.findFirst({
+    where: {
+      collectionName,
+      OR: [
+        { id },
+        {
+          data: {
+            path: ["id"],
+            equals: id,
+          },
+        },
+      ],
+    },
+  });
+
 const toEntryResponse = (entry) => {
   if (!isPlainObject(entry.data)) {
     return {
@@ -42,12 +58,10 @@ router.get("/:collectionName", async (req, res, next) => {
 
 router.get("/:collectionName/:id", async (req, res, next) => {
   try {
-    const entry = await prisma.contentEntry.findFirst({
-      where: {
-        id: req.params.id,
-        collectionName: req.params.collectionName,
-      },
-    });
+    const entry = await findEntryByCollectionAndId(
+      req.params.collectionName,
+      req.params.id
+    );
 
     if (!entry) {
       return res.status(404).json({ message: "Elemento no encontrado" });
@@ -78,12 +92,10 @@ router.post("/:collectionName", async (req, res, next) => {
 router.put("/:collectionName/:id", async (req, res, next) => {
   try {
     const data = contentSchema.parse(req.body);
-    const existingEntry = await prisma.contentEntry.findFirst({
-      where: {
-        id: req.params.id,
-        collectionName: req.params.collectionName,
-      },
-    });
+    const existingEntry = await findEntryByCollectionAndId(
+      req.params.collectionName,
+      req.params.id
+    );
 
     if (!existingEntry) {
       return res.status(404).json({ message: "Elemento no encontrado" });
@@ -95,7 +107,7 @@ router.put("/:collectionName/:id", async (req, res, next) => {
     };
 
     const entry = await prisma.contentEntry.update({
-      where: { id: req.params.id },
+      where: { id: existingEntry.id },
       data: { data: mergedData },
     });
 
@@ -107,19 +119,17 @@ router.put("/:collectionName/:id", async (req, res, next) => {
 
 router.delete("/:collectionName/:id", async (req, res, next) => {
   try {
-    const existingEntry = await prisma.contentEntry.findFirst({
-      where: {
-        id: req.params.id,
-        collectionName: req.params.collectionName,
-      },
-    });
+    const existingEntry = await findEntryByCollectionAndId(
+      req.params.collectionName,
+      req.params.id
+    );
 
     if (!existingEntry) {
       return res.status(404).json({ message: "Elemento no encontrado" });
     }
 
     await prisma.contentEntry.delete({
-      where: { id: req.params.id },
+      where: { id: existingEntry.id },
     });
 
     return res.status(204).send();
