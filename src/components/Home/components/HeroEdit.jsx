@@ -16,6 +16,11 @@ const heroSchema = z.object({
   director: z.string().min(1, "El nombre del director es obligatorio"),
 });
 
+const normalizeDirectorLabel = (value) =>
+  String(value || "")
+    .replace(/^\s*director(?:a)?\s*:\s*/i, "")
+    .trim();
+
 const HeroEdit = () => {
   const collectionName = "Home";
 
@@ -46,7 +51,7 @@ const HeroEdit = () => {
       reset({
         doctorado: homeData.doctorado || "",
         master: homeData.master || "",
-        director: homeData.director || "",
+        director: normalizeDirectorLabel(homeData.director),
       });
     }
   }, [homeData, reset]);
@@ -61,7 +66,13 @@ const HeroEdit = () => {
       toast.error("No se encontró el documento de configuración.");
       return;
     }
-    updateMutation.mutate({ id: homeData.id, data });
+    updateMutation.mutate({
+      id: homeData.id,
+      data: {
+        ...data,
+        director: normalizeDirectorLabel(data.director),
+      },
+    });
   };
 
   if (isLoading) {

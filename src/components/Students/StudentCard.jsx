@@ -1,6 +1,13 @@
 import React from "react";
 import { Users } from "lucide-react";
 
+const getDirectorTitle = (value) => {
+  const text = String(value || "").trim();
+  if (/^\s*(directora|dra\.?)\b/i.test(text)) return "Directora:";
+  if (/^\s*(director|dr\.?)\b/i.test(text)) return "Director:";
+  return "Director:";
+};
+
 const StudentCard = ({ student }) => {
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
@@ -24,7 +31,7 @@ const StudentCard = ({ student }) => {
             <div className="flex items-center text-gray-600">
               <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
               <span className="text-sm">
-                <strong>Director:</strong> {student.director}
+                <strong>{getDirectorTitle(student.director)}</strong> {student.director}
               </span>
             </div>
 

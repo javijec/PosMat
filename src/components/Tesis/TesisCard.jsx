@@ -6,6 +6,13 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 
+const getDirectorTitleFromName = (value) => {
+  const text = String(value || "").trim();
+  if (/^\s*(directora|dra\.?)\b/i.test(text)) return "Directora:";
+  if (/^\s*(director|dr\.?)\b/i.test(text)) return "Director:";
+  return "Director:";
+};
+
 const TesisCard = ({ tesis }) => {
   const [expanded, setExpanded] = useState(false);
   const jurors = [tesis.juror_1, tesis.juror_2, tesis.juror_3].filter(Boolean);

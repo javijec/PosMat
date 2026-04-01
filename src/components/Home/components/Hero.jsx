@@ -7,6 +7,18 @@ const defaultHeroData = {
   director: "",
 };
 
+const normalizeDirectorLabel = (value) =>
+  String(value || "")
+    .replace(/^\s*director(?:a)?\s*:\s*/i, "")
+    .trim();
+
+const getDirectorTitle = (value) => {
+  const text = String(value || "").trim();
+  if (/^\s*(directora|dra\.?)\b/i.test(text)) return "Directora:";
+  if (/^\s*(director|dr\.?)\b/i.test(text)) return "Director:";
+  return "Director:";
+};
+
 const Hero = () => {
   const [data, setData] = useState(defaultHeroData);
   const collection = "Home";
@@ -63,8 +75,8 @@ const Hero = () => {
               </div>
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-lg font-medium text-white/80">
-                  <span className="text-ingenieria-hover">Director:</span>{" "}
-                  {data.director}
+                  <span className="text-ingenieria-hover">{getDirectorTitle(data.director)}</span>{" "}
+                  {normalizeDirectorLabel(data.director)}
                 </p>
               </div>
             </div>
