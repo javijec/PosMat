@@ -7,8 +7,8 @@ import FormInput from "../shared/FormInput";
 import useConfirmExit from "../../hooks/useConfirmExit";
 
 const professorSchema = z.object({
-  name: z.string().min(1, "El nombre es obligatorio"),
-  department: z.string().min(1, "El departamento es obligatorio"),
+  firstName: z.string().min(1, "El nombre es obligatorio"),
+  lastName: z.string().min(1, "El apellido es obligatorio"),
   email: z.string().email("Email inválido"),
   title: z.string().min(1, "El título es obligatorio"),
 });
@@ -48,9 +48,16 @@ const ProfessorForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput
           label="Nombre"
-          {...register("name")}
-          error={errors.name}
-          placeholder="Ej: Juan Pérez"
+          {...register("firstName")}
+          error={errors.firstName}
+          placeholder="Ej: Juan"
+        />
+
+        <FormInput
+          label="Apellido"
+          {...register("lastName")}
+          error={errors.lastName}
+          placeholder="Ej: Pérez"
         />
 
         <FormInput
@@ -58,13 +65,6 @@ const ProfessorForm = ({
           {...register("title")}
           error={errors.title}
           placeholder="Ej: Dr."
-        />
-
-        <FormInput
-          label="Departamento"
-          {...register("department")}
-          error={errors.department}
-          placeholder="Ej: Ingeniería Informática"
         />
 
         <FormInput
