@@ -57,7 +57,11 @@ const Header = () => {
       {({ open, close }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link
+              to="/"
+              className="flex items-center space-x-2"
+              onClick={() => closeDisclosure(close)}
+            >
               <img
                 src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png"
                 alt="Logo"
