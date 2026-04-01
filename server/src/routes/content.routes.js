@@ -8,10 +8,24 @@ const contentSchema = z.object({}).catchall(z.any());
 const isPlainObject = (value) =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-const toEntryResponse = (entry) => ({
-  id: entry.id,
-  ...(isPlainObject(entry.data) ? entry.data : { value: entry.data }),
-});
+const toEntryResponse = (entry) => {
+  if (!isPlainObject(entry.data)) {
+    return {
+      id: entry.id,
+      value: entry.data,
+    };
+  }
+
+  // Imported legacy records may contain an old source `id` inside `data`.
+  // We always expose the actual database row id so updates/deletes use
+  // the identifier expected by the API routes.
+  const { id: _legacyId, ...data } = entry.data;
+
+  return {
+    id: entry.id,
+    ...data,
+  };
+};
 
 router.get("/:collectionName", async (req, res, next) => {
   try {
