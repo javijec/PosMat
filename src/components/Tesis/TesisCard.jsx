@@ -120,7 +120,7 @@ const TesisCard = ({ tesis }) => {
                 Resumen
               </p>
               <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
-                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify hyphens-auto">
+                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify">
                   {tesis.summary_es}
                 </p>
               </div>
@@ -132,7 +132,7 @@ const TesisCard = ({ tesis }) => {
                 Abstract
               </p>
               <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
-                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify hyphens-auto">
+                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify">
                   {tesis.abstract_en}
                 </p>
               </div>

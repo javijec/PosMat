@@ -1,5 +1,7 @@
 import { API_BASE_URL } from "../../data/config";
 
+const AUTH_CACHE_KEY = "posmat_auth_user";
+
 const ensureApiBaseUrl = () => {
   if (!API_BASE_URL) {
     throw new Error(
@@ -37,30 +39,74 @@ const normalizeUser = (user) => {
   };
 };
 
-const getCurrentUser = async () => {
+const persistUser = (user) => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  if (!user) {
+    window.sessionStorage.removeItem(AUTH_CACHE_KEY);
+    return;
+  }
+
+  window.sessionStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(user));
+};
+
+const getPersistedUser = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const raw = window.sessionStorage.getItem(AUTH_CACHE_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
   try {
-    const response = await fetch(buildAuthUrl("/me"), {
-      credentials: "include",
-    });
-
-    if (response.status === 401) {
-      return null;
-    }
-
-    return normalizeUser(await readJsonResponse(response));
-  } catch (error) {
+    return normalizeUser(JSON.parse(raw));
+  } catch {
+    window.sessionStorage.removeItem(AUTH_CACHE_KEY);
     return null;
   }
 };
 
+const getCurrentUser = async () => {
+  const response = await fetch(buildAuthUrl("/me"), {
+    credentials: "include",
+  });
+
+  if (response.status === 401) {
+    persistUser(null);
+    return null;
+  }
+
+  const user = normalizeUser(await readJsonResponse(response));
+  persistUser(user);
+  return user;
+};
+
 const observeAuthState = (callback) => {
   let active = true;
+  const persistedUser = getPersistedUser();
 
-  getCurrentUser().then((user) => {
-    if (active) {
-      callback(user);
-    }
-  });
+  if (persistedUser) {
+    callback(persistedUser);
+  }
+
+  getCurrentUser()
+    .then((user) => {
+      if (active) {
+        callback(user);
+      }
+    })
+    .catch((error) => {
+      console.warn("Transient auth check failure:", error);
+
+      if (active && !persistedUser) {
+        callback(null);
+      }
+    });
 
   return () => {
     active = false;
@@ -77,7 +123,9 @@ const signIn = async (email, password) => {
     body: JSON.stringify({ email, password }),
   });
 
-  return normalizeUser(await readJsonResponse(response));
+  const user = normalizeUser(await readJsonResponse(response));
+  persistUser(user);
+  return user;
 };
 
 const signUp = async (email, password) => {
@@ -90,7 +138,9 @@ const signUp = async (email, password) => {
     body: JSON.stringify({ email, password }),
   });
 
-  return normalizeUser(await readJsonResponse(response));
+  const user = normalizeUser(await readJsonResponse(response));
+  persistUser(user);
+  return user;
 };
 
 const logout = async () => {
@@ -107,7 +157,16 @@ const logout = async () => {
     console.error("Error logging out from backend auth:", error);
   }
 
+  persistUser(null);
+
   return true;
 };
 
-export { getCurrentUser, logout, observeAuthState, signIn, signUp };
+export {
+  getCurrentUser,
+  getPersistedUser,
+  logout,
+  observeAuthState,
+  signIn,
+  signUp,
+};

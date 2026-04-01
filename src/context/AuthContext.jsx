@@ -6,7 +6,11 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() =>
+    typeof activeAuthProvider.getPersistedUser === "function"
+      ? activeAuthProvider.getPersistedUser()
+      : null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
