@@ -40,6 +40,8 @@ import Register from "./components/Register/Register.jsx";
 import LinksEdit from "./components/LinksEdit/LinksEdit.jsx";
 import HeroEdit from "./components/Home/components/HeroEdit.jsx";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard.jsx";
+import NewsPage from "./components/News/NewsPage.jsx";
+import NewsEdit from "./components/NewsEdit/NewsEdit.jsx";
 import GlobalLoadingBar from "./components/shared/GlobalLoadingBar.jsx";
 import { Toaster } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -100,6 +102,15 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <HeroEdit />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "news", element: <NewsPage /> },
+      {
+        path: "news/edit",
+        element: (
+          <ProtectedRoute>
+            <NewsEdit />
           </ProtectedRoute>
         ),
       },

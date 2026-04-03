@@ -14,6 +14,7 @@ import { useTheme } from "../../context/ThemeContext";
 
 const menuItems = [
   { path: "/", name: "Inicio" },
+  { path: "/news", name: "Noticias" },
   { path: "/about", name: "Acerca de" },
   {
     name: "Comunidad",

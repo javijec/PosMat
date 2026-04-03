@@ -12,6 +12,7 @@ import {
   faLink,
   faEnvelope,
   faHome,
+  faNewspaper,
   faCogs,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
@@ -52,6 +53,7 @@ const quickActions = [
   { title: "Enlaces de Interés", icon: faLink, path: "/links/edit" },
   { title: "Información de Contacto", icon: faEnvelope, path: "/contact/edit" },
   { title: "Configuración Hero", icon: faHome, path: "/home/edit" },
+  { title: "Noticias", icon: faNewspaper, path: "/news/edit" },
   { title: "Acerca de / Misión", icon: faCogs, path: "/about/edit" },
   { title: "Reglamentos", icon: faCogs, path: "/rules/edit" },
   { title: "Gestión de Acceso", icon: faUserTie, path: "/manage-emails" },
