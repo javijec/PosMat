@@ -38,7 +38,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[480px] md:h-[650px] overflow-hidden bg-gray-900">
+    <div className="relative h-[400px] md:h-[520px] overflow-hidden bg-gray-900">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-70"
         style={{
@@ -48,9 +48,9 @@ const Hero = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="text-white max-w-2xl relative">
+          <div className="text-white max-w-2xl relative py-6">
             <div>
-              <h1 className="text-4xl md:text-7xl font-extrabold mb-8 leading-[1.1] tracking-tight">
+              <h1 className="mb-5 text-3xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
                 Posgrado en <br />
                 <span className="text-ingenieria brightness-125">
                   Ciencia de Materiales
@@ -58,23 +58,23 @@ const Hero = () => {
               </h1>
             </div>
 
-            <div className="bg-black/30 p-8 rounded-lg border border-white/15">
-              <div className="space-y-4">
-                <p className="text-xl md:text-2xl font-light leading-relaxed flex items-center gap-3">
+            <div className="rounded-lg border border-white/15 bg-black/30 p-5 md:p-6">
+              <div className="space-y-3">
+                <p className="flex items-center gap-2 text-base md:text-xl font-light leading-relaxed">
                   Doctorado en Ciencia de Materiales{" "}
-                  <span className="bg-ingenieria/30 px-3 py-0.5 rounded-md text-sm font-semibold border border-ingenieria/50">
+                  <span className="rounded-md border border-ingenieria/50 bg-ingenieria/30 px-2.5 py-0.5 text-xs font-semibold md:text-sm">
                     {data.doctorado}
                   </span>
                 </p>
-                <p className="text-xl md:text-2xl font-light leading-relaxed flex items-center gap-3">
+                <p className="flex items-center gap-2 text-base md:text-xl font-light leading-relaxed">
                   Maestría en Ciencia y Tecnología de Materiales{" "}
-                  <span className="bg-ingenieria/30 px-3 py-0.5 rounded-md text-sm font-semibold border border-ingenieria/50">
+                  <span className="rounded-md border border-ingenieria/50 bg-ingenieria/30 px-2.5 py-0.5 text-xs font-semibold md:text-sm">
                     {data.master}
                   </span>
                 </p>
               </div>
-              <div className="mt-8 pt-6 border-t border-white/10">
-                <p className="text-lg font-medium text-white/80">
+              <div className="mt-5 border-t border-white/10 pt-4">
+                <p className="text-sm md:text-base font-medium text-white/80">
                   <span className="text-ingenieria-hover">{getDirectorTitle(data.director)}</span>{" "}
                   {normalizeDirectorLabel(data.director)}
                 </p>
