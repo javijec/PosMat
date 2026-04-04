@@ -191,17 +191,19 @@ const NewsPage = () => {
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-3 scale-[0.98]"
               >
-                <Dialog.Panel className="w-full max-w-3xl overflow-hidden rounded-[1.75rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl">
+                <Dialog.Panel className="w-full max-w-6xl overflow-hidden rounded-[1.75rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl">
                   {selectedNews ? (
-                    <>
-                      <img
-                        src={selectedNews.imageUrl || FALLBACK_IMAGE}
-                        alt={selectedNews.title}
-                        className="h-52 w-full object-cover md:h-64"
-                      />
+                    <div className="grid max-h-[calc(100vh-4rem)] md:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
+                      <div className="flex min-h-[280px] items-center justify-center bg-black p-3 md:min-h-[640px] md:p-5">
+                        <img
+                          src={selectedNews.imageUrl || FALLBACK_IMAGE}
+                          alt={selectedNews.title}
+                          className="max-h-[72vh] w-full object-contain"
+                        />
+                      </div>
 
-                      <div className="max-h-[calc(100vh-12rem)] overflow-y-auto p-5 md:p-7">
-                        <div className="mb-3 flex items-start justify-between gap-4">
+                      <div className="flex min-h-0 flex-col border-t border-[var(--border-subtle)] md:border-t-0 md:border-l">
+                        <div className="flex items-start justify-between gap-4 border-b border-[var(--border-subtle)] px-5 py-4 md:px-6">
                           <div>
                             <div className="mb-2 flex flex-wrap items-center gap-2">
                               <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-ingenieria)]">
@@ -212,7 +214,7 @@ const NewsPage = () => {
                               </span>
                             </div>
 
-                            <Dialog.Title className="text-2xl font-bold leading-tight text-[var(--text-main)] md:text-3xl">
+                            <Dialog.Title className="text-xl font-bold leading-tight text-[var(--text-main)] md:text-2xl">
                               {selectedNews.title}
                             </Dialog.Title>
                           </div>
@@ -227,23 +229,25 @@ const NewsPage = () => {
                           </button>
                         </div>
 
-                        {selectedNews.summary ? (
-                          <p className="mb-5 text-base leading-7 text-[var(--text-main)]/78">
-                            {selectedNews.summary}
-                          </p>
-                        ) : null}
+                        <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 md:px-6">
+                          {selectedNews.summary ? (
+                            <p className="mb-5 text-sm leading-6 text-[var(--text-main)]/78 md:text-base md:leading-7">
+                              {selectedNews.summary}
+                            </p>
+                          ) : null}
 
-                        {selectedNews.content ? (
-                          <div className="whitespace-pre-line text-sm leading-7 text-[var(--text-main)]/82 md:text-base">
-                            {selectedNews.content}
-                          </div>
-                        ) : (
-                          <p className="text-sm text-[var(--text-main)]/65">
-                            Esta noticia no tiene contenido ampliado.
-                          </p>
-                        )}
+                          {selectedNews.content ? (
+                            <div className="whitespace-pre-line text-sm leading-7 text-[var(--text-main)]/82 md:text-base">
+                              {selectedNews.content}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-[var(--text-main)]/65">
+                              Esta noticia no tiene contenido ampliado.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </>
+                    </div>
                   ) : null}
                 </Dialog.Panel>
               </Transition.Child>
