@@ -28,13 +28,13 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
                 <span
                   className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
                     student.program === "maestria"
-                      ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300"
-                      : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
+                      ? "border border-sky-200 bg-sky-50 text-sky-800"
+                      : "border border-teal-200 bg-teal-50 text-teal-800"
                   }`}
                 >
                   {student.program === "maestria" ? "Maestría" : "Doctorado"}
                 </span>
-                <span className="text-sm font-semibold text-[var(--text-main)]/40 break-all">
+                <span className="text-sm font-semibold text-[var(--text-main)]/45 break-all">
                   ID: {student.id}
                 </span>
               </div>
@@ -54,7 +54,7 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
                     className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
                   />
                   <div>
-                    <span className="block text-[10px] font-bold text-[var(--text-main)]/40 uppercase tracking-wider">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
                       Tema de Tesis
                     </span>
                     <p className="text-[var(--text-main)] font-medium leading-tight">
@@ -69,7 +69,7 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
                     className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
                   />
                   <div>
-                    <span className="block text-[10px] font-bold text-[var(--text-main)]/40 uppercase tracking-wider">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
                       Dirección
                     </span>
                     <p className="text-[var(--text-main)] text-sm">
@@ -87,7 +87,7 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
 
               {student.email && (
                 <p className="mt-3 text-sm text-[var(--text-main)]/50 flex items-center text-wrap break-all">
-                  <span className="text-xs font-bold text-[var(--text-main)]/40 uppercase mr-2 shrink-0">
+                  <span className="mr-2 shrink-0 text-xs font-bold uppercase text-[var(--color-ingenieria)]/80">
                     Email:
                   </span>
                   {student.email}

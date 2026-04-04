@@ -9,11 +9,11 @@ const FormActions = ({
   isEditing = true,
 }) => {
   return (
-    <div className="flex space-x-3 mt-8">
+    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-[var(--color-ingenieria)] text-white py-2 px-6 rounded-md shadow-sm hover:bg-[var(--color-ingenieria-hover)] transition-colors disabled:opacity-50 font-medium"
+        className="rounded-md bg-[var(--color-ingenieria)] px-6 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[var(--color-ingenieria-hover)] disabled:opacity-50"
       >
         {isSubmitting ? submittingLabel : submitLabel}
       </button>
@@ -21,7 +21,7 @@ const FormActions = ({
         <button
           type="button"
           onClick={onCancel}
-          className="bg-[var(--bg-surface)] text-[var(--text-main)] py-2 px-6 rounded-md border border-[var(--border-subtle)] shadow-sm hover:bg-[var(--bg-card)] transition-colors font-medium border border-transparent"
+          className="rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-6 py-2 font-medium text-[var(--text-main)] shadow-sm transition-colors hover:bg-[var(--bg-card)]"
         >
           {cancelLabel}
         </button>

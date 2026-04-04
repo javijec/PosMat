@@ -111,15 +111,15 @@ const ProfessorsEdit = () => {
         onCancel={resetForm}
       />
 
-      <div className="mt-12 bg-[var(--bg-card)] p-6 rounded-lg shadow-sm border border-[var(--border-subtle)]">
+      <div className="mt-12 overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 border-b border-[var(--border-subtle)] pb-4">
           <h2 className="text-2xl font-bold text-[var(--text-main)]">
             Profesores Registrados
           </h2>
-          <div className="flex items-center gap-3">
+          <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row md:items-center">
             <button
               onClick={() => exportToCSV(professors, "profesores")}
-              className="inline-flex items-center px-4 py-2 bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)] hover:bg-[var(--color-ingenieria)] hover:text-white rounded-lg transition-all text-sm font-semibold border border-[var(--color-ingenieria)]/20 shadow-sm"
+              className="inline-flex w-full items-center justify-center rounded-lg border border-[var(--color-ingenieria)]/20 bg-[var(--color-ingenieria)]/10 px-4 py-2 text-sm font-semibold text-[var(--color-ingenieria)] shadow-sm transition-all hover:bg-[var(--color-ingenieria)] hover:text-white md:w-auto"
             >
               <FontAwesomeIcon icon={faDownload} className="mr-2" />
               Exportar CSV
@@ -148,28 +148,28 @@ const ProfessorsEdit = () => {
             filteredData.map((prof) => (
               <div
                 key={prof.id}
-                className="p-4 bg-[var(--bg-card)] rounded-lg border border-[var(--border-subtle)] shadow-sm flex justify-between items-center hover:shadow-md transition-shadow"
+                className="flex flex-col gap-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[var(--color-ingenieria)]/10 rounded-full flex items-center justify-center text-[var(--color-ingenieria)]">
+                <div className="flex min-w-0 items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)]">
                     <FontAwesomeIcon
                       icon={faUserGraduate}
                       className="text-xl"
                     />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-[var(--text-main)]">
-                      <span className="text-[var(--color-ingenieria)] text-sm font-medium mr-1">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="break-words font-bold text-[var(--text-main)]">
+                      <span className="mr-1 text-sm font-medium text-[var(--color-ingenieria)]">
                         {prof.title}
                       </span>
                       {prof.firstName} {prof.lastName}
                     </h3>
-                    <p className="text-sm text-[var(--text-main)]/60">
+                    <p className="break-all text-sm text-[var(--text-main)]/60">
                       {prof.email || "Sin correo registrado"}
                     </p>
                   </div>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex shrink-0 justify-end space-x-2">
                   <button
                     onClick={() => handleEdit(prof)}
                     className="p-2 bg-amber-500/10 text-amber-600 rounded-md hover:bg-amber-500/20 transition-colors border border-amber-500/20"

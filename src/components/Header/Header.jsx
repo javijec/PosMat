@@ -34,6 +34,18 @@ const menuItems = [
   { path: "/contact", name: "Contacto" },
 ];
 
+const desktopNavLinkClass = ({ isActive }) =>
+  `px-2 py-1 transition-colors ${
+    isActive ? "text-white font-medium" : "text-white/90 hover:text-white"
+  }`;
+
+const mobileNavLinkClass = ({ isActive }) =>
+  `block rounded-md px-3 py-2 transition-colors ${
+    isActive
+      ? "bg-white/10 text-white font-medium"
+      : "text-white/90 hover:bg-white/5 hover:text-white"
+  }`;
+
 const Header = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -109,7 +121,7 @@ const Header = () => {
                   <div key={i} className="flex items-center space-x-1">
                     <NavLink
                       to={item.path}
-                      className="px-2 py-1 hover:text-gray-300"
+                      className={desktopNavLinkClass}
                     >
                       {item.name}
                     </NavLink>
@@ -217,14 +229,14 @@ const Header = () => {
                   <>
                     <NavLink
                       to="/admin"
-                      className="block text-sm font-bold text-indigo-400 hover:text-indigo-300 mb-4 px-4 py-2 border border-indigo-500/30 rounded-lg bg-indigo-500/10"
+                      className={mobileNavLinkClass}
                       onClick={() => closeDisclosure(close)}
                     >
                       Panel de Control
                     </NavLink>
                     <button
                       onClick={handleAuth}
-                      className="w-full px-4 py-2 text-left hover:bg-gray-700"
+                      className="w-full rounded-md px-3 py-2 text-left text-white/90 transition-colors hover:bg-white/5 hover:text-white"
                     >
                       Cerrar Sesión
                     </button>

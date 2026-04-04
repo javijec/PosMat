@@ -75,101 +75,103 @@ const AdminDashboard = () => {
   const isLoading = statsQueries.some((q) => q.isLoading);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold tracking-tight">
-          Panel de Control
-        </h1>
-        <p className="mt-2 text-lg opacity-80">
-          Bienvenido al centro de administración. Aquí puedes gestionar todos
-          los contenidos de la plataforma.
-        </p>
-      </div>
+    <div className="min-h-screen bg-[var(--bg-surface)] py-16">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="mb-10 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-8 shadow-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-ingenieria)]">
+                Administración
+              </p>
+              <h1 className="text-4xl font-bold tracking-tight text-[var(--text-main)]">
+                Panel de Control
+              </h1>
+              <p className="mt-3 max-w-3xl text-base text-[var(--text-main)]/75">
+                Gestiona el contenido del sitio desde un solo lugar, con el mismo
+                estilo visual y estructura que el resto de la plataforma.
+              </p>
+            </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {statsConfig.map((stat, index) => (
-          <Link
-            key={stat.title}
-            to={stat.path}
-            className="group bg-[var(--bg-card)] rounded-2xl p-6 shadow-sm border border-[var(--border-card)] hover:shadow-md transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <div className="flex items-center justify-between">
-              <div
-                className={`p-3 rounded-xl ${stat.color} text-white shadow-lg`}
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] px-5 py-3 text-sm font-semibold text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
+            >
+              Ver sitio público
+              <FontAwesomeIcon icon={faChevronRight} className="ml-2 text-xs" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h2 className="mb-4 text-2xl font-bold text-[var(--text-main)]">
+            Resumen general
+          </h2>
+          <p className="mb-6 text-sm text-[var(--text-main)]/70">
+            Un vistazo rápido al contenido principal que ya está publicado.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+            {statsConfig.map((stat, index) => (
+              <Link
+                key={stat.title}
+                to={stat.path}
+                className="group rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--color-ingenieria)] hover:shadow-md"
               >
-                <FontAwesomeIcon icon={stat.icon} className="w-6 h-6" />
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium opacity-60 uppercase tracking-wider">
+                <div className="mb-6 flex items-start justify-between">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl ${stat.color} text-white shadow-sm`}
+                  >
+                    <FontAwesomeIcon icon={stat.icon} className="h-5 w-5" />
+                  </div>
+                  <FontAwesomeIcon
+                    icon={faChevronRight}
+                    className="text-[var(--text-main)]/25 transition-colors group-hover:text-[var(--color-ingenieria)]"
+                  />
+                </div>
+
+                <p className="text-sm font-medium uppercase tracking-wider text-[var(--text-main)]/60">
                   {stat.title}
                 </p>
-                <p className="text-3xl font-bold">
+                <p className="mt-2 text-3xl font-bold text-[var(--text-main)]">
                   {isLoading ? "..." : statsQueries[index]?.data || 0}
                 </p>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* Main Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2">
-          <h2 className="text-2xl font-bold mb-6 flex items-center">
-            <span className="w-2 h-8 bg-indigo-600 rounded-full mr-3"></span>
-            Gestión de Contenidos
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {quickActions.map((action) => (
-              <Link
-                key={action.title}
-                to={action.path}
-                className="flex items-center justify-between p-5 bg-[var(--bg-card)] border border-[var(--border-card)] rounded-xl hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 transition-all group"
-              >
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    <FontAwesomeIcon icon={action.icon} />
-                  </div>
-                  <span className="font-semibold opacity-90">
-                    {action.title}
-                  </span>
-                </div>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="text-gray-300 group-hover:text-indigo-600"
-                />
               </Link>
             ))}
           </div>
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold mb-6 flex items-center">
-            <span className="w-2 h-8 bg-pink-500 rounded-full mr-3"></span>
-            Accesos Rápidos
-          </h2>
-          <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
-            <div className="relative z-10">
-              <h3 className="text-xl font-bold mb-4">¿Necesitas ayuda?</h3>
-              <p className="text-indigo-100 mb-6 text-sm leading-relaxed">
-                Recuerda que todos los cambios se sincronizan automáticamente
-                con la base de datos de producción.
-              </p>
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-[var(--text-main)]">
+              Gestión de contenidos
+            </h2>
+            <p className="mt-2 text-sm text-[var(--text-main)]/70">
+              Accede rápidamente a cada sección editable del sitio.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            {quickActions.map((action) => (
               <Link
-                to="/"
-                className="inline-flex items-center px-5 py-2.5 bg-white text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 transition-colors shadow-lg"
+                key={action.title}
+                to={action.path}
+                className="group flex min-w-0 flex-col rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-sm transition-all duration-200 hover:border-[var(--color-ingenieria)] hover:shadow-md"
               >
-                Ver Sitio Público
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="ml-2 text-xs"
-                />
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)] transition-colors group-hover:bg-[var(--color-ingenieria)] group-hover:text-white">
+                    <FontAwesomeIcon icon={action.icon} />
+                  </div>
+                  <FontAwesomeIcon
+                    icon={faChevronRight}
+                    className="shrink-0 text-[var(--text-main)]/25 transition-colors group-hover:text-[var(--color-ingenieria)]"
+                  />
+                </div>
+
+                <span className="text-sm font-semibold leading-snug text-[var(--text-main)]">
+                  {action.title}
+                </span>
               </Link>
-            </div>
-            {/* Abstract Background Shapes */}
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-0 left-0 w-20 h-20 bg-pink-500/20 rounded-full blur-2xl"></div>
+            ))}
           </div>
         </div>
       </div>
