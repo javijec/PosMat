@@ -33,6 +33,17 @@
   }
 }
 
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @theme {
   --color-ingenieria: var(--color-ingenieria);
   --color-ingenieria-hover: var(--color-ingenieria-hover);

@@ -85,18 +85,18 @@ const News = () => {
           </Link>
         </div>
 
-        <div className="grid gap-2.5 xl:grid-cols-[minmax(0,1.28fr)_220px]">
+        <div className="grid gap-2 xl:grid-cols-[minmax(0,1.28fr)_220px]">
           <article className="overflow-hidden rounded-[1.1rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
-            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="grid grid-cols-[96px_minmax(0,1fr)] md:grid-cols-[130px_minmax(0,1fr)] lg:grid-cols-[1.05fr_0.95fr]">
               <img
                 src={activeItem.imageUrl || FALLBACK_IMAGE}
                 alt={activeItem.title}
-                className="h-full min-h-[150px] w-full object-cover"
+                className="h-full min-h-[120px] w-full object-cover md:min-h-[140px] lg:min-h-[150px]"
               />
 
-              <div className="flex flex-col justify-between p-3 md:p-3.5">
+              <div className="flex flex-col justify-between p-2.5 md:p-3.5">
                 <div>
-                  <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+                  <div className="mb-1 flex flex-wrap items-center gap-1.5">
                     <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2 py-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-[var(--color-ingenieria)]">
                       {currentIndex === 0
                         ? "Destacada"
@@ -107,22 +107,22 @@ const News = () => {
                     </span>
                   </div>
 
-                  <h3 className="mb-1.5 text-base font-semibold leading-tight text-[var(--text-main)] md:text-lg">
+                  <h3 className="mb-1 text-[13px] font-semibold leading-tight text-[var(--text-main)] md:text-lg">
                     {activeItem.title}
                   </h3>
 
-                  <p className="mb-1.5 line-clamp-2 text-xs leading-4 text-[var(--text-main)]/75">
+                  <p className="mb-1 line-clamp-2 text-[11px] leading-4 text-[var(--text-main)]/75 md:text-xs">
                     {activeItem.summary}
                   </p>
 
                   {activeItem.content ? (
-                    <p className="line-clamp-1 text-[10px] leading-4 text-[var(--text-main)]/65">
+                    <p className="hidden line-clamp-1 text-[10px] leading-4 text-[var(--text-main)]/65 sm:block">
                       {activeItem.content}
                     </p>
                   ) : null}
                 </div>
 
-                <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
@@ -144,22 +144,22 @@ const News = () => {
 
                   <Link
                     to={`/news#news-${activeItem.id}`}
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-ingenieria)] px-3 py-1 text-[11px] font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)]"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-ingenieria)] px-2.5 py-1 text-[10px] font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)] md:px-3 md:text-[11px]"
                   >
-                    Leer noticia completa
+                    Leer completa
                   </Link>
                 </div>
               </div>
             </div>
           </article>
 
-          <div className="grid gap-2">
+          <div className="grid grid-cols-2 gap-2 xl:grid-cols-1">
             {news.map((item, index) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setCurrentIndex(index)}
-                className={`rounded-lg border p-2 text-left transition-all ${
+                className={`min-w-0 rounded-lg border p-2 text-left transition-all ${
                   index === currentIndex
                     ? "border-[var(--color-ingenieria)] bg-[var(--color-ingenieria)]/8 shadow-sm"
                     : "border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--color-ingenieria)]/45"
@@ -168,7 +168,7 @@ const News = () => {
                 <p className="mb-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-[var(--color-ingenieria)]">
                   {formatDate(item.publishedAt)}
                 </p>
-                <h3 className="mb-0.5 text-xs font-semibold leading-snug text-[var(--text-main)]">
+                <h3 className="mb-0.5 line-clamp-2 text-[11px] font-semibold leading-snug text-[var(--text-main)]">
                   {item.title}
                 </h3>
                 <p className="line-clamp-2 text-[10px] leading-4 text-[var(--text-main)]/70">
