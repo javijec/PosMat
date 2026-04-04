@@ -5,7 +5,7 @@ import Hero from "./components/Hero.jsx";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-[var(--bg-surface)]">
       <Hero />
       <News />
       <Features />
