@@ -66,68 +66,68 @@ const News = () => {
   const goToNext = () => setCurrentIndex((prev) => (prev + 1) % news.length);
 
   return (
-    <section className="relative bg-[var(--bg-surface)] py-12 transition-colors">
-      <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-black/5 to-transparent pointer-events-none" />
+    <section className="relative bg-[var(--bg-surface)] py-3 transition-colors">
+      <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-black/5 to-transparent pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ingenieria)]">
+            <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-ingenieria)]">
               Actualidad
             </p>
           </div>
 
           <Link
             to="/news"
-            className="inline-flex items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-2 text-sm font-semibold text-[var(--text-main)] hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)] transition-colors"
+            className="inline-flex items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 py-1 text-[11px] font-semibold text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
           >
             Ver todas las noticias
           </Link>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_300px]">
-          <article className="overflow-hidden rounded-[1.6rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
-            <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-2.5 xl:grid-cols-[minmax(0,1.28fr)_220px]">
+          <article className="overflow-hidden rounded-[1.1rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
               <img
                 src={activeItem.imageUrl || FALLBACK_IMAGE}
                 alt={activeItem.title}
-                className="h-full min-h-[220px] w-full object-cover"
+                className="h-full min-h-[150px] w-full object-cover"
               />
 
-              <div className="flex flex-col justify-between p-4 md:p-5">
+              <div className="flex flex-col justify-between p-3 md:p-3.5">
                 <div>
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-ingenieria)]">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+                    <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2 py-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-[var(--color-ingenieria)]">
                       {currentIndex === 0
                         ? "Destacada"
                         : `Noticia ${currentIndex + 1}`}
                     </span>
-                    <span className="text-xs text-[var(--text-main)]/55">
+                    <span className="text-[10px] text-[var(--text-main)]/55">
                       {formatDate(activeItem.publishedAt)}
                     </span>
                   </div>
 
-                  <h3 className="mb-2 text-xl font-semibold leading-tight text-[var(--text-main)] md:text-2xl">
+                  <h3 className="mb-1.5 text-base font-semibold leading-tight text-[var(--text-main)] md:text-lg">
                     {activeItem.title}
                   </h3>
 
-                  <p className="mb-3 line-clamp-3 text-sm leading-6 text-[var(--text-main)]/75">
+                  <p className="mb-1.5 line-clamp-2 text-xs leading-4 text-[var(--text-main)]/75">
                     {activeItem.summary}
                   </p>
 
                   {activeItem.content ? (
-                    <p className="line-clamp-2 text-xs leading-5 text-[var(--text-main)]/65">
+                    <p className="line-clamp-1 text-[10px] leading-4 text-[var(--text-main)]/65">
                       {activeItem.content}
                     </p>
                   ) : null}
                 </div>
 
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-1.5">
                     <button
                       type="button"
                       onClick={goToPrevious}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-sm text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[11px] text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
                       aria-label="Noticia anterior"
                     >
                       ←
@@ -135,7 +135,7 @@ const News = () => {
                     <button
                       type="button"
                       onClick={goToNext}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-sm text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[11px] text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
                       aria-label="Siguiente noticia"
                     >
                       →
@@ -144,7 +144,7 @@ const News = () => {
 
                   <Link
                     to={`/news#news-${activeItem.id}`}
-                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-ingenieria)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)]"
+                    className="inline-flex items-center justify-center rounded-full bg-[var(--color-ingenieria)] px-3 py-1 text-[11px] font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)]"
                   >
                     Leer noticia completa
                   </Link>
@@ -153,36 +153,36 @@ const News = () => {
             </div>
           </article>
 
-          <div className="grid gap-3">
+          <div className="grid gap-2">
             {news.map((item, index) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setCurrentIndex(index)}
-                className={`rounded-2xl border p-3 text-left transition-all ${
+                className={`rounded-lg border p-2 text-left transition-all ${
                   index === currentIndex
                     ? "border-[var(--color-ingenieria)] bg-[var(--color-ingenieria)]/8 shadow-sm"
                     : "border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--color-ingenieria)]/45"
                 }`}
               >
-                <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-ingenieria)]">
+                <p className="mb-0.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-[var(--color-ingenieria)]">
                   {formatDate(item.publishedAt)}
                 </p>
-                <h3 className="mb-1 text-sm font-semibold leading-snug text-[var(--text-main)]">
+                <h3 className="mb-0.5 text-xs font-semibold leading-snug text-[var(--text-main)]">
                   {item.title}
                 </h3>
-                <p className="line-clamp-2 text-xs leading-5 text-[var(--text-main)]/70">
+                <p className="line-clamp-2 text-[10px] leading-4 text-[var(--text-main)]/70">
                   {item.summary}
                 </p>
 
-                <div className="mt-3 flex gap-1.5">
+                <div className="mt-2 flex gap-1">
                   {news.map((_, dotIndex) => (
                     <span
                       key={`${item.id}-${dotIndex}`}
-                      className={`h-1.5 rounded-full transition-all ${
+                      className={`h-1 rounded-full transition-all ${
                         dotIndex === index
-                          ? "w-6 bg-[var(--color-ingenieria)]"
-                          : "w-1.5 bg-[var(--text-main)]/20"
+                          ? "w-4 bg-[var(--color-ingenieria)]"
+                          : "w-1 bg-[var(--text-main)]/20"
                       }`}
                     />
                   ))}
