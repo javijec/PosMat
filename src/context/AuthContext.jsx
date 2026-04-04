@@ -51,6 +51,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePassword = async (currentPassword, newPassword) => {
+    try {
+      setError(null);
+      return await activeAuthProvider.changePassword(currentPassword, newPassword);
+    } catch (error) {
+      console.error("Error al cambiar la contraseña:", error);
+      setError(error.message);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = activeAuthProvider.observeAuthState((nextUser) => {
       setUser(nextUser);
@@ -70,6 +81,7 @@ export const AuthProvider = ({ children }) => {
     authProvider,
     signInWithEmailAndPassword: loginUser,
     signUpWithEmailAndPassword,
+    changePassword,
     logout,
     error,
   };

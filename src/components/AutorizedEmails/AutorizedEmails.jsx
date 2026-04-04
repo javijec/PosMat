@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import AuthorizedEmailForm from "./AuthorizedEmailForm";
 import AuthorizedEmailsList from "./AuthorizedEmailsList";
+import ChangePasswordForm from "./ChangePasswordForm";
 import ConfirmModal from "../shared/ConfirmModal";
 import { toast } from "sonner";
 import { addItem, deleteItem, fetchData } from "../../data";
@@ -94,6 +95,19 @@ const AuthorizedEmails = () => {
         </h1>
 
         <div className="bg-[var(--bg-card)] p-8 rounded-xl shadow-sm border border-[var(--border-subtle)]">
+          <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)]">
+            Seguridad de la Cuenta
+          </h2>
+          <p className="text-sm text-[var(--text-main)]/50 mb-6 italic">
+            Aquí puedes actualizar la contraseña del usuario que inició sesión.
+          </p>
+
+          <ChangePasswordForm
+            onSuccess={() => toast.success("Contraseña actualizada con éxito")}
+          />
+
+          <hr className="my-10 border-[var(--border-subtle)]" />
+
           <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)]">
             Autorizar Nuevo Email
           </h2>

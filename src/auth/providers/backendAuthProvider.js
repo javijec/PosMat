@@ -162,7 +162,26 @@ const logout = async () => {
   return true;
 };
 
+const changePassword = async (currentPassword, newPassword) => {
+  const response = await fetch(buildAuthUrl("/change-password"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ currentPassword, newPassword }),
+  });
+
+  if (response.status === 204) {
+    return true;
+  }
+
+  await readJsonResponse(response);
+  return true;
+};
+
 export {
+  changePassword,
   getCurrentUser,
   getPersistedUser,
   logout,
