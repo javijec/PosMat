@@ -10,8 +10,8 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           <span
             className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
               course.humanistico
-                ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                ? "border border-violet-200 bg-violet-50 text-violet-800"
+                : "border border-sky-200 bg-sky-50 text-sky-800"
             }`}
           >
             {course.humanistico ? "Humanístico" : "Científico"}
@@ -28,7 +28,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600 mb-4">
           {course.horasTeoricas > 0 && (
             <div className="flex flex-col">
-              <span className="text-xs text-[var(--text-main)]/40">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
                 Teóricas
               </span>
               <span className="font-medium text-[var(--text-main)]/80">
@@ -38,7 +38,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           )}
           {course.horasPracticas > 0 && (
             <div className="flex flex-col">
-              <span className="text-xs text-[var(--text-main)]/40">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
                 Prácticas
               </span>
               <span className="font-medium text-[var(--text-main)]/80">
@@ -48,7 +48,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           )}
           {course.horasTP > 0 && (
             <div className="flex flex-col">
-              <span className="text-xs text-[var(--text-main)]/40">
+              <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
                 Teórico-Prác.
               </span>
               <span className="font-medium text-[var(--text-main)]/80">
@@ -57,7 +57,9 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
             </div>
           )}
           <div className="flex flex-col">
-            <span className="text-xs text-[var(--text-main)]/40">UVACS</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
+              UVACS
+            </span>
             <span className="font-medium text-[var(--color-ingenieria)]">
               {course.uvacs}
             </span>
@@ -67,7 +69,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
         <div className="space-y-1 text-sm text-[var(--text-main)]/50">
           {course.fechaInicio && (
             <p className="flex items-center">
-              <span className="w-16 font-medium text-[var(--text-main)]/40 uppercase text-[10px]">
+              <span className="w-16 text-[10px] font-bold uppercase text-[var(--color-ingenieria)]/80">
                 Inicio:
               </span>
               {course.fechaInicio}
@@ -75,7 +77,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
           )}
           {course.lugar && (
             <p className="flex items-center">
-              <span className="w-16 font-medium text-[var(--text-main)]/40 uppercase text-[10px]">
+              <span className="w-16 text-[10px] font-bold uppercase text-[var(--color-ingenieria)]/80">
                 Lugar:
               </span>
               {course.lugar}
@@ -85,7 +87,7 @@ const CourseItem = ({ course, onEdit, onDelete }) => {
 
         {course.profesores && course.profesores.length > 0 && (
           <div className="mt-4 pt-4 border-t border-[var(--border-subtle)]">
-            <p className="text-xs font-bold text-[var(--text-main)]/40 uppercase tracking-wider mb-2">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
               Plantel Docente
             </p>
             <div className="flex flex-wrap gap-2">
