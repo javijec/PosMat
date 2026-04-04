@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
 import FormTextarea from "../shared/FormTextarea";
+import RichTextEditor from "../shared/RichTextEditor";
 import useConfirmExit from "../../hooks/useConfirmExit";
 
 const tesisSchema = z.object({
@@ -42,6 +43,7 @@ const TesisForm = ({
   const {
     register,
     handleSubmit,
+    control,
     reset,
     formState: { errors, isDirty },
   } = useForm({
@@ -162,23 +164,49 @@ const TesisForm = ({
           placeholder="Nombre del tercer jurado"
         />
 
-        <FormTextarea
-          label="Resumen en Español"
-          {...register("summary_es")}
-          error={errors.summary_es}
-          rows={6}
-          placeholder="Resumen de la tesis en español"
-          className="md:col-span-2"
-        />
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Resumen en Español
+          </label>
+          <Controller
+            name="summary_es"
+            control={control}
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value || ""}
+                onChange={field.onChange}
+                error={errors.summary_es}
+              />
+            )}
+          />
+          {errors.summary_es && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.summary_es.message}
+            </p>
+          )}
+        </div>
 
-        <FormTextarea
-          label="Abstract en Inglés"
-          {...register("abstract_en")}
-          error={errors.abstract_en}
-          rows={6}
-          placeholder="Abstract of the thesis in English"
-          className="md:col-span-2"
-        />
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Abstract en Inglés
+          </label>
+          <Controller
+            name="abstract_en"
+            control={control}
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value || ""}
+                onChange={field.onChange}
+                error={errors.abstract_en}
+              />
+            )}
+          />
+          {errors.abstract_en && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.abstract_en.message}
+            </p>
+          )}
+        </div>
       </div>
 
       <FormActions
