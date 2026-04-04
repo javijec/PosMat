@@ -3,7 +3,6 @@ import {
   RouterProvider,
   Outlet,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
@@ -44,15 +43,12 @@ import NewsPage from "./components/News/NewsPage.jsx";
 import NewsEdit from "./components/NewsEdit/NewsEdit.jsx";
 import GlobalLoadingBar from "./components/shared/GlobalLoadingBar.jsx";
 import { Toaster } from "sonner";
-import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * RootLayout provides the global providers and shared UI structure.
  * It uses <Outlet /> to render the current route's component.
  */
 const RootLayout = () => {
-  const location = useLocation();
-
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -63,17 +59,7 @@ const RootLayout = () => {
           <Header />
           <div className="flex flex-1">
             <MainContent>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={location.pathname}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <Outlet />
-                </motion.div>
-              </AnimatePresence>
+              <Outlet />
             </MainContent>
           </div>
           <Footer />
