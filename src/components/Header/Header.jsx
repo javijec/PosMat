@@ -235,7 +235,10 @@ const Header = () => {
                       Panel de Control
                     </NavLink>
                     <button
-                      onClick={handleAuth}
+                      onClick={() => {
+                        handleAuth();
+                        closeDisclosure(close);
+                      }}
                       className="w-full rounded-md px-3 py-2 text-left text-white/90 transition-colors hover:bg-white/5 hover:text-white"
                     >
                       Cerrar Sesión
