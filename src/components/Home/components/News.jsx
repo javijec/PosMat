@@ -79,7 +79,7 @@ const News = () => {
 
           <Link
             to="/news"
-            className="inline-flex items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 py-1 text-[11px] font-semibold text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
+            className="hidden items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 py-1 text-[11px] font-semibold text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)] md:inline-flex"
           >
             Ver todas las noticias
           </Link>
@@ -190,6 +190,15 @@ const News = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="mt-3 flex justify-center md:hidden">
+          <Link
+            to="/news"
+            className="inline-flex items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] px-3 py-1 text-[11px] font-semibold text-[var(--text-main)] transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
+          >
+            Ver todas las noticias
+          </Link>
         </div>
       </div>
     </section>
