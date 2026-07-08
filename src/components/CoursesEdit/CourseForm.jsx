@@ -39,6 +39,23 @@ const courseSchema = z.object({
   }, z.boolean().default(false)),
 });
 
+const normalizeProfessorSuggestion = (prof) => {
+  if (!prof || typeof prof !== "object") return null;
+
+  const firstName = typeof prof.firstName === "string" ? prof.firstName : "";
+  const lastName = typeof prof.lastName === "string" ? prof.lastName : "";
+  const fullName = `${firstName} ${lastName}`.trim();
+
+  if (!fullName) return null;
+
+  return {
+    ...prof,
+    fullName,
+    normalizedFullName: fullName.toLowerCase(),
+    email: typeof prof.email === "string" ? prof.email : "",
+  };
+};
+
 const CourseForm = ({
   editingId,
   defaultValues,
@@ -56,12 +73,7 @@ const CourseForm = ({
       const result = await fetchData("professors");
       if (!result || !Array.isArray(result)) return [];
 
-      return result
-        .map((prof) => ({
-          ...prof,
-          fullName: `${prof.firstName || ""} ${prof.lastName || ""}`.trim(),
-        }))
-        .filter((prof) => prof.fullName);
+      return result.map(normalizeProfessorSuggestion).filter(Boolean);
     },
     staleTime: 5 * 60 * 1000,
   });
@@ -70,12 +82,26 @@ const CourseForm = ({
     () =>
       new Map(
         professorSuggestions.map((prof) => [
-          prof.fullName.toLowerCase(),
+          prof.normalizedFullName,
           prof,
         ])
       ),
     [professorSuggestions]
   );
+
+  const filteredProfessorSuggestions = useMemo(() => {
+    const term = profName.trim().toLowerCase();
+
+    if (term.length < 3) return [];
+
+    return professorSuggestions
+      .filter((prof) => {
+        const fullName = prof.normalizedFullName || "";
+        const email = (prof.email || "").toLowerCase();
+        return fullName.includes(term) || email.includes(term);
+      })
+      .slice(0, 6);
+  }, [profName, professorSuggestions]);
 
   const {
     register,
@@ -126,6 +152,12 @@ const CourseForm = ({
     if (matchedProfessor) {
       setProfEmail(matchedProfessor.email || "");
     }
+  };
+
+  const handlePickProfessor = (prof) => {
+    setProfName(prof.fullName);
+    setProfEmail(prof.email || "");
+    setEditingProfIndex(null);
   };
 
   const handleEditProf = (index) => {
@@ -206,26 +238,53 @@ const CourseForm = ({
             Profesores
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 not-italic">
-            <FormInput
-              placeholder="Nombre del profesor"
-              value={profName}
-              onChange={handleProfNameChange}
-              list="professor-suggestions"
-            />
+            <div className="relative">
+              <FormInput
+                placeholder="Nombre del profesor"
+                value={profName}
+                onChange={handleProfNameChange}
+              />
+
+              {filteredProfessorSuggestions.length > 0 && (
+                <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-white shadow-xl">
+                  <div className="border-b border-[var(--border-subtle)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">
+                    Sugerencias
+                  </div>
+                  <div className="max-h-72 overflow-auto">
+                    {filteredProfessorSuggestions.map((prof) => (
+                      <button
+                        key={prof.id}
+                        type="button"
+                        onClick={() => handlePickProfessor(prof)}
+                        className="flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--bg-surface)]"
+                      >
+                        <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-ingenieria)]/10 text-xs font-bold text-[var(--color-ingenieria)]">
+                          {prof.title ? prof.title.replace(/\./g, "") : "P"}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="truncate font-semibold text-[var(--text-main)]">
+                            {prof.title ? `${prof.title} ` : ""}
+                            {prof.fullName}
+                          </div>
+                          <div className="truncate text-sm text-[var(--text-main)]/60">
+                            {prof.email || "Sin correo registrado"}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <FormInput
               placeholder="Email (opcional)"
               value={profEmail}
               onChange={(e) => setProfEmail(e.target.value)}
             />
           </div>
-          <datalist id="professor-suggestions">
-            {professorSuggestions.map((prof) => (
-              <option key={prof.id} value={prof.fullName} />
-            ))}
-          </datalist>
           <p className="mb-3 text-xs text-gray-500 not-italic">
-            Escribí el nombre y elegí una sugerencia para completar el email
-            automáticamente.
+            Escribí al menos 3 letras para ver sugerencias de profesores y
+            completar el email automáticamente.
           </p>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <button
