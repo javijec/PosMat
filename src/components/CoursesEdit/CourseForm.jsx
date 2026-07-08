@@ -3,7 +3,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
@@ -46,6 +46,7 @@ const CourseForm = ({
 }) => {
   const [profName, setProfName] = useState("");
   const [profEmail, setProfEmail] = useState("");
+  const [editingProfIndex, setEditingProfIndex] = useState(null);
 
   const {
     register,
@@ -60,20 +61,56 @@ const CourseForm = ({
 
   useConfirmExit(isDirty);
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: "profesores",
   });
 
   useEffect(() => {
     reset(defaultValues);
+    setProfName("");
+    setProfEmail("");
+    setEditingProfIndex(null);
   }, [defaultValues, reset]);
 
   const handleAddProf = () => {
     if (profName.trim()) {
-      append({ nombre: profName, email: profEmail });
+      const nextProf = { nombre: profName.trim(), email: profEmail.trim() };
+
+      if (editingProfIndex !== null) {
+        update(editingProfIndex, nextProf);
+        setEditingProfIndex(null);
+      } else {
+        append(nextProf);
+      }
+
       setProfName("");
       setProfEmail("");
+    }
+  };
+
+  const handleEditProf = (index) => {
+    const prof = fields[index];
+    setProfName(prof.nombre || "");
+    setProfEmail(prof.email || "");
+    setEditingProfIndex(index);
+  };
+
+  const handleCancelEditProf = () => {
+    setProfName("");
+    setProfEmail("");
+    setEditingProfIndex(null);
+  };
+
+  const handleRemoveProf = (index) => {
+    remove(index);
+    if (editingProfIndex === index) {
+      handleCancelEditProf();
+      return;
+    }
+
+    if (editingProfIndex !== null && index < editingProfIndex) {
+      setEditingProfIndex((current) => (current === null ? null : current - 1));
     }
   };
 
@@ -146,8 +183,22 @@ const CourseForm = ({
             onClick={handleAddProf}
             className="flex items-center text-sm bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 mb-4 transition-all shadow-md shadow-indigo-100 not-italic font-medium"
           >
-            <FontAwesomeIcon icon={faPlus} className="mr-2" /> Agregar Profesor
+            <FontAwesomeIcon
+              icon={editingProfIndex !== null ? faPenToSquare : faPlus}
+              className="mr-2"
+            />
+            {editingProfIndex !== null ? "Guardar Profesor" : "Agregar Profesor"}
           </button>
+
+          {editingProfIndex !== null && (
+            <button
+              type="button"
+              onClick={handleCancelEditProf}
+              className="ml-3 mb-4 text-sm text-gray-500 hover:text-gray-700 not-italic"
+            >
+              Cancelar edición
+            </button>
+          )}
 
           {fields.length > 0 && (
             <div className="space-y-2 not-italic">
@@ -164,13 +215,24 @@ const CourseForm = ({
                       </span>
                     )}
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="text-red-400 hover:text-red-600 p-2 transition-colors"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleEditProf(index)}
+                      className="text-amber-500 hover:text-amber-700 p-2 transition-colors"
+                      title="Editar profesor"
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveProf(index)}
+                      className="text-red-400 hover:text-red-600 p-2 transition-colors"
+                      title="Eliminar profesor"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
