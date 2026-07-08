@@ -253,14 +253,6 @@ const StudentForm = ({
             error={errors.email}
           />
 
-          <FormInput
-            label="URL de imagen"
-            {...register("imageUrl")}
-            error={errors.imageUrl}
-            placeholder="https://... o deja vacío si vas a subir una imagen"
-            className="md:col-span-2"
-          />
-
           <div className="md:col-span-2">
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Subir imagen de perfil
@@ -273,8 +265,8 @@ const StudentForm = ({
               className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] file:mr-4 file:rounded-md file:border-0 file:bg-[var(--color-ingenieria)] file:px-4 file:py-2 file:font-medium file:text-white hover:file:bg-[var(--color-ingenieria-hover)]"
             />
             <p className="mt-2 text-xs text-gray-500">
-              Puedes pegar una URL o subir una imagen desde tu computadora. Si
-              subes una, la recortamos antes de guardarla.
+              Subí una imagen desde tu computadora. La recortamos antes de
+              guardarla.
             </p>
             {uploadError ? (
               <p className="mt-2 text-xs text-red-500">{uploadError}</p>
