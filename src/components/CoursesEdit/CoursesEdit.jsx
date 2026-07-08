@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import CourseItem from "./CourseItem";
 import CourseForm from "./CourseForm";
@@ -6,7 +6,6 @@ import { fetchData } from "../../data";
 import { useDataMutations } from "../../hooks/useDataMutations";
 import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
-import SearchBar from "../shared/SearchBar";
 import FilterGrid from "../shared/FilterGrid";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
@@ -54,6 +53,14 @@ const CoursesEdit = () => {
         });
     },
   });
+
+  const years = useMemo(() => {
+    const availableYears = courses
+      .map((course) => course.año)
+      .filter((year) => Number.isFinite(year));
+
+    return [...new Set([currentYear, ...availableYears])].sort((a, b) => b - a);
+  }, [courses]);
 
   const { addMutation, updateMutation, deleteMutation, isPending } =
     useDataMutations({
@@ -138,11 +145,17 @@ const CoursesEdit = () => {
             <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
               Año
             </label>
-            <SearchBar
+            <select
               value={filters.year}
-              onChange={(val) => updateFilter("year", val)}
-              placeholder="Ej: 2024"
-            />
+              onChange={(e) => updateFilter("year", e.target.value)}
+              className="w-full px-4 py-2 border border-[var(--border-subtle)] rounded-full focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:outline-none transition-all shadow-sm bg-[var(--bg-card)] text-[var(--text-main)]"
+            >
+              {years.map((year) => (
+                <option key={year} value={String(year)}>
+                  {year}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-[var(--text-main)]/70 mb-1">
@@ -153,9 +166,9 @@ const CoursesEdit = () => {
               onChange={(e) => updateFilter("semester", e.target.value)}
               className="w-full px-4 py-2 border border-[var(--border-subtle)] rounded-full focus:ring-2 focus:ring-[var(--color-ingenieria)] focus:outline-none transition-all shadow-sm bg-[var(--bg-card)] text-[var(--text-main)]"
             >
-              <option value="">Todos</option>
-              <option value="1">1er Semestre</option>
-              <option value="2">2do Semestre</option>
+              <option value="">Seleccionar semestre</option>
+              <option value="1">1° Semestre</option>
+              <option value="2">2° Semestre</option>
             </select>
           </div>
           <div>
