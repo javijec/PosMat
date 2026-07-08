@@ -118,9 +118,8 @@ const HeroEdit = () => {
           <div className="pt-4">
             <FormActions
               isSubmitting={isPending}
-              isEditing={true}
+              isEditing={isDirty}
               submitLabel="Guardar Cambios"
-              hideCancel={true}
               disabled={!isDirty}
             />
             {!isDirty && !isPending && (
