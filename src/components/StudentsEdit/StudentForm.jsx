@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Cropper from "react-easy-crop";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -34,20 +35,25 @@ const loadImage = (src) =>
     image.src = src;
   });
 
-const resizeImage = async (file) => {
-  const dataUrl = await readFileAsDataUrl(file);
-  const image = await loadImage(dataUrl);
-  const maxWidth = 1200;
-  const scale = Math.min(1, maxWidth / image.width);
-  const width = Math.round(image.width * scale);
-  const height = Math.round(image.height * scale);
-
+const getCroppedImage = async (imageSrc, cropPixels) => {
+  const image = await loadImage(imageSrc);
   const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
+  const ctx = canvas.getContext("2d");
 
-  const context = canvas.getContext("2d");
-  context.drawImage(image, 0, 0, width, height);
+  canvas.width = cropPixels.width;
+  canvas.height = cropPixels.height;
+
+  ctx.drawImage(
+    image,
+    cropPixels.x,
+    cropPixels.y,
+    cropPixels.width,
+    cropPixels.height,
+    0,
+    0,
+    cropPixels.width,
+    cropPixels.height
+  );
 
   return canvas.toDataURL("image/jpeg", 0.82);
 };
@@ -61,6 +67,12 @@ const StudentForm = ({
 }) => {
   const fileInputRef = useRef(null);
   const [uploadError, setUploadError] = useState("");
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [cropImageSrc, setCropImageSrc] = useState("");
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [cropPixels, setCropPixels] = useState(null);
+  const [croppedPreview, setCroppedPreview] = useState("");
 
   const {
     register,
@@ -80,6 +92,12 @@ const StudentForm = ({
   useEffect(() => {
     reset(defaultValues);
     setUploadError("");
+    setCropModalOpen(false);
+    setCropImageSrc("");
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+    setCropPixels(null);
+    setCroppedPreview("");
   }, [defaultValues, reset]);
 
   const handleFileChange = async (event) => {
@@ -101,16 +119,74 @@ const StudentForm = ({
 
     try {
       setUploadError("");
-      const compressedImage = await resizeImage(file);
-      setValue("imageUrl", compressedImage, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
+      const dataUrl = await readFileAsDataUrl(file);
+      setCropImageSrc(dataUrl);
+      setCrop({ x: 0, y: 0 });
+      setZoom(1);
+      setCropPixels(null);
+      setCropModalOpen(true);
     } catch (_error) {
       setUploadError("No se pudo cargar la imagen seleccionada.");
     } finally {
       event.target.value = "";
     }
+  };
+
+  const handleCropComplete = (_croppedArea, croppedAreaPixels) => {
+    setCropPixels(croppedAreaPixels);
+  };
+
+  useEffect(() => {
+    let isActive = true;
+
+    const updatePreview = async () => {
+      if (!cropImageSrc || !cropPixels) {
+        setCroppedPreview("");
+        return;
+      }
+
+      try {
+        const preview = await getCroppedImage(cropImageSrc, cropPixels);
+        if (isActive) {
+          setCroppedPreview(preview);
+        }
+      } catch (_error) {
+        if (isActive) {
+          setCroppedPreview("");
+        }
+      }
+    };
+
+    updatePreview();
+
+    return () => {
+      isActive = false;
+    };
+  }, [cropImageSrc, cropPixels]);
+
+  const handleConfirmCrop = async () => {
+    if (!cropImageSrc || !cropPixels) return;
+
+    try {
+      const croppedImage = await getCroppedImage(cropImageSrc, cropPixels);
+      setValue("imageUrl", croppedImage, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+      setCropModalOpen(false);
+      setCropImageSrc("");
+      setCropPixels(null);
+    } catch (_error) {
+      setUploadError("No se pudo recortar la imagen seleccionada.");
+    }
+  };
+
+  const handleCancelCrop = () => {
+    setCropModalOpen(false);
+    setCropImageSrc("");
+    setCropPixels(null);
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
   };
 
   const clearImage = () => {
@@ -125,116 +201,233 @@ const StudentForm = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="mb-8 p-6 border rounded-lg bg-white shadow-sm"
-    >
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        {editingId === -1 ? "Agregar Nuevo Estudiante" : "Editar Estudiante"}
-      </h2>
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mb-8 rounded-lg border bg-white p-6 shadow-sm"
+      >
+        <h2 className="mb-6 text-2xl font-semibold text-gray-800">
+          {editingId === -1 ? "Agregar Nuevo Estudiante" : "Editar Estudiante"}
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormInput
-          label="Nombre"
-          {...register("firstName")}
-          error={errors.firstName}
-        />
-
-        <FormInput
-          label="Apellido"
-          {...register("lastName")}
-          error={errors.lastName}
-        />
-
-        <FormInput
-          label="Director"
-          {...register("director")}
-          error={errors.director}
-        />
-
-        <FormInput label="Codirector (Opcional)" {...register("codirector")} />
-
-        <FormInput
-          label="Tema de Tesis"
-          {...register("thesis_topic")}
-          error={errors.thesis_topic}
-          className="md:col-span-2"
-        />
-
-        <FormSelect
-          label="Programa"
-          {...register("program")}
-          options={[
-            { value: "doctorado", label: "Doctorado" },
-            { value: "maestria", label: "Maestría" },
-          ]}
-        />
-
-        <FormInput
-          label="Email (Opcional)"
-          {...register("email")}
-          error={errors.email}
-        />
-
-        <FormInput
-          label="URL de imagen"
-          {...register("imageUrl")}
-          error={errors.imageUrl}
-          placeholder="https://... o deja vacío si vas a subir una imagen"
-          className="md:col-span-2"
-        />
-
-        <div className="md:col-span-2">
-          <label className="mb-1 block text-sm font-medium text-gray-700">
-            Subir imagen de perfil
-          </label>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] file:mr-4 file:rounded-md file:border-0 file:bg-[var(--color-ingenieria)] file:px-4 file:py-2 file:font-medium file:text-white hover:file:bg-[var(--color-ingenieria-hover)]"
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <FormInput
+            label="Nombre"
+            {...register("firstName")}
+            error={errors.firstName}
           />
-          <p className="mt-2 text-xs text-gray-500">
-            Puedes pegar una URL o subir una imagen desde tu computadora. Si subes una, la comprimimos automáticamente.
-          </p>
-          {uploadError ? (
-            <p className="mt-2 text-xs text-red-500">{uploadError}</p>
+
+          <FormInput
+            label="Apellido"
+            {...register("lastName")}
+            error={errors.lastName}
+          />
+
+          <FormInput
+            label="Director"
+            {...register("director")}
+            error={errors.director}
+          />
+
+          <FormInput label="Codirector (Opcional)" {...register("codirector")} />
+
+          <FormInput
+            label="Tema de Tesis"
+            {...register("thesis_topic")}
+            error={errors.thesis_topic}
+            className="md:col-span-2"
+          />
+
+          <FormSelect
+            label="Programa"
+            {...register("program")}
+            options={[
+              { value: "doctorado", label: "Doctorado" },
+              { value: "maestria", label: "Maestría" },
+            ]}
+          />
+
+          <FormInput
+            label="Email (Opcional)"
+            {...register("email")}
+            error={errors.email}
+          />
+
+          <FormInput
+            label="URL de imagen"
+            {...register("imageUrl")}
+            error={errors.imageUrl}
+            placeholder="https://... o deja vacío si vas a subir una imagen"
+            className="md:col-span-2"
+          />
+
+          <div className="md:col-span-2">
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Subir imagen de perfil
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full rounded-md border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] file:mr-4 file:rounded-md file:border-0 file:bg-[var(--color-ingenieria)] file:px-4 file:py-2 file:font-medium file:text-white hover:file:bg-[var(--color-ingenieria-hover)]"
+            />
+            <p className="mt-2 text-xs text-gray-500">
+              Puedes pegar una URL o subir una imagen desde tu computadora. Si
+              subes una, la recortamos antes de guardarla.
+            </p>
+            {uploadError ? (
+              <p className="mt-2 text-xs text-red-500">{uploadError}</p>
+            ) : null}
+          </div>
+
+          {imagePreview ? (
+            <div className="md:col-span-2 overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <h3 className="text-sm font-semibold text-[var(--text-main)]">
+                  Vista previa en la tarjeta
+                </h3>
+                <button
+                  type="button"
+                  onClick={clearImage}
+                  className="rounded-md border border-red-200 px-3 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+                >
+                  Quitar imagen
+                </button>
+              </div>
+              <div className="flex justify-center">
+                <div className="flex w-full max-w-sm items-center gap-4 rounded-2xl border border-[var(--border-subtle)] bg-white p-4 shadow-sm">
+                  <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-md">
+                    <img
+                      src={imagePreview}
+                      alt="Vista previa"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-[var(--text-main)]">
+                      {watch("firstName") || "Nombre"}{" "}
+                      {watch("lastName") || "Apellido"}
+                    </p>
+                    <p className="mt-1 text-xs text-gray-500">
+                      Así se verá la imagen de perfil en la tarjeta.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           ) : null}
         </div>
 
-        {imagePreview ? (
-          <div className="md:col-span-2 overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <h3 className="text-sm font-semibold text-[var(--text-main)]">
-                Vista previa de imagen
-              </h3>
+        <FormActions
+          isSubmitting={isSubmitting}
+          onCancel={onCancel}
+          isEditing={editingId !== -1}
+          submitLabel={
+            editingId === -1 ? "Agregar Estudiante" : "Guardar Cambios"
+          }
+        />
+      </form>
+
+      {cropModalOpen && cropImageSrc ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+          <div className="w-full max-w-5xl rounded-2xl bg-white p-4 shadow-2xl">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Recortar imagen
+                </h3>
+                <p className="text-sm text-gray-500">
+                  Ajustá el recorte cuadrado antes de guardarla.
+                </p>
+              </div>
               <button
                 type="button"
-                onClick={clearImage}
-                className="rounded-md border border-red-200 px-3 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+                onClick={handleCancelCrop}
+                className="rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
               >
-                Quitar imagen
+                Cancelar
               </button>
             </div>
-            <img
-              src={imagePreview}
-              alt="Vista previa"
-              className="max-h-80 w-full rounded-lg object-cover"
-            />
-          </div>
-        ) : null}
-      </div>
 
-      <FormActions
-        isSubmitting={isSubmitting}
-        onCancel={onCancel}
-        isEditing={editingId !== -1}
-        submitLabel={
-          editingId === -1 ? "Agregar Estudiante" : "Guardar Cambios"
-        }
-      />
-    </form>
+            <div className="grid gap-4 lg:grid-cols-[minmax(0,1.7fr)_minmax(280px,0.9fr)]">
+              <div className="relative h-[420px] w-full overflow-hidden rounded-xl bg-black">
+                <Cropper
+                  image={cropImageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  cropShape="round"
+                  showGrid={false}
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={handleCropComplete}
+                />
+              </div>
+
+              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-4">
+                <h4 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-main)]/60">
+                  Vista previa final
+                </h4>
+                <p className="mt-1 text-xs text-gray-500">
+                  Así va a quedar la foto en la tarjeta.
+                </p>
+
+                <div className="mt-4 flex justify-center">
+                  <div className="flex h-56 w-56 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-lg">
+                    {croppedPreview ? (
+                      <img
+                        src={croppedPreview}
+                        alt="Vista previa recortada"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center text-gray-400">
+                        <p className="text-sm font-medium">
+                          Mové la imagen para ver la previsualización
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-col gap-4">
+                  <label className="text-sm font-medium text-gray-700">
+                    Zoom
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={3}
+                    step={0.01}
+                    value={zoom}
+                    onChange={(event) => setZoom(Number(event.target.value))}
+                    className="w-full"
+                  />
+                </div>
+
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={handleCancelCrop}
+                    className="rounded-md border border-gray-200 px-5 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                  >
+                    Volver
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleConfirmCrop}
+                    className="rounded-md bg-[var(--color-ingenieria)] px-5 py-2 font-medium text-white transition-colors hover:bg-[var(--color-ingenieria-hover)]"
+                  >
+                    Usar recorte
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 

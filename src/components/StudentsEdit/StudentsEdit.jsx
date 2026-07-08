@@ -82,7 +82,10 @@ const StudentsEdit = () => {
   const handleEdit = (student) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(student.id);
-    setDefaultValues(student);
+    setDefaultValues({
+      ...student,
+      imageUrl: student.imageUrl || student.photoUrl || "",
+    });
   };
 
   const handleConfirmDelete = () => {
