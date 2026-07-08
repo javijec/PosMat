@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -8,6 +9,7 @@ import FormActions from "../shared/FormActions";
 import FormInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
 import useConfirmExit from "../../hooks/useConfirmExit";
+import { fetchData } from "../../data";
 
 const courseSchema = z.object({
   nombre: z.string().min(1, "El nombre es obligatorio"),
@@ -48,6 +50,33 @@ const CourseForm = ({
   const [profEmail, setProfEmail] = useState("");
   const [editingProfIndex, setEditingProfIndex] = useState(null);
 
+  const { data: professorSuggestions = [] } = useQuery({
+    queryKey: ["professors"],
+    queryFn: async () => {
+      const result = await fetchData("professors");
+      if (!result || !Array.isArray(result)) return [];
+
+      return result
+        .map((prof) => ({
+          ...prof,
+          fullName: `${prof.firstName || ""} ${prof.lastName || ""}`.trim(),
+        }))
+        .filter((prof) => prof.fullName);
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const professorMap = useMemo(
+    () =>
+      new Map(
+        professorSuggestions.map((prof) => [
+          prof.fullName.toLowerCase(),
+          prof,
+        ])
+      ),
+    [professorSuggestions]
+  );
+
   const {
     register,
     handleSubmit,
@@ -86,6 +115,16 @@ const CourseForm = ({
 
       setProfName("");
       setProfEmail("");
+    }
+  };
+
+  const handleProfNameChange = (event) => {
+    const value = event.target.value;
+    setProfName(value);
+
+    const matchedProfessor = professorMap.get(value.trim().toLowerCase());
+    if (matchedProfessor) {
+      setProfEmail(matchedProfessor.email || "");
     }
   };
 
@@ -170,7 +209,8 @@ const CourseForm = ({
             <FormInput
               placeholder="Nombre del profesor"
               value={profName}
-              onChange={(e) => setProfName(e.target.value)}
+              onChange={handleProfNameChange}
+              list="professor-suggestions"
             />
             <FormInput
               placeholder="Email (opcional)"
@@ -178,6 +218,15 @@ const CourseForm = ({
               onChange={(e) => setProfEmail(e.target.value)}
             />
           </div>
+          <datalist id="professor-suggestions">
+            {professorSuggestions.map((prof) => (
+              <option key={prof.id} value={prof.fullName} />
+            ))}
+          </datalist>
+          <p className="mb-3 text-xs text-gray-500 not-italic">
+            Escribí el nombre y elegí una sugerencia para completar el email
+            automáticamente.
+          </p>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <button
               type="button"
