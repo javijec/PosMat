@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,32 +34,31 @@ const ContactEdit = () => {
 
   const contactData = contactList[0] || {};
   const docId = contactData.id;
+  const contactDefaults = useMemo(
+    () => ({
+      horario: contactData.horario || "",
+      adress: contactData.adress || "",
+      email: contactData.email || "",
+      phone: contactData.phone || "",
+    }),
+    [contactData.horario, contactData.adress, contactData.email, contactData.phone]
+  );
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(contactSchema),
-    defaultValues: {
-      horario: contactData.horario || "",
-      adress: contactData.adress || "",
-      email: contactData.email || "",
-      phone: contactData.phone || "",
-    },
+    defaultValues: contactDefaults,
   });
 
   useEffect(() => {
     if (contactData.id) {
-      reset({
-        horario: contactData.horario || "",
-        adress: contactData.adress || "",
-        email: contactData.email || "",
-        phone: contactData.phone || "",
-      });
+      reset(contactDefaults);
     }
-  }, [contactData, reset]);
+  }, [contactData.id, contactDefaults, reset]);
 
   const { updateMutation, isPending } = useDataMutations({
     collectionName,
@@ -149,9 +148,9 @@ const ContactEdit = () => {
 
           <FormActions
             isSubmitting={isPending}
-            isEditing={true}
+            isEditing={isDirty}
             submitLabel="Guardar Cambios"
-            hideCancel={true}
+            onCancel={() => reset(contactDefaults)}
           />
         </form>
       </div>
