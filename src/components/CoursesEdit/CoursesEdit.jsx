@@ -14,6 +14,7 @@ import { ListSkeleton } from "../shared/Skeleton";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 const normalizeHumanistico = (value) => value === true || value === "true";
+const currentYear = new Date().getFullYear();
 
 const CoursesEdit = () => {
   const collectionName = "courses";
@@ -68,7 +69,7 @@ const CoursesEdit = () => {
 
   const { filteredData, filters, updateFilter } = useFilters(
     courses,
-    { name: "", year: "", semester: "" },
+    { name: "", year: String(currentYear), semester: "" },
     (course, f) => {
       const matchYear = !f.year || String(course.año) === f.year;
       const matchSemester =
@@ -116,7 +117,7 @@ const CoursesEdit = () => {
       fechaInicio: "",
       lugar: "",
       semestre: 1,
-      año: new Date().getFullYear(),
+      año: currentYear,
       humanistico: false,
     });
   };
