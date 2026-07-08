@@ -27,6 +27,7 @@ const ProfessorsEdit = () => {
     lastName: "",
     email: "",
     title: "",
+    imageUrl: "",
   });
 
   const { data: professors = [], isLoading } = useQuery({
@@ -70,7 +71,10 @@ const ProfessorsEdit = () => {
   const handleEdit = (prof) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setEditingId(prof.id);
-    setDefaultValues(prof);
+    setDefaultValues({
+      ...prof,
+      imageUrl: prof.imageUrl || prof.photoUrl || "",
+    });
   };
 
   const handleConfirmDelete = () => {
@@ -90,7 +94,13 @@ const ProfessorsEdit = () => {
 
   const resetForm = () => {
     setEditingId(-1);
-    setDefaultValues({ firstName: "", lastName: "", email: "", title: "" });
+    setDefaultValues({
+      firstName: "",
+      lastName: "",
+      email: "",
+      title: "",
+      imageUrl: "",
+    });
   };
 
   if (isLoading) {
@@ -146,30 +156,38 @@ const ProfessorsEdit = () => {
             />
           ) : (
             filteredData.map((prof) => (
-              <div
-                key={prof.id}
-                className="flex flex-col gap-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-sm transition-shadow hover:shadow-md sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div className="flex min-w-0 items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-ingenieria)]/10 text-[var(--color-ingenieria)]">
+            <div
+              key={prof.id}
+              className="flex flex-col gap-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div className="flex min-w-0 items-start gap-4">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-main)]/30">
+                  {prof.imageUrl || prof.photoUrl ? (
+                    <img
+                      src={prof.imageUrl || prof.photoUrl}
+                      alt={`Foto de ${prof.firstName} ${prof.lastName}`}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
                     <FontAwesomeIcon
                       icon={faUserGraduate}
                       className="text-xl"
                     />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="break-words font-bold text-[var(--text-main)]">
-                      <span className="mr-1 text-sm font-medium text-[var(--color-ingenieria)]">
-                        {prof.title}
-                      </span>
-                      {prof.firstName} {prof.lastName}
-                    </h3>
-                    <p className="break-all text-sm text-[var(--text-main)]/60">
-                      {prof.email || "Sin correo registrado"}
-                    </p>
-                  </div>
+                  )}
                 </div>
-                <div className="flex shrink-0 justify-end space-x-2">
+                <div className="min-w-0 flex-1">
+                  <h3 className="break-words font-bold text-[var(--text-main)]">
+                    <span className="mr-1 text-sm font-medium text-[var(--color-ingenieria)]">
+                      {prof.title}
+                    </span>
+                    {prof.firstName} {prof.lastName}
+                  </h3>
+                  <p className="break-all text-sm text-[var(--text-main)]/60">
+                    {prof.email || "Sin correo registrado"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex shrink-0 justify-end space-x-2">
                   <button
                     onClick={() => handleEdit(prof)}
                     className="p-2 bg-amber-500/10 text-amber-600 rounded-md hover:bg-amber-500/20 transition-colors border border-amber-500/20"
@@ -184,8 +202,8 @@ const ProfessorsEdit = () => {
                   >
                     <FontAwesomeIcon icon={faTrash} className="w-5 h-5" />
                   </button>
-                </div>
               </div>
+            </div>
             ))
           )}
         </div>
