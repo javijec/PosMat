@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { Clock, MapPin, Users, Calendar } from "lucide-react";
 
+const isHumanistico = (value) => value === true || value === "true";
+
 const CourseCard = ({ course, index }) => {
+  const humanistico = isHumanistico(course.humanistico);
+
   const getHoursDisplay = () => {
     const hours = [];
     if (course.horasTeoricas && course.horasTeoricas !== "0") {
@@ -21,7 +25,7 @@ const CourseCard = ({ course, index }) => {
       whileHover={{ y: -4, scale: 1.01 }}
       className="bg-[var(--bg-card)] rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-[var(--border-subtle)] h-full flex flex-col relative group"
     >
-      {course.humanistico && (
+      {humanistico && (
         <div className="absolute top-4 right-4 bg-teal-100 text-teal-700 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md z-10">
           Humanístico
         </div>

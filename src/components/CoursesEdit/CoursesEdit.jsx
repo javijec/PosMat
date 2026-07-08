@@ -13,6 +13,8 @@ import EmptyState from "../shared/EmptyState";
 import { ListSkeleton } from "../shared/Skeleton";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
+const normalizeHumanistico = (value) => value === true || value === "true";
+
 const CoursesEdit = () => {
   const collectionName = "courses";
   const [editingId, setEditingId] = useState(-1);
@@ -43,6 +45,7 @@ const CoursesEdit = () => {
           ...doc,
           año: Number(doc.año),
           semestre: Number(doc.semestre),
+          humanistico: normalizeHumanistico(doc.humanistico),
         }))
         .sort((a, b) => {
           if (b.año !== a.año) return b.año - a.año;
@@ -82,7 +85,7 @@ const CoursesEdit = () => {
     setDefaultValues({
       ...course,
       profesores: course.profesores || [],
-      humanistico: !!course.humanistico,
+      humanistico: normalizeHumanistico(course.humanistico),
     });
   };
 

@@ -30,7 +30,11 @@ const courseSchema = z.object({
     .default([]),
   fechaInicio: z.string().optional(),
   lugar: z.string().optional(),
-  humanistico: z.coerce.boolean().default(false),
+  humanistico: z.preprocess((value) => {
+    if (value === true || value === "true") return true;
+    if (value === false || value === "false") return false;
+    return false;
+  }, z.boolean().default(false)),
 });
 
 const CourseForm = ({

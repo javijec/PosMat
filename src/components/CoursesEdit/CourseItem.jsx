@@ -2,19 +2,23 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+const isHumanistico = (value) => value === true || value === "true";
+
 const CourseItem = ({ course, onEdit, onDelete }) => {
+  const humanistico = isHumanistico(course.humanistico);
+
   return (
     <div className="p-6 bg-[var(--bg-card)] rounded-xl shadow-sm border border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-md transition-all duration-300">
       <div className="flex-1">
         <div className="flex items-center gap-3 mb-2">
           <span
             className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
-              course.humanistico
+              humanistico
                 ? "border border-violet-200 bg-violet-50 text-violet-800"
                 : "border border-sky-200 bg-sky-50 text-sky-800"
             }`}
           >
-            {course.humanistico ? "Humanístico" : "Científico"}
+            {humanistico ? "Humanístico" : "Científico"}
           </span>
           <span className="text-sm font-semibold text-[var(--color-ingenieria)]">
             {course.año} - {course.semestre === 1 ? "1er" : "2do"} Semestre

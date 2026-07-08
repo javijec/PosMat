@@ -4,6 +4,8 @@ import { prisma } from "../lib/prisma.js";
 
 const router = Router();
 
+const parseBoolean = (value) => value === true || value === "true" || value === 1 || value === "1";
+
 const professorSchema = z.object({
   nombre: z.string().min(1, "El nombre del profesor es obligatorio"),
   email: z.string().email("Email inválido").or(z.literal("")).optional().default(""),
@@ -23,7 +25,7 @@ const courseInputSchema = z
     lugar: z.string().optional().nullable(),
     duracion: z.string().optional().nullable(),
     horario: z.string().optional().nullable(),
-    humanistico: z.coerce.boolean().optional().default(false),
+    humanistico: z.preprocess(parseBoolean, z.boolean()),
     profesores: z.array(professorSchema).optional().default([]),
   })
   .transform((data) => ({
