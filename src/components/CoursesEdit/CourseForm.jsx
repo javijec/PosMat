@@ -178,27 +178,31 @@ const CourseForm = ({
               onChange={(e) => setProfEmail(e.target.value)}
             />
           </div>
-          <button
-            type="button"
-            onClick={handleAddProf}
-            className="flex items-center text-sm bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 mb-4 transition-all shadow-md shadow-indigo-100 not-italic font-medium"
-          >
-            <FontAwesomeIcon
-              icon={editingProfIndex !== null ? faPenToSquare : faPlus}
-              className="mr-2"
-            />
-            {editingProfIndex !== null ? "Guardar Profesor" : "Agregar Profesor"}
-          </button>
-
-          {editingProfIndex !== null && (
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={handleCancelEditProf}
-              className="ml-3 mb-4 text-sm text-gray-500 hover:text-gray-700 not-italic"
+              onClick={handleAddProf}
+              className="flex items-center text-sm bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition-all shadow-md shadow-indigo-100 not-italic font-medium"
             >
-              Cancelar edición
+              <FontAwesomeIcon
+                icon={editingProfIndex !== null ? faPenToSquare : faPlus}
+                className="mr-2"
+              />
+              {editingProfIndex !== null
+                ? "Guardar Profesor"
+                : "Agregar Profesor"}
             </button>
-          )}
+
+            {editingProfIndex !== null && (
+              <button
+                type="button"
+                onClick={handleCancelEditProf}
+                className="text-sm text-gray-500 hover:text-gray-700 not-italic"
+              >
+                Cancelar edición
+              </button>
+            )}
+          </div>
 
           {fields.length > 0 && (
             <div className="space-y-2 not-italic">
