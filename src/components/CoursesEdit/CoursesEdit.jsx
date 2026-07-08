@@ -6,6 +6,7 @@ import { fetchData } from "../../data";
 import { useDataMutations } from "../../hooks/useDataMutations";
 import { useFilters } from "../../hooks/useFilters";
 import EditPageContainer from "../shared/EditPageContainer";
+import SearchBar from "../shared/SearchBar";
 import FilterGrid from "../shared/FilterGrid";
 import ConfirmModal from "../shared/ConfirmModal";
 import EmptyState from "../shared/EmptyState";
