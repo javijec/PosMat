@@ -23,8 +23,26 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
             key={student.id}
             className="p-6 bg-[var(--bg-card)] rounded-xl shadow-sm border border-[var(--border-subtle)] flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-md transition-all duration-300"
           >
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
+            <div className="flex flex-1 flex-col gap-4 md:flex-row md:items-start">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-main)]/30">
+                {student.photoUrl ? (
+                  <img
+                    src={student.photoUrl}
+                    alt={`Foto de ${student.firstName} ${student.lastName}`}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center gap-1">
+                    <FontAwesomeIcon icon={faUserGraduate} className="text-xl" />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider">
+                      Foto
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-3 mb-2">
                 <span
                   className={`px-2 py-0.5 rounded text-xs font-bold uppercase ${
                     student.program === "maestria"
@@ -36,60 +54,61 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-[var(--text-main)] mb-3 flex items-center">
-                <FontAwesomeIcon
-                  icon={faUserGraduate}
-                  className="mr-2 text-[var(--color-ingenieria)] text-lg"
-                />
-                {student.firstName} {student.lastName}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="flex items-start bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-subtle)]">
+                <h3 className="text-xl font-bold text-[var(--text-main)] mb-3 flex items-center">
                   <FontAwesomeIcon
-                    icon={faBook}
-                    className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
+                    icon={faUserGraduate}
+                    className="mr-2 text-[var(--color-ingenieria)] text-lg"
                   />
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
-                      Tema de Tesis
-                    </span>
-                    <p className="text-[var(--text-main)] font-medium leading-tight">
-                      {student.thesis_topic}
-                    </p>
+                  {student.firstName} {student.lastName}
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-start bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-subtle)]">
+                    <FontAwesomeIcon
+                      icon={faBook}
+                      className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
+                    />
+                    <div>
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
+                        Tema de Tesis
+                      </span>
+                      <p className="text-[var(--text-main)] font-medium leading-tight">
+                        {student.thesis_topic}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-subtle)]">
+                    <FontAwesomeIcon
+                      icon={faChalkboardTeacher}
+                      className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
+                    />
+                    <div>
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
+                        Dirección
+                      </span>
+                      <p className="text-[var(--text-main)] text-sm">
+                        <span className="font-semibold">{student.director}</span>
+                        {student.codirector && student.codirector !== "-" && (
+                          <span className="text-[var(--text-main)]/50">
+                            {" "}
+                            / {student.codirector}
+                          </span>
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-start bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-subtle)]">
-                  <FontAwesomeIcon
-                    icon={faChalkboardTeacher}
-                    className="mt-1 mr-3 text-[var(--color-ingenieria)]/70"
-                  />
-                  <div>
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[var(--color-ingenieria)]/80">
-                      Dirección
+                {student.email && (
+                  <p className="mt-3 text-sm text-[var(--text-main)]/50 flex items-center text-wrap break-all">
+                    <span className="mr-2 shrink-0 text-xs font-bold uppercase text-[var(--color-ingenieria)]/80">
+                      Email:
                     </span>
-                    <p className="text-[var(--text-main)] text-sm">
-                      <span className="font-semibold">{student.director}</span>
-                      {student.codirector && student.codirector !== "-" && (
-                        <span className="text-[var(--text-main)]/50">
-                          {" "}
-                          / {student.codirector}
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                </div>
+                    {student.email}
+                  </p>
+                )}
               </div>
-
-              {student.email && (
-                <p className="mt-3 text-sm text-[var(--text-main)]/50 flex items-center text-wrap break-all">
-                  <span className="mr-2 shrink-0 text-xs font-bold uppercase text-[var(--color-ingenieria)]/80">
-                    Email:
-                  </span>
-                  {student.email}
-                </p>
-              )}
             </div>
 
             <div className="mt-6 md:mt-0 md:ml-6 flex md:flex-col space-x-2 md:space-x-0 md:space-y-2 w-full md:w-auto">
