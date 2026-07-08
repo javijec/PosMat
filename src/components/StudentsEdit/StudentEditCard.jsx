@@ -34,9 +34,6 @@ const StudentsEditCard = ({ students, handleEdit, handleDelete }) => {
                 >
                   {student.program === "maestria" ? "Maestría" : "Doctorado"}
                 </span>
-                <span className="text-sm font-semibold text-[var(--text-main)]/45 break-all">
-                  ID: {student.id}
-                </span>
               </div>
 
               <h3 className="text-xl font-bold text-[var(--text-main)] mb-3 flex items-center">

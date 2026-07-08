@@ -1,5 +1,5 @@
 import React from "react";
-import { Users } from "lucide-react";
+import { Mail, Users } from "lucide-react";
 
 const getDirectorTitle = (value) => {
   const text = String(value || "").trim();
@@ -14,9 +14,6 @@ const StudentCard = ({ student }) => {
       <div className="p-6 flex-1 flex flex-col">
         <div className="mb-4">
           <h2 className="text-xl font-bold text-gray-900 line-clamp-2">{student.name}</h2>
-          <p className="mt-2 text-xs font-semibold text-gray-400 break-all">
-            ID: {student.id}
-          </p>
         </div>
 
         <div className="flex-1">
@@ -41,6 +38,15 @@ const StudentCard = ({ student }) => {
                 <strong>Codirector:</strong> {student.codirector || "-"}
               </span>
             </div>
+
+            {student.email && (
+              <div className="flex items-center text-gray-600">
+                <Mail className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
+                <span className="text-sm break-all">
+                  <strong>Email:</strong> {student.email}
+                </span>
+              </div>
+            )}
 
             <div className="flex items-center text-gray-600">
               <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
