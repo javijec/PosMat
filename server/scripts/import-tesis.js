@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const prisma = new PrismaClient();
 
-const usage = `Uso: npm run import:tesis -- /ruta/tesis.db --apply
+const defaultSourcePath = path.resolve(__dirname, "../data/tesis.db");
+
+const usage = `Uso: npm run import:tesis --apply
+Opcional: npm run import:tesis -- /ruta/otra-base.db --apply
 
 Sin --apply solo valida archivo y muestra cantidad.\n`;
 
@@ -68,7 +71,7 @@ const toTesisData = (row) => {
 const getArguments = () => {
   const args = process.argv.slice(2);
   const sourcePath = args.find((argument) => !argument.startsWith("-"));
-  return { sourcePath, apply: args.includes("--apply") };
+  return { sourcePath: sourcePath ?? defaultSourcePath, apply: args.includes("--apply") };
 };
 
 const readTesis = async (sourcePath) => {
@@ -103,8 +106,6 @@ const readTesis = async (sourcePath) => {
 
 const main = async () => {
   const { sourcePath, apply } = getArguments();
-  if (!sourcePath) throw new Error(usage);
-
   const resolvedPath = path.resolve(sourcePath);
   const rows = await readTesis(resolvedPath);
   const tesis = rows.map(toTesisData);
