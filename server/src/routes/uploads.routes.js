@@ -10,7 +10,7 @@ import { getTokenFromRequest, verifyAuthToken } from "../utils/auth.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = Router();
-const filesDirectory = process.env.TESIS_FILES_DIR || path.resolve(__dirname, "../../../public/tesis");
+const filesDirectory = process.env.TESIS_FILES_DIR || path.resolve(__dirname, "../../data/tesis-pdfs");
 const publicSiteUrl = (process.env.PUBLIC_SITE_URL || "https://posmat.fi.mdp.edu.ar").replace(/\/$/, "");
 const validFileName = /^tesis-[a-zA-Z0-9-]+\.pdf$/;
 
