@@ -147,7 +147,7 @@ const TesisEditItem = ({ t, expanded, onToggle, handleEdit, handleDelete }) => {
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria-hover)]"
               >
-                Abrir enlace
+                Abrir PDF
               </a>
             )}
           </div>

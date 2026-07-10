@@ -25,6 +25,7 @@
     "firebase-admin": "^13.7.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "multer": "^2.0.1",
     "sql.js": "^1.13.0",
     "zod": "^4.3.5"
   },

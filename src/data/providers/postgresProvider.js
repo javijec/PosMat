@@ -91,10 +91,25 @@ const deleteDocument = async (collectionName, id) => {
   return true;
 };
 
+const uploadTesisPdf = async (file) => {
+  ensureApiBaseUrl();
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_BASE_URL}/uploads/tesis`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  return await readJsonResponse(response);
+};
+
 export {
   addDocument,
   deleteDocument,
   fetchCollection,
   getDocument,
   saveDocument,
+  uploadTesisPdf,
 };

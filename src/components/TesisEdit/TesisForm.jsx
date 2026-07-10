@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -8,6 +8,7 @@ import FormSelect from "../shared/FormSelect";
 import FormTextarea from "../shared/FormTextarea";
 import RichTextEditor from "../shared/RichTextEditor";
 import useConfirmExit from "../../hooks/useConfirmExit";
+import { uploadTesisPdf } from "../../data/providers/postgresProvider";
 
 const tesisSchema = z.object({
   name: z.string().min(1, "El nombre del tesista es obligatorio"),
@@ -45,6 +46,8 @@ const TesisForm = ({
     handleSubmit,
     control,
     reset,
+    setValue,
+    watch,
     formState: { errors, isDirty },
   } = useForm({
     resolver: zodResolver(tesisSchema),
@@ -52,10 +55,30 @@ const TesisForm = ({
   });
 
   useConfirmExit(isDirty);
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const pdfUrl = watch("url");
 
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
+
+  const handlePdfChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadError("");
+    setIsUploadingPdf(true);
+    try {
+      const { url } = await uploadTesisPdf(file);
+      setValue("url", url, { shouldDirty: true, shouldValidate: true });
+    } catch (error) {
+      setUploadError(error.message || "No se pudo subir el PDF");
+      event.target.value = "";
+    } finally {
+      setIsUploadingPdf(false);
+    }
+  };
 
   return (
     <form
@@ -107,12 +130,26 @@ const TesisForm = ({
           placeholder="Nombre completo del autor"
         />
 
-        <FormInput
-          label="URL / Enlace"
-          {...register("url")}
-          error={errors.url}
-          placeholder="https://ejemplo.com/tesis"
-        />
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor="tesis-pdf">
+            PDF de la tesis
+          </label>
+          <input
+            id="tesis-pdf"
+            type="file"
+            accept="application/pdf,.pdf"
+            onChange={handlePdfChange}
+            disabled={isUploadingPdf}
+            className="block w-full rounded border border-gray-300 p-2 text-sm"
+          />
+          {isUploadingPdf && <p className="mt-1 text-xs text-gray-500">Subiendo PDF…</p>}
+          {pdfUrl && !isUploadingPdf && (
+            <a className="mt-1 block text-xs text-blue-600 underline" href={pdfUrl} target="_blank" rel="noreferrer">
+              PDF cargado
+            </a>
+          )}
+          {uploadError && <p className="mt-1 text-xs text-red-500">{uploadError}</p>}
+        </div>
 
         <FormInput
           label="Director"
@@ -210,7 +247,7 @@ const TesisForm = ({
       </div>
 
       <FormActions
-        isSubmitting={isSubmitting}
+        isSubmitting={isSubmitting || isUploadingPdf}
         onCancel={onCancel}
         isEditing={editingId !== -1}
         submitLabel={editingId === -1 ? "Agregar Tesis" : "Guardar Cambios"}

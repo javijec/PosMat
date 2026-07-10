@@ -1,6 +1,8 @@
 import "dotenv/config";
+import { Buffer } from "node:buffer";
 import fs from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 import initSqlJs from "sql.js";
 import { PrismaClient } from "@prisma/client";
@@ -11,13 +13,7 @@ const prisma = new PrismaClient();
 
 const defaultSourcePath = path.resolve(__dirname, "../data/tesis.db");
 const publicTesisDirectory = path.resolve(__dirname, "../../public/tesis");
-const publicTesisUrl = "https://posmat.fi.mdp.edu.ar/tesis";
-
-const usage = `Uso: npm run import:tesis --apply
-Opcional: npm run import:tesis -- /ruta/otra-base.db --apply
-Descargar PDFs sin importar: npm run import:tesis -- --download-only
-
-Sin --apply solo valida archivo y muestra cantidad.\n`;
+const publicTesisUrl = "https://posmat.fi.mdp.edu.ar/api/uploads/tesis";
 
 const requiredColumns = [
   "id",

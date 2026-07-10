@@ -75,7 +75,7 @@ const TesisCard = ({ tesis }) => {
                 rel="noopener noreferrer"
                 className="inline-flex px-3 py-1 rounded-md text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 transition-all dark:bg-purple-900/40 dark:text-purple-200 dark:hover:bg-purple-900/60 border border-purple-200 dark:border-purple-800"
               >
-                Abrir enlace
+                Abrir PDF
               </a>
             </div>
           )}

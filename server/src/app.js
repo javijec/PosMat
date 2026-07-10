@@ -7,6 +7,7 @@ import authorizedEmailsRouter from "./routes/authorizedEmails.routes.js";
 import healthRouter from "./routes/health.routes.js";
 import coursesRouter from "./routes/courses.routes.js";
 import contentRouter from "./routes/content.routes.js";
+import uploadsRouter from "./routes/uploads.routes.js";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/health", healthRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/authorized-emails", authorizedEmailsRouter);
 app.use("/api/content", contentRouter);
+app.use("/api/uploads", uploadsRouter);
 app.use("/api/courses", coursesRouter);
 
 app.use((error, _req, res, _next) => {
