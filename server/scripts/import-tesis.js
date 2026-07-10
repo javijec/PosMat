@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const prisma = new PrismaClient();
 
 const defaultSourcePath = path.resolve(__dirname, "../data/tesis.db");
-const publicTesisDirectory = path.resolve(__dirname, "../data/tesis-pdfs");
+const publicTesisDirectory = path.resolve(__dirname, "../../public/tesis-pdfs");
 const publicTesisUrl = "https://posmat.fi.mdp.edu.ar/api/uploads/tesis";
 
 const requiredColumns = [
@@ -119,7 +119,7 @@ const downloadPdfs = async (rows) => {
   );
 
   if (failures.length) {
-    throw new Error(`${failures.length} PDF(s) no se descargaron. Ver server/data/tesis-pdfs/reporte-descarga.json.`);
+    throw new Error(`${failures.length} PDF(s) no se descargaron. Ver public/tesis-pdfs/reporte-descarga.json.`);
   }
 
   const downloadedCount = results.filter(({ status }) => status === "descargado").length;

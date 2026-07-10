@@ -12,6 +12,7 @@
     "prisma:studio": "prisma studio",
     "db:seed": "node prisma/seed.js",
     "import:tesis": "node scripts/import-tesis.js",
+    "migrate:tesis-urls": "node scripts/migrate-tesis-urls.js",
     "import:firebase": "node scripts/import-firebase.js",
     "export:firebase:json": "node scripts/import-firebase.js --json-only"
   },
