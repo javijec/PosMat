@@ -10,9 +10,12 @@ const __dirname = path.dirname(__filename);
 const prisma = new PrismaClient();
 
 const defaultSourcePath = path.resolve(__dirname, "../data/tesis.db");
+const publicTesisDirectory = path.resolve(__dirname, "../../public/tesis");
+const publicTesisUrl = "https://posmat.fi.mdp.edu.ar/tesis";
 
 const usage = `Uso: npm run import:tesis --apply
 Opcional: npm run import:tesis -- /ruta/otra-base.db --apply
+Descargar PDFs sin importar: npm run import:tesis -- --download-only
 
 Sin --apply solo valida archivo y muestra cantidad.\n`;
 
@@ -63,7 +66,7 @@ const toTesisData = (row) => {
     juror_3,
     summary_es: valueOrEmpty(row.abstract_es),
     abstract_en: valueOrEmpty(row.abstract_en),
-    url: valueOrEmpty(row.pdf_url),
+    url: `${publicTesisUrl}/tesis-${row.id}.pdf`,
     tag: valueOrEmpty(row.type).toLowerCase(),
   };
 };
@@ -71,7 +74,60 @@ const toTesisData = (row) => {
 const getArguments = () => {
   const args = process.argv.slice(2);
   const sourcePath = args.find((argument) => !argument.startsWith("-"));
-  return { sourcePath: sourcePath ?? defaultSourcePath, apply: args.includes("--apply") };
+  return {
+    sourcePath: sourcePath ?? defaultSourcePath,
+    apply: args.includes("--apply"),
+    downloadOnly: args.includes("--download-only"),
+  };
+};
+
+const downloadPdf = async (row) => {
+  const fileName = `tesis-${row.id}.pdf`;
+  const destination = path.join(publicTesisDirectory, fileName);
+
+  try {
+    const existingFile = await fs.stat(destination);
+    if (existingFile.size > 0) return { fileName, status: "existente" };
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+
+  const response = await fetch(row.pdf_url, { signal: AbortSignal.timeout(60_000) });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+  const file = Buffer.from(await response.arrayBuffer());
+  if (!file.length) throw new Error("archivo vacío");
+
+  const temporaryFile = `${destination}.part`;
+  await fs.writeFile(temporaryFile, file);
+  await fs.rename(temporaryFile, destination);
+  return { fileName, status: "descargado" };
+};
+
+const downloadPdfs = async (rows) => {
+  await fs.mkdir(publicTesisDirectory, { recursive: true });
+  const results = [];
+  const failures = [];
+
+  for (const row of rows) {
+    try {
+      results.push(await downloadPdf(row));
+    } catch (error) {
+      failures.push({ id: row.id, url: row.pdf_url, error: error.message });
+    }
+  }
+
+  await fs.writeFile(
+    path.join(publicTesisDirectory, "reporte-descarga.json"),
+    JSON.stringify({ generatedAt: new Date().toISOString(), results, failures }, null, 2)
+  );
+
+  if (failures.length) {
+    throw new Error(`${failures.length} PDF(s) no se descargaron. Ver public/tesis/reporte-descarga.json.`);
+  }
+
+  const downloadedCount = results.filter(({ status }) => status === "descargado").length;
+  console.log(`PDFs listos: ${results.length} (${downloadedCount} nuevos).`);
 };
 
 const readTesis = async (sourcePath) => {
@@ -105,17 +161,20 @@ const readTesis = async (sourcePath) => {
 };
 
 const main = async () => {
-  const { sourcePath, apply } = getArguments();
+  const { sourcePath, apply, downloadOnly } = getArguments();
   const resolvedPath = path.resolve(sourcePath);
   const rows = await readTesis(resolvedPath);
   const tesis = rows.map(toTesisData);
 
   console.log(`Fuente validada: ${tesis.length} tesis (${resolvedPath}).`);
 
-  if (!apply) {
+  if (!apply && !downloadOnly) {
     console.log("Vista previa terminada. Agregá --apply para reemplazar tesis en PostgreSQL.");
     return;
   }
+
+  await downloadPdfs(rows);
+  if (downloadOnly) return;
 
   await prisma.$transaction(async (tx) => {
     await tx.contentEntry.deleteMany({ where: { collectionName: "tesis" } });
