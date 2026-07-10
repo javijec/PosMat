@@ -14,6 +14,8 @@ import { ListSkeleton } from "../shared/Skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { exportToCSV } from "../../utils/csvExport";
+import { deleteTesisPdf, uploadTesisPdf } from "../../data/providers/postgresProvider";
+import { toast } from "sonner";
 
 const splitLegacyJurors = (value) => {
   if (!value || typeof value !== "string") {
@@ -33,6 +35,7 @@ const TesisEdit = () => {
   const [editingId, setEditingId] = useState(-1);
   const [deleteId, setDeleteId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [defaultValues, setDefaultValues] = useState({
     name: "",
     title: "",
@@ -87,10 +90,6 @@ const TesisEdit = () => {
   const { addMutation, updateMutation, deleteMutation, isPending } =
     useDataMutations({
       collectionName,
-      onSuccess: () => {
-        setEditingId(-1);
-        resetForm();
-      },
       addMessage: "Tesis agregada con éxito",
       updateMessage: "Tesis actualizada con éxito",
       deleteMessage: "Tesis eliminada con éxito",
@@ -109,18 +108,49 @@ const TesisEdit = () => {
     });
   };
 
-  const handleConfirmDelete = () => {
-    if (deleteId) {
-      deleteMutation.mutate(deleteId);
-      setDeleteId(null);
+  const handleConfirmDelete = async () => {
+    const thesis = tesis.find((item) => item.id === deleteId);
+    if (!thesis) return;
+
+    setDeleteId(null);
+    try {
+      if (thesis.url) await deleteTesisPdf(thesis.url);
+      await deleteMutation.mutateAsync(thesis.id);
+    } catch (error) {
+      toast.error(error.message || "No se pudo eliminar la tesis y su PDF");
     }
   };
 
-  const onSubmit = (data) => {
-    if (editingId === -1) {
-      addMutation.mutate(data);
-    } else {
-      updateMutation.mutate({ id: editingId, data });
+  const onSubmit = async ({ pdfFile, ...data }) => {
+    setIsSaving(true);
+    let createdId = null;
+    let uploadedUrl = null;
+
+    try {
+      if (editingId === -1) {
+        createdId = await addMutation.mutateAsync({ ...data, url: "" });
+        if (pdfFile) {
+          const { url } = await uploadTesisPdf(pdfFile, createdId);
+          uploadedUrl = url;
+          await updateMutation.mutateAsync({ id: createdId, data: { url } });
+        }
+      } else {
+        await updateMutation.mutateAsync({ id: editingId, data });
+        if (pdfFile) {
+          const { url } = await uploadTesisPdf(pdfFile, editingId);
+          await updateMutation.mutateAsync({ id: editingId, data: { url } });
+        }
+      }
+
+      resetForm();
+    } catch (error) {
+      if (createdId) {
+        if (uploadedUrl) await deleteTesisPdf(uploadedUrl).catch(() => undefined);
+        await deleteMutation.mutateAsync(createdId).catch(() => undefined);
+      }
+      toast.error(error.message || "No se pudo guardar la tesis");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -151,7 +181,7 @@ const TesisEdit = () => {
         editingId={editingId}
         defaultValues={defaultValues}
         onSubmit={onSubmit}
-        isSubmitting={isPending}
+        isSubmitting={isPending || isSaving}
         onCancel={resetForm}
       />
 

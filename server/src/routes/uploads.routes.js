@@ -1,5 +1,4 @@
 import { Buffer } from "node:buffer";
-import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -17,7 +16,7 @@ const validFileName = /^tesis-[a-zA-Z0-9-]+\.pdf$/;
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024, files: 1 },
+  limits: { fileSize: 1 * 1024 * 1024, files: 1 },
   fileFilter: (_req, file, callback) => callback(null, file.mimetype === "application/pdf"),
 });
 
@@ -52,12 +51,16 @@ router.get("/tesis/:fileName", async (req, res, next) => {
 router.post("/tesis", requireAdmin, upload.single("file"), async (req, res, next) => {
   try {
     if (!req.file) return res.status(400).json({ message: "Seleccioná un archivo PDF" });
+    const tesisId = String(req.body.tesisId || "");
+    if (!/^[a-zA-Z0-9_-]{6,64}$/.test(tesisId)) {
+      return res.status(400).json({ message: "Identificador de tesis inválido" });
+    }
     if (!req.file.buffer.subarray(0, 4).equals(Buffer.from("%PDF"))) {
       return res.status(400).json({ message: "El archivo no es un PDF válido" });
     }
 
     await fs.mkdir(filesDirectory, { recursive: true });
-    const fileName = `tesis-${crypto.randomUUID()}.pdf`;
+    const fileName = `tesis-${tesisId}.pdf`;
     const targetPath = path.join(filesDirectory, fileName);
     const temporaryPath = `${targetPath}.part`;
     await fs.writeFile(temporaryPath, req.file.buffer);
@@ -65,6 +68,20 @@ router.post("/tesis", requireAdmin, upload.single("file"), async (req, res, next
 
     return res.status(201).json({ url: `${publicSiteUrl}/api/uploads/tesis/${fileName}` });
   } catch (error) {
+    return next(error);
+  }
+});
+
+router.delete("/tesis/:fileName", requireAdmin, async (req, res, next) => {
+  if (!validFileName.test(req.params.fileName)) {
+    return res.status(404).json({ message: "Archivo no encontrado" });
+  }
+
+  try {
+    await fs.unlink(path.join(filesDirectory, req.params.fileName));
+    return res.status(204).send();
+  } catch (error) {
+    if (error.code === "ENOENT") return res.status(404).json({ message: "Archivo no encontrado" });
     return next(error);
   }
 });

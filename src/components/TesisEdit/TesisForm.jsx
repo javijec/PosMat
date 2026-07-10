@@ -8,7 +8,6 @@ import FormSelect from "../shared/FormSelect";
 import FormTextarea from "../shared/FormTextarea";
 import RichTextEditor from "../shared/RichTextEditor";
 import useConfirmExit from "../../hooks/useConfirmExit";
-import { uploadTesisPdf } from "../../data/providers/postgresProvider";
 
 const tesisSchema = z.object({
   name: z.string().min(1, "El nombre del tesista es obligatorio"),
@@ -46,7 +45,6 @@ const TesisForm = ({
     handleSubmit,
     control,
     reset,
-    setValue,
     watch,
     formState: { errors, isDirty },
   } = useForm({
@@ -55,34 +53,31 @@ const TesisForm = ({
   });
 
   useConfirmExit(isDirty);
-  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
-  const [uploadError, setUploadError] = useState("");
+  const [selectedPdf, setSelectedPdf] = useState(null);
+  const [fileError, setFileError] = useState("");
   const pdfUrl = watch("url");
 
   useEffect(() => {
     reset(defaultValues);
+    setSelectedPdf(null);
+    setFileError("");
   }, [defaultValues, reset]);
 
-  const handlePdfChange = async (event) => {
+  const handlePdfChange = (event) => {
     const file = event.target.files?.[0];
-    if (!file) return;
-
-    setUploadError("");
-    setIsUploadingPdf(true);
-    try {
-      const { url } = await uploadTesisPdf(file);
-      setValue("url", url, { shouldDirty: true, shouldValidate: true });
-    } catch (error) {
-      setUploadError(error.message || "No se pudo subir el PDF");
+    setFileError("");
+    if (file && file.size > 1024 * 1024) {
+      setSelectedPdf(null);
+      setFileError("El PDF no puede superar 1 MB.");
       event.target.value = "";
-    } finally {
-      setIsUploadingPdf(false);
+      return;
     }
+    setSelectedPdf(file || null);
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => onSubmit({ ...data, pdfFile: selectedPdf }))}
       className="mb-8 p-6 border rounded-lg bg-white shadow-sm"
     >
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">
@@ -138,17 +133,18 @@ const TesisForm = ({
             id="tesis-pdf"
             type="file"
             accept="application/pdf,.pdf"
+            aria-describedby="tesis-pdf-help"
             onChange={handlePdfChange}
-            disabled={isUploadingPdf}
             className="block w-full rounded border border-gray-300 p-2 text-sm"
           />
-          {isUploadingPdf && <p className="mt-1 text-xs text-gray-500">Subiendo PDF…</p>}
-          {pdfUrl && !isUploadingPdf && (
+          <p id="tesis-pdf-help" className="mt-1 text-xs text-gray-500">Máximo 1 MB.</p>
+          {selectedPdf && <p className="mt-1 text-xs text-gray-500">PDF pendiente: {selectedPdf.name}</p>}
+          {fileError && <p className="mt-1 text-xs text-red-500">{fileError}</p>}
+          {!selectedPdf && pdfUrl && (
             <a className="mt-1 block text-xs text-blue-600 underline" href={pdfUrl} target="_blank" rel="noreferrer">
               PDF cargado
             </a>
           )}
-          {uploadError && <p className="mt-1 text-xs text-red-500">{uploadError}</p>}
         </div>
 
         <FormInput
@@ -247,7 +243,7 @@ const TesisForm = ({
       </div>
 
       <FormActions
-        isSubmitting={isSubmitting || isUploadingPdf}
+        isSubmitting={isSubmitting}
         onCancel={onCancel}
         isEditing={editingId !== -1}
         submitLabel={editingId === -1 ? "Agregar Tesis" : "Guardar Cambios"}
