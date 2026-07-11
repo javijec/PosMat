@@ -38,7 +38,7 @@ const Courses = () => {
       const matchesType = !selectedType || (selectedType === "humanistico" ? isHumanistico : !isHumanistico);
       return (!selectedYear || course.año === Number(selectedYear)) && (!selectedSemester || course.semestre === Number(selectedSemester)) && matchesType && (!normalizedQuery || searchable.includes(normalizedQuery));
     });
-  }, [data, query, selectedSemester, selectedYear]);
+  }, [data, query, selectedSemester, selectedType, selectedYear]);
 
   const groupedBySemester = useMemo(() => filteredCourses.reduce((groups, course) => {
     const key = `${course.año}-${course.semestre}`;
