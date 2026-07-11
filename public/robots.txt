@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://posmat.fi.mdp.edu.ar/sitemap.xml
