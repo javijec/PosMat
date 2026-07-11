@@ -1,90 +1,43 @@
-import React from "react";
-import { Listbox } from "@headlessui/react";
-import { Hash, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, List } from "lucide-react";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const RulesNavigator = ({
-  data,
-  selectedSection,
-  onPrev,
-  onNext,
-  onSelect,
-}) => {
-  const selectedIndex = data.findIndex(
-    (section) => section.id === selectedSection.id
-  );
+const RulesNavigator = ({ data, selectedSection, onPrev, onNext, onSelect }) => {
+  const selectedIndex = data.findIndex((section) => section.id === selectedSection?.id);
 
   return (
-    <div className="flex items-center space-x-2">
-      <button
-        onClick={onPrev}
-        disabled={selectedIndex === 0}
-        className="p-2 rounded-lg border border-gray-300 bg-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none"
-      >
-        <ChevronLeft className="w-4 h-4" />
-      </button>
-      <Listbox
-        value={selectedSection}
-        onChange={onSelect}
-        as="div"
-        className="flex-1"
-      >
-        <Listbox.Button className="w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md border border-gray-300 focus:outline-none">
-          <div className="flex items-center">
-            <div className="flex items-center mr-2">
-              <Hash className="w-4 h-4 mr-1" />
-              <span className="font-medium">{selectedIndex + 1}.</span>
-            </div>
-            <span className="block line-clamp-2 md:line-clamp-none">
-              {selectedSection.title}
-            </span>
-          </div>
-        </Listbox.Button>
-        <Listbox.Options
-          as="div"
-          className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-        >
-          {data.map((section, index) => (
-            <Listbox.Option
+    <aside className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6" aria-label="Secciones del reglamento">
+      <div className="mb-2 flex items-center gap-2 px-2 pt-1 text-sm font-semibold text-gray-700">
+        <List className="h-4 w-4 text-ingenieria" />
+        Secciones
+      </div>
+      <div className="max-h-[55vh] space-y-1 overflow-y-auto pr-1">
+        {data.map((section, index) => {
+          const isSelected = section.id === selectedSection?.id;
+          return (
+            <button
               key={section.id}
-              value={section}
-              className={({ active }) =>
-                classNames(
-                  active ? "text-ingenieria bg-gray-100" : "text-gray-900",
-                  "cursor-pointer select-none relative py-2 pl-10 pr-4"
-                )
-              }
+              onClick={() => onSelect(section)}
+              aria-current={isSelected ? "page" : undefined}
+              className={`flex w-full gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition ${
+                isSelected ? "bg-ingenieria text-white shadow-sm" : "text-gray-700 hover:bg-gray-100"
+              }`}
             >
-              {({ selected }) => (
-                <div className="flex items-center">
-                  <Hash className="w-4 h-4 mr-1" />
-                  <span
-                    className={classNames(
-                      selected ? "font-medium" : "font-normal"
-                    )}
-                  >
-                    {index + 1}.
-                  </span>
-                  <span className="ml-2 block line-clamp-2 md:line-clamp-none">
-                    {section.title}
-                  </span>
-                </div>
-              )}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
-      </Listbox>
-      <button
-        onClick={onNext}
-        disabled={selectedIndex === data.length - 1}
-        className="p-2 rounded-lg border border-gray-300 bg-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none"
-      >
-        <ChevronRight className="w-4 h-4" />
-      </button>
-    </div>
+              <span className={`mt-0.5 text-xs font-semibold ${isSelected ? "text-white/80" : "text-gray-400"}`}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>{section.title}</span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="mt-3 flex gap-2 border-t border-gray-100 pt-3 lg:hidden">
+        <button onClick={onPrev} disabled={selectedIndex === 0} className="flex flex-1 items-center justify-center gap-1 rounded-lg border border-gray-300 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40">
+          <ChevronLeft className="h-4 w-4" /> Anterior
+        </button>
+        <button onClick={onNext} disabled={selectedIndex === data.length - 1} className="flex flex-1 items-center justify-center gap-1 rounded-lg border border-gray-300 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40">
+          Siguiente <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </aside>
   );
 };
 
