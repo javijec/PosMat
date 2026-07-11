@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
+import { Search, X } from "lucide-react";
 import { fetchData } from "../../data";
 
 const FALLBACK_IMAGE =
@@ -32,6 +33,7 @@ const sortNewsByDate = (items) =>
 
 const NewsPage = () => {
   const [selectedNewsId, setSelectedNewsId] = useState(null);
+  const [query, setQuery] = useState("");
 
   const { data: news = [], isLoading } = useQuery({
     queryKey: ["news"],
@@ -46,6 +48,17 @@ const NewsPage = () => {
     () => news.find((item) => item.id === selectedNewsId) || null,
     [news, selectedNewsId]
   );
+
+  const filteredNews = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) return news;
+
+    return news.filter((item) =>
+      `${item.title || ""} ${item.summary || ""} ${item.content || ""}`
+        .toLowerCase()
+        .includes(normalizedQuery)
+    );
+  }, [news, query]);
 
   useEffect(() => {
     if (!news.length) return;
@@ -86,6 +99,17 @@ const NewsPage = () => {
           <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--text-main)]/75 md:text-base">
             Un espacio para publicar anuncios, actividades, llamados y eventos.
           </p>
+          <div className="relative mt-6 max-w-md">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-main)]/45" />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Buscar noticias"
+              className="w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] py-2.5 pl-9 pr-9 text-sm text-[var(--text-main)] outline-none transition focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20"
+              aria-label="Buscar noticias"
+            />
+            {query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-main)]/55 hover:text-[var(--text-main)]" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}
+          </div>
         </div>
       </section>
 
@@ -113,10 +137,15 @@ const NewsPage = () => {
               Desde el panel de administración ya puedes crear las primeras.
             </p>
           </div>
+        ) : filteredNews.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-card)] px-8 py-12 text-center">
+            <h2 className="text-xl font-semibold text-[var(--text-main)]">No encontramos noticias</h2>
+            <p className="mt-2 text-sm text-[var(--text-main)]/70">Probá con otra palabra de búsqueda.</p>
+          </div>
         ) : (
           <div className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
             <ul className="divide-y divide-[var(--border-subtle)]">
-              {news.map((item, index) => (
+              {filteredNews.map((item, index) => (
                 <li key={item.id} id={`news-${item.id}`}>
                   <button
                     type="button"
