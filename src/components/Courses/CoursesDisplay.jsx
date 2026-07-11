@@ -10,14 +10,14 @@ const CoursesDisplay = ({ groupedCourses }) => {
           const [year, semester] = yearSemester.split("-");
           const semesterCourses = groupedCourses[yearSemester];
           return (
-            <div key={yearSemester} className="mb-6">
-              <h2 className="text-3xl font-semibold mb-4">{year}</h2>
-              <h3 className="text-xl font-semibold mb-2">
-                {semester}° Semestre
-              </h3>
+            <div key={yearSemester} className="mb-10">
+              <div className="mb-5 flex items-baseline justify-between border-b border-gray-200 pb-3">
+                <h2 className="text-2xl font-bold text-gray-900">{year} · {semester}.º semestre</h2>
+                <span className="text-sm text-gray-500">{semesterCourses.length} {semesterCourses.length === 1 ? "curso" : "cursos"}</span>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {semesterCourses.map((course, index) => (
-                  <CourseCard key={index} course={course} index={index} />
+                  <CourseCard key={course.id || index} course={course} index={index} />
                 ))}
               </div>
             </div>
