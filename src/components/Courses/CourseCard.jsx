@@ -25,11 +25,9 @@ const CourseCard = ({ course, index }) => {
       whileHover={{ y: -4, scale: 1.01 }}
       className="bg-[var(--bg-card)] rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-[var(--border-subtle)] h-full flex flex-col relative group"
     >
-      {humanistico && (
-        <div className="absolute top-4 right-4 bg-teal-100 text-teal-700 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md z-10">
-          Humanístico
-        </div>
-      )}
+      <div className={`absolute top-4 right-4 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md z-10 ${humanistico ? "bg-teal-100 text-teal-700" : "bg-sky-100 text-sky-700"}`}>
+        {humanistico ? "Humanístico" : "Científico"}
+      </div>
 
       <div className="p-6 flex-1 flex flex-col">
         <div className="mb-4">
