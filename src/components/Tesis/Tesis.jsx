@@ -2,6 +2,7 @@ import React, { useState, useMemo, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import { BarChart3, Search, X } from "lucide-react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import TesisCard from "./TesisCard";
@@ -12,6 +13,8 @@ import { fetchData } from "../../data";
 const Tesis = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedType, setSelectedType] = useState("all");
+  const [query, setQuery] = useState("");
+  const [onlyWithPdf, setOnlyWithPdf] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const collectionName = "tesis";
 
@@ -45,8 +48,13 @@ const Tesis = () => {
         (tesis) => tesis.year === Number(selectedYear)
       );
     }
+    const normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery) {
+      filtered = filtered.filter((tesis) => `${tesis.title || ""} ${tesis.name || ""} ${tesis.director || ""}`.toLowerCase().includes(normalizedQuery));
+    }
+    if (onlyWithPdf) filtered = filtered.filter((tesis) => tesis.url);
     return filtered;
-  }, [data, selectedYear, selectedType]);
+  }, [data, onlyWithPdf, query, selectedYear, selectedType]);
 
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
@@ -54,6 +62,13 @@ const Tesis = () => {
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
+  };
+
+  const resetFilters = () => {
+    setSelectedYear("");
+    setSelectedType("all");
+    setQuery("");
+    setOnlyWithPdf(false);
   };
 
   const years = useMemo(
@@ -73,26 +88,36 @@ const Tesis = () => {
     [years, data]
   );
 
+  const thesisTotals = useMemo(
+    () => ({
+      doctorado: data.filter((thesis) => thesis.tag === "doctorado").length,
+      maestria: data.filter((thesis) => thesis.tag === "maestria").length,
+    }),
+    [data]
+  );
+
   return (
     <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <Helmet>
         <title>Tesis | PosMat</title>
         <meta
           name="description"
-          content="Tesis presentadas en el Posgrado en Matemática."
+          content="Tesis presentadas en el Posgrado en Ciencia de Materiales."
         />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl md:text-5xl font-bold mb-12 text-gray-900">
-          Tesis
-        </h1>
+        <header className="mb-8 max-w-3xl">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-ingenieria">Posgrado</p>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Repositorio de tesis</h1>
+          <p className="mt-3 text-gray-600">Tesis de Doctorado y Maestría del Posgrado en Ciencia de Materiales.</p>
+        </header>
         <div className="mb-6">
           <button
             onClick={() => setShowStats(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-ingenieria px-4 py-2.5 font-medium text-white hover:opacity-90 disabled:opacity-50"
             disabled={isLoading}
           >
-            Estadísticas
+            <BarChart3 className="h-4 w-4" /> Estadísticas
           </button>
         </div>
         <div className="lg:grid lg:grid-cols-4 lg:gap-8">
@@ -103,9 +128,16 @@ const Tesis = () => {
               selectedYear={selectedYear}
               handleYearChange={handleYearChange}
               years={years}
+              onlyWithPdf={onlyWithPdf}
+              setOnlyWithPdf={setOnlyWithPdf}
+              onReset={resetFilters}
             />
           </div>
           <div className="lg:col-span-3 mt-8 lg:mt-0">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="relative w-full sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar título, autor o director/a" className="w-full rounded-lg border border-gray-300 py-2.5 pl-9 pr-9 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar tesis" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}</div>
+              <p className="shrink-0 text-sm text-gray-500">{filteredTesis.length} tesis</p>
+            </div>
             {isLoading ? (
               <div className="space-y-4">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -119,12 +151,14 @@ const Tesis = () => {
               <div className="text-center text-red-600 py-10">
                 Error al cargar las tesis.
               </div>
-            ) : (
+            ) : filteredTesis.length ? (
               <ul className="space-y-4">
                 {filteredTesis.map((tesisItem) => (
                   <TesisCard key={tesisItem.id} tesis={tesisItem} />
                 ))}
               </ul>
+            ) : (
+              <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center"><h2 className="text-xl font-bold text-gray-900">No hay tesis para estos filtros</h2><p className="mt-2 text-gray-600">Probá otro año, tipo o término de búsqueda.</p><button onClick={resetFilters} className="mt-5 font-medium text-ingenieria hover:underline">Limpiar filtros</button></div>
             )}
           </div>
         </div>
@@ -162,6 +196,10 @@ const Tesis = () => {
                   <Dialog.Title className="text-2xl font-semibold text-gray-900 mb-4">
                     Estadísticas de Tesis
                   </Dialog.Title>
+                  <div className="mb-5 grid grid-cols-2 gap-3">
+                    <div className="rounded-lg border border-blue-100 bg-blue-50 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-blue-700">Doctorado</p><p className="mt-1 text-2xl font-bold text-blue-950">{thesisTotals.doctorado}</p></div>
+                    <div className="rounded-lg border border-teal-100 bg-teal-50 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Maestría</p><p className="mt-1 text-2xl font-bold text-teal-950">{thesisTotals.maestria}</p></div>
+                  </div>
                   <div className="h-64">
                     <TesisStatsChart data={chartData} />
                   </div>

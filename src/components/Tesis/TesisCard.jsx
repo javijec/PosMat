@@ -65,20 +65,14 @@ const TesisCard = ({ tesis }) => {
         </div>
       </button>
 
+      {tesis.url && (
+        <div className="px-5 pb-4">
+          <a href={tesis.url} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-bold text-purple-800 transition hover:bg-purple-100">Abrir PDF</a>
+        </div>
+      )}
+
       {expanded && (
         <div className="border-t border-[var(--border-subtle)] px-5 py-4 space-y-1">
-          {tesis.url && (
-            <div className="pb-2">
-              <a
-                href={tesis.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex px-3 py-1 rounded-md text-xs font-bold bg-purple-100 text-purple-900 hover:bg-purple-200 transition-all dark:bg-purple-900/40 dark:text-purple-200 dark:hover:bg-purple-900/60 border border-purple-200 dark:border-purple-800"
-              >
-                Abrir PDF
-              </a>
-            </div>
-          )}
           {tesis.degree_title && (
             <p className="text-[var(--text-main)]/80 text-sm">
               <span className="text-[var(--text-main)]/60">
