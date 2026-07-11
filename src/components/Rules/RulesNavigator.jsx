@@ -4,22 +4,22 @@ const RulesNavigator = ({ data, selectedSection, onPrev, onNext, onSelect }) => 
   const selectedIndex = data.findIndex((section) => section.id === selectedSection?.id);
 
   return (
-    <aside className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6" aria-label="Secciones del reglamento">
+    <aside className="min-w-0 rounded-xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6" aria-label="Secciones del reglamento">
       <div className="mb-2 flex items-center gap-2 px-2 pt-1 text-sm font-semibold text-gray-700 lg:hidden">
         <List className="h-4 w-4 text-ingenieria" />
         Secciones
       </div>
-      <div className="flex gap-2 lg:hidden">
+      <div className="min-w-0 flex gap-2 lg:hidden">
         <select
           value={selectedSection?.id || ""}
           onChange={(event) => {
             const section = data.find((item) => String(item.id) === event.target.value);
             if (section) onSelect(section);
           }}
-          className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium text-gray-800 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20"
+          className="w-0 min-w-0 flex-1 truncate rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm font-medium text-gray-800 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20"
           aria-label="Seleccionar sección"
         >
-          {data.map((section, index) => <option key={section.id} value={section.id}>{index + 1}. {section.title}</option>)}
+          {data.map((section, index) => <option key={section.id} value={section.id}>{index + 1}. {section.title.length > 42 ? `${section.title.slice(0, 42)}…` : section.title}</option>)}
         </select>
         <button onClick={onPrev} disabled={selectedIndex === 0} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-gray-300 text-gray-700 disabled:cursor-not-allowed disabled:opacity-40" aria-label="Sección anterior"><ChevronLeft className="h-4 w-4" /></button>
         <button onClick={onNext} disabled={selectedIndex === data.length - 1} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-gray-300 text-gray-700 disabled:cursor-not-allowed disabled:opacity-40" aria-label="Sección siguiente"><ChevronRight className="h-4 w-4" /></button>
