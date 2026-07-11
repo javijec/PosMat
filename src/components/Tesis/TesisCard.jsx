@@ -65,12 +65,6 @@ const TesisCard = ({ tesis }) => {
         </div>
       </button>
 
-      {tesis.url && (
-        <div className="px-5 pb-4">
-          <a href={tesis.url} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-bold text-purple-800 transition hover:bg-purple-100">Abrir PDF</a>
-        </div>
-      )}
-
       {expanded && (
         <div className="border-t border-[var(--border-subtle)] px-5 py-4 space-y-1">
           {tesis.degree_title && (
@@ -139,7 +133,13 @@ const TesisCard = ({ tesis }) => {
               </div>
             </div>
           )}
+          {tesis.url && (
+            <div className="px-5 pb-4">
+              <a href={tesis.url} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-bold text-purple-800 transition hover:bg-purple-100">Abrir PDF</a>
+            </div>
+          )}
         </div>
+
       )}
     </motion.li>
   );
