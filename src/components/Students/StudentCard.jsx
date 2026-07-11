@@ -1,85 +1,19 @@
-import React from "react";
-import { Camera, Mail, Users } from "lucide-react";
-
-const getDirectorTitle = (value) => {
-  const text = String(value || "").trim();
-  if (/^\s*(directora|dra\.?)\b/i.test(text)) return "Directora:";
-  if (/^\s*(director|dr\.?)\b/i.test(text)) return "Director:";
-  return "Director:";
-};
+import { Mail, UserCircle2 } from "lucide-react";
 
 const StudentCard = ({ student }) => {
-  const imageUrl = student.imageUrl || student.photoUrl || "";
+  const imageUrl = student.imageUrl || student.photoUrl;
+  const name = [student.lastName, student.firstName].filter(Boolean).join(", ");
+  const program = student.program === "doctorado" ? "Doctorado" : "Maestría";
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative">
-      <div className="p-6 flex-1 flex flex-col">
-        <div className="mb-4 flex items-start gap-4">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-gray-200 bg-gray-50 text-gray-300">
-            {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt={`Foto de ${student.name}`}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex flex-col items-center gap-1 text-center">
-                <Camera className="h-5 w-5" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider">
-                  Foto
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="min-w-0 flex-1">
-            <h2 className="text-xl font-bold text-gray-900 line-clamp-2">
-              {student.name}
-            </h2>
-          </div>
-        </div>
-
-        <div className="flex-1">
-          <div className="space-y-3">
-            <div className="flex items-center text-gray-600">
-              <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-              <span className="text-sm">
-                <strong>Programa:</strong> {student.program === "doctorado" ? "Doctorado" : "Maestría"}
-              </span>
-            </div>
-
-            <div className="flex items-center text-gray-600">
-              <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-              <span className="text-sm">
-                <strong>{getDirectorTitle(student.director)}</strong> {student.director}
-              </span>
-            </div>
-
-            <div className="flex items-center text-gray-600">
-              <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-              <span className="text-sm">
-                <strong>Codirector:</strong> {student.codirector || "-"}
-              </span>
-            </div>
-
-            {student.email && (
-              <div className="flex items-center text-gray-600">
-                <Mail className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-                <span className="text-sm break-all">
-                  <strong>Email:</strong> {student.email}
-                </span>
-              </div>
-            )}
-
-            <div className="flex items-center text-gray-600">
-              <Users className="w-5 h-5 mr-2 text-ingenieria shrink-0" />
-              <span className="text-sm">
-                <strong>Tema de Tesis:</strong> {student.thesis_topic}
-              </span>
-            </div>
-          </div>
-        </div>
+    <article className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+      <div className="flex items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100 text-gray-400">{imageUrl ? <img src={imageUrl} alt={`Foto de ${name}`} className="h-full w-full object-cover" /> : <UserCircle2 className="h-8 w-8" />}</div>
+        <div className="min-w-0"><h2 className="text-lg font-bold text-gray-900">{name || "Estudiante"}</h2><span className="mt-1 inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-semibold text-ingenieria">{program}</span></div>
       </div>
-    </div>
+      {student.thesis_topic && <div className="mt-5 border-t border-gray-100 pt-4"><p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Tema de tesis</p><p className="mt-1 text-sm leading-6 text-gray-700">{student.thesis_topic}</p></div>}
+      {(student.director || student.email) && <details className="mt-4 text-sm text-gray-600"><summary className="cursor-pointer font-medium text-ingenieria">Ver contacto</summary><div className="mt-3 space-y-2">{student.director && <p><span className="font-semibold text-gray-700">Director/a:</span> {student.director}</p>}{student.codirector && <p><span className="font-semibold text-gray-700">Codirector/a:</span> {student.codirector}</p>}{student.email && <a className="flex items-center gap-2 break-all hover:text-ingenieria" href={`mailto:${student.email}`}><Mail className="h-4 w-4 shrink-0" />{student.email}</a>}</div></details>}
+    </article>
   );
 };
 

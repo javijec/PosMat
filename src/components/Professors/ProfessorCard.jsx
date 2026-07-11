@@ -1,38 +1,19 @@
-import React from "react";
 import { Mail, UserCircle2 } from "lucide-react";
 
-const ProfessorCard = ({ professor, onClick }) => {
-  const imageUrl = professor.imageUrl || professor.photoUrl || "";
+const ProfessorCard = ({ professor }) => {
+  const imageUrl = professor.imageUrl || professor.photoUrl;
+  const fullName = [professor.title, professor.firstName, professor.lastName].filter(Boolean).join(" ");
 
   return (
-    <div
-      onClick={onClick}
-      className="bg-[var(--bg-card)] rounded-xl shadow-sm p-6 border border-[var(--border-subtle)] transition-colors duration-300 flex flex-col gap-4"
-    >
-      <div className="flex items-start gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-main)]/30">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={`Foto de ${professor.firstName} ${professor.lastName}`}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <UserCircle2 className="h-8 w-8" />
-          )}
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <h3 className="font-bold text-lg text-[var(--text-main)]">
-            {`${professor.title} ${professor.lastName}, ${professor.firstName}`}
-          </h3>
-          <div className="flex items-center text-[var(--text-main)]/60 mt-1 text-sm break-all">
-            <Mail className="w-3.5 h-3.5 mr-2 shrink-0" />
-            {professor.email || "Sin correo registrado"}
-          </div>
-        </div>
+    <article className="flex gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100 text-gray-400">
+        {imageUrl ? <img src={imageUrl} alt={`Foto de ${fullName}`} className="h-full w-full object-cover" /> : <UserCircle2 className="h-8 w-8" />}
       </div>
-    </div>
+      <div className="min-w-0">
+        <h2 className="text-lg font-bold text-gray-900">{fullName || "Profesor/a"}</h2>
+        {professor.email && <a href={`mailto:${professor.email}`} className="mt-2 flex items-center gap-2 break-all text-sm text-gray-600 transition hover:text-ingenieria"><Mail className="h-4 w-4 shrink-0" />{professor.email}</a>}
+      </div>
+    </article>
   );
 };
 

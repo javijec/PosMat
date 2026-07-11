@@ -1,113 +1,53 @@
-import React, { useState, useEffect } from "react";
-import StudentCard from "./StudentCard";
+import { useEffect, useMemo, useState } from "react";
+import { Search, SlidersHorizontal, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
+import StudentCard from "./StudentCard";
 
 const Students = () => {
   const [data, setData] = useState([]);
-  const [searchFullName, setSearchFullName] = useState("");
-  const [searchProgram, setSearchProgram] = useState("");
-  const [searchThesis, setSearchThesis] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-  const collection = "students";
+  const [query, setQuery] = useState("");
+  const [program, setProgram] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const students = await fetchData("students");
+        setData([...(students || [])].sort((a, b) => (a.lastName || "").localeCompare(b.lastName || "")));
+      } catch (error) {
+        console.error("Error fetching students data: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchStudents();
   }, []);
 
-  useEffect(() => {
-    handleSearch();
-  }, [data, searchFullName, searchProgram, searchThesis]);
-
-  const fetchStudents = async () => {
-    const Data = await fetchData(collection);
-    const sortedData = Data.sort((a, b) =>
-      (a.lastName || "").localeCompare(b.lastName || "")
-    );
-    setData(sortedData);
-  };
-
-  const handleSearch = () => {
-    let filtered = data;
-
-    if (searchFullName) {
-      filtered = filtered.filter((student) =>
-        (student.firstName + " " + student.lastName)
-          .toLowerCase()
-          .includes(searchFullName.toLowerCase())
-      );
-    }
-    if (searchProgram) {
-      filtered = filtered.filter(
-        (student) => student.program === searchProgram
-      );
-    }
-    if (searchThesis) {
-      filtered = filtered.filter((student) =>
-        student.thesis_topic.toLowerCase().includes(searchThesis.toLowerCase())
-      );
-    }
-
-    setFilteredData(filtered);
-  };
+  const filteredData = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    return data.filter((student) => {
+      const text = `${student.firstName || ""} ${student.lastName || ""} ${student.thesis_topic || ""}`.toLowerCase();
+      return (!normalizedQuery || text.includes(normalizedQuery)) && (!program || student.program === program);
+    });
+  }, [data, program, query]);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <h2 className="text-2xl font-bold mb-6">Estudiantes de Posgrado</h2>
+    <main className="mx-auto max-w-7xl px-4 py-10 md:py-14">
+      <header className="mb-8 max-w-2xl">
+        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ingenieria"><Users className="h-4 w-4" /> Comunidad académica</p>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Estudiantes</h1>
+        <p className="mt-3 text-gray-600">Tesistas de las carreras de posgrado.</p>
+      </header>
 
-      <div className="mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nombre o Apellido
-            </label>
-            <input
-              type="text"
-              value={searchFullName}
-              onChange={(e) => setSearchFullName(e.target.value)}
-              placeholder="Buscar por nombre o apellido..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Programa
-            </label>
-            <select
-              value={searchProgram}
-              onChange={(e) => setSearchProgram(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            >
-              <option value="">Todos</option>
-              <option value="doctorado">Doctorado</option>
-              <option value="maestria">Maestría</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Tema de Tesis
-            </label>
-            <input
-              type="text"
-              value={searchThesis}
-              onChange={(e) => setSearchThesis(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          </div>
-        </div>
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row">
+        <div className="relative flex-1 sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar nombre o tema de tesis" className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-10 outline-none transition focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar estudiantes" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-5 w-5" /></button>}</div>
+        <label className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 text-sm text-gray-700"><SlidersHorizontal className="h-4 w-4 text-gray-500" /><span className="sr-only">Filtrar programa</span><select value={program} onChange={(event) => setProgram(event.target.value)} className="bg-transparent py-2.5 outline-none"><option value="">Todos los programas</option><option value="doctorado">Doctorado</option><option value="maestria">Maestría</option></select></label>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredData.map((student, index) => (
-          <StudentCard
-            key={index}
-            student={{
-              ...student,
-              name: `${student.lastName}, ${student.firstName}`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
+      {isLoading ? <p className="py-12 text-center text-gray-500">Cargando estudiantes…</p> : filteredData.length ? (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filteredData.map((student) => <StudentCard key={student.id || `${student.lastName}-${student.firstName}`} student={student} />)}</div>
+      ) : <p className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center text-gray-600">No hay estudiantes que coincidan con los filtros.</p>}
+    </main>
   );
 };
 
