@@ -22,13 +22,6 @@ import {
 
 const statsConfig = [
   {
-    title: "Archivos y formularios",
-    description: "Subir y organizar documentación pública",
-    icon: faFolderOpen,
-    path: "/archivos/edit",
-    group: "Recursos",
-  },
-  {
     title: "Profesores",
     description: "Equipo docente e investigadores",
     collection: "professors",
@@ -117,6 +110,13 @@ const quickActions = [
     description: "Administrar emails autorizados",
     icon: faShieldAlt,
     path: "/manage-emails",
+    group: "Administración",
+  },
+  {
+    title: "Archivos y formularios",
+    description: "Subir y organizar documentación pública",
+    icon: faFolderOpen,
+    path: "/archivos/edit",
     group: "Administración",
   },
 ];
