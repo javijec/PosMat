@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, FileText, GraduationCap, UserRound } from "lucide-react";
 
-const ThesisTextPanel = ({ title, children }) => {
+const ThesisTextPanel = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,11 +21,10 @@ const ThesisTextPanel = ({ title, children }) => {
         </span>
       </button>
       {isOpen ? (
-        <div className="mt-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
-          <p className="whitespace-pre-line text-justify text-[15px] leading-7 text-[var(--text-main)]/85">
-            {children}
-          </p>
-        </div>
+        <div
+          className="prose prose-slate mt-3 max-w-none rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 text-[15px] leading-7 prose-p:my-2 md:p-5"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       ) : null}
     </div>
   );
@@ -124,10 +123,10 @@ const TesisCard = ({ tesis }) => {
             </p>
           )}
           {tesis.summary_es && (
-            <ThesisTextPanel title="Resumen">{tesis.summary_es}</ThesisTextPanel>
+            <ThesisTextPanel title="Resumen" content={tesis.summary_es} />
           )}
           {tesis.abstract_en && (
-            <ThesisTextPanel title="Abstract">{tesis.abstract_en}</ThesisTextPanel>
+            <ThesisTextPanel title="Abstract" content={tesis.abstract_en} />
           )}
           {tesis.url && (
             <div className="pt-3">
