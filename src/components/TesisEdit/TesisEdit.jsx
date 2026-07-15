@@ -17,18 +17,37 @@ import { exportToCSV } from "../../utils/csvExport";
 import { deleteTesisPdf, uploadTesisPdf } from "../../data/providers/postgresProvider";
 import { toast } from "sonner";
 
+const isFilledString = (value) =>
+  typeof value === "string" && value.trim().length > 0;
+
 const splitLegacyJurors = (value) => {
-  if (!value || typeof value !== "string") {
+  if (!value) {
     return ["", "", ""];
   }
 
+  if (Array.isArray(value)) {
+    const items = value
+      .map((item) => String(item || "").trim())
+      .filter(Boolean);
+
+    return [items[0] || "", items[1] || "", items[2] || ""];
+  }
+
+  if (typeof value !== "string") {
+    return ["", "", ""];
+  }
+
+  const separator = /[;\n]/.test(value) ? /[;\r\n]+/ : /,/;
   const items = value
-    .split(/\r?\n|,/)
+    .split(separator)
     .map((item) => item.trim())
     .filter(Boolean);
 
   return [items[0] || "", items[1] || "", items[2] || ""];
 };
+
+const getJurorValue = (currentValue, fallbackValue) =>
+  isFilledString(currentValue) ? currentValue.trim() : fallbackValue;
 
 const TesisEdit = () => {
   const collectionName = "tesis";
@@ -102,9 +121,9 @@ const TesisEdit = () => {
     setEditingId(item.id);
     setDefaultValues({
       ...item,
-      juror_1: item.juror_1 ?? juror1,
-      juror_2: item.juror_2 ?? juror2,
-      juror_3: item.juror_3 ?? juror3,
+      juror_1: getJurorValue(item.juror_1, juror1),
+      juror_2: getJurorValue(item.juror_2, juror2),
+      juror_3: getJurorValue(item.juror_3, juror3),
     });
   };
 
