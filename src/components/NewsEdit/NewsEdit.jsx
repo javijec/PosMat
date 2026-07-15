@@ -15,6 +15,8 @@ const emptyForm = {
   publishedAt: "",
 };
 
+const createEmptyForm = () => ({ ...emptyForm });
+
 const sortNewsByDate = (items) =>
   [...items].sort((a, b) => {
     const first = new Date(`${b.publishedAt || ""}T00:00:00`).getTime();
@@ -27,7 +29,7 @@ const NewsEdit = () => {
   const collectionName = "news";
   const [editingId, setEditingId] = useState(-1);
   const [deleteId, setDeleteId] = useState(null);
-  const [defaultValues, setDefaultValues] = useState(emptyForm);
+  const [defaultValues, setDefaultValues] = useState(createEmptyForm);
 
   const { data: news = [], isLoading } = useQuery({
     queryKey: [collectionName],
@@ -63,7 +65,7 @@ const NewsEdit = () => {
 
   const resetForm = () => {
     setEditingId(-1);
-    setDefaultValues(emptyForm);
+    setDefaultValues(createEmptyForm());
   };
 
   const onSubmit = (data) => {

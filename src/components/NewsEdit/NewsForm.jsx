@@ -82,6 +82,9 @@ const NewsForm = ({
   useEffect(() => {
     reset(defaultValues);
     setUploadError("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   }, [defaultValues, reset]);
 
   const handleFileChange = async (event) => {
