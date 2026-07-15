@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { CircleHelp, MessageCircleQuestion } from "lucide-react";
+import { AlertCircle, CircleHelp, MessageCircleQuestion } from "lucide-react";
 import { fetchData } from "../../data";
 import FaqItem from "./FaqItem";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 
 const FAQ = () => {
   const [faqs, setFaqs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const collection = "faq";
 
   useEffect(() => {
     const loadFAQs = async () => {
-      const data = await fetchData(collection);
-      setFaqs(data.sort((a, b) => (a.position || 0) - (b.position || 0)));
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await fetchData(collection);
+        setFaqs((data || []).sort((a, b) => (a.position || 0) - (b.position || 0)));
+      } catch (loadError) {
+        console.error("Error fetching FAQ data: ", loadError);
+        setError("No se pudieron cargar las preguntas frecuentes.");
+      } finally {
+        setIsLoading(false);
+      }
     };
     loadFAQs();
   }, []);
@@ -32,12 +45,12 @@ const FAQ = () => {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12 sm:py-16">
-        {faqs.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center shadow-sm">
-            <CircleHelp className="mx-auto h-10 w-10 text-ingenieria" />
-            <h2 className="mt-4 text-xl font-bold text-slate-900">No hay preguntas disponibles</h2>
-            <p className="mt-2 text-slate-600">Estamos actualizando esta sección.</p>
-          </div>
+        {isLoading ? (
+          <LoadingState label="Cargando preguntas frecuentes…" />
+        ) : error ? (
+          <EmptyState icon={AlertCircle} title="No se pudieron cargar las preguntas" description={error} variant="error" />
+        ) : faqs.length === 0 ? (
+          <EmptyState icon={CircleHelp} title="No hay preguntas disponibles" description="Estamos actualizando esta sección." />
         ) : (
           <div className="space-y-3">
             {faqs.map((faq) => (

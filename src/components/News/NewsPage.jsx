@@ -1,8 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, X } from "lucide-react";
+import { AlertCircle, Newspaper, Search, X } from "lucide-react";
 import { fetchData } from "../../data";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80";
@@ -35,7 +37,7 @@ const NewsPage = () => {
   const [selectedNewsId, setSelectedNewsId] = useState(null);
   const [query, setQuery] = useState("");
 
-  const { data: news = [], isLoading } = useQuery({
+  const { data: news = [], isLoading, error } = useQuery({
     queryKey: ["news"],
     queryFn: async () => {
       const result = await fetchData("news");
@@ -115,33 +117,13 @@ const NewsPage = () => {
 
       <section className="mx-auto max-w-5xl px-4 py-6 md:py-8">
         {isLoading ? (
-          <div className="space-y-3">
-            {[1, 2, 3, 4].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4"
-              >
-                <div className="mb-3 h-4 w-32 animate-pulse rounded bg-black/5" />
-                <div className="mb-2 h-6 w-3/4 animate-pulse rounded bg-black/5" />
-                <div className="mb-2 h-4 w-full animate-pulse rounded bg-black/5" />
-                <div className="h-4 w-2/3 animate-pulse rounded bg-black/5" />
-              </div>
-            ))}
-          </div>
+          <LoadingState label="Cargando noticias…" />
+        ) : error ? (
+          <EmptyState icon={AlertCircle} title="No se pudieron cargar las noticias" description="Revisá la conexión e intentá nuevamente." variant="error" />
         ) : news.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-card)] px-8 py-12 text-center">
-            <h2 className="text-xl font-semibold text-[var(--text-main)]">
-              Todavía no hay noticias publicadas
-            </h2>
-            <p className="mt-2 text-sm text-[var(--text-main)]/70">
-              Desde el panel de administración ya puedes crear las primeras.
-            </p>
-          </div>
+          <EmptyState icon={Newspaper} title="Todavía no hay noticias publicadas" description="Desde el panel de administración ya podés crear las primeras." />
         ) : filteredNews.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-card)] px-8 py-12 text-center">
-            <h2 className="text-xl font-semibold text-[var(--text-main)]">No encontramos noticias</h2>
-            <p className="mt-2 text-sm text-[var(--text-main)]/70">Probá con otra palabra de búsqueda.</p>
-          </div>
+          <EmptyState icon={Search} title="No encontramos noticias" description="Probá con otra palabra de búsqueda." actionLabel="Limpiar búsqueda" onAction={() => setQuery("")} />
         ) : (
           <div className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
             <ul className="divide-y divide-[var(--border-subtle)]">

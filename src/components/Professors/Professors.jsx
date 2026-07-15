@@ -1,21 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
-import { Search, Users, X } from "lucide-react";
+import { AlertCircle, Search, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
 import ProfessorCard from "./ProfessorCard";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
 
 const Professors = () => {
   const [data, setData] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProfessors = async () => {
+      setError(null);
       try {
         const professors = await fetchData("professors");
         setData([...(professors || [])].sort((a, b) => (a.lastName || "").localeCompare(b.lastName || "")));
       } catch (error) {
         console.error("Error fetching professors data: ", error);
+        setError("No se pudieron cargar los profesores.");
       } finally {
         setIsLoading(false);
       }
@@ -39,9 +44,11 @@ const Professors = () => {
         {searchName && <button onClick={() => setSearchName("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800" aria-label="Limpiar búsqueda"><X className="h-5 w-5" /></button>}
       </div>
 
-      {isLoading ? <p className="py-12 text-center text-gray-500">Cargando profesores…</p> : filteredData.length ? (
+      {isLoading ? <LoadingState label="Cargando profesores…" /> : error ? (
+        <EmptyState icon={AlertCircle} title="No se pudieron cargar los profesores" description={error} variant="error" />
+      ) : filteredData.length ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{filteredData.map((professor) => <ProfessorCard key={professor.id || `${professor.lastName}-${professor.firstName}`} professor={professor} />)}</div>
-      ) : <p className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center text-gray-600">No hay profesores que coincidan con tu búsqueda.</p>}
+      ) : <EmptyState icon={Search} title="No hay profesores para esta búsqueda" description="Probá con otro nombre o apellido." actionLabel="Limpiar búsqueda" onAction={() => setSearchName("")} />}
     </main>
   );
 };

@@ -2,12 +2,12 @@ import React, { useState, useMemo, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import { BarChart3, Search, X } from "lucide-react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { AlertCircle, BarChart3, Search, X } from "lucide-react";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
 import { fetchData } from "../../data";
 
@@ -136,18 +136,9 @@ const Tesis = () => {
               <p className="shrink-0 text-sm text-gray-500">{filteredTesis.length} tesis</p>
             </div>
             {isLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="bg-white p-6 rounded-lg shadow-sm">
-                    <Skeleton height={24} width="60%" />
-                    <Skeleton height={16} width="40%" className="mt-2" />
-                  </div>
-                ))}
-              </div>
+              <LoadingState label="Cargando tesis…" />
             ) : error ? (
-              <div className="text-center text-red-600 py-10">
-                Error al cargar las tesis.
-              </div>
+              <EmptyState icon={AlertCircle} title="No se pudieron cargar las tesis" description="Revisá la conexión e intentá nuevamente." variant="error" />
             ) : filteredTesis.length ? (
               <ul className="space-y-4">
                 {filteredTesis.map((tesisItem) => (
@@ -155,7 +146,7 @@ const Tesis = () => {
                 ))}
               </ul>
             ) : (
-              <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center"><h2 className="text-xl font-bold text-gray-900">No hay tesis para estos filtros</h2><p className="mt-2 text-gray-600">Probá otro año, tipo o término de búsqueda.</p><button onClick={resetFilters} className="mt-5 font-medium text-ingenieria hover:underline">Limpiar filtros</button></div>
+              <EmptyState icon={Search} title="No hay tesis para estos filtros" description="Probá otro año, tipo o término de búsqueda." actionLabel="Limpiar filtros" onAction={resetFilters} />
             )}
           </div>
         </div>

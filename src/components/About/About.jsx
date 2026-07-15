@@ -3,6 +3,8 @@ import { AlertCircle, ArrowRight, BookOpen, FlaskConical } from "lucide-react";
 import { Link } from "react-router-dom";
 import { fetchData } from "../../data";
 import AboutSection from "./AboutSection";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 
 const About = () => {
   const [data, setData] = useState([]);
@@ -34,22 +36,16 @@ const About = () => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center" role="status">
-        <div className="text-center text-gray-600">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-ingenieria" />
-          <p className="mt-4">Cargando información del Posgrado…</p>
-        </div>
+      <div className="mx-auto max-w-4xl px-4 py-20">
+        <LoadingState label="Cargando información del Posgrado…" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-        <AlertCircle className="mx-auto h-10 w-10 text-red-600" />
-        <h1 className="mt-4 text-2xl font-bold text-gray-900">Información no disponible</h1>
-        <p className="mt-2 text-gray-600">{error}</p>
-        <button onClick={fetchAbout} className="mt-6 rounded-lg bg-ingenieria px-4 py-2 font-medium text-white hover:opacity-90">Reintentar</button>
+      <div className="mx-auto max-w-2xl px-4 py-20">
+        <EmptyState icon={AlertCircle} title="Información no disponible" description={error} actionLabel="Reintentar" onAction={fetchAbout} variant="error" />
       </div>
     );
   }
@@ -78,11 +74,7 @@ const About = () => {
 
       <section className="mx-auto max-w-4xl px-4 py-12 md:py-16">
         {data.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center">
-            <BookOpen className="mx-auto h-9 w-9 text-gray-400" />
-            <h2 className="mt-4 text-xl font-bold text-gray-900">Información próximamente</h2>
-            <p className="mt-2 text-gray-600">Estamos actualizando los datos del Posgrado.</p>
-          </div>
+          <EmptyState icon={BookOpen} title="Información próximamente" description="Estamos actualizando los datos del Posgrado." />
         ) : (
           <div className="space-y-6">
             {data.map((section) => <AboutSection key={section.id || section.title} section={section} />)}

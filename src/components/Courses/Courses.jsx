@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import { BookOpen, Search, X } from "lucide-react";
+import { AlertCircle, BookOpen, Search, X } from "lucide-react";
 import CourseFilter from "./CourseFilter";
 import CoursesDisplay from "./CoursesDisplay";
 import { fetchData } from "../../data";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
 
 const Courses = () => {
@@ -59,12 +61,12 @@ const Courses = () => {
       <Helmet><title>Cursos | PosMat</title><meta name="description" content="Listado de cursos del Posgrado en Ciencia de Materiales." /></Helmet>
       <div className="mx-auto max-w-7xl px-4">
         <PageHeader eyebrow="Posgrado" icon={BookOpen} title="Cursos" description="Oferta académica del Posgrado en Ciencia de Materiales." />
-        {isLoading ? <div className="flex h-64 items-center justify-center"><div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-ingenieria" /></div> : error ? <div className="py-10 text-center text-red-600">No se pudieron cargar los cursos.</div> : (
+        {isLoading ? <LoadingState label="Cargando cursos…" /> : error ? <EmptyState icon={AlertCircle} title="No se pudieron cargar los cursos" description="Revisá la conexión e intentá nuevamente." variant="error" /> : (
           <div className="lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8">
             <aside className="lg:sticky lg:top-6 lg:h-fit"><CourseFilter years={years} selectedYear={selectedYear} setSelectedYear={setSelectedYear} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedType={selectedType} setSelectedType={setSelectedType} onReset={resetFilters} /></aside>
             <section className="mt-8 lg:mt-0">
               <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div className="relative w-full sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar curso, docente o lugar" className="w-full rounded-lg border border-gray-300 py-2.5 pl-9 pr-9 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar cursos" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}</div><p className="shrink-0 text-sm text-gray-500">{filteredCourses.length} {filteredCourses.length === 1 ? "curso" : "cursos"}</p></div>
-              {filteredCourses.length ? <CoursesDisplay groupedCourses={groupedBySemester} /> : <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center"><h2 className="text-xl font-bold text-gray-900">No hay cursos para estos filtros</h2><p className="mt-2 text-gray-600">Probá otro año, semestre o búsqueda.</p><button onClick={resetFilters} className="mt-5 font-medium text-ingenieria hover:underline">Limpiar filtros</button></div>}
+              {filteredCourses.length ? <CoursesDisplay groupedCourses={groupedBySemester} /> : <EmptyState icon={Search} title="No hay cursos para estos filtros" description="Probá otro año, semestre o búsqueda." actionLabel="Limpiar filtros" onAction={resetFilters} />}
             </section>
           </div>
         )}

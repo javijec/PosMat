@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { Search, SlidersHorizontal, Users, X } from "lucide-react";
+import { AlertCircle, Search, SlidersHorizontal, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
 import StudentCard from "./StudentCard";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
 
 const Students = () => {
@@ -9,14 +11,17 @@ const Students = () => {
   const [query, setQuery] = useState("");
   const [program, setProgram] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchStudents = async () => {
+      setError(null);
       try {
         const students = await fetchData("students");
         setData([...(students || [])].sort((a, b) => (a.lastName || "").localeCompare(b.lastName || "")));
       } catch (error) {
         console.error("Error fetching students data: ", error);
+        setError("No se pudieron cargar los estudiantes.");
       } finally {
         setIsLoading(false);
       }
@@ -32,6 +37,11 @@ const Students = () => {
     });
   }, [data, program, query]);
 
+  const resetFilters = () => {
+    setQuery("");
+    setProgram("");
+  };
+
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 md:py-14">
       <PageHeader eyebrow="Comunidad académica" icon={Users} title="Estudiantes" description="Tesistas de las carreras de posgrado." />
@@ -41,9 +51,11 @@ const Students = () => {
         <label className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 text-sm text-gray-700"><SlidersHorizontal className="h-4 w-4 text-gray-500" /><span className="sr-only">Filtrar programa</span><select value={program} onChange={(event) => setProgram(event.target.value)} className="bg-transparent py-2.5 outline-none"><option value="">Todos los programas</option><option value="doctorado">Doctorado</option><option value="maestria">Maestría</option></select></label>
       </div>
 
-      {isLoading ? <p className="py-12 text-center text-gray-500">Cargando estudiantes…</p> : filteredData.length ? (
+      {isLoading ? <LoadingState label="Cargando estudiantes…" /> : error ? (
+        <EmptyState icon={AlertCircle} title="No se pudieron cargar los estudiantes" description={error} variant="error" />
+      ) : filteredData.length ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filteredData.map((student) => <StudentCard key={student.id || `${student.lastName}-${student.firstName}`} student={student} />)}</div>
-      ) : <p className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center text-gray-600">No hay estudiantes que coincidan con los filtros.</p>}
+      ) : <EmptyState icon={Search} title="No hay estudiantes para estos filtros" description="Probá con otro nombre, tema o programa." actionLabel="Limpiar filtros" onAction={resetFilters} />}
     </main>
   );
 };

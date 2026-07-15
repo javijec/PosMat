@@ -1,21 +1,61 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const EmptyState = ({ icon, title, description, className = "" }) => {
+const variantStyles = {
+  default: {
+    icon: "text-[var(--text-main)]/30",
+    title: "text-[var(--text-main)]",
+    description: "text-[var(--text-main)]/55",
+  },
+  error: {
+    icon: "text-red-500",
+    title: "text-red-950",
+    description: "text-red-700",
+  },
+};
+
+const EmptyState = ({
+  icon,
+  title,
+  description,
+  actionLabel,
+  onAction,
+  className = "",
+  variant = "default",
+}) => {
+  const styles = variantStyles[variant] || variantStyles.default;
+  const Icon = icon;
+  const isFontAwesomeIcon = icon?.iconName || icon?.prefix;
+
   return (
     <div
-      className={`text-center py-12 bg-[var(--bg-surface)] rounded-xl border-2 border-dashed border-[var(--border-subtle)] transition-colors ${className}`}
+      className={`rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--bg-card)] px-6 py-12 text-center shadow-sm transition-colors ${className}`}
     >
-      {icon && (
+      {isFontAwesomeIcon ? (
         <FontAwesomeIcon
           icon={icon}
-          className="text-4xl text-[var(--text-main)]/30 mb-3"
+          className={`mb-3 text-4xl ${styles.icon}`}
         />
-      )}
-      <h3 className="text-lg font-medium text-[var(--text-main)]">{title}</h3>
-      {description && (
-        <p className="text-[var(--text-main)]/50 italic mt-1">{description}</p>
-      )}
+      ) : Icon ? (
+        <Icon className={`mx-auto mb-3 h-10 w-10 ${styles.icon}`} aria-hidden="true" />
+      ) : null}
+
+      <h3 className={`text-lg font-semibold ${styles.title}`}>{title}</h3>
+      {description ? (
+        <p className={`mx-auto mt-2 max-w-lg text-sm leading-6 ${styles.description}`}>
+          {description}
+        </p>
+      ) : null}
+
+      {actionLabel && onAction ? (
+        <button
+          type="button"
+          onClick={onAction}
+          className="mt-5 inline-flex items-center justify-center rounded-lg bg-[var(--color-ingenieria)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30"
+        >
+          {actionLabel}
+        </button>
+      ) : null}
     </div>
   );
 };

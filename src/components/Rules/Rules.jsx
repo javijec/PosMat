@@ -3,6 +3,8 @@ import { AlertCircle, BookOpen, Search, X } from "lucide-react";
 import { fetchData } from "../../data";
 import RulesNavigator from "./RulesNavigator";
 import RulesContent from "./RulesContent";
+import EmptyState from "../shared/EmptyState";
+import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
 
 const getSearchableText = (section) =>
@@ -73,32 +75,24 @@ const Rules = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-16 text-center" role="status">
-        <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-ingenieria" />
-        <p className="mt-4 text-gray-600">Cargando reglamentos…</p>
+      <div className="mx-auto max-w-7xl px-4 py-16">
+        <LoadingState label="Cargando reglamentos…" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <AlertCircle className="mx-auto h-10 w-10 text-red-600" />
-        <h1 className="mt-4 text-2xl font-bold text-gray-900">No fue posible cargar la información</h1>
-        <p className="mt-2 text-gray-600">{error}</p>
-        <button onClick={fetchRules} className="mt-6 rounded-lg bg-ingenieria px-4 py-2 font-medium text-white hover:opacity-90">
-          Reintentar
-        </button>
+      <div className="mx-auto max-w-2xl px-4 py-16">
+        <EmptyState icon={AlertCircle} title="No fue posible cargar la información" description={error} actionLabel="Reintentar" onAction={fetchRules} variant="error" />
       </div>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <BookOpen className="mx-auto h-10 w-10 text-gray-400" />
-        <h1 className="mt-4 text-2xl font-bold text-gray-900">Reglamentos no disponibles</h1>
-        <p className="mt-2 text-gray-600">Todavía no hay reglamentos publicados.</p>
+      <div className="mx-auto max-w-2xl px-4 py-16">
+        <EmptyState icon={BookOpen} title="Reglamentos no disponibles" description="Todavía no hay reglamentos publicados." />
       </div>
     );
   }
@@ -124,9 +118,7 @@ const Rules = () => {
       </div>
 
       {visibleSections.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center text-gray-600">
-          No hay resultados para “{query}”. Probá otra búsqueda.
-        </div>
+        <EmptyState icon={Search} title={`No hay resultados para “${query}”`} description="Probá otra búsqueda dentro de los reglamentos." actionLabel="Limpiar búsqueda" onAction={() => setQuery("")} />
       ) : (
         <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start">
           <RulesNavigator
