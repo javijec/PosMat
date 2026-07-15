@@ -37,7 +37,7 @@ const NewsPage = () => {
   const [selectedNewsId, setSelectedNewsId] = useState(null);
   const [query, setQuery] = useState("");
 
-  const { data: news = [], isLoading, error } = useQuery({
+  const { data: news = [], isLoading, error, refetch, isFetching } = useQuery({
     queryKey: ["news"],
     queryFn: async () => {
       const result = await fetchData("news");
@@ -95,7 +95,7 @@ const NewsPage = () => {
     : `${news.length} noticia${news.length === 1 ? "" : "s"} publicada${news.length === 1 ? "" : "s"}`;
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)]">
+    <main className="min-h-screen bg-[var(--bg-main)]">
       <section className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-12">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-ingenieria)]">
@@ -141,7 +141,7 @@ const NewsPage = () => {
         {isLoading ? (
           <LoadingState label="Cargando noticias…" />
         ) : error ? (
-          <EmptyState icon={AlertCircle} title="No se pudieron cargar las noticias" description="Revisá la conexión e intentá nuevamente." variant="error" />
+          <EmptyState icon={AlertCircle} title="No se pudieron cargar las noticias" description="Revisá la conexión e intentá nuevamente." actionLabel={isFetching ? "Reintentando…" : "Reintentar"} onAction={() => refetch()} actionDisabled={isFetching} variant="error" />
         ) : news.length === 0 ? (
           <EmptyState icon={Newspaper} title="Todavía no hay noticias publicadas" description="Desde el panel de administración ya podés crear las primeras." />
         ) : filteredNews.length === 0 ? (
@@ -329,7 +329,7 @@ const NewsPage = () => {
           </div>
         </Dialog>
       </Transition>
-    </div>
+    </main>
   );
 };
 

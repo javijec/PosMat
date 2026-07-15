@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { toast } from "sonner";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email("Correo electrónico inválido"),
@@ -13,6 +15,7 @@ const loginSchema = z.object({
 const Login = () => {
   const { signInWithEmailAndPassword } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -46,35 +49,51 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="mb-1 ml-1 block text-xs font-semibold uppercase tracking-widest text-[var(--text-main)]/65">
                 Correo electrónico
               </label>
               <input
                 {...register("email")}
+                id="email"
                 type="email"
                 autoComplete="email"
-                className={`block w-full rounded-lg border bg-[var(--bg-card)] px-3 py-2.5 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.email ? "border-red-500" : "border-[var(--border-subtle)]"}`}
-                placeholder="Correo electrónico"
+                aria-invalid={errors.email ? "true" : "false"}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                className={`block w-full rounded-xl border bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 transition-all focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.email ? "border-red-500" : "border-[var(--border-subtle)] shadow-sm"}`}
+                placeholder="nombre@ejemplo.com"
               />
               {errors.email && (
-                <p className="text-red-500 text-xs mt-1">
+                <p id="email-error" className="ml-1 mt-1 text-xs font-medium text-red-600">
                   {errors.email.message}
                 </p>
               )}
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="mb-1 ml-1 block text-xs font-semibold uppercase tracking-widest text-[var(--text-main)]/65">
                 Contraseña
               </label>
-              <input
-                {...register("password")}
-                type="password"
-                autoComplete="current-password"
-                className={`block w-full rounded-lg border bg-[var(--bg-card)] px-3 py-2.5 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.password ? "border-red-500" : "border-[var(--border-subtle)]"}`}
-                placeholder="Contraseña"
-              />
+              <div className="relative">
+                <input
+                  {...register("password")}
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  aria-invalid={errors.password ? "true" : "false"}
+                  aria-describedby={errors.password ? "password-error" : undefined}
+                  className={`block w-full rounded-xl border bg-[var(--bg-card)] px-4 py-3 pr-12 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 transition-all focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.password ? "border-red-500" : "border-[var(--border-subtle)] shadow-sm"}`}
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((current) => !current)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-[var(--text-main)]/60 transition hover:text-[var(--text-main)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30"
+                  aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1">
+                <p id="password-error" className="ml-1 mt-1 text-xs font-medium text-red-600">
                   {errors.password.message}
                 </p>
               )}
@@ -85,20 +104,21 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="relative flex w-full justify-center rounded-lg bg-[var(--color-ingenieria)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ingenieria)]/30 disabled:opacity-50"
+              className="relative inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-ingenieria)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ingenieria)]/30 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
+              {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
+              {isSubmitting ? "Iniciando sesión…" : "Iniciar sesión"}
             </button>
           </div>
         </form>
         <div className="text-center">
           <p className="text-sm text-[var(--text-main)]/65">
-            ¿No tienes una cuenta?{" "}
+            ¿No tenés una cuenta?{" "}
             <NavLink
               to="/register"
-              className="font-semibold text-[var(--color-ingenieria)] hover:underline"
+              className="rounded-md font-semibold text-[var(--color-ingenieria)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30"
             >
-              Regístrate
+              Crear cuenta
             </NavLink>
           </p>
         </div>

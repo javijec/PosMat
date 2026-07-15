@@ -10,6 +10,7 @@ import ActiveFilters from "../shared/ActiveFilters";
 import EmptyState from "../shared/EmptyState";
 import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
+import Breadcrumbs from "../shared/Breadcrumbs";
 import { fetchData } from "../../data";
 
 const Tesis = () => {
@@ -23,7 +24,9 @@ const Tesis = () => {
   const {
     data = [],
     isLoading,
+    isFetching,
     error,
+    refetch,
   } = useQuery({
     queryKey: [collectionName],
     queryFn: async () => {
@@ -123,7 +126,7 @@ const Tesis = () => {
   const activeFilterCount = activeFilters.filter(Boolean).length;
 
   return (
-    <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <main className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <Helmet>
         <title>Tesis | PosMat</title>
         <meta
@@ -132,6 +135,7 @@ const Tesis = () => {
         />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4">
+        <Breadcrumbs items={[{ label: "Posgrado" }, { label: "Tesis" }]} />
         <PageHeader eyebrow="Posgrado" title="Repositorio de tesis" description="Tesis de Doctorado y Maestría del Posgrado en Ciencia de Materiales." />
         <div className="mb-6">
           <button
@@ -158,7 +162,7 @@ const Tesis = () => {
           </div>
           <div className="lg:col-span-3 mt-8 lg:mt-0">
             <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="relative w-full sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar título, autor o director/a" className="w-full rounded-lg border border-gray-300 py-2.5 pl-9 pr-9 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar tesis" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}</div>
+              <div className="relative w-full sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar título, autor o director/a" className="w-full rounded-lg border border-gray-300 py-2.5 pl-9 pr-9 outline-none transition focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar tesis" />{query && <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md text-gray-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ingenieria/30" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}</div>
             </div>
             {!isLoading && !error ? (
               <ActiveFilters filters={activeFilters} onClearAll={resetFilters} resultLabel={`${filteredTesis.length} tesis`} />
@@ -166,7 +170,7 @@ const Tesis = () => {
             {isLoading ? (
               <LoadingState label="Cargando tesis…" />
             ) : error ? (
-              <EmptyState icon={AlertCircle} title="No se pudieron cargar las tesis" description="Revisá la conexión e intentá nuevamente." variant="error" />
+              <EmptyState icon={AlertCircle} title="No se pudieron cargar las tesis" description="Revisá la conexión e intentá nuevamente." actionLabel={isFetching ? "Reintentando…" : "Reintentar"} onAction={() => refetch()} actionDisabled={isFetching} variant="error" />
             ) : filteredTesis.length ? (
               <ul className="space-y-4">
                 {filteredTesis.map((tesisItem) => (
@@ -233,7 +237,7 @@ const Tesis = () => {
           </div>
         </Dialog>
       </Transition>
-    </div>
+    </main>
   );
 };
 

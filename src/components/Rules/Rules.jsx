@@ -6,6 +6,7 @@ import RulesContent from "./RulesContent";
 import EmptyState from "../shared/EmptyState";
 import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
+import Breadcrumbs from "../shared/Breadcrumbs";
 
 const getSearchableText = (section) =>
   `${section.title || ""} ${(section.html || "").replace(/<[^>]*>/g, " ")}`.toLowerCase();
@@ -99,6 +100,7 @@ const Rules = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <Breadcrumbs items={[{ label: "Posgrado" }, { label: "Reglamentos" }]} />
       <PageHeader eyebrow="Posgrado" icon={BookOpen} title="Reglamentos" description="Consultá requisitos, procedimientos y documentación de las carreras de posgrado." />
 
       <div className="relative mb-6 max-w-xl">
@@ -111,7 +113,7 @@ const Rules = () => {
           aria-label="Buscar en reglamentos"
         />
         {query && (
-          <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800" aria-label="Limpiar búsqueda">
+        <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md text-gray-600 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ingenieria/30" aria-label="Limpiar búsqueda">
             <X className="h-5 w-5" />
           </button>
         )}

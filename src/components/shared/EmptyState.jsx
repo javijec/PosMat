@@ -20,6 +20,7 @@ const EmptyState = ({
   description,
   actionLabel,
   onAction,
+  actionDisabled = false,
   className = "",
   variant = "default",
 }) => {
@@ -51,7 +52,8 @@ const EmptyState = ({
         <button
           type="button"
           onClick={onAction}
-          className="mt-5 inline-flex items-center justify-center rounded-lg bg-[var(--color-ingenieria)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30"
+          disabled={actionDisabled}
+          className="mt-5 inline-flex items-center justify-center rounded-lg bg-[var(--color-ingenieria)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {actionLabel}
         </button>

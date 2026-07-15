@@ -13,7 +13,7 @@ const FormActions = ({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-md bg-[var(--color-ingenieria)] px-6 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[var(--color-ingenieria-hover)] disabled:opacity-50"
+        className="rounded-md bg-[var(--color-ingenieria)] px-6 py-2 font-medium text-white shadow-sm transition-colors hover:bg-[var(--color-ingenieria-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30 disabled:opacity-50"
       >
         {isSubmitting ? submittingLabel : submitLabel}
       </button>
@@ -21,7 +21,7 @@ const FormActions = ({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-6 py-2 font-medium text-[var(--text-main)] shadow-sm transition-colors hover:bg-[var(--bg-card)]"
+          className="rounded-md border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-6 py-2 font-medium text-[var(--text-main)] shadow-sm transition-colors hover:bg-[var(--bg-card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ingenieria)]/30"
         >
           {cancelLabel}
         </button>

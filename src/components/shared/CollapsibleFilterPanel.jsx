@@ -28,7 +28,7 @@ const CollapsibleFilterPanel = ({
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className="flex items-center gap-2 font-semibold text-gray-900 lg:hidden"
+          className="flex items-center gap-2 rounded-lg font-semibold text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ingenieria/30 lg:hidden"
           aria-expanded={isOpen}
           aria-controls={panelId}
         >
@@ -47,7 +47,8 @@ const CollapsibleFilterPanel = ({
           type="button"
           onClick={onReset}
           disabled={!activeCount}
-          className="inline-flex items-center gap-1 text-xs font-medium text-gray-500 transition hover:text-ingenieria disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-1 rounded-md text-xs font-medium text-gray-600 transition hover:text-ingenieria focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ingenieria/30 disabled:cursor-not-allowed disabled:opacity-40"
+          aria-label="Limpiar filtros"
         >
           <RotateCcw className="h-3.5 w-3.5" /> Limpiar
         </button>

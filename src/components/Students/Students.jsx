@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AlertCircle, Search, SlidersHorizontal, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
 import StudentCard from "./StudentCard";
@@ -14,21 +14,23 @@ const Students = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      setError(null);
-      try {
-        const students = await fetchData("students");
-        setData([...(students || [])].sort((a, b) => (a.lastName || "").localeCompare(b.lastName || "")));
-      } catch (error) {
-        console.error("Error fetching students data: ", error);
-        setError("No se pudieron cargar los estudiantes.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchStudents();
+  const fetchStudents = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const students = await fetchData("students");
+      setData([...(students || [])].sort((a, b) => (a.lastName || "").localeCompare(b.lastName || "")));
+    } catch (error) {
+      console.error("Error fetching students data: ", error);
+      setError("No se pudieron cargar los estudiantes.");
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchStudents();
+  }, [fetchStudents]);
 
   const filteredData = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -69,7 +71,7 @@ const Students = () => {
       ) : null}
 
       {isLoading ? <LoadingState label="Cargando estudiantes…" /> : error ? (
-        <EmptyState icon={AlertCircle} title="No se pudieron cargar los estudiantes" description={error} variant="error" />
+        <EmptyState icon={AlertCircle} title="No se pudieron cargar los estudiantes" description={error} actionLabel="Reintentar" onAction={fetchStudents} variant="error" />
       ) : filteredData.length ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filteredData.map((student) => <StudentCard key={student.id || `${student.lastName}-${student.firstName}`} student={student} />)}</div>
       ) : <EmptyState icon={Search} title="No hay estudiantes para estos filtros" description="Probá con otro nombre, tema o programa." actionLabel="Limpiar filtros" onAction={resetFilters} />}

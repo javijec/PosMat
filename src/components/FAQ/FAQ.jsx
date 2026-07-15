@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { AlertCircle, CircleHelp, MessageCircleQuestion } from "lucide-react";
 import { fetchData } from "../../data";
 import FaqItem from "./FaqItem";
@@ -11,22 +11,23 @@ const FAQ = () => {
   const [error, setError] = useState(null);
   const collection = "faq";
 
+  const loadFAQs = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await fetchData(collection);
+      setFaqs((data || []).sort((a, b) => (a.position || 0) - (b.position || 0)));
+    } catch (loadError) {
+      console.error("Error fetching FAQ data: ", loadError);
+      setError("No se pudieron cargar las preguntas frecuentes.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [collection]);
+
   useEffect(() => {
-    const loadFAQs = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const data = await fetchData(collection);
-        setFaqs((data || []).sort((a, b) => (a.position || 0) - (b.position || 0)));
-      } catch (loadError) {
-        console.error("Error fetching FAQ data: ", loadError);
-        setError("No se pudieron cargar las preguntas frecuentes.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
     loadFAQs();
-  }, []);
+  }, [loadFAQs]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white">
@@ -48,7 +49,7 @@ const FAQ = () => {
         {isLoading ? (
           <LoadingState label="Cargando preguntas frecuentes…" />
         ) : error ? (
-          <EmptyState icon={AlertCircle} title="No se pudieron cargar las preguntas" description={error} variant="error" />
+          <EmptyState icon={AlertCircle} title="No se pudieron cargar las preguntas" description={error} actionLabel="Reintentar" onAction={loadFAQs} variant="error" />
         ) : faqs.length === 0 ? (
           <EmptyState icon={CircleHelp} title="No hay preguntas disponibles" description="Estamos actualizando esta sección." />
         ) : (

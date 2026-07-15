@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AlertCircle, ExternalLink, Link as LinkIcon } from "lucide-react";
 import { fetchData } from "../../data";
 import EmptyState from "../shared/EmptyState";
@@ -10,21 +10,22 @@ const Links = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadLinks = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        setLinks(await fetchData("links"));
-      } catch (loadError) {
-        console.error("Error fetching links data: ", loadError);
-        setError("No se pudieron cargar los enlaces.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadLinks();
+  const loadLinks = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      setLinks(await fetchData("links"));
+    } catch (loadError) {
+      console.error("Error fetching links data: ", loadError);
+      setError("No se pudieron cargar los enlaces.");
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    loadLinks();
+  }, [loadLinks]);
 
   const groupedLinks = useMemo(
     () => links.reduce((groups, link) => {
@@ -42,7 +43,7 @@ const Links = () => {
         {isLoading ? (
           <LoadingState label="Cargando enlaces…" />
         ) : error ? (
-          <EmptyState icon={AlertCircle} title="No se pudieron cargar los enlaces" description={error} variant="error" />
+          <EmptyState icon={AlertCircle} title="No se pudieron cargar los enlaces" description={error} actionLabel="Reintentar" onAction={loadLinks} variant="error" />
         ) : links.length === 0 ? (
           <EmptyState icon={LinkIcon} title="No hay enlaces disponibles" description="Estamos actualizando esta sección." />
         ) : (
