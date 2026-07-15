@@ -1,16 +1,11 @@
-// src/components/Header/Header.jsx
-import React from "react";
 import { Disclosure, Menu } from "@headlessui/react";
 import { Link, NavLink } from "react-router-dom";
 import {
   Bars3Icon,
   XMarkIcon,
   UserIcon,
-  SunIcon,
-  MoonIcon,
 } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
 
 const menuItems = [
   { path: "/", name: "Inicio" },
@@ -35,20 +30,22 @@ const menuItems = [
 ];
 
 const desktopNavLinkClass = ({ isActive }) =>
-  `px-2 py-1 transition-colors ${
-    isActive ? "text-white font-medium" : "text-white/90 hover:text-white"
+  `rounded-md px-2 py-1 transition-colors ${
+    isActive ? "bg-white/10 text-white font-medium" : "text-white/90 hover:bg-white/5 hover:text-white"
   }`;
 
 const mobileNavLinkClass = ({ isActive }) =>
-  `block rounded-md px-3 py-2 transition-colors ${
+  `block rounded-lg px-3 py-2.5 text-sm transition-colors ${
     isActive
-      ? "bg-white/10 text-white font-medium"
+      ? "bg-white/15 text-white font-semibold"
       : "text-white/90 hover:bg-white/5 hover:text-white"
   }`;
 
+const mobileSectionLabelClass =
+  "px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/55";
+
 const Header = () => {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
 
   const handleAuth = async () => {
     if (user) {
@@ -77,7 +74,7 @@ const Header = () => {
             >
               <img
                 src="https://www.fi.mdp.edu.ar/images/logofi-lightblue-with-text.png"
-                alt="Logo"
+                alt="Facultad de Ingeniería"
                 className="h-10"
               />
             </Link>
@@ -92,24 +89,28 @@ const Header = () => {
                   >
                     {({ close: menuClose }) => (
                       <>
-                        <Menu.Button className="px-2 py-1 hover:text-gray-300 focus:outline-none">
+                        <Menu.Button className="rounded-md px-2 py-1 text-white/90 transition-colors hover:bg-white/5 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70">
                           {item.name}
                         </Menu.Button>
-                        <Menu.Items className="absolute left-0 mt-2 w-48 bg-ingenieria shadow-lg z-10">
+                        <Menu.Items className="absolute left-0 z-10 mt-2 w-48 overflow-hidden rounded-lg border border-white/10 bg-[var(--bg-header)] shadow-lg">
                           {item.subItems.map((subItem, j) => (
                             <Menu.Item key={j}>
                               {({ active }) => (
-                                <div className="flex items-center justify-between px-4 py-2">
-                                  <NavLink
-                                    to={subItem.path}
-                                    className={`block ${
-                                      active ? "text-gray-300" : ""
-                                    }`}
-                                    onClick={() => closeDisclosure(menuClose)}
-                                  >
-                                    {subItem.name}
-                                  </NavLink>
-                                </div>
+                                <NavLink
+                                  to={subItem.path}
+                                  className={({ isActive }) =>
+                                    `block px-4 py-2 text-sm transition-colors ${
+                                      isActive
+                                        ? "bg-white/15 font-semibold text-white"
+                                        : active
+                                          ? "bg-white/10 text-white"
+                                          : "text-white/90"
+                                    }`
+                                  }
+                                  onClick={() => closeDisclosure(menuClose)}
+                                >
+                                  {subItem.name}
+                                </NavLink>
                               )}
                             </Menu.Item>
                           ))}
@@ -133,7 +134,10 @@ const Header = () => {
                 <Menu as="div" className="relative inline-block text-left">
                   {({ close: menuClose }) => (
                     <>
-                      <Menu.Button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                      <Menu.Button
+                        className="rounded-full p-2 transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                        aria-label="Abrir menú de usuario"
+                      >
                         <UserIcon className="h-5 w-5" />
                       </Menu.Button>
                       <Menu.Items className="absolute right-0 mt-2 w-48 bg-[var(--bg-header)] shadow-lg z-10 rounded-md border border-white/10">
@@ -173,9 +177,11 @@ const Header = () => {
             </nav>
 
             <div className="flex items-center space-x-2 lg:hidden">
-
-
-              <Disclosure.Button className="lg:hidden focus:outline-none">
+              <Disclosure.Button
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                aria-label={open ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+                aria-expanded={open}
+              >
                 {open ? (
                   <XMarkIcon className="h-6 w-6" />
                 ) : (
@@ -185,46 +191,38 @@ const Header = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="lg:hidden px-4 pb-4">
-            <nav className="flex flex-col space-y-2">
+          <Disclosure.Panel className="border-t border-white/10 bg-[var(--bg-header)]/95 px-4 pb-4 pt-3 shadow-lg lg:hidden">
+            <nav className="flex flex-col gap-1" aria-label="Navegación principal móvil">
               {menuItems.map((item, i) =>
                 item.subItems ? (
                   <div key={i}>
-                    <span className="block font-semibold">{item.name}</span>
-                    <div className="pl-4">
+                    <span className={mobileSectionLabelClass}>{item.name}</span>
+                    <div className="grid gap-1">
                       {item.subItems.map((subItem, j) => (
-                        <div
+                        <NavLink
                           key={j}
-                          className="flex items-center justify-between py-1"
+                          to={subItem.path}
+                          className={mobileNavLinkClass}
+                          onClick={() => closeDisclosure(close)}
                         >
-                          <NavLink
-                            to={subItem.path}
-                            className="block hover:text-gray-300"
-                            onClick={() => closeDisclosure(close)}
-                          >
-                            {subItem.name}
-                          </NavLink>
-                        </div>
+                          {subItem.name}
+                        </NavLink>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <div
+                  <NavLink
                     key={i}
-                    className="flex items-center justify-between py-1"
+                    to={item.path}
+                    className={mobileNavLinkClass}
+                    onClick={() => closeDisclosure(close)}
                   >
-                    <NavLink
-                      to={item.path}
-                      className="block hover:text-gray-300"
-                      onClick={() => closeDisclosure(close)}
-                    >
-                      {item.name}
-                    </NavLink>
-                  </div>
+                    {item.name}
+                  </NavLink>
                 )
               )}
 
-              <div className="mt-4">
+              <div className="mt-3 border-t border-white/10 pt-3">
                 {user ? (
                   <>
                     <NavLink
