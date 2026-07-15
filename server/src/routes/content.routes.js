@@ -1,9 +1,25 @@
 import { Router } from "express";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
+import { getTokenFromRequest, verifyAuthToken } from "../utils/auth.js";
 
 const router = Router();
 const contentSchema = z.object({}).catchall(z.any());
+
+const requireAdminForResources = (req, res, next) => {
+  if (req.params.collectionName !== "resources") return next();
+
+  try {
+    const token = getTokenFromRequest(req);
+    if (!token) return res.status(401).json({ message: "Autenticación requerida" });
+    if (verifyAuthToken(token).role !== "admin") {
+      return res.status(403).json({ message: "Permisos insuficientes" });
+    }
+    return next();
+  } catch {
+    return res.status(401).json({ message: "Sesión inválida o vencida" });
+  }
+};
 
 const isPlainObject = (value) =>
   typeof value === "object" && value !== null && !Array.isArray(value);
@@ -73,7 +89,7 @@ router.get("/:collectionName/:id", async (req, res, next) => {
   }
 });
 
-router.post("/:collectionName", async (req, res, next) => {
+router.post("/:collectionName", requireAdminForResources, async (req, res, next) => {
   try {
     const data = contentSchema.parse(req.body);
     const entry = await prisma.contentEntry.create({
@@ -89,7 +105,7 @@ router.post("/:collectionName", async (req, res, next) => {
   }
 });
 
-router.put("/:collectionName/:id", async (req, res, next) => {
+router.put("/:collectionName/:id", requireAdminForResources, async (req, res, next) => {
   try {
     const data = contentSchema.parse(req.body);
     const existingEntry = await findEntryByCollectionAndId(
@@ -117,7 +133,7 @@ router.put("/:collectionName/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:collectionName/:id", async (req, res, next) => {
+router.delete("/:collectionName/:id", requireAdminForResources, async (req, res, next) => {
   try {
     const existingEntry = await findEntryByCollectionAndId(
       req.params.collectionName,

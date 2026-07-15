@@ -125,12 +125,46 @@ const deleteTesisPdf = async (url) => {
   return true;
 };
 
+const uploadResourceFile = async (file) => {
+  ensureApiBaseUrl();
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_BASE_URL}/uploads/resources`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  return await readJsonResponse(response);
+};
+
+const deleteResourceFile = async (url) => {
+  let fileName;
+  try {
+    fileName = new URL(url).pathname.match(/\/api\/uploads\/resources\/(resource-[a-zA-Z0-9-]+\.[a-z0-9]+)$/i)?.[1];
+  } catch {
+    return false;
+  }
+  if (!fileName) return false;
+
+  const response = await fetch(`${API_BASE_URL}/uploads/resources/${encodeURIComponent(fileName)}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  await readJsonResponse(response);
+  return true;
+};
+
 export {
   addDocument,
   deleteTesisPdf,
+  deleteResourceFile,
   deleteDocument,
   fetchCollection,
   getDocument,
   saveDocument,
   uploadTesisPdf,
+  uploadResourceFile,
 };

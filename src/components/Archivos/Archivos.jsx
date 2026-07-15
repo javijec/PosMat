@@ -1,8 +1,10 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FolderOpen } from "lucide-react";
 import PageHeader from "../shared/PageHeader";
+import { fetchData } from "../../data";
 
 const resources = [
   { name: "Modelo Informe anual", path: "/assets/modelo_informe_anual.doc", tag: "formularios" },
@@ -12,7 +14,12 @@ const resources = [
 ];
 
 const Archivos = () => {
-  const groupedResources = resources.reduce((groups, resource) => ({ ...groups, [resource.tag]: [...(groups[resource.tag] || []), resource] }), {});
+  const { data: uploadedResources = [] } = useQuery({
+    queryKey: ["resources"],
+    queryFn: () => fetchData("resources"),
+  });
+  const allResources = [...resources, ...uploadedResources];
+  const groupedResources = allResources.reduce((groups, resource) => ({ ...groups, [resource.tag]: [...(groups[resource.tag] || []), resource] }), {});
 
   return (
     <main className="min-h-screen bg-[var(--bg-surface)] py-10 md:py-14">

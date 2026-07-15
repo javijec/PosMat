@@ -11,6 +11,9 @@ import {
 } from "./cache";
 import { activeProvider, dataProvider } from "./repository";
 
+const uploadResourceFile = async (file) => activeProvider.uploadResourceFile(file);
+const deleteResourceFile = async (url) => activeProvider.deleteResourceFile(url);
+
 const fetchData = async (collectionName, options = {}) => {
   const { force = false } = options;
 
@@ -89,4 +92,6 @@ export {
   fetchData,
   getItem,
   saveItem,
+  deleteResourceFile,
+  uploadResourceFile,
 };

@@ -28,6 +28,7 @@ const CoursesEdit = lazy(() => import("./components/CoursesEdit/CoursesEdit.jsx"
 const Professors = lazy(() => import("./components/Professors/Professors.jsx"));
 const ProfessorsEdit = lazy(() => import("./components/ProfessorsEdit/ProfessorsEdit.jsx"));
 const Archivos = lazy(() => import("./components/Archivos/Archivos.jsx"));
+const ArchivosEdit = lazy(() => import("./components/ArchivosEdit/ArchivosEdit.jsx"));
 const FAQ = lazy(() => import("./components/FAQ/FAQ.jsx"));
 const FAQEdit = lazy(() => import("./components/FAQ/FAQEdit.jsx"));
 const Tesis = lazy(() => import("./components/Tesis/Tesis.jsx"));
@@ -149,6 +150,14 @@ const router = createBrowserRouter([
         ),
       },
       { path: "archivos", element: withSuspense(<Archivos />) },
+      {
+        path: "archivos/edit",
+        element: withSuspense(
+          <ProtectedRoute>
+            <ArchivosEdit />
+          </ProtectedRoute>
+        ),
+      },
       { path: "tesis", element: withSuspense(<Tesis />) },
       {
         path: "tesis/edit",

@@ -17,9 +17,17 @@ import {
   faChevronRight,
   faExternalLinkAlt,
   faShieldAlt,
+  faFolderOpen,
 } from "@fortawesome/free-solid-svg-icons";
 
 const statsConfig = [
+  {
+    title: "Archivos y formularios",
+    description: "Subir y organizar documentación pública",
+    icon: faFolderOpen,
+    path: "/archivos/edit",
+    group: "Recursos",
+  },
   {
     title: "Profesores",
     description: "Equipo docente e investigadores",
