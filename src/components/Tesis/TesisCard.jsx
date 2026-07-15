@@ -2,6 +2,35 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, FileText, GraduationCap, UserRound } from "lucide-react";
 
+const ThesisTextPanel = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="pt-4">
+      <button
+        type="button"
+        onClick={() => setIsOpen((value) => !value)}
+        className="flex w-full items-center justify-between gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-3 text-left transition hover:border-[var(--color-ingenieria)]/30"
+        aria-expanded={isOpen}
+      >
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-main)]/65">
+          {title}
+        </span>
+        <span className="rounded-full border border-[var(--border-subtle)] p-1 text-[var(--text-main)]/45">
+          {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+        </span>
+      </button>
+      {isOpen ? (
+        <div className="mt-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
+          <p className="whitespace-pre-line text-justify text-[15px] leading-7 text-[var(--text-main)]/85">
+            {children}
+          </p>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 const TesisCard = ({ tesis }) => {
   const [expanded, setExpanded] = useState(false);
   const jurors = [tesis.juror_1, tesis.juror_2, tesis.juror_3].filter(Boolean);
@@ -95,28 +124,10 @@ const TesisCard = ({ tesis }) => {
             </p>
           )}
           {tesis.summary_es && (
-            <div className="pt-4">
-              <p className="text-[var(--text-main)]/60 text-xs font-semibold uppercase tracking-[0.18em] mb-2">
-                Resumen
-              </p>
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
-                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify">
-                  {tesis.summary_es}
-                </p>
-              </div>
-            </div>
+            <ThesisTextPanel title="Resumen">{tesis.summary_es}</ThesisTextPanel>
           )}
           {tesis.abstract_en && (
-            <div className="pt-4">
-              <p className="text-[var(--text-main)]/60 text-xs font-semibold uppercase tracking-[0.18em] mb-2">
-                Abstract
-              </p>
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-main)]/50 p-4 md:p-5">
-                <p className="text-[var(--text-main)]/85 text-[15px] leading-7 whitespace-pre-line text-justify">
-                  {tesis.abstract_en}
-                </p>
-              </div>
-            </div>
+            <ThesisTextPanel title="Abstract">{tesis.abstract_en}</ThesisTextPanel>
           )}
           {tesis.url && (
             <div className="pt-3">
