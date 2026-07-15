@@ -28,7 +28,6 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       await signInWithEmailAndPassword(data.email, data.password);
-      toast.success("¡Bienvenido!");
       navigate("/");
     } catch (error) {
       console.error("Error signing in:", error);
