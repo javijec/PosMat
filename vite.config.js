@@ -11,39 +11,56 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes("node_modules")) return undefined;
 
-          if (id.includes("react") || id.includes("react-dom")) {
+          const packagePath = id.split("node_modules/")[1];
+          const [scopeOrName, scopedName] = packagePath.split("/");
+          const packageName = scopeOrName.startsWith("@")
+            ? `${scopeOrName}/${scopedName}`
+            : scopeOrName;
+
+          if (["react", "react-dom", "scheduler"].includes(packageName)) {
             return "vendor-react";
           }
 
-          if (id.includes("react-router-dom") || id.includes("@remix-run")) {
+          if (["react-router", "react-router-dom"].includes(packageName) || packageName.startsWith("@remix-run/")) {
             return "vendor-router";
           }
 
-          if (id.includes("@tanstack/react-query")) {
+          if (packageName.startsWith("@tanstack/")) {
             return "vendor-query";
           }
 
-          if (id.includes("@headlessui/react")) {
+          if (packageName === "@headlessui/react") {
             return "vendor-headlessui";
           }
 
-          if (id.includes("react-hook-form") || id.includes("@hookform") || id.includes("zod")) {
+          if (packageName === "react-hook-form" || packageName.startsWith("@hookform/") || packageName === "zod") {
             return "vendor-forms";
           }
 
-          if (id.includes("@tiptap")) {
+          if (packageName.startsWith("@tiptap/") || packageName === "prosemirror-view" || packageName.startsWith("prosemirror-")) {
             return "vendor-tiptap";
           }
 
-          if (id.includes("recharts") || id.includes("d3-")) {
+          if (
+            packageName === "recharts" ||
+            packageName === "recharts-scale" ||
+            packageName === "react-smooth" ||
+            packageName === "victory-vendor" ||
+            packageName === "eventemitter3" ||
+            packageName === "lodash" ||
+            packageName === "react-is" ||
+            packageName === "tiny-invariant" ||
+            packageName === "clsx" ||
+            packageName.startsWith("d3-")
+          ) {
             return "vendor-charts";
           }
 
-          if (id.includes("lucide-react") || id.includes("@fortawesome")) {
+          if (packageName === "lucide-react" || packageName.startsWith("@fortawesome/")) {
             return "vendor-icons";
           }
 
-          if (id.includes("framer-motion")) {
+          if (packageName === "framer-motion" || packageName === "motion-dom" || packageName === "motion-utils") {
             return "vendor-motion";
           }
 
