@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { Clock, MapPin, Users, Calendar } from "lucide-react";
+import { Calendar, Clock, MapPin, Users } from "lucide-react";
 
 const isHumanistico = (value) => value === true || value === "true";
 
-const CourseCard = ({ course, index }) => {
+const CourseCard = ({ course }) => {
   const humanistico = isHumanistico(course.humanistico);
 
   const getHoursDisplay = () => {
@@ -19,46 +19,50 @@ const CourseCard = ({ course, index }) => {
     }
     return hours.length > 0 ? hours.join(", ") : "";
   };
+  const hoursDisplay = getHoursDisplay();
 
   return (
     <motion.div
       whileHover={{ y: -4, scale: 1.01 }}
       className="bg-[var(--bg-card)] rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-[var(--border-subtle)] h-full flex flex-col relative group"
     >
-      <div className={`absolute top-4 right-4 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md z-10 ${humanistico ? "bg-teal-100 text-teal-700" : "bg-sky-100 text-sky-700"}`}>
-        {humanistico ? "Humanístico" : "Científico"}
-      </div>
-
       <div className="p-6 flex-1 flex flex-col">
         <div className="mb-4">
-          <div className="flex items-center text-xs font-semibold text-teal-600 mb-2 uppercase tracking-widest">
-            <Calendar className="w-3.5 h-3.5 mr-1.5" />
-            {course.año}
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide ${humanistico ? "bg-teal-100 text-teal-700" : "bg-sky-100 text-sky-700"}`}>
+              {humanistico ? "Humanístico" : "Científico"}
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--bg-surface)] px-2.5 py-1 text-xs font-semibold text-[var(--text-main)]/70">
+              <Calendar className="h-3.5 w-3.5 text-ingenieria" />
+              {course.año} · {course.semestre}.º semestre
+            </span>
           </div>
           <h2 className="text-xl font-bold text-[var(--text-main)] line-clamp-2 leading-tight group-hover:text-ingenieria transition-colors">
             {course.nombre}
           </h2>
         </div>
 
-        <div className="flex-1 space-y-3">
-          <div className="flex items-center text-[var(--text-main)]/70">
-            <Clock className="w-4 h-4 mr-3 text-ingenieria shrink-0" />
-            <span className="text-sm font-medium">
-              {getHoursDisplay()} {course.uvacs && `• ${course.uvacs} UVACS`}
-            </span>
-          </div>
+        <div className="flex-1 space-y-3 text-sm text-[var(--text-main)]/72">
+          {(hoursDisplay || course.uvacs) && (
+            <div className="flex items-center">
+              <Clock className="mr-3 h-4 w-4 shrink-0 text-ingenieria" />
+              <span className="font-medium">
+                {[hoursDisplay, course.uvacs && `${course.uvacs} UVACs`].filter(Boolean).join(" · ")}
+              </span>
+            </div>
+          )}
 
           {course.lugar && (
-            <div className="flex items-center text-[var(--text-main)]/70">
+            <div className="flex items-center">
               <MapPin className="w-4 h-4 mr-3 text-ingenieria shrink-0" />
-              <span className="text-sm">{course.lugar}</span>
+              <span>{course.lugar}</span>
             </div>
           )}
 
           {course.profesores && course.profesores.length > 0 && (
-            <div className="flex items-start text-[var(--text-main)]/70">
+            <div className="flex items-start">
               <Users className="w-4 h-4 mr-3 text-ingenieria mt-0.5 shrink-0" />
-              <div className="text-sm leading-relaxed">
+              <div className="leading-relaxed">
                 {course.profesores.map((prof) => prof.nombre).join(", ")}
               </div>
             </div>
