@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { fetchData } from "../../data";
 import ContactInfo from "./ContactInfo";
 import ContactMap from "./ContactMap";
+import { MapPinned } from "lucide-react";
+import PageHeader from "../shared/PageHeader";
 
 const Contact = () => {
   const [contactData, setContactData] = useState({
@@ -29,23 +31,26 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="py-10">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Contacto</h1>
+    <main className="min-h-screen bg-[var(--bg-surface)] py-10 md:py-14">
+      <div className="mx-auto max-w-7xl px-4">
+        <PageHeader
+          eyebrow="Posgrado"
+          icon={MapPinned}
+          title="Contacto"
+          description="Canales de atención y ubicación de la Facultad de Ingeniería."
+        />
 
-        <div className="md:flex md:gap-8">
-          {/* Columna izquierda - Información y formulario */}
-          <div className="md:w-1/2 mb-8 md:mb-0">
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+          <div>
             <ContactInfo contactData={contactData} />
           </div>
 
-          {/* Columna derecha - Mapa */}
-          <div className="md:w-1/2">
+          <div>
             <ContactMap />
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

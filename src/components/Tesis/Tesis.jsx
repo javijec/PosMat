@@ -8,6 +8,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
+import PageHeader from "../shared/PageHeader";
 import { fetchData } from "../../data";
 
 const Tesis = () => {
@@ -106,11 +107,7 @@ const Tesis = () => {
         />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4">
-        <header className="mb-8 max-w-3xl">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-ingenieria">Posgrado</p>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Repositorio de tesis</h1>
-          <p className="mt-3 text-gray-600">Tesis de Doctorado y Maestría del Posgrado en Ciencia de Materiales.</p>
-        </header>
+        <PageHeader eyebrow="Posgrado" title="Repositorio de tesis" description="Tesis de Doctorado y Maestría del Posgrado en Ciencia de Materiales." />
         <div className="mb-6">
           <button
             onClick={() => setShowStats(true)}

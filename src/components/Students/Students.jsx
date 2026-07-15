@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Search, SlidersHorizontal, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
 import StudentCard from "./StudentCard";
+import PageHeader from "../shared/PageHeader";
 
 const Students = () => {
   const [data, setData] = useState([]);
@@ -33,11 +34,7 @@ const Students = () => {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 md:py-14">
-      <header className="mb-8 max-w-2xl">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ingenieria"><Users className="h-4 w-4" /> Comunidad académica</p>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Estudiantes</h1>
-        <p className="mt-3 text-gray-600">Tesistas de las carreras de posgrado.</p>
-      </header>
+      <PageHeader eyebrow="Comunidad académica" icon={Users} title="Estudiantes" description="Tesistas de las carreras de posgrado." />
 
       <div className="mb-8 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1 sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar nombre o tema de tesis" className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-10 outline-none transition focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar estudiantes" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-5 w-5" /></button>}</div>

@@ -82,19 +82,20 @@ const AuthorizedEmails = () => {
   if (isLoading) {
     return (
       <div className="py-16 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-[var(--color-ingenieria)]"></div>
       </div>
     );
   }
 
   return (
-    <div className="py-16 bg-[var(--bg-main)] min-h-screen transition-colors">
+    <main className="min-h-screen bg-[var(--bg-surface)] py-10 transition-colors md:py-14">
       <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-[var(--text-main)] border-l-4 border-[var(--color-ingenieria)] pl-4">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-ingenieria)]">Administración</p>
+        <h1 className="mb-8 text-3xl font-bold tracking-tight text-[var(--text-main)] md:text-4xl">
           Gestión de Accesos
         </h1>
 
-        <div className="bg-[var(--bg-card)] p-8 rounded-xl shadow-sm border border-[var(--border-subtle)]">
+        <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm md:p-8">
           <h2 className="text-2xl font-bold mb-6 text-[var(--text-main)]">
             Seguridad de la Cuenta
           </h2>
@@ -145,7 +146,7 @@ const AuthorizedEmails = () => {
         onConfirm={handleConfirmDelete}
         onCancel={() => setEmailToDelete(null)}
       />
-    </div>
+    </main>
   );
 };
 

@@ -3,6 +3,7 @@ import { AlertCircle, BookOpen, Search, X } from "lucide-react";
 import { fetchData } from "../../data";
 import RulesNavigator from "./RulesNavigator";
 import RulesContent from "./RulesContent";
+import PageHeader from "../shared/PageHeader";
 
 const getSearchableText = (section) =>
   `${section.title || ""} ${(section.html || "").replace(/<[^>]*>/g, " ")}`.toLowerCase();
@@ -104,11 +105,7 @@ const Rules = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12">
-      <header className="mb-8 max-w-3xl">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-ingenieria">Posgrado</p>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Reglamentos</h1>
-        <p className="mt-3 text-gray-600">Consultá requisitos, procedimientos y documentación de las carreras de posgrado.</p>
-      </header>
+      <PageHeader eyebrow="Posgrado" icon={BookOpen} title="Reglamentos" description="Consultá requisitos, procedimientos y documentación de las carreras de posgrado." />
 
       <div className="relative mb-6 max-w-xl">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
