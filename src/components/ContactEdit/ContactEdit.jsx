@@ -76,21 +76,21 @@ const ContactEdit = () => {
   if (isLoading) {
     return (
       <div className="py-16 flex justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-[var(--color-ingenieria)]"></div>
       </div>
     );
   }
 
   return (
     <EditPageContainer title="Editar Contacto" maxWidth="2xl">
-      <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm md:p-8">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormInput
             label={
               <span className="flex items-center">
                 <FontAwesomeIcon
                   icon={faClock}
-                  className="mr-2 text-indigo-500"
+                  className="mr-2 text-[var(--color-ingenieria)]"
                 />
                 Horario de Atención
               </span>
@@ -105,7 +105,7 @@ const ContactEdit = () => {
               <span className="flex items-center">
                 <FontAwesomeIcon
                   icon={faMapMarkerAlt}
-                  className="mr-2 text-indigo-500"
+                  className="mr-2 text-[var(--color-ingenieria)]"
                 />
                 Dirección
               </span>
@@ -120,7 +120,7 @@ const ContactEdit = () => {
               <span className="flex items-center">
                 <FontAwesomeIcon
                   icon={faEnvelope}
-                  className="mr-2 text-indigo-500"
+                  className="mr-2 text-[var(--color-ingenieria)]"
                 />
                 Correo Electrónico
               </span>
@@ -136,7 +136,7 @@ const ContactEdit = () => {
               <span className="flex items-center">
                 <FontAwesomeIcon
                   icon={faPhone}
-                  className="mr-2 text-indigo-500"
+                  className="mr-2 text-[var(--color-ingenieria)]"
                 />
                 Teléfono de Contacto
               </span>

@@ -42,27 +42,28 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <main className="flex min-h-screen items-center justify-center bg-[var(--bg-surface)] px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
-        <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+        <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-8 shadow-sm">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tight">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-ingenieria)]">Administración</p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--text-main)]">
               PosMat
-            </h2>
-            <p className="mt-2 text-sm text-gray-500 font-medium italic">
+            </h1>
+            <p className="mt-2 text-sm text-[var(--text-main)]/65">
               Crear una nueva cuenta de administrador
             </p>
           </div>
 
           <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-1 ml-1">
+              <label className="mb-1 ml-1 block text-xs font-semibold uppercase tracking-widest text-[var(--text-main)]/55">
                 Email
               </label>
               <input
                 {...register("email")}
                 type="email"
-                className={`appearance-none block w-full px-4 py-3 border rounded-xl placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${
+                className={`block w-full rounded-xl border bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 transition-all ${
                   errors.email ? "border-red-500" : "border-gray-200 shadow-sm"
                 }`}
                 placeholder="nombre@ejemplo.com"
@@ -75,13 +76,13 @@ const Register = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-1 ml-1">
+              <label className="mb-1 ml-1 block text-xs font-semibold uppercase tracking-widest text-[var(--text-main)]/55">
                 Contraseña
               </label>
               <input
                 {...register("password")}
                 type="password"
-                className={`appearance-none block w-full px-4 py-3 border rounded-xl placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${
+                className={`block w-full rounded-xl border bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 transition-all ${
                   errors.password
                     ? "border-red-500"
                     : "border-gray-200 shadow-sm"
@@ -96,13 +97,13 @@ const Register = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-1 ml-1">
+              <label className="mb-1 ml-1 block text-xs font-semibold uppercase tracking-widest text-[var(--text-main)]/55">
                 Confirmar Contraseña
               </label>
               <input
                 {...register("confirmPassword")}
                 type="password"
-                className={`appearance-none block w-full px-4 py-3 border rounded-xl placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${
+                className={`block w-full rounded-xl border bg-[var(--bg-card)] px-4 py-3 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 transition-all ${
                   errors.confirmPassword
                     ? "border-red-500"
                     : "border-gray-200 shadow-sm"
@@ -120,7 +121,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-black rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg hover:shadow-indigo-200 disabled:opacity-50"
+                className="relative flex w-full justify-center rounded-xl bg-[var(--color-ingenieria)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ingenieria)]/30 disabled:opacity-50"
               >
                 {isSubmitting ? "Registrando..." : "REGISTRARSE"}
               </button>
@@ -128,11 +129,11 @@ const Register = () => {
           </form>
 
           <div className="mt-8 text-center border-t pt-6">
-            <p className="text-sm text-gray-500">
+              <p className="text-sm text-[var(--text-main)]/65">
               ¿Ya tienes una cuenta?{" "}
               <NavLink
                 to="/login"
-                className="font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+                className="font-semibold text-[var(--color-ingenieria)] hover:underline"
               >
                 Inicia sesión aquí
               </NavLink>
@@ -140,7 +141,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

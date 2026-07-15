@@ -34,15 +34,17 @@ const Login = () => {
   };
 
   return (
-    <div className="sm:min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Iniciar sesión en tu cuenta
-          </h2>
+    <main className="flex min-h-screen items-center justify-center bg-[var(--bg-surface)] px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm sm:p-8">
+        <div className="text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-ingenieria)]">Administración</p>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-[var(--text-main)]">
+            Iniciar sesión
+          </h1>
+          <p className="mt-2 text-sm text-[var(--text-main)]/65">Accedé al panel de gestión del Posgrado.</p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
                 Correo electrónico
@@ -51,9 +53,7 @@ const Login = () => {
                 {...register("email")}
                 type="email"
                 autoComplete="email"
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                } placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                className={`block w-full rounded-lg border bg-[var(--bg-card)] px-3 py-2.5 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.email ? "border-red-500" : "border-[var(--border-subtle)]"}`}
                 placeholder="Correo electrónico"
               />
               {errors.email && (
@@ -70,9 +70,7 @@ const Login = () => {
                 {...register("password")}
                 type="password"
                 autoComplete="current-password"
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                } placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                className={`block w-full rounded-lg border bg-[var(--bg-card)] px-3 py-2.5 text-[var(--text-main)] outline-none placeholder:text-[var(--text-main)]/35 focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20 ${errors.password ? "border-red-500" : "border-[var(--border-subtle)]"}`}
                 placeholder="Contraseña"
               />
               {errors.password && (
@@ -87,25 +85,25 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="relative flex w-full justify-center rounded-lg bg-[var(--color-ingenieria)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-ingenieria-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ingenieria)]/30 disabled:opacity-50"
             >
               {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
             </button>
           </div>
         </form>
         <div className="text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--text-main)]/65">
             ¿No tienes una cuenta?{" "}
             <NavLink
               to="/register"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-semibold text-[var(--color-ingenieria)] hover:underline"
             >
               Regístrate
             </NavLink>
           </p>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

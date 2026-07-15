@@ -5,6 +5,7 @@ import { BookOpen, Search, X } from "lucide-react";
 import CourseFilter from "./CourseFilter";
 import CoursesDisplay from "./CoursesDisplay";
 import { fetchData } from "../../data";
+import PageHeader from "../shared/PageHeader";
 
 const Courses = () => {
   const [selectedYear, setSelectedYear] = useState("");
@@ -57,7 +58,7 @@ const Courses = () => {
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-10 md:py-14">
       <Helmet><title>Cursos | PosMat</title><meta name="description" content="Listado de cursos del Posgrado en Ciencia de Materiales." /></Helmet>
       <div className="mx-auto max-w-7xl px-4">
-        <header className="mb-8 max-w-2xl"><p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ingenieria"><BookOpen className="h-4 w-4" /> Posgrado</p><h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Cursos</h1><p className="mt-3 text-gray-600">Oferta académica del Posgrado en Ciencia de Materiales.</p></header>
+        <PageHeader eyebrow="Posgrado" icon={BookOpen} title="Cursos" description="Oferta académica del Posgrado en Ciencia de Materiales." />
         {isLoading ? <div className="flex h-64 items-center justify-center"><div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-ingenieria" /></div> : error ? <div className="py-10 text-center text-red-600">No se pudieron cargar los cursos.</div> : (
           <div className="lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8">
             <aside className="lg:sticky lg:top-6 lg:h-fit"><CourseFilter years={years} selectedYear={selectedYear} setSelectedYear={setSelectedYear} selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} selectedType={selectedType} setSelectedType={setSelectedType} onReset={resetFilters} /></aside>

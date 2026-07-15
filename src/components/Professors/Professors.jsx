@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Search, Users, X } from "lucide-react";
 import { fetchData } from "../../data";
 import ProfessorCard from "./ProfessorCard";
+import PageHeader from "../shared/PageHeader";
 
 const Professors = () => {
   const [data, setData] = useState([]);
@@ -30,11 +31,7 @@ const Professors = () => {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 md:py-14">
-      <header className="mb-8 max-w-2xl">
-        <p className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-ingenieria"><Users className="h-4 w-4" /> Comunidad académica</p>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Profesores</h1>
-        <p className="mt-3 text-gray-600">Equipo docente e investigadores del Posgrado.</p>
-      </header>
+      <PageHeader eyebrow="Comunidad académica" icon={Users} title="Profesores" description="Equipo docente e investigadores del Posgrado." />
 
       <div className="relative mb-8 max-w-md">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
