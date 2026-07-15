@@ -44,6 +44,23 @@ npm start
 - `npm run db:push`: aplica el esquema Prisma
 - `npm run db:seed`: carga datos iniciales
 
+### Actualizar sólo los jurados de tesis
+
+El archivo corregido está incluido en `server/data/tesis-corregidas.db`. En el servidor, ejecutá primero una vista previa:
+
+```bash
+cd /ruta/al/proyecto/server
+npm run tesis:update-jurors -- data/tesis-corregidas.db
+```
+
+Si el resumen es correcto, aplicá los cambios:
+
+```bash
+npm run tesis:update-jurors -- data/tesis-corregidas.db --apply
+```
+
+El script actualiza únicamente los jurados de tesis que encuentre de forma inequívoca en PostgreSQL. No modifica directores, autores, títulos ni ningún otro dato. Requiere Node.js 22.5 o superior.
+
 ## Stack actual
 
 - React 19 + Vite

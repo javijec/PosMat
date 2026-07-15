@@ -14,7 +14,8 @@
     "import:tesis": "node scripts/import-tesis.js",
     "migrate:tesis-urls": "node scripts/migrate-tesis-urls.js",
     "import:firebase": "node scripts/import-firebase.js",
-    "export:firebase:json": "node scripts/import-firebase.js --json-only"
+    "export:firebase:json": "node scripts/import-firebase.js --json-only",
+    "tesis:update-jurors": "node scripts/update-thesis-jurors.js"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
