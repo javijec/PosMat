@@ -6,6 +6,7 @@ import { AlertCircle, BarChart3, Search, X } from "lucide-react";
 import TesisCard from "./TesisCard";
 import TesisFilter from "../Filter/TesisFilter";
 import TesisStatsChart from "../Chart/TesisStatsChart";
+import ActiveFilters from "../shared/ActiveFilters";
 import EmptyState from "../shared/EmptyState";
 import LoadingState from "../shared/LoadingState";
 import PageHeader from "../shared/PageHeader";
@@ -97,6 +98,30 @@ const Tesis = () => {
     [data]
   );
 
+  const activeFilters = [
+    selectedType !== "all" && {
+      key: "type",
+      label: selectedType === "doctorado" ? "Tipo: Doctorado" : "Tipo: Maestría",
+      onRemove: () => setSelectedType("all"),
+    },
+    selectedYear && {
+      key: "year",
+      label: `Año: ${selectedYear}`,
+      onRemove: () => setSelectedYear(""),
+    },
+    onlyWithPdf && {
+      key: "pdf",
+      label: "Solo con PDF",
+      onRemove: () => setOnlyWithPdf(false),
+    },
+    query && {
+      key: "query",
+      label: `Búsqueda: ${query}`,
+      onRemove: () => setQuery(""),
+    },
+  ];
+  const activeFilterCount = activeFilters.filter(Boolean).length;
+
   return (
     <div className="py-10 bg-gradient-to-b from-gray-50 to-white min-h-screen">
       <Helmet>
@@ -128,13 +153,16 @@ const Tesis = () => {
               onlyWithPdf={onlyWithPdf}
               setOnlyWithPdf={setOnlyWithPdf}
               onReset={resetFilters}
+              activeCount={activeFilterCount}
             />
           </div>
           <div className="lg:col-span-3 mt-8 lg:mt-0">
             <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative w-full sm:max-w-md"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar título, autor o director/a" className="w-full rounded-lg border border-gray-300 py-2.5 pl-9 pr-9 outline-none focus:border-ingenieria focus:ring-2 focus:ring-ingenieria/20" aria-label="Buscar tesis" />{query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}</div>
-              <p className="shrink-0 text-sm text-gray-500">{filteredTesis.length} tesis</p>
             </div>
+            {!isLoading && !error ? (
+              <ActiveFilters filters={activeFilters} onClearAll={resetFilters} resultLabel={`${filteredTesis.length} tesis`} />
+            ) : null}
             {isLoading ? (
               <LoadingState label="Cargando tesis…" />
             ) : error ? (
