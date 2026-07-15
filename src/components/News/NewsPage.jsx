@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import { AlertCircle, Newspaper, Search, X } from "lucide-react";
+import { AlertCircle, ArrowRight, CalendarDays, Newspaper, Search, X } from "lucide-react";
 import { fetchData } from "../../data";
 import EmptyState from "../shared/EmptyState";
 import LoadingState from "../shared/LoadingState";
@@ -30,7 +30,7 @@ const sortNewsByDate = (items) =>
     const first = new Date(`${b.publishedAt || ""}T00:00:00`).getTime();
     const second = new Date(`${a.publishedAt || ""}T00:00:00`).getTime();
 
-    return first - second;
+    return (Number.isNaN(first) ? 0 : first) - (Number.isNaN(second) ? 0 : second);
   });
 
 const NewsPage = () => {
@@ -88,34 +88,56 @@ const NewsPage = () => {
     );
   };
 
+  const featuredNews = filteredNews[0] || null;
+  const secondaryNews = filteredNews.slice(1);
+  const resultLabel = query.trim()
+    ? `${filteredNews.length} resultado${filteredNews.length === 1 ? "" : "s"} para “${query.trim()}”`
+    : `${news.length} noticia${news.length === 1 ? "" : "s"} publicada${news.length === 1 ? "" : "s"}`;
+
   return (
     <div className="min-h-screen bg-[var(--bg-main)]">
       <section className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]">
-        <div className="mx-auto max-w-5xl px-4 py-8 md:py-10">
+        <div className="mx-auto max-w-6xl px-4 py-8 md:py-12">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-ingenieria)]">
             Noticias
           </p>
-          <h1 className="max-w-3xl text-3xl font-bold leading-tight text-[var(--text-main)] md:text-4xl">
+          <h1 className="max-w-3xl text-3xl font-bold leading-tight text-[var(--text-main)] md:text-5xl">
             Todas las novedades del Posgrado en Ciencia de Materiales
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--text-main)]/75 md:text-base">
             Un espacio para publicar anuncios, actividades, llamados y eventos.
           </p>
-          <div className="relative mt-6 max-w-md">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-main)]/45" />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar noticias"
-              className="w-full rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] py-2.5 pl-9 pr-9 text-sm text-[var(--text-main)] outline-none transition focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20"
-              aria-label="Buscar noticias"
-            />
-            {query && <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-main)]/55 hover:text-[var(--text-main)]" aria-label="Limpiar búsqueda"><X className="h-4 w-4" /></button>}
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative w-full max-w-md">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-main)]/45" />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Buscar por título, resumen o contenido"
+                className="w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] py-3 pl-9 pr-9 text-sm text-[var(--text-main)] outline-none transition focus:border-[var(--color-ingenieria)] focus:ring-2 focus:ring-[var(--color-ingenieria)]/20"
+                aria-label="Buscar noticias"
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-main)]/55 hover:text-[var(--text-main)]"
+                  aria-label="Limpiar búsqueda"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+
+            {!isLoading && !error && news.length > 0 ? (
+              <p className="text-sm text-[var(--text-main)]/60">{resultLabel}</p>
+            ) : null}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-6 md:py-8">
+      <section className="mx-auto max-w-6xl px-4 py-6 md:py-10">
         {isLoading ? (
           <LoadingState label="Cargando noticias…" />
         ) : error ? (
@@ -125,54 +147,95 @@ const NewsPage = () => {
         ) : filteredNews.length === 0 ? (
           <EmptyState icon={Search} title="No encontramos noticias" description="Probá con otra palabra de búsqueda." actionLabel="Limpiar búsqueda" onAction={() => setQuery("")} />
         ) : (
-          <div className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm">
-            <ul className="divide-y divide-[var(--border-subtle)]">
-              {filteredNews.map((item, index) => (
-                <li key={item.id} id={`news-${item.id}`}>
+          <div className="space-y-5">
+            {featuredNews ? (
+              <article
+                id={`news-${featuredNews.id}`}
+                className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-sm"
+              >
+                <button
+                  type="button"
+                  onClick={() => openNewsModal(featuredNews.id)}
+                  className="grid w-full text-left transition-colors hover:bg-black/[0.02] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]"
+                >
+                  <img
+                    src={featuredNews.imageUrl || FALLBACK_IMAGE}
+                    alt={featuredNews.title}
+                    className="h-52 w-full object-cover sm:h-64 lg:h-full lg:min-h-[330px]"
+                  />
+
+                  <div className="flex flex-col justify-between p-5 md:p-7">
+                    <div>
+                      <div className="mb-3 flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-ingenieria)]">
+                          Destacada
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-xs text-[var(--text-main)]/55">
+                          <CalendarDays className="h-3.5 w-3.5" />
+                          {formatDate(featuredNews.publishedAt)}
+                        </span>
+                      </div>
+
+                      <h2 className="text-2xl font-bold leading-tight text-[var(--text-main)] md:text-3xl">
+                        {featuredNews.title}
+                      </h2>
+
+                      <p className="mt-3 line-clamp-3 text-sm leading-6 text-[var(--text-main)]/74 md:text-base md:leading-7">
+                        {featuredNews.summary}
+                      </p>
+                    </div>
+
+                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-ingenieria)]">
+                      Leer noticia completa <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </button>
+              </article>
+            ) : null}
+
+            {secondaryNews.length > 0 ? (
+              <ul className="grid gap-4 md:grid-cols-2">
+                {secondaryNews.map((item) => (
+                  <li key={item.id} id={`news-${item.id}`}>
                   <button
                     type="button"
                     onClick={() => openNewsModal(item.id)}
-                    className="flex w-full flex-col gap-3 px-4 py-4 text-left transition-colors hover:bg-black/[0.02] md:flex-row md:items-start md:gap-4 md:px-5"
+                    className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-left shadow-sm transition-all hover:border-[var(--color-ingenieria)]/35 hover:shadow-md"
                   >
-                    <div className="flex min-w-0 flex-1 items-start gap-3">
-                      <img
-                        src={item.imageUrl || FALLBACK_IMAGE}
-                        alt={item.title}
-                        className="h-16 w-16 flex-shrink-0 rounded-xl object-cover md:h-20 md:w-20"
-                      />
+                    <img
+                      src={item.imageUrl || FALLBACK_IMAGE}
+                      alt={item.title}
+                      className="h-36 w-full object-cover sm:h-44"
+                    />
 
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                          <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[var(--color-ingenieria)]">
-                            {index === 0 ? "Destacada" : "Novedad"}
-                          </span>
-                          <span className="text-[11px] text-[var(--text-main)]/55">
-                            {formatDate(item.publishedAt)}
-                          </span>
-                        </div>
-
-                        <h2 className="line-clamp-2 text-base font-semibold leading-snug text-[var(--text-main)] md:text-lg">
-                          {item.title}
-                        </h2>
-
-                        <p className="mt-1 line-clamp-2 text-sm leading-5 text-[var(--text-main)]/72">
-                          {item.summary}
-                        </p>
+                    <div className="flex flex-1 flex-col p-4">
+                      <div className="mb-2 flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-[var(--color-ingenieria)]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[var(--color-ingenieria)]">
+                          Novedad
+                        </span>
+                        <span className="text-[11px] text-[var(--text-main)]/55">
+                          {formatDate(item.publishedAt)}
+                        </span>
                       </div>
-                    </div>
 
-                    <div className="flex items-center justify-between gap-3 md:w-auto md:flex-shrink-0 md:justify-end">
-                      <span className="text-xs font-medium text-[var(--color-ingenieria)]">
+                      <h2 className="line-clamp-2 text-lg font-semibold leading-snug text-[var(--text-main)] transition-colors group-hover:text-[var(--color-ingenieria)]">
+                        {item.title}
+                      </h2>
+
+                      <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-[var(--text-main)]/72">
+                        {item.summary}
+                      </p>
+
+                      <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-ingenieria)]">
                         Leer noticia
-                      </span>
-                      <span className="text-sm text-[var(--text-main)]/40">
-                        →
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                       </span>
                     </div>
                   </button>
                 </li>
               ))}
             </ul>
+            ) : null}
           </div>
         )}
       </section>
@@ -191,8 +254,8 @@ const NewsPage = () => {
             <div className="fixed inset-0 bg-black/55 backdrop-blur-sm" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto p-4">
-            <div className="flex min-h-full items-center justify-center">
+          <div className="fixed inset-0 overflow-y-auto p-0 sm:p-4">
+            <div className="flex min-h-full items-end justify-center sm:items-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-200"
@@ -202,14 +265,14 @@ const NewsPage = () => {
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-3 scale-[0.98]"
               >
-                <Dialog.Panel className="w-full max-w-6xl overflow-hidden rounded-[1.75rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl">
+                <Dialog.Panel className="w-full max-w-6xl overflow-hidden rounded-t-[1.75rem] border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl sm:rounded-[1.75rem]">
                   {selectedNews ? (
-                    <div className="grid max-h-[calc(100vh-4rem)] md:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
-                      <div className="flex min-h-[280px] items-center justify-center bg-black p-3 md:min-h-[640px] md:p-5">
+                    <div className="grid max-h-[100dvh] sm:max-h-[calc(100vh-4rem)] md:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)]">
+                      <div className="flex max-h-[42vh] items-center justify-center bg-black md:max-h-none md:min-h-[640px] md:p-5">
                         <img
                           src={selectedNews.imageUrl || FALLBACK_IMAGE}
                           alt={selectedNews.title}
-                          className="max-h-[72vh] w-full object-contain"
+                          className="h-full max-h-[42vh] w-full object-cover md:max-h-[72vh] md:object-contain"
                         />
                       </div>
 
@@ -236,7 +299,7 @@ const NewsPage = () => {
                             className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[var(--border-subtle)] text-[var(--text-main)]/70 transition-colors hover:border-[var(--color-ingenieria)] hover:text-[var(--color-ingenieria)]"
                             aria-label="Cerrar noticia"
                           >
-                            ×
+                            <X className="h-4 w-4" />
                           </button>
                         </div>
 
