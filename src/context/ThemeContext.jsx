@@ -3,15 +3,11 @@ import React, { createContext, useContext, useLayoutEffect, useState } from "rea
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark" ? "dark" : "light";
-  });
+  const [theme, setTheme] = useState("light");
 
   useLayoutEffect(() => {
     const root = window.document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
