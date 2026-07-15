@@ -3,6 +3,10 @@ import { Router } from "express";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
 import {
+  loginRateLimiter,
+  registrationRateLimiter,
+} from "../middleware/rateLimit.js";
+import {
   clearAuthCookie,
   getTokenFromRequest,
   sanitizeUser,
@@ -48,7 +52,7 @@ const isAuthorizedEmail = async (email) => {
   );
 };
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", registrationRateLimiter, async (req, res, next) => {
   try {
     const { email, password } = authSchema.parse(req.body);
     const normalizedEmail = normalizeEmail(email);
@@ -98,7 +102,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", loginRateLimiter, async (req, res, next) => {
   try {
     const { email, password } = authSchema.parse(req.body);
     const normalizedEmail = normalizeEmail(email);

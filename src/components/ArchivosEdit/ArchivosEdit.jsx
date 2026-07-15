@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "sonner";
 
 const emptyForm = { name: "", tag: "formularios" };
+const maxFileSize = 2 * 1024 * 1024;
 
 const ArchivosEdit = () => {
   const queryClient = useQueryClient();
@@ -66,6 +67,7 @@ const ArchivosEdit = () => {
   const submit = (event) => {
     event.preventDefault();
     if (!file) return toast.error("Seleccioná un archivo para subir");
+    if (file.size > maxFileSize) return toast.error("El archivo no puede superar los 2 MB");
     uploadMutation.mutate();
   };
 
@@ -73,7 +75,7 @@ const ArchivosEdit = () => {
     <EditPageContainer title="Archivos y formularios">
       <form onSubmit={submit} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-6 shadow-sm">
         <h2 className="text-xl font-bold text-[var(--text-main)]">Publicar un archivo</h2>
-        <p className="mt-1 text-sm text-[var(--text-main)]/65">Admite PDF, Word, Excel, PowerPoint y ZIP, hasta 15 MB.</p>
+        <p className="mt-1 text-sm text-[var(--text-main)]/65">Admite PDF, Word, Excel, PowerPoint y ZIP, hasta 2 MB.</p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <label className="grid gap-2 text-sm font-semibold text-[var(--text-main)]">
             Nombre visible

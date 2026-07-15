@@ -6,11 +6,13 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { Router } from "express";
 import multer from "multer";
+import { uploadRateLimiter } from "../middleware/rateLimit.js";
 import { getTokenFromRequest, verifyAuthToken } from "../utils/auth.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = Router();
+router.use(uploadRateLimiter);
 const filesDirectory = process.env.TESIS_FILES_DIR || path.resolve(__dirname, "../../../public/tesis-pdfs");
 const resourcesDirectory = process.env.RESOURCES_FILES_DIR || path.resolve(__dirname, "../../../public/resource-files");
 const publicSiteUrl = (process.env.PUBLIC_SITE_URL || "https://posmat.fi.mdp.edu.ar").replace(/\/$/, "");
@@ -26,7 +28,7 @@ const upload = multer({
 
 const resourceUpload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 15 * 1024 * 1024, files: 1 },
+  limits: { fileSize: 2 * 1024 * 1024, files: 1 },
   fileFilter: (_req, file, callback) => {
     const extension = path.extname(file.originalname).slice(1).toLowerCase();
     callback(null, resourceExtensions.has(extension));
