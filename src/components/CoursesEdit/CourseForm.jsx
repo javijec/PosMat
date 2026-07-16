@@ -66,6 +66,8 @@ const CourseForm = ({
   const [profName, setProfName] = useState("");
   const [profEmail, setProfEmail] = useState("");
   const [editingProfIndex, setEditingProfIndex] = useState(null);
+  const [areProfessorSuggestionsDismissed, setAreProfessorSuggestionsDismissed] =
+    useState(false);
 
   const { data: professorSuggestions = [] } = useQuery({
     queryKey: ["professors"],
@@ -126,6 +128,7 @@ const CourseForm = ({
     setProfName("");
     setProfEmail("");
     setEditingProfIndex(null);
+    setAreProfessorSuggestionsDismissed(false);
   }, [defaultValues, reset]);
 
   const handleAddProf = () => {
@@ -147,6 +150,7 @@ const CourseForm = ({
   const handleProfNameChange = (event) => {
     const value = event.target.value;
     setProfName(value);
+    setAreProfessorSuggestionsDismissed(false);
 
     const matchedProfessor = professorMap.get(value.trim().toLowerCase());
     if (matchedProfessor) {
@@ -158,6 +162,7 @@ const CourseForm = ({
     setProfName(prof.fullName);
     setProfEmail(prof.email || "");
     setEditingProfIndex(null);
+    setAreProfessorSuggestionsDismissed(true);
   };
 
   const handleEditProf = (index) => {
@@ -245,7 +250,8 @@ const CourseForm = ({
                 onChange={handleProfNameChange}
               />
 
-              {filteredProfessorSuggestions.length > 0 && (
+              {!areProfessorSuggestionsDismissed &&
+                filteredProfessorSuggestions.length > 0 && (
                 <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-white shadow-xl">
                   <div className="border-b border-[var(--border-subtle)] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">
                     Sugerencias
